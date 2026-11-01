@@ -15,6 +15,9 @@ import { join } from "node:path";
 import { createClient, type Client } from "@libsql/client";
 import Stripe from "stripe";
 import { OFFLINE_IMPORT_ENV } from "./import-offline-env";
+import { signImportMedia } from "../../lib/import/media-receipt";
+import { importMediaPathname } from "../../lib/import/media";
+import { privateImportUrl } from "../../lib/import/private-media-url";
 
 const PROD = process.argv.includes("--prod");
 const SERVE = process.argv.includes("--serve");
@@ -769,8 +772,9 @@ async function suite(db: Client) {
   await check("membro também importa; sem ANTHROPIC_API_KEY responde 503 sem gastar cota", async () => {
     expectEqual((await http(importMember, "GET", "/api/clients/demo-client/imports")).status, 200, "membro GET");
     expectEqual((await http(importMember, "POST", "/api/clients/demo-client/imports", new FormData())).status, 503, "membro POST");
-    // Sem arquivo: passa do papel e para na validação, sem gravar nada.
-    expectEqual((await http(importMember, "POST", "/api/clients/demo-client/imports/media", new FormData())).status, 400, "membro mídia");
+    // Sem arquivo: passa do papel e para na validação, sem gravar nada. Em `next start` sem Blob
+    // privado, para antes, em 503 (storage não configurado); 403 seria o papel recusando.
+    expectEqual((await http(importMember, "POST", "/api/clients/demo-client/imports/media", new FormData())).status, PROD ? 503 : 400, "membro mídia");
     const status = await http(admin, "GET", "/api/clients/demo-client/imports");
     expectEqual(status.status, 200, "admin GET");
     expectEqual(status.json.configured, false, "configured");
@@ -786,8 +790,20 @@ async function suite(db: Client) {
     const mediaForm = new FormData();
     mediaForm.append("file", new Blob([Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/l4sAAAAASUVORK5CYII=", "base64")], { type: "image/png" }), "arte.jpg");
     const upload = await http(admin, "POST", "/api/clients/demo-client/imports/media", mediaForm);
-    expectEqual(upload.status, 200, "upload local assinado");
-    const uploaded = upload.json.media as { name: string; url: string; receipt: string };
+    let uploaded: { name: string; url: string; receipt: string };
+    if (PROD) {
+      // `next start` sem IMPORT_BLOB_READ_WRITE_TOKEN não grava mídia; o commit só precisa do
+      // comprovante, então ele é assinado como a rota de upload faria, com o segredo do servidor.
+      expectEqual(upload.status, 503, "upload sem Blob privado em produção");
+      const media = { name: "arte.jpg", url: privateImportUrl(importMediaPathname(org, "png")), mediaType: "image" as const, mime: "image/png", size: 68 };
+      const previous = process.env.AUTH_SECRET;
+      process.env.AUTH_SECRET = ISOLATED_ENV.AUTH_SECRET;
+      uploaded = { ...media, receipt: signImportMedia(media, org, demoClientId) };
+      process.env.AUTH_SECRET = previous;
+    } else {
+      expectEqual(upload.status, 200, "upload local assinado");
+      uploaded = upload.json.media as { name: string; url: string; receipt: string };
+    }
     expectTrue(Boolean(uploaded.receipt), "comprovante de upload ausente");
     await db.execute({
       sql: `INSERT INTO ImportJob (id, organizationId, clientId, calendarVersionId, status, filesJson, mediaJson, resultJson, createdAt, updatedAt)
@@ -813,7 +829,8 @@ async function suite(db: Client) {
     expectEqual((await http(mallory, "POST", `/api/imports/${jobId}/commit`, body)).status, 404, "outra agência commit");
     expectEqual((await http(mallory, "DELETE", `/api/imports/${jobId}`)).status, 404, "outra agência delete");
     expectEqual((await http(mallory, "GET", "/api/clients/demo-client/imports")).status, 404, "outra agência cliente");
-    expectEqual((await http(mallory, "POST", "/api/clients/demo-client/imports/media", new FormData())).status, 404, "outra agência upload");
+    // Sem upload configurado a rota responde 503 para qualquer cliente, antes de olhar o tenant.
+    expectEqual((await http(mallory, "POST", "/api/clients/demo-client/imports/media", new FormData())).status, PROD ? 503 : 404, "outra agência upload");
     const first = await http(importMember, "POST", `/api/imports/${jobId}/commit`, body);
     expectEqual(first.status, 200, "membro commit");
     expectEqual(first.json.created, 1, "posts criados");
