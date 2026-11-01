@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
 import { PostProductionFields, type TeamMemberOption } from "@/components/post-production-fields";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 
 interface TeamMember extends TeamMemberOption {}
 
@@ -32,6 +34,8 @@ export function PostHandoffDialog({
   members,
   onSuccess,
 }: PostHandoffDialogProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const [stage, setStage] = useState(initialStage);
   const [assigneeId, setAssigneeId] = useState(initialAssigneeId ?? "");
   const [note, setNote] = useState("");
@@ -63,13 +67,13 @@ export function PostHandoffDialog({
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(typeof data.error === "string" ? data.error : "Erro ao transferir tarefa");
+        setError(typeof data.error === "string" ? data.error : tr("Erro ao transferir tarefa", "Failed to hand off task"));
         return;
       }
       onSuccess();
       onOpenChange(false);
     } catch {
-      setError("Erro de conexão. Tente novamente.");
+      setError(tr("Erro de conexão. Tente novamente.", "Connection error. Please try again."));
     } finally {
       setSaving(false);
     }
@@ -79,7 +83,7 @@ export function PostHandoffDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Transferir tarefa</DialogTitle>
+          <DialogTitle>{tr("Transferir tarefa", "Hand off task")}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <PostProductionFields
@@ -95,11 +99,11 @@ export function PostHandoffDialog({
           {error && <p className="text-sm text-destructive">{error}</p>}
           <div className="flex justify-end gap-2">
             <Button variant="outline" onClick={() => onOpenChange(false)} disabled={saving}>
-              Cancelar
+              {tr("Cancelar", "Cancel")}
             </Button>
             <Button onClick={handleSubmit} disabled={saving}>
               {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Transferir
+              {tr("Transferir", "Hand off")}
             </Button>
           </div>
         </div>

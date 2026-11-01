@@ -1,0 +1,69 @@
+{
+  "summary": "O manifesto traz 4 publicações para o Instagram, de 1 a 4 de novembro de 2026, com legendas, horários e artes indicados. Todas as 8 mídias enviadas foram associadas a algum post.",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "carousel",
+      "title": "Manifesto 01",
+      "copyText": "Oficina Aurora. Ideia 01.\nConheca nosso trabalho.",
+      "media": [
+        "asset-a.png",
+        "asset-b.png",
+        "asset-c.png",
+        "asset-d.png"
+      ],
+      "notes": null,
+      "source": "manifesto.txt, registro 1 (Manifesto 01)"
+    },
+    {
+      "date": "2026-11-02",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Manifesto 02",
+      "copyText": "Oficina Aurora. Ideia 02.\nConheca nosso trabalho.",
+      "media": [
+        "asset-e.png"
+      ],
+      "notes": null,
+      "source": "manifesto.txt, registro 2 (Manifesto 02)"
+    },
+    {
+      "date": "2026-11-03",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "reels",
+      "title": "Manifesto 03",
+      "copyText": "Oficina Aurora. Ideia 03.\nConheca nosso trabalho.",
+      "media": [
+        "asset-f.mp4",
+        "asset-g.png"
+      ],
+      "notes": "asset-g.png é a capa do vídeo asset-f.mp4, conforme o manifesto.",
+      "source": "manifesto.txt, registro 3 (Manifesto 03)"
+    },
+    {
+      "date": "2026-11-04",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Manifesto 04",
+      "copyText": "Oficina Aurora. Ideia 04.\nConheca nosso trabalho.",
+      "media": [
+        "asset-h.png"
+      ],
+      "notes": null,
+      "source": "manifesto.txt, registro 4 (Manifesto 04)"
+    }
+  ],
+  "warnings": [
+    "O vídeo asset-f.mp4 não pôde ser conferido visualmente; a associação ao post Manifesto 03 vem apenas do manifesto.",
+    "A capa asset-g.png foi vinculada ao vídeo do Manifesto 03, sem criar um post à parte, como o manifesto indica."
+  ]
+}

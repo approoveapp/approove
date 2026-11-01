@@ -1,0 +1,63 @@
+{
+  "ai": "injected mock; no inference",
+  "database": "disposable SQLite",
+  "checks": [
+    {
+      "action": "explicitly keep all occurrences",
+      "created": 4,
+      "posts": [
+        {
+          "channel": "Instagram",
+          "scheduledAt": "2026-11-01T12:30:00+00:00",
+          "status": "pending",
+          "handoffNote": "Importado com IA · Formato: Feed · Fonte: pauta.csv, linha 2"
+        },
+        {
+          "channel": "Instagram",
+          "scheduledAt": "2026-11-01T12:30:00+00:00",
+          "status": "pending",
+          "handoffNote": "Importado com IA · Formato: Feed · Fonte: pauta.csv, linha 3"
+        },
+        {
+          "channel": "LinkedIn",
+          "scheduledAt": "2026-11-01T12:30:00+00:00",
+          "status": "pending",
+          "handoffNote": "Importado com IA · Formato: Feed · Fonte: pauta.csv, linha 5"
+        },
+        {
+          "channel": "Instagram",
+          "scheduledAt": "2026-11-02T12:30:00+00:00",
+          "status": "pending",
+          "handoffNote": "Importado com IA · Formato: Feed · Fonte: pauta.csv, linha 4"
+        }
+      ],
+      "pass": true
+    },
+    {
+      "action": "manually exclude exact duplicate",
+      "created": 3,
+      "posts": [
+        {
+          "channel": "Instagram",
+          "scheduledAt": "2026-11-01T12:30:00+00:00",
+          "status": "pending",
+          "handoffNote": "Importado com IA · Formato: Feed · Fonte: pauta.csv, linha 2"
+        },
+        {
+          "channel": "LinkedIn",
+          "scheduledAt": "2026-11-01T12:30:00+00:00",
+          "status": "pending",
+          "handoffNote": "Importado com IA · Formato: Feed · Fonte: pauta.csv, linha 5"
+        },
+        {
+          "channel": "Instagram",
+          "scheduledAt": "2026-11-02T12:30:00+00:00",
+          "status": "pending",
+          "handoffNote": "Importado com IA · Formato: Feed · Fonte: pauta.csv, linha 4"
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "pass": true
+}

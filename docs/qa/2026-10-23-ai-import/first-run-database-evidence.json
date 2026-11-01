@@ -1,0 +1,1775 @@
+{
+  "jobs": [
+    {
+      "id": "cmvkv3nct000113f4g91mgngb",
+      "status": "committed",
+      "model": "offline-fixture",
+      "postsCreated": 3,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "createdAt": "2026-10-23T11:03:44.381+00:00"
+    },
+    {
+      "id": "cmvkv3swx000913f46fnoh689",
+      "status": "committed",
+      "model": "offline-fixture",
+      "postsCreated": 24,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "createdAt": "2026-10-23T11:03:51.586+00:00"
+    },
+    {
+      "id": "cmvkv3xy5001n13f4uj3pixyj",
+      "status": "committed",
+      "model": "offline-fixture",
+      "postsCreated": 4,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "createdAt": "2026-10-23T11:03:58.109+00:00"
+    },
+    {
+      "id": "cmvkv416w002b13f4anzgyhqc",
+      "status": "committed",
+      "model": "offline-fixture",
+      "postsCreated": 6,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "createdAt": "2026-10-23T11:04:02.313+00:00"
+    },
+    {
+      "id": "cmvkv45r3002p13f4fxcg846q",
+      "status": "committed",
+      "model": "offline-fixture",
+      "postsCreated": 8,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "createdAt": "2026-10-23T11:04:08.223+00:00"
+    },
+    {
+      "id": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "model": "offline-fixture",
+      "postsCreated": 200,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "createdAt": "2026-10-23T11:04:19.722+00:00"
+    }
+  ],
+  "posts": [
+    {
+      "title": "Título revisado pelo humano",
+      "scheduledAt": "2026-11-01T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 03",
+      "scheduledAt": "2026-11-03T12:30:00+00:00",
+      "channel": "LinkedIn",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 05",
+      "scheduledAt": "2026-11-05T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "draft_copy"
+    },
+    {
+      "title": "Pauta 01",
+      "scheduledAt": "2026-11-01T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 02",
+      "scheduledAt": "2026-11-02T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 03",
+      "scheduledAt": "2026-11-03T12:30:00+00:00",
+      "channel": "LinkedIn",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 04",
+      "scheduledAt": "2026-11-04T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 05",
+      "scheduledAt": "2026-11-05T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 06",
+      "scheduledAt": "2026-11-06T12:30:00+00:00",
+      "channel": "LinkedIn",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 07",
+      "scheduledAt": "2026-11-07T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 08",
+      "scheduledAt": "2026-11-08T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 09",
+      "scheduledAt": "2026-11-09T12:30:00+00:00",
+      "channel": "LinkedIn",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 10",
+      "scheduledAt": "2026-11-10T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 11",
+      "scheduledAt": "2026-11-11T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 12",
+      "scheduledAt": "2026-11-12T12:30:00+00:00",
+      "channel": "LinkedIn",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 13",
+      "scheduledAt": "2026-11-13T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 14",
+      "scheduledAt": "2026-11-14T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 15",
+      "scheduledAt": "2026-11-15T12:30:00+00:00",
+      "channel": "LinkedIn",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 16",
+      "scheduledAt": "2026-11-16T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 17",
+      "scheduledAt": "2026-11-17T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 18",
+      "scheduledAt": "2026-11-18T12:30:00+00:00",
+      "channel": "LinkedIn",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 19",
+      "scheduledAt": "2026-11-19T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 20",
+      "scheduledAt": "2026-11-20T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 21",
+      "scheduledAt": "2026-11-21T12:30:00+00:00",
+      "channel": "LinkedIn",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 22",
+      "scheduledAt": "2026-11-22T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 23",
+      "scheduledAt": "2026-11-23T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 24",
+      "scheduledAt": "2026-11-24T12:30:00+00:00",
+      "channel": "LinkedIn",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 07",
+      "scheduledAt": "2026-11-07T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Pauta 10",
+      "scheduledAt": "2026-11-10T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Pauta 10 no Facebook",
+      "scheduledAt": "2026-11-12T12:30:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Pauta 14",
+      "scheduledAt": "2026-11-14T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Pauta 02",
+      "scheduledAt": "2026-11-02T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 04",
+      "scheduledAt": "2026-11-04T13:00:00+00:00",
+      "channel": "LinkedIn",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 06",
+      "scheduledAt": "2026-11-06T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 08",
+      "scheduledAt": "2026-11-08T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "draft_copy"
+    },
+    {
+      "title": "Pauta 10",
+      "scheduledAt": "2026-11-10T21:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 12",
+      "scheduledAt": "2026-11-12T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 01",
+      "scheduledAt": "2026-11-01T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Pauta 02",
+      "scheduledAt": "2026-11-02T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Pauta 03",
+      "scheduledAt": "2026-11-03T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Pauta 04",
+      "scheduledAt": "2026-11-04T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "draft_copy"
+    },
+    {
+      "title": "Pauta 05",
+      "scheduledAt": "2026-11-05T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 06",
+      "scheduledAt": "2026-11-06T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 07",
+      "scheduledAt": "2026-11-07T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Pauta 08",
+      "scheduledAt": "2026-11-08T12:30:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 001",
+      "scheduledAt": "2026-11-01T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 029",
+      "scheduledAt": "2026-11-01T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 057",
+      "scheduledAt": "2026-11-01T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 085",
+      "scheduledAt": "2026-11-01T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 113",
+      "scheduledAt": "2026-11-01T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 141",
+      "scheduledAt": "2026-11-01T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 169",
+      "scheduledAt": "2026-11-01T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 197",
+      "scheduledAt": "2026-11-01T18:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 002",
+      "scheduledAt": "2026-11-02T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 030",
+      "scheduledAt": "2026-11-02T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 058",
+      "scheduledAt": "2026-11-02T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 086",
+      "scheduledAt": "2026-11-02T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 114",
+      "scheduledAt": "2026-11-02T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 142",
+      "scheduledAt": "2026-11-02T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 170",
+      "scheduledAt": "2026-11-02T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 198",
+      "scheduledAt": "2026-11-02T18:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 003",
+      "scheduledAt": "2026-11-03T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 031",
+      "scheduledAt": "2026-11-03T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 059",
+      "scheduledAt": "2026-11-03T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 087",
+      "scheduledAt": "2026-11-03T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 115",
+      "scheduledAt": "2026-11-03T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 143",
+      "scheduledAt": "2026-11-03T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 171",
+      "scheduledAt": "2026-11-03T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 199",
+      "scheduledAt": "2026-11-03T18:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 004",
+      "scheduledAt": "2026-11-04T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 032",
+      "scheduledAt": "2026-11-04T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 060",
+      "scheduledAt": "2026-11-04T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 088",
+      "scheduledAt": "2026-11-04T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 116",
+      "scheduledAt": "2026-11-04T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 144",
+      "scheduledAt": "2026-11-04T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 172",
+      "scheduledAt": "2026-11-04T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 200",
+      "scheduledAt": "2026-11-04T18:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 005",
+      "scheduledAt": "2026-11-05T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 033",
+      "scheduledAt": "2026-11-05T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 061",
+      "scheduledAt": "2026-11-05T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 089",
+      "scheduledAt": "2026-11-05T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 117",
+      "scheduledAt": "2026-11-05T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 145",
+      "scheduledAt": "2026-11-05T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 173",
+      "scheduledAt": "2026-11-05T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 006",
+      "scheduledAt": "2026-11-06T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 034",
+      "scheduledAt": "2026-11-06T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 062",
+      "scheduledAt": "2026-11-06T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 090",
+      "scheduledAt": "2026-11-06T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 118",
+      "scheduledAt": "2026-11-06T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 146",
+      "scheduledAt": "2026-11-06T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 174",
+      "scheduledAt": "2026-11-06T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 007",
+      "scheduledAt": "2026-11-07T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 035",
+      "scheduledAt": "2026-11-07T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 063",
+      "scheduledAt": "2026-11-07T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 091",
+      "scheduledAt": "2026-11-07T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 119",
+      "scheduledAt": "2026-11-07T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 147",
+      "scheduledAt": "2026-11-07T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 175",
+      "scheduledAt": "2026-11-07T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 008",
+      "scheduledAt": "2026-11-08T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 036",
+      "scheduledAt": "2026-11-08T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 064",
+      "scheduledAt": "2026-11-08T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 092",
+      "scheduledAt": "2026-11-08T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 120",
+      "scheduledAt": "2026-11-08T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 148",
+      "scheduledAt": "2026-11-08T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 176",
+      "scheduledAt": "2026-11-08T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 009",
+      "scheduledAt": "2026-11-09T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 037",
+      "scheduledAt": "2026-11-09T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 065",
+      "scheduledAt": "2026-11-09T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 093",
+      "scheduledAt": "2026-11-09T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 121",
+      "scheduledAt": "2026-11-09T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 149",
+      "scheduledAt": "2026-11-09T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 177",
+      "scheduledAt": "2026-11-09T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 010",
+      "scheduledAt": "2026-11-10T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 038",
+      "scheduledAt": "2026-11-10T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 066",
+      "scheduledAt": "2026-11-10T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 094",
+      "scheduledAt": "2026-11-10T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 122",
+      "scheduledAt": "2026-11-10T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 150",
+      "scheduledAt": "2026-11-10T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 178",
+      "scheduledAt": "2026-11-10T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 011",
+      "scheduledAt": "2026-11-11T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 039",
+      "scheduledAt": "2026-11-11T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 067",
+      "scheduledAt": "2026-11-11T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 095",
+      "scheduledAt": "2026-11-11T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 123",
+      "scheduledAt": "2026-11-11T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 151",
+      "scheduledAt": "2026-11-11T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 179",
+      "scheduledAt": "2026-11-11T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 012",
+      "scheduledAt": "2026-11-12T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 040",
+      "scheduledAt": "2026-11-12T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 068",
+      "scheduledAt": "2026-11-12T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 096",
+      "scheduledAt": "2026-11-12T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 124",
+      "scheduledAt": "2026-11-12T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 152",
+      "scheduledAt": "2026-11-12T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 180",
+      "scheduledAt": "2026-11-12T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 013",
+      "scheduledAt": "2026-11-13T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 041",
+      "scheduledAt": "2026-11-13T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 069",
+      "scheduledAt": "2026-11-13T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 097",
+      "scheduledAt": "2026-11-13T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 125",
+      "scheduledAt": "2026-11-13T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 153",
+      "scheduledAt": "2026-11-13T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 181",
+      "scheduledAt": "2026-11-13T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 014",
+      "scheduledAt": "2026-11-14T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 042",
+      "scheduledAt": "2026-11-14T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 070",
+      "scheduledAt": "2026-11-14T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 098",
+      "scheduledAt": "2026-11-14T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 126",
+      "scheduledAt": "2026-11-14T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 154",
+      "scheduledAt": "2026-11-14T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 182",
+      "scheduledAt": "2026-11-14T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 015",
+      "scheduledAt": "2026-11-15T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 043",
+      "scheduledAt": "2026-11-15T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 071",
+      "scheduledAt": "2026-11-15T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 099",
+      "scheduledAt": "2026-11-15T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 127",
+      "scheduledAt": "2026-11-15T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 155",
+      "scheduledAt": "2026-11-15T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 183",
+      "scheduledAt": "2026-11-15T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 016",
+      "scheduledAt": "2026-11-16T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 044",
+      "scheduledAt": "2026-11-16T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 072",
+      "scheduledAt": "2026-11-16T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 100",
+      "scheduledAt": "2026-11-16T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 128",
+      "scheduledAt": "2026-11-16T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 156",
+      "scheduledAt": "2026-11-16T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 184",
+      "scheduledAt": "2026-11-16T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 017",
+      "scheduledAt": "2026-11-17T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 045",
+      "scheduledAt": "2026-11-17T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 073",
+      "scheduledAt": "2026-11-17T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 101",
+      "scheduledAt": "2026-11-17T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 129",
+      "scheduledAt": "2026-11-17T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 157",
+      "scheduledAt": "2026-11-17T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 185",
+      "scheduledAt": "2026-11-17T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 018",
+      "scheduledAt": "2026-11-18T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 046",
+      "scheduledAt": "2026-11-18T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 074",
+      "scheduledAt": "2026-11-18T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 102",
+      "scheduledAt": "2026-11-18T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 130",
+      "scheduledAt": "2026-11-18T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 158",
+      "scheduledAt": "2026-11-18T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 186",
+      "scheduledAt": "2026-11-18T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 019",
+      "scheduledAt": "2026-11-19T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 047",
+      "scheduledAt": "2026-11-19T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 075",
+      "scheduledAt": "2026-11-19T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 103",
+      "scheduledAt": "2026-11-19T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 131",
+      "scheduledAt": "2026-11-19T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 159",
+      "scheduledAt": "2026-11-19T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 187",
+      "scheduledAt": "2026-11-19T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 020",
+      "scheduledAt": "2026-11-20T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 048",
+      "scheduledAt": "2026-11-20T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 076",
+      "scheduledAt": "2026-11-20T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 104",
+      "scheduledAt": "2026-11-20T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 132",
+      "scheduledAt": "2026-11-20T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 160",
+      "scheduledAt": "2026-11-20T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 188",
+      "scheduledAt": "2026-11-20T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 021",
+      "scheduledAt": "2026-11-21T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 049",
+      "scheduledAt": "2026-11-21T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 077",
+      "scheduledAt": "2026-11-21T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 105",
+      "scheduledAt": "2026-11-21T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 133",
+      "scheduledAt": "2026-11-21T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 161",
+      "scheduledAt": "2026-11-21T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 189",
+      "scheduledAt": "2026-11-21T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 022",
+      "scheduledAt": "2026-11-22T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 050",
+      "scheduledAt": "2026-11-22T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 078",
+      "scheduledAt": "2026-11-22T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 106",
+      "scheduledAt": "2026-11-22T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 134",
+      "scheduledAt": "2026-11-22T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 162",
+      "scheduledAt": "2026-11-22T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 190",
+      "scheduledAt": "2026-11-22T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 023",
+      "scheduledAt": "2026-11-23T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 051",
+      "scheduledAt": "2026-11-23T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 079",
+      "scheduledAt": "2026-11-23T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 107",
+      "scheduledAt": "2026-11-23T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 135",
+      "scheduledAt": "2026-11-23T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 163",
+      "scheduledAt": "2026-11-23T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 191",
+      "scheduledAt": "2026-11-23T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 024",
+      "scheduledAt": "2026-11-24T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 052",
+      "scheduledAt": "2026-11-24T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 080",
+      "scheduledAt": "2026-11-24T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 108",
+      "scheduledAt": "2026-11-24T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 136",
+      "scheduledAt": "2026-11-24T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 164",
+      "scheduledAt": "2026-11-24T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 192",
+      "scheduledAt": "2026-11-24T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 025",
+      "scheduledAt": "2026-11-25T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 053",
+      "scheduledAt": "2026-11-25T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 081",
+      "scheduledAt": "2026-11-25T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 109",
+      "scheduledAt": "2026-11-25T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 137",
+      "scheduledAt": "2026-11-25T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 165",
+      "scheduledAt": "2026-11-25T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 193",
+      "scheduledAt": "2026-11-25T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 026",
+      "scheduledAt": "2026-11-26T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 054",
+      "scheduledAt": "2026-11-26T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 082",
+      "scheduledAt": "2026-11-26T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 110",
+      "scheduledAt": "2026-11-26T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 138",
+      "scheduledAt": "2026-11-26T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 166",
+      "scheduledAt": "2026-11-26T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 194",
+      "scheduledAt": "2026-11-26T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 027",
+      "scheduledAt": "2026-11-27T11:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 055",
+      "scheduledAt": "2026-11-27T12:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 083",
+      "scheduledAt": "2026-11-27T13:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 111",
+      "scheduledAt": "2026-11-27T14:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 139",
+      "scheduledAt": "2026-11-27T15:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 167",
+      "scheduledAt": "2026-11-27T16:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 195",
+      "scheduledAt": "2026-11-27T17:00:00+00:00",
+      "channel": "Instagram",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 028",
+      "scheduledAt": "2026-11-28T11:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Lote 056",
+      "scheduledAt": "2026-11-28T12:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 084",
+      "scheduledAt": "2026-11-28T13:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 112",
+      "scheduledAt": "2026-11-28T14:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 140",
+      "scheduledAt": "2026-11-28T15:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 168",
+      "scheduledAt": "2026-11-28T16:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    },
+    {
+      "title": "Lote 196",
+      "scheduledAt": "2026-11-28T17:00:00+00:00",
+      "channel": "Facebook",
+      "status": "pending",
+      "productionStage": "waiting_design"
+    }
+  ]
+}

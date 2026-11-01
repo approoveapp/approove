@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { authorizeShareOrSession } from "@/lib/share-access";
@@ -17,6 +19,7 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ postId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { postId } = await params;
     await enforceRateLimit("publicIp", clientIp(request.headers));
@@ -46,7 +49,14 @@ export async function PATCH(
     // Aprovar, pedir ajustes ou reabrir pela agência é decidir pelo cliente: só owner/admin.
     if (authResult.isAgency && !authResult.canManage) {
       return NextResponse.json(
-        { error: "Apenas proprietários e administradores podem alterar a aprovação", code: "FORBIDDEN_ROLE" },
+        {
+          error: localizedText(
+            locale,
+            "Apenas proprietários e administradores podem alterar a aprovação",
+            "Only owners and admins can change the approval."
+          ),
+          code: "FORBIDDEN_ROLE",
+        },
         { status: 403 }
       );
     }
@@ -56,12 +66,27 @@ export async function PATCH(
     }
 
     if (!authResult.isAgency && !authResult.access?.permissions.canApprove) {
-      return NextResponse.json({ error: "Sem permissão para aprovar" }, { status: 403 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "Sem permissão para aprovar",
+            "You don't have permission to approve."
+          ),
+        },
+        { status: 403 }
+      );
     }
 
     if (!authResult.isAgency && !resolveClientStatusAction(status)) {
       return NextResponse.json(
-        { error: "Clientes podem aprovar ou solicitar ajustes" },
+        {
+          error: localizedText(
+            locale,
+            "Clientes podem aprovar ou solicitar ajustes",
+            "Clients can only approve or request changes."
+          ),
+        },
         { status: 400 }
       );
     }
@@ -107,7 +132,7 @@ export async function PATCH(
       post: authResult.isAgency ? updatedPost : { id: updatedPost.id, status: updatedPost.status },
     });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error updating post status:", error);
     return NextResponse.json(

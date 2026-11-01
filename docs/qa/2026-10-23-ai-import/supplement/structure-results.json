@@ -1,0 +1,10 @@
+{
+  "csvRecords": 120,
+  "uniqueRecords": 110,
+  "exactDuplicates": 10,
+  "recurrencesPreserved": true,
+  "manifestFiles": 8,
+  "manifestExpectedPosts": 4,
+  "withoutManifestSameBytes": true,
+  "semanticAiExecuted": false
+}

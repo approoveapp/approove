@@ -4,6 +4,7 @@ import { requireOrganization } from "@/lib/auth";
 import { redirectForAuthError } from "@/lib/auth-redirect";
 import { shouldRedirectFromSubscribe, subscribeCopyKind } from "@/lib/billing-access";
 import { getBillingLocale } from "@/lib/request-locale";
+import { foundingOfferLabel, getFoundingOffer } from "@/lib/founding-offer";
 import { SubscribePlans } from "./subscribe-plans";
 import { privatePageMetadata } from "@/lib/seo";
 
@@ -27,6 +28,7 @@ export default async function SubscribePage() {
   const locale = await getBillingLocale();
   const canManageBilling =
     membership.role === "owner" || membership.role === "admin";
+  const foundingOffer = await getFoundingOffer();
 
   return (
     <SubscribePlans
@@ -34,6 +36,7 @@ export default async function SubscribePage() {
       organizationName={organization.name}
       canManageBilling={canManageBilling}
       copyKind={subscribeCopyKind(organization)}
+      foundingOffer={foundingOffer ? foundingOfferLabel(foundingOffer, locale) : null}
     />
   );
 }

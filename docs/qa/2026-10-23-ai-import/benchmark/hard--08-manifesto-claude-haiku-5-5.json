@@ -1,0 +1,71 @@
+{
+  "summary": "Foram encontrados quatro posts do Instagram para a Oficina Aurora, de 1 a 4 de novembro de 2026, com legendas, horário e mídias definidos no manifesto. Todas as oito mídias enviadas foram associadas a algum post.",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "carousel",
+      "title": "Manifesto 01",
+      "copyText": "Oficina Aurora. Ideia 01.\nConheca nosso trabalho.",
+      "media": [
+        "asset-a.png",
+        "asset-b.png",
+        "asset-c.png",
+        "asset-d.png"
+      ],
+      "notes": null,
+      "source": "manifesto.txt, registro 1 da lista de posts"
+    },
+    {
+      "date": "2026-11-02",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Manifesto 02",
+      "copyText": "Oficina Aurora. Ideia 02.\nConheca nosso trabalho.",
+      "media": [
+        "asset-e.png"
+      ],
+      "notes": null,
+      "source": "manifesto.txt, registro 2 da lista de posts"
+    },
+    {
+      "date": "2026-11-03",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "reels",
+      "title": "Manifesto 03",
+      "copyText": "Oficina Aurora. Ideia 03.\nConheca nosso trabalho.",
+      "media": [
+        "asset-f.mp4",
+        "asset-g.png"
+      ],
+      "notes": "A imagem asset-g.png é a capa do vídeo asset-f.mp4 e não é um post separado.",
+      "source": "manifesto.txt, registro 3 da lista de posts"
+    },
+    {
+      "date": "2026-11-04",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Manifesto 04",
+      "copyText": "Oficina Aurora. Ideia 04.\nConheca nosso trabalho.",
+      "media": [
+        "asset-h.png"
+      ],
+      "notes": null,
+      "source": "manifesto.txt, registro 4 da lista de posts"
+    }
+  ],
+  "warnings": [
+    "As datas e horários foram retirados do manifesto, sem nenhuma dedução. Todos os posts estão marcados para as 09:30, no fuso de São Paulo.",
+    "A capa asset-g.png foi vinculada ao vídeo asset-f.mp4 no post de 03/11, conforme indicado no manifesto. Confira se a capa deve ficar mesmo nesse post.",
+    "Todas as mídias enviadas foram usadas em algum post, nenhuma ficou de fora.",
+    "As legendas foram copiadas do manifesto sem alterações, inclusive a grafia sem acento em \"Conheca\"."
+  ]
+}

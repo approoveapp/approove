@@ -4,6 +4,8 @@ import { LandingPricing } from "@/components/landing/pricing";
 import { LandingPricingFaq } from "@/components/landing/pricing-faq";
 import { MarketingShell } from "@/components/landing/shell";
 import { getAppBaseUrl } from "@/lib/app-url";
+import { getFoundingOffer } from "@/lib/founding-offer";
+import { importFeatureEnabled } from "@/lib/import/feature";
 import { marketingPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
@@ -21,16 +23,19 @@ export function generateMetadata() {
   });
 }
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const aiImport = importFeatureEnabled();
+  const foundingOffer = await getFoundingOffer();
+
   return (
-    <MarketingShell locale="en" page="pricing">
-      <LandingJsonLd locale="en" includeFaq={false} />
+    <MarketingShell locale="en" page="pricing" aiImport={aiImport}>
+      <LandingJsonLd locale="en" aiImport={aiImport} includeFaq={false} />
       <MarketingPageIntro
         eyebrow="Pricing"
         title="Plans for agency content approval"
         description="15 days free, no credit card. Limits grow with your client roster, agency seats, and reviewers. Posts are unlimited on every plan."
       />
-      <LandingPricing locale="en" showHeader={false} />
+      <LandingPricing locale="en" showHeader={false} aiImport={aiImport} foundingOffer={foundingOffer} />
       <LandingPricingFaq />
     </MarketingShell>
   );

@@ -1,0 +1,161 @@
+AI calendar migration E2E (v2: migrate only + artwork) — 2026-10-22 18:24 -03
+
+## Jobs
+status     model            inputTokens  outputTokens  cost_usd  postsCreated
+---------  ---------------  -----------  ------------  --------  ------------
+discarded  claude-opus-5-5  17086        3435          0.137     0           
+committed  claude-opus-5-5  17086        3780          0.1439    8           
+
+## Posts + materials (São Paulo time)
+sao_paulo            channel    stage            material       slides  types              title                                       
+-------------------  ---------  ---------------  -------------  ------  -----------------  --------------------------------------------
+2026-11-03 12:00:00  Instagram  internal_review  carousel       3       image+image+image  Do grão à xícara: as 3 etapas da torra      
+2026-11-04 09:00:00  LinkedIn   internal_review  post_linkedin  1       image              Bastidores: parceria com a Fazenda Boa Vista
+2026-11-06 10:00:00  Instagram  draft_copy       post_stories   1       video              Contagem regressiva para o lançamento       
+2026-11-06 18:00:00  Instagram  internal_review  reels_cover    1       video              Lançamento Aurora Safra 26                  
+2026-11-10 09:00:00  LinkedIn   draft_copy       -              0                          Workshop de métodos de preparo              
+2026-11-13 12:00:00  Instagram  internal_review  post_feed      1       image              Workshop V60 e prensa francesa              
+2026-11-20 11:00:00  Instagram  internal_review  post_feed      1       image              Consciência Negra – Dona Cida (Piatã)       
+2026-11-27 08:00:00  Instagram  internal_review  post_feed      1       image              Black Friday – kits com 20%                 
+
+## Captions as stored
+2026-11-03 12:00:00 | Do grão à xícara em 3 etapas ☕ ⏎ Arrasta pro lado e veja como o Aurora chega até você. ⏎ #CaféAurora #CaféEspecial
+2026-11-04 09:00:00 | Café especial começa na relação com quem planta. ⏎ Há 6 safras trabalhamos com o Seu Antônio, da Fazenda Boa Vista, no Sul de Minas. ⏎ #CaféAurora #CaféEspecial
+2026-11-06 10:00:00 | 
+2026-11-06 18:00:00 | Chegou o Aurora Safra 26 ☕ ✨ ⏎ Notas de caramelo, laranja e chocolate ao leite, direto da Chapada Diamantina. ⏎ Disponível na loja e no site a partir de hoje. ⏎ #CaféAurora #CaféEspecial #SafraNova
+2026-11-10 09:00:00 | 
+2026-11-13 12:00:00 | Aprenda a extrair o melhor do seu café em casa. Workshop de V60 e prensa francesa no sábado, às 10h. Vagas limitadas – link na bio.
+2026-11-20 11:00:00 | Neste 20 de novembro, celebramos quem faz o nosso café existir. ✊🏾 ⏎ Dona Cida cultiva café em Piatã, na Chapada Diamantina, há mais de 30 anos. ⏎ Obrigado, Dona Cida. ⏎ #CaféAurora #CaféEspecial #ConsciênciaNegra
+2026-11-27 08:00:00 | Black Friday na Aurora: 20% em grãos e nos kits Descoberta, Barista e Presente. ☕ ⏎ Só até domingo, na loja e no site. ⏎ #CaféAurora #BlackFriday
+
+## AI proposal (raw, committed job)
+{
+  "summary": "Encontrei 8 publicações do Café Aurora para novembro de 2026 na pauta: 6 no Instagram e 2 no LinkedIn. As legendas indicadas como \"ver briefing\" e \"ver doc de legendas\" foram buscadas nos respectivos arquivos. Associei 8 das 10 mídias enviadas; o logo ficou de fora por ser material de referência.",
+  "posts": [
+    {
+      "date": "2026-11-03",
+      "time": "12:00",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "carousel",
+      "title": "Do grão à xícara: as 3 etapas da torra",
+      "copyText": "Do grão à xícara em 3 etapas ☕\nArrasta pro lado e veja como o Aurora chega até você.\n#CaféAurora #CaféEspecial",
+      "media": [
+        "torra_1.jpg",
+        "torra_2.jpg",
+        "torra_3.jpg"
+      ],
+      "notes": null,
+      "source": "pauta-novembro.xlsx, aba Pauta Novembro, linha 2"
+    },
+    {
+      "date": "2026-11-04",
+      "time": "09:00",
+      "dateIsSuggested": false,
+      "channel": "LinkedIn",
+      "format": "feed",
+      "title": "Bastidores: parceria com a Fazenda Boa Vista",
+      "copyText": "Café especial começa na relação com quem planta.\nHá 6 safras trabalhamos com o Seu Antônio, da Fazenda Boa Vista, no Sul de Minas.\n#CaféAurora #CaféEspecial",
+      "media": [
+        "fazenda-boa-vista.jpg"
+      ],
+      "notes": "Briefing: sempre mencionar o nome do produtor quando falar de origem.",
+      "source": "pauta-novembro.xlsx, aba Pauta Novembro, linha 3"
+    },
+    {
+      "date": "2026-11-06",
+      "time": "18:00",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "reels",
+      "title": "Lançamento Aurora Safra 26",
+      "copyText": "Chegou o Aurora Safra 26 ☕ ✨\nNotas de caramelo, laranja e chocolate ao leite, direto da Chapada Diamantina.\nDisponível na loja e no site a partir de hoje.\n#CaféAurora #CaféEspecial #SafraNova",
+      "media": [
+        "lancamento-safra26.mp4"
+      ],
+      "notes": "Briefing: Reels mostrando a torra. Postar às 18h. Legenda aprovada pelo cliente (briefing-novembro.pdf, p. 1).",
+      "source": "pauta-novembro.xlsx, aba Pauta Novembro, linha 4; legenda em briefing-novembro.pdf, p. 1"
+    },
+    {
+      "date": "2026-11-06",
+      "time": "10:00",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "stories",
+      "title": "Contagem regressiva para o lançamento",
+      "copyText": "",
+      "media": [
+        "stories-contagem.mp4"
+      ],
+      "notes": null,
+      "source": "pauta-novembro.xlsx, aba Pauta Novembro, linha 5"
+    },
+    {
+      "date": "2026-11-10",
+      "time": "09:00",
+      "dateIsSuggested": false,
+      "channel": "LinkedIn",
+      "format": "feed",
+      "title": "Workshop de métodos de preparo",
+      "copyText": "",
+      "media": [],
+      "notes": null,
+      "source": "pauta-novembro.xlsx, aba Pauta Novembro, linha 6"
+    },
+    {
+      "date": "2026-11-13",
+      "time": "12:00",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Workshop V60 e prensa francesa",
+      "copyText": "Aprenda a extrair o melhor do seu café em casa. Workshop de V60 e prensa francesa no sábado, às 10h. Vagas limitadas – link na bio.",
+      "media": [
+        "WhatsApp Image 2026-10-20 at 14.32.11.jpeg"
+      ],
+      "notes": "Legenda aprovada pelo cliente (briefing-novembro.pdf, p. 1). CTA: link na bio.",
+      "source": "pauta-novembro.xlsx, aba Pauta Novembro, linha 7; legenda em briefing-novembro.pdf, p. 1"
+    },
+    {
+      "date": "2026-11-20",
+      "time": "11:00",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Consciência Negra – Dona Cida (Piatã)",
+      "copyText": "Neste 20 de novembro, celebramos quem faz o nosso café existir. ✊🏾\nDona Cida cultiva café em Piatã, na Chapada Diamantina, há mais de 30 anos.\nObrigado, Dona Cida.\n#CaféAurora #CaféEspecial #ConsciênciaNegra",
+      "media": [
+        "IMG_4530.png"
+      ],
+      "notes": "Briefing: post homenageando os produtores parceiros da Bahia; sempre mencionar o nome do produtor quando falar de origem.",
+      "source": "pauta-novembro.xlsx, aba Pauta Novembro, linha 8; legenda em legendas-novembro.docx, seção Consciência Negra (20/11)"
+    },
+    {
+      "date": "2026-11-27",
+      "time": "08:00",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Black Friday – kits com 20%",
+      "copyText": "Black Friday na Aurora: 20% em grãos e nos kits Descoberta, Barista e Presente. ☕\nSó até domingo, na loja e no site.\n#CaféAurora #BlackFriday",
+      "media": [
+        "IMG_4521.jpg"
+      ],
+      "notes": "Briefing: não usar a palavra \"barato\". Briefing previa carrossel com os kits.",
+      "source": "pauta-novembro.xlsx, aba Pauta Novembro, linha 9; legenda em legendas-novembro.docx, seção Black Friday (27/11)"
+    }
+  ],
+  "warnings": [
+    "Post do LinkedIn sobre a Fazenda Boa Vista está na pauta para 04/11, que cai numa quarta-feira. O briefing diz que o LinkedIn é sempre às terças, 9h. Conferir se a data certa seria 03/11.",
+    "Black Friday: o briefing indica 28/11 e carrossel com os kits, mas a pauta e o documento de legendas indicam 27/11 em post único. Mantive 27/11 em post único, como na pauta, com a única arte enviada (IMG_4521.jpg). Se for carrossel, faltam as artes dos kits.",
+    "Workshop: o briefing coloca o workshop em 13/11 (sexta), mas a legenda e a arte dizem \"sábado, às 10h\". Confirmar a data do evento com o cliente.",
+    "Post do LinkedIn de 10/11 (Workshop de métodos de preparo) está sem legenda e sem arte. A legenda do workshop no briefing parece ser a do Instagram (fala em \"link na bio\"), por isso não foi usada aqui.",
+    "Stories de contagem regressiva (06/11) está sem legenda na pauta.",
+    "A arte do workshop veio com nome de arquivo do WhatsApp (WhatsApp Image 2026-10-20 at 14.32.11.jpeg). Associei ao post do Instagram de 13/11 pelo conteúdo da imagem. Conferir se ela também deve ir no post do LinkedIn de 10/11.",
+    "As artes IMG_4530.png (Dona Cida) e IMG_4521.jpg (Black Friday) foram associadas pelo conteúdo visual, já que a pauta não indica os arquivos. Vale conferir.",
+    "O arquivo logo-cafe-aurora.png é o logo do cliente e não foi usado em nenhum post.",
+    "Frequência: o briefing pede 3 posts por semana no feed do Instagram, mas a pauta tem só 5 posts de feed no mês (entre carrossel, reels e posts únicos). Nenhum post foi criado para completar.",
+    "Frequência: o briefing pede 1 post por semana no LinkedIn, mas a pauta só tem posts em 04/11 e 10/11. Faltam as semanas de 17/11 e 24/11.",
+    "O briefing pede stories nos dias de lançamento. A pauta só tem stories em 06/11. Conferir se há stories previstos para outras datas, como o workshop ou a Black Friday."
+  ]
+}

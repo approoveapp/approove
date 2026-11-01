@@ -21,7 +21,7 @@ export async function sendEmail(params: SendEmailParams): Promise<SendEmailResul
   const from = process.env.EMAIL_FROM?.trim();
 
   if (!apiKey || !from) {
-    console.warn("[email] RESEND_API_KEY ou EMAIL_FROM não configurados - envio ignorado");
+    console.warn("[email] RESEND_API_KEY or EMAIL_FROM not configured - skipping send");
     return { ok: false, skipped: true };
   }
 
@@ -44,14 +44,14 @@ export async function sendEmail(params: SendEmailParams): Promise<SendEmailResul
     const data = (await res.json()) as { id?: string; message?: string };
 
     if (!res.ok) {
-      const message = typeof data.message === "string" ? data.message : "Falha ao enviar e-mail";
+      const message = typeof data.message === "string" ? data.message : "Failed to send email";
       console.error("[email] Resend:", message);
       return { ok: false, error: message };
     }
 
     return { ok: true, id: data.id };
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Falha ao enviar e-mail";
+    const message = error instanceof Error ? error.message : "Failed to send email";
     console.error("[email] send failed:", error);
     return { ok: false, error: message };
   }

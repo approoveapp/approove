@@ -130,7 +130,7 @@ export default function ClientsPage() {
         setDeleteError(
           typeof data.error === "string"
             ? data.error
-            : "Erro ao deletar cliente. Tente novamente."
+            : tr("Erro ao deletar cliente. Tente novamente.", "Unable to delete client. Please try again.")
         );
         return;
       }
@@ -139,7 +139,7 @@ export default function ClientsPage() {
       setClientToDelete(null);
       setDeleteConfirmation("");
     } catch {
-      setDeleteError("Erro de conexão. Verifique sua rede e tente novamente.");
+      setDeleteError(tr("Erro de conexão. Verifique sua rede e tente novamente.", "Connection error. Check your network and try again."));
     } finally {
       setDeleting(false);
     }
@@ -326,7 +326,7 @@ export default function ClientsPage() {
                           rel="noopener noreferrer"
                           className="text-xs px-2 py-1 rounded bg-muted hover:bg-muted/80 transition-colors"
                         >
-                          Site
+                          {tr("Site", "Website")}
                         </a>
                       )}
                       {client.instagram && (

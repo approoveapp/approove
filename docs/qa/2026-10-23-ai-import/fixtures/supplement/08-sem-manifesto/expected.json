@@ -1,0 +1,26 @@
+{
+  "id": "08-sem-manifesto",
+  "status": "expected_only_no_ai_execution",
+  "client": "Oficina Aurora (fictícia)",
+  "timezone": "America/Sao_Paulo",
+  "referenceDate": "2026-10-23",
+  "documents": [
+    "instrucoes.txt"
+  ],
+  "media": [
+    "asset-a.png",
+    "asset-b.png",
+    "asset-c.png",
+    "asset-d.png",
+    "asset-e.png",
+    "asset-f.mp4",
+    "asset-g.png",
+    "asset-h.png"
+  ],
+  "expectedPosts": null,
+  "criteria": [
+    "Não é possível inferir 4 posts dos 8 arquivos sem mapeamento. Não avaliar por contagem 4.",
+    "Solicitar agrupamento/ordem/capa e campos faltantes; não inventar legendas, datas ou canais.",
+    "Datas sugeridas devem estar marcadas, não representadas como datas vindas da fonte. Revisão humana obrigatória."
+  ]
+}

@@ -1,7 +1,7 @@
 import "server-only";
 
-import { headers } from "next/headers";
-import { isAppLocale, localeFromRequest, type AppLocale } from "@/lib/locale";
+import { cookies, headers } from "next/headers";
+import { isAppLocale, LOCALE_COOKIE, localeFromRequest, type AppLocale } from "@/lib/locale";
 
 function geoLocaleFromHeaders(requestHeaders: Headers): AppLocale {
   return localeFromRequest({
@@ -13,13 +13,21 @@ function geoLocaleFromHeaders(requestHeaders: Headers): AppLocale {
   });
 }
 
-/** UI: URL de marketing ou cookie, senão país / Accept-Language. */
+/**
+ * UI: marketing URL or `?lang=` (set by the proxy), then the saved cookie, then country /
+ * Accept-Language. API routes skip the proxy, so the cookie is read here too.
+ */
 export async function getRequestLocale(): Promise<AppLocale> {
   const requestHeaders = await headers();
   const explicit = requestHeaders.get("x-approove-locale");
 
   if (isAppLocale(explicit)) {
     return explicit;
+  }
+
+  const saved = (await cookies()).get(LOCALE_COOKIE)?.value;
+  if (isAppLocale(saved)) {
+    return saved;
   }
 
   return geoLocaleFromHeaders(requestHeaders);

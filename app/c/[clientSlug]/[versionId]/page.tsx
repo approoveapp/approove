@@ -11,11 +11,18 @@ import { CalendarView } from "@/components/calendar-view";
 import { EmptyDaySlide } from "@/components/empty-day-slide";
 import { Header } from "@/components/header";
 import { PostHandoffDialog } from "@/components/post-handoff-dialog";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 
 export default function CalendarPage() {
   const params = useParams();
   const searchParams = useSearchParams();
   const token = searchParams.get("t");
+  const locale = useLocale();
+  const tr = useCallback(
+    (pt: string, en: string) => localizedText(locale, pt, en),
+    [locale]
+  );
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -52,7 +59,7 @@ export default function CalendarPage() {
 
     if (!response.ok) {
       const data = await response.json();
-      const error = new Error(data.error || "Erro ao carregar posts") as Error & {
+      const error = new Error(data.error || tr("Erro ao carregar posts", "Failed to load posts")) as Error & {
         code?: string;
       };
       error.code = data.code;
@@ -99,7 +106,7 @@ export default function CalendarPage() {
     }
 
     setPosts(loadedPosts);
-  }, [token, params.clientSlug, params.versionId]);
+  }, [token, params.clientSlug, params.versionId, tr]);
 
   useEffect(() => {
     async function init() {
@@ -107,7 +114,7 @@ export default function CalendarPage() {
         await fetchPosts();
       } catch (err) {
         const failed = err as Error & { code?: string };
-        setError(failed instanceof Error ? failed.message : "Erro desconhecido");
+        setError(failed instanceof Error ? failed.message : tr("Erro desconhecido", "Unknown error"));
         setErrorCode(failed.code ?? null);
       } finally {
         setLoading(false);
@@ -115,7 +122,7 @@ export default function CalendarPage() {
     }
 
     init();
-  }, [fetchPosts]);
+  }, [fetchPosts, tr]);
 
   const handleStatusChange = async (postId: string, status: PostStatus) => {
     try {
@@ -126,7 +133,7 @@ export default function CalendarPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao atualizar status");
+        throw new Error(tr("Erro ao atualizar status", "Failed to update status"));
       }
 
       // Update local state
@@ -150,12 +157,12 @@ export default function CalendarPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao adicionar comentário");
+        throw new Error(tr("Erro ao adicionar comentário", "Failed to add comment"));
       }
 
       const data = await response.json();
 
-      console.log("Comentário criado:", data.comment);
+      console.log("Comment created:", data.comment);
 
       // Update local state
       setPosts((prev) => {
@@ -164,7 +171,7 @@ export default function CalendarPage() {
             ? { ...post, comments: [...post.comments, data.comment] }
             : post
         );
-        console.log("Posts atualizados:", updated.find(p => p.id === postId)?.comments);
+        console.log("Updated posts:", updated.find(p => p.id === postId)?.comments);
         return updated;
       });
     } catch (err) {
@@ -207,7 +214,7 @@ export default function CalendarPage() {
       );
 
       if (!response.ok) {
-        throw new Error("Erro ao criar post");
+        throw new Error(tr("Erro ao criar post", "Failed to create post"));
       }
 
       const data = await response.json();
@@ -215,7 +222,7 @@ export default function CalendarPage() {
         insertPostAndFocus(data.post);
       }
     },
-    [params.clientSlug, params.versionId, insertPostAndFocus]
+    [params.clientSlug, params.versionId, insertPostAndFocus, tr]
   );
 
   const selectDay = useCallback((date: Date) => {
@@ -239,7 +246,7 @@ export default function CalendarPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao atualizar post");
+        throw new Error(tr("Erro ao atualizar post", "Failed to update post"));
       }
 
       const updated = await response.json();
@@ -252,7 +259,7 @@ export default function CalendarPage() {
       );
     } catch (err) {
       console.error("Error updating post:", err);
-      alert("Erro ao atualizar post");
+      alert(tr("Erro ao atualizar post", "Failed to update post"));
     }
   };
 
@@ -263,7 +270,7 @@ export default function CalendarPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao deletar post");
+        throw new Error(tr("Erro ao deletar post", "Failed to delete post"));
       }
 
       setPosts((prev) => {
@@ -290,7 +297,7 @@ export default function CalendarPage() {
       });
     } catch (err) {
       console.error("Error deleting post:", err);
-      alert("Erro ao deletar post");
+      alert(tr("Erro ao deletar post", "Failed to delete post"));
     }
   };
 
@@ -299,7 +306,7 @@ export default function CalendarPage() {
       await createPostOnDate(date);
     } catch (err) {
       console.error("Error creating post:", err);
-      alert("Erro ao criar post");
+      alert(tr("Erro ao criar post", "Failed to create post"));
     }
   };
 
@@ -323,11 +330,16 @@ export default function CalendarPage() {
         const data = await response.json().catch(() => ({}));
         if (response.status === 404) {
           await fetchPosts();
-          alert("Os dados do post estavam desatualizados. Recarregamos - tente anotar novamente.");
+          alert(
+            tr(
+              "Os dados do post estavam desatualizados. Recarregamos - tente anotar novamente.",
+              "The post data was out of date. We reloaded it - please try annotating again."
+            )
+          );
           return;
         }
         throw new Error(
-          typeof data.error === "string" ? data.error : "Erro ao criar anotação"
+          typeof data.error === "string" ? data.error : tr("Erro ao criar anotação", "Failed to create annotation")
         );
       }
 
@@ -374,7 +386,7 @@ export default function CalendarPage() {
       );
     } catch (err) {
       console.error("Error creating pin:", err);
-      alert(err instanceof Error ? err.message : "Erro ao criar anotação");
+      alert(err instanceof Error ? err.message : tr("Erro ao criar anotação", "Failed to create annotation"));
     }
   };
 
@@ -390,7 +402,7 @@ export default function CalendarPage() {
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
         throw new Error(
-          typeof data.error === "string" ? data.error : "Erro ao atualizar anotação"
+          typeof data.error === "string" ? data.error : tr("Erro ao atualizar anotação", "Failed to update annotation")
         );
       }
 
@@ -412,7 +424,7 @@ export default function CalendarPage() {
       );
     } catch (err) {
       console.error("Error resolving pin:", err);
-      alert(err instanceof Error ? err.message : "Erro ao atualizar anotação");
+      alert(err instanceof Error ? err.message : tr("Erro ao atualizar anotação", "Failed to update annotation"));
     }
   };
 
@@ -428,7 +440,7 @@ export default function CalendarPage() {
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
         throw new Error(
-          typeof data.error === "string" ? data.error : "Erro ao excluir anotação"
+          typeof data.error === "string" ? data.error : tr("Erro ao excluir anotação", "Failed to delete annotation")
         );
       }
 
@@ -450,7 +462,7 @@ export default function CalendarPage() {
       );
     } catch (err) {
       console.error("Error deleting pin:", err);
-      alert(err instanceof Error ? err.message : "Erro ao excluir anotação");
+      alert(err instanceof Error ? err.message : tr("Erro ao excluir anotação", "Failed to delete annotation"));
     }
   };
 
@@ -468,7 +480,7 @@ export default function CalendarPage() {
         body: JSON.stringify({ type, label, url, slides }),
       });
 
-      if (!response.ok) throw new Error("Erro ao adicionar material");
+      if (!response.ok) throw new Error(tr("Erro ao adicionar material", "Failed to add creative"));
 
       const data = await response.json();
       setPosts((prev) =>
@@ -480,7 +492,7 @@ export default function CalendarPage() {
       );
     } catch (err) {
       console.error("Error adding attachment:", err);
-      alert("Erro ao adicionar material");
+      alert(tr("Erro ao adicionar material", "Failed to add creative"));
     }
   };
 
@@ -496,7 +508,7 @@ export default function CalendarPage() {
         body: JSON.stringify({ url, slides }),
       });
 
-      if (!response.ok) throw new Error("Erro ao adicionar versão");
+      if (!response.ok) throw new Error(tr("Erro ao adicionar versão", "Failed to add version"));
 
       const data = await response.json();
       setPosts((prev) =>
@@ -511,7 +523,7 @@ export default function CalendarPage() {
       );
     } catch (err) {
       console.error("Error adding version:", err);
-      alert("Erro ao adicionar versão");
+      alert(tr("Erro ao adicionar versão", "Failed to add version"));
     }
   };
 
@@ -641,11 +653,19 @@ export default function CalendarPage() {
       <div className="h-screen w-screen flex items-center justify-center p-6">
         <div className="max-w-md text-center space-y-4">
           <h1 className="text-2xl font-bold tracking-tight">
-            {unavailable ? "Este espaço está temporariamente indisponível." : "Erro"}
+            {unavailable
+              ? tr(
+                  "Este espaço está temporariamente indisponível.",
+                  "This workspace is temporarily unavailable."
+                )
+              : tr("Erro", "Error")}
           </h1>
           <p className="text-muted-foreground">
             {unavailable
-              ? "Entre em contato com a equipe responsável pelo conteúdo."
+              ? tr(
+                  "Entre em contato com a equipe responsável pelo conteúdo.",
+                  "Please contact the team responsible for this content."
+                )
               : error}
           </p>
         </div>
@@ -681,7 +701,7 @@ export default function CalendarPage() {
             style={{ left: "24px", top: "75px" }}
             data-action="prev-slide"
             id="nav-arrow-prev"
-            title="Dia anterior"
+            title={tr("Dia anterior", "Previous day")}
             onClick={() => navigateDays("prev")}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -695,7 +715,7 @@ export default function CalendarPage() {
             style={{ right: "24px", top: "75px" }}
             data-action="next-slide"
             id="nav-arrow-next"
-            title="Próximo dia"
+            title={tr("Próximo dia", "Next day")}
             onClick={() => navigateDays("next")}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -765,11 +785,21 @@ export default function CalendarPage() {
             onSelectDay={selectDay}
             currentMonth={currentMonth}
             isAdmin={isAdmin}
-            title={isAdmin ? "Escolha uma data" : "Nenhuma publicação ainda"}
+            title={
+              isAdmin
+                ? tr("Escolha uma data", "Pick a date")
+                : tr("Nenhuma publicação ainda", "No posts yet")
+            }
             subtitle={
               isAdmin
-                ? "Clique em um dia para abrir o calendário. Você cria a publicação quando quiser com “+ Novo post”."
-                : "Este calendário ainda não possui publicações para revisar."
+                ? tr(
+                    "Clique em um dia para abrir o calendário. Você cria a publicação quando quiser com “+ Novo post”.",
+                    "Click a day to open the calendar. Create a post whenever you like with “+ New post”."
+                  )
+                : tr(
+                    "Este calendário ainda não possui publicações para revisar.",
+                    "This calendar doesn't have any posts to review yet."
+                  )
             }
           />
         </div>

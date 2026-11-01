@@ -1,0 +1,72 @@
+[
+  {
+    "id": "07-pdf-raster",
+    "extractionMs": 0.5318750000000136,
+    "documentBytes": 105035,
+    "mediaFiles": 0,
+    "expectedPosts": 12,
+    "actualAiPosts": null,
+    "created": 0,
+    "ai": "NOT RUN",
+    "blocks": [
+      "document"
+    ],
+    "note": "PDF repassado como documento; OCR não foi executado"
+  },
+  {
+    "id": "08-manifesto",
+    "extractionMs": 0.8287500000000136,
+    "documentBytes": 2736,
+    "mediaFiles": 8,
+    "expectedPosts": 4,
+    "actualAiPosts": null,
+    "created": 0,
+    "ai": "NOT RUN",
+    "blocks": [
+      "document"
+    ],
+    "note": "Extração local; semântica ainda não validada"
+  },
+  {
+    "id": "08-sem-manifesto",
+    "extractionMs": 0.6723329999999805,
+    "documentBytes": 179,
+    "mediaFiles": 8,
+    "expectedPosts": null,
+    "actualAiPosts": null,
+    "created": 0,
+    "ai": "NOT RUN",
+    "blocks": [
+      "document"
+    ],
+    "note": "Extração local; semântica ainda não validada"
+  },
+  {
+    "id": "09-csv-120",
+    "extractionMs": 0.5994580000000269,
+    "documentBytes": 12766,
+    "mediaFiles": 0,
+    "expectedPosts": 110,
+    "actualAiPosts": null,
+    "created": 0,
+    "ai": "NOT RUN",
+    "blocks": [
+      "document"
+    ],
+    "note": "Extração local; semântica ainda não validada"
+  },
+  {
+    "id": "10-xlsx-30",
+    "extractionMs": 17.293166999999983,
+    "documentBytes": 7278,
+    "mediaFiles": 0,
+    "expectedPosts": 30,
+    "actualAiPosts": null,
+    "created": 0,
+    "ai": "NOT RUN",
+    "blocks": [
+      "document"
+    ],
+    "note": "30 títulos e horários preservados; ignorar abas é tarefa semântica ainda não validada"
+  }
+]

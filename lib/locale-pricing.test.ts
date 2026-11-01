@@ -21,6 +21,18 @@ describe("BRL checkout locale", () => {
   });
 });
 
+describe("chosen language", () => {
+  it("wins over country and browser language", () => {
+    expect(localeFromRequest({ override: "en", country: "BR", acceptLanguage: "pt-BR" })).toBe("en");
+    expect(localeFromRequest({ override: "pt", country: "US", acceptLanguage: "en-US" })).toBe("pt-BR");
+  });
+
+  it("ignores values it does not know", () => {
+    expect(localeFromRequest({ override: "fr", country: "BR" })).toBe("pt-BR");
+    expect(localeFromRequest({ override: "", country: "US" })).toBe("en");
+  });
+});
+
 describe("marketing locale URLs", () => {
   it("locks / to Portuguese and /en to English", () => {
     expect(marketingLocaleFromPath("/")).toBe("pt-BR");

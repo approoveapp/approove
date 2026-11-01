@@ -4,17 +4,28 @@ import { canManageWorkspace, getUserOrganization } from "@/lib/auth";
 import { ensureProductAccess } from "@/lib/stripe-sync";
 import {
   WORKSPACE_UNAVAILABLE_CODE,
-  WORKSPACE_UNAVAILABLE_MESSAGE,
+  workspaceUnavailableMessage,
 } from "@/lib/workspace-unavailable";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 
 export type ClientInviteRole = "viewer" | "reviewer" | "approver";
 
-function workspaceUnavailable() {
+async function workspaceUnavailable() {
   return {
     ok: false as const,
-    error: WORKSPACE_UNAVAILABLE_MESSAGE,
+    error: workspaceUnavailableMessage(await getRequestLocale()),
     status: 403,
     code: WORKSPACE_UNAVAILABLE_CODE,
+  };
+}
+
+/** Falha de acesso com a mensagem no idioma da requisição (só roda dentro de uma rota). */
+async function denied(status: number, portuguese: string, english: string) {
+  return {
+    ok: false as const,
+    error: localizedText(await getRequestLocale(), portuguese, english),
+    status,
   };
 }
 
@@ -98,7 +109,7 @@ export async function authorizeCalendarView(
 
       if (version) {
         if (!(await ensureProductAccess(membership.organization))) {
-          return workspaceUnavailable();
+          return await workspaceUnavailable();
         }
         return {
           ok: true,
@@ -112,7 +123,7 @@ export async function authorizeCalendarView(
   }
 
   if (!token) {
-    return { ok: false, error: "Token necessário", status: 401 };
+    return await denied(401, "Token necessário", "Token required.");
   }
 
   const result = await validateShareToken(token, { clientSlug, versionId });
@@ -157,43 +168,47 @@ export async function validateShareToken(
   });
 
   if (!shareToken || shareToken.revokedAt) {
-    return { ok: false, error: "Token inválido", status: 401 };
+    return await denied(401, "Token inválido", "Invalid token.");
   }
 
   // Link de revisor sem convite (revisor removido) nunca vira link anônimo de aprovador.
   if (shareToken.kind !== "agency" && !shareToken.invite) {
-    return { ok: false, error: "Token inválido", status: 401 };
+    return await denied(401, "Token inválido", "Invalid token.");
   }
 
   const expiresAt = shareToken.invite?.expiresAt ?? shareToken.expiresAt;
   if (expiresAt && expiresAt < new Date()) {
-    return { ok: false, error: "Token expirado", status: 401 };
+    return await denied(401, "Token expirado", "This link has expired.");
   }
 
   if (shareToken.invite?.status === "revoked") {
-    return { ok: false, error: "Convite revogado", status: 401 };
+    return await denied(401, "Convite revogado", "This invite has been revoked.");
   }
 
   const { calendarVersion } = shareToken;
   const client = calendarVersion.client;
 
   if (!(await ensureProductAccess(client.organization))) {
-    return workspaceUnavailable();
+    return await workspaceUnavailable();
   }
 
   if (options?.clientSlug && client.slug !== options.clientSlug) {
-    return { ok: false, error: "Token não corresponde ao cliente", status: 403 };
+    return await denied(403, "Token não corresponde ao cliente", "This link doesn't match this client.");
   }
 
   if (options?.versionId && calendarVersion.version !== options.versionId) {
-    return { ok: false, error: "Token não corresponde à versão", status: 403 };
+    return await denied(403, "Token não corresponde à versão", "This link doesn't match this version.");
   }
 
   if (shareToken.invite) {
     const { reviewer } = shareToken.invite;
     const linkedToClient = reviewer.clientLinks.some((link) => link.clientId === client.id);
     if (!linkedToClient) {
-      return { ok: false, error: "Reviewer not assigned to this client", status: 403 };
+      return await denied(
+        403,
+        "Revisor não vinculado a este cliente",
+        "Reviewer not assigned to this client"
+      );
     }
 
     const role = shareToken.invite.role as ClientInviteRole;
@@ -283,7 +298,7 @@ export async function authorizeShareOrSession(
 
       if (ownsCalendar) {
         if (!(await ensureProductAccess(membership.organization))) {
-          return workspaceUnavailable();
+          return await workspaceUnavailable();
         }
         return {
           ok: true,
@@ -296,7 +311,7 @@ export async function authorizeShareOrSession(
   }
 
   if (!token) {
-    return { ok: false, error: "Unauthorized", status: 401 };
+    return await denied(401, "Faça login para continuar", "Unauthorized");
   }
 
   const result = await validateShareToken(token);
@@ -305,7 +320,11 @@ export async function authorizeShareOrSession(
   }
 
   if (result.access.calendarVersionId !== calendarVersionId) {
-    return { ok: false, error: "Token não corresponde ao calendário", status: 403 };
+    return await denied(
+      403,
+      "Token não corresponde ao calendário",
+      "This link doesn't match this calendar."
+    );
   }
 
   await touchInviteAccess(result.access.shareTokenId);

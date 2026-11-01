@@ -1,0 +1,44 @@
+{
+  "jobs": [
+    {
+      "id": "cmvkxakl10001zg1v1y83e4tk",
+      "status": "committed",
+      "postsCreated": 4,
+      "model": "claude-haiku-5-5",
+      "inputTokens": 13917,
+      "outputTokens": 882
+    }
+  ],
+  "mediaCount": 5,
+  "allMediaLocal": true,
+  "posts": [
+    {
+      "title": "Persistência ordem alterada QA 1792757092331",
+      "copyText": "Legenda 07.\nConheça a Oficina Aurora. #Aurora",
+      "scheduledAt": "2026-11-07T12:30:00+00:00",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Oficina Aurora | Pauta 10",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "scheduledAt": "2026-11-10T12:30:00+00:00",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Oficina Aurora | Pauta 10 no Facebook",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "scheduledAt": "2026-11-12T12:30:00+00:00",
+      "status": "pending",
+      "productionStage": "internal_review"
+    },
+    {
+      "title": "Oficina Aurora | Pauta 14",
+      "copyText": "Legenda 14.\nConheça a Oficina Aurora. #Aurora",
+      "scheduledAt": "2026-11-14T12:30:00+00:00",
+      "status": "pending",
+      "productionStage": "internal_review"
+    }
+  ]
+}

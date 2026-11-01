@@ -45,3 +45,9 @@ next-env.d.ts
 
 # Claude Code (permissões pessoais)
 .claude/settings.local.json
+
+# mídia gravada sem Vercel Blob em dev/teste (lib/media-storage.ts)
+/public/dev-uploads
+
+# Private local import uploads (never served from public/)
+.import-media/

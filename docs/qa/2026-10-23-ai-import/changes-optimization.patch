@@ -1,0 +1,233 @@
+--- a/lib/import/claude.ts
++++ b/lib/import/claude.ts
+@@ -3,11 +3,10 @@
+ import { readDevMedia } from "@/lib/media-storage";
+ import { importProposalSchema, IMPORT_CHANNELS, type ImportMedia, type ImportProposal } from "./proposal";
+ import { toContentBlocks, type PreparedImportFile } from "./files";
+-
+-export const IMPORT_MODEL = "claude-opus-5-5";
++import { configuredImportModel } from "./model";
+ 
+ export function isImportAiConfigured() {
+-  return Boolean(process.env.ANTHROPIC_API_KEY);
++  return Boolean(process.env.ANTHROPIC_API_KEY && configuredImportModel(process.env.ANTHROPIC_IMPORT_MODEL));
+ }
+ 
+ export type ImportAiUsage = { model: string; inputTokens: number; outputTokens: number };
+@@ -39,11 +38,14 @@
+   hashtags. Nunca escreva, complete, resuma ou melhore legendas. Se a pauta remete a
+   outro arquivo ("ver briefing"), busque o texto lá. Sem legenda nos arquivos, deixe
+   copyText vazio.
+-- Título: use o tema ou título do documento.
++- Título: preserve literalmente o título ou cabeçalho explícito de cada publicação.
++  Só use o tema quando não existir título; não substitua um título por texto da legenda.
+ - Mídias: os arquivos de mídia enviados (imagens e vídeos) são candidatos a arte dos
+   posts. Associe cada um ao post certo em media, usando o nome exato do arquivo. Use o
+   nome do arquivo, referências nos documentos e, nas imagens, o conteúdo visual. Vídeos
+-  só podem ser identificados pelo nome e pelas referências. Carrossel: liste os slides
++  só podem ser identificados pelo nome e pelas referências. Todos os arquivos da lista
++  de mídias foram recebidos pelo sistema. Vídeos não têm bloco visual: isso não indica
++  arquivo ausente e não é motivo para pedir reenvio. Carrossel: liste os slides
+   na ordem (pela numeração do nome, quando houver). Não use o mesmo arquivo em dois
+   posts, a menos que o documento diga. Imagens que são material de referência (prints,
+   logos, moodboards) não entram em media. Se a associação for incerta, deixe de fora e
+@@ -100,15 +102,15 @@
+   files: PreparedImportFile[];
+   media: ImportMedia[];
+ }): Promise<ImportAiResult> {
+-  const client = new Anthropic();
++  const model = configuredImportModel(process.env.ANTHROPIC_IMPORT_MODEL);
++  if (!model) throw new ImportAiError("A configuração da importação está indisponível. Contate o administrador.");
++  // Explicit user retry only: no hidden retry or switch to a more expensive model.
++  const client = new Anthropic({ maxRetries: 0 });
+ 
+   // Streaming: uma proposta grande passa de 10 min sem stream e o SDK recusa.
+   const stream = client.beta.messages.stream({
+-    model: IMPORT_MODEL,
++    model,
+     max_tokens: 64000,
+-    betas: ["server-side-fallback-2026-07-01"],
+-    // Se o modelo recusar por política, a API reenvia ao modelo de fallback padrão.
+-    fallbacks: "default",
+     output_config: { effort: "medium", format: betaZodOutputFormat(importProposalSchema) },
+     system: SYSTEM_PROMPT,
+     messages: [
+--- a/scripts/qa/import-benchmark.ts
++++ b/scripts/qa/import-benchmark.ts
+@@ -1,6 +1,7 @@
+ /** Explicit paid QA only. Synthetic fixtures, serial calls, no DB/storage, $8 admission ceiling. */
+ import fs from 'node:fs';
+ import path from 'node:path';
++import {createHash} from 'node:crypto';
+ import Anthropic from '@anthropic-ai/sdk';
+ import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod';
+ import { prepareImportFile, toContentBlocks } from '../../lib/import/files';
+@@ -29,9 +30,14 @@
+ if(!prompt) throw new Error('Cannot locate production prompt');
+ const save=()=>fs.writeFileSync(ledgerFile,JSON.stringify(ledger,null,2));
+ async function main(){
+-  const cases=fs.readdirSync(path.join(ROOT,'fixtures')).filter(n=>/^0[1-6]-/.test(n));
+-  for(const caseId of cases){
+-    const dir=path.join(ROOT,'fixtures',caseId);
++  if(ledger.some(x=>x.status==='in_flight'||x.status==='error_or_uncertain'))throw new Error('Resolve existing uncertain reservation before more paid calls');
++  const hard=process.env.QA_SUITE==='hard';
++  const fixtures=path.join(ROOT,'fixtures',hard?'supplement':'');
++  const clarity=process.env.QA_PROMPT_REVISION==='clarity';
++  const cases=fs.readdirSync(fixtures).filter(n=>hard?/^(07|08|09|10|11)-/.test(n):/^0[1-6]-/.test(n)).filter(n=>!clarity||['07-pdf-raster','08-sem-manifesto','11-instrucao'].includes(n));
++  for(const fixtureId of cases){
++    const caseId=(clarity?'clarity--':hard?'hard--':'')+fixtureId;
++    const dir=path.join(fixtures,fixtureId);
+     const gold=JSON.parse(fs.readFileSync(path.join(dir,'expected.json'),'utf8'));
+     const start=performance.now();
+     const files=await Promise.all(gold.documents.map(async (n:string)=>prepareImportFile(n,new Uint8Array(fs.readFileSync(path.join(dir,n))))));
+@@ -42,8 +48,8 @@
+       blocks.push({type:'text',text:`Mídia: ${name}`},{type:'image',source:{type:'base64',media_type:'image/png',data:fs.readFileSync(path.join(dir,name)).toString('base64')}});
+     }
+     blocks.push({type:'text',text:`Cliente: ${gold.client}\nData de referência (hoje): ${gold.referenceDate}\nCanais permitidos: ${IMPORT_CHANNELS.join(', ')}\n\nArquivos de mídia enviados:\n${gold.media.map((n:string)=>`- ${n} (${n.endsWith('.mp4')?'vídeo':'imagem'})`).join('\n')||'(nenhuma)'}\n\nMigre o calendário a partir dos arquivos acima.`});
+-    const max_tokens=caseId==='06-limite'?64000:Math.max(6000,gold.expectedPosts*500+2000);
+-    for(const model of Object.keys(prices)){
++    const max_tokens=caseId==='06-limite'?64000:Math.max(6000,(gold.expectedPosts??0)*500+2000);
++    for(const model of (hard?['claude-haiku-5-5','claude-sonnet-5-5']:Object.keys(prices))){
+       if(ledger.some(x=>x.caseId===caseId&&x.requestedModel===model))continue;
+       const count=await api.messages.countTokens({model,system:prompt!,messages:[{role:'user',content:blocks}]});
+       const rate=model==='claude-haiku-5-5'&&count.input_tokens>100000?[.5,2.5]:prices[model];
+@@ -51,7 +57,7 @@
+       const reservedUSD=((count.input_tokens+5000)*rate[0]+max_tokens*rate[1])/1e6;
+       const spent=ledger.reduce((s,x)=>s+(x.costUSD??x.reservedUSD),0);
+       if(spent+reservedUSD>8){console.log('Budget admission refused',caseId,model);return;}
+-      const row:any={caseId,requestedModel:model,countedInputTokens:count.input_tokens,maxOutputTokens:max_tokens,reservedUSD,extractionMs,status:'in_flight',startedAt:new Date().toISOString(),schemaCache:'uncontrolled; first invocation may compile schema'};
++      const row:any={caseId,requestedModel:model,countedInputTokens:count.input_tokens,maxOutputTokens:max_tokens,reservedUSD,extractionMs,status:'in_flight',startedAt:new Date().toISOString(),schemaCache:'uncontrolled; first invocation may compile schema',promptSha256:createHash('sha256').update(prompt!).digest('hex'),inputSha256:createHash('sha256').update(JSON.stringify(blocks)).digest('hex')};
+       ledger.push(row);save();
+       console.log('Start',caseId,model,'reserved',reservedUSD.toFixed(4),'cumulative',spent.toFixed(4));
+       const t=performance.now();
+@@ -65,7 +71,7 @@
+           fs.writeFileSync(path.join(output,`${caseId}-${model}.json`),JSON.stringify(proposal,null,2));
+           let exactCopy=0,exactSchedule=0,exactChannel=0,exactMedia=0,correct=0;
+           const differences:any[]=[];
+-          for(const expected of gold.proposal.posts){
++          for(const expected of gold.proposal?.posts??[]){
+             const found=proposal.posts.find((p:any)=>p.title===expected.title&&p.channel===expected.channel);
+             if(!found){differences.push({title:expected.title,issue:'missing or renamed'});continue;}
+             const copy=found.copyText===expected.copyText;
+--- a/scripts/qa/import-offline-env.ts
++++ b/scripts/qa/import-offline-env.ts
+@@ -3,6 +3,7 @@
+  */
+ export const OFFLINE_IMPORT_ENV = {
+   ANTHROPIC_API_KEY: "",
++  ANTHROPIC_IMPORT_MODEL: "",
+   ANTHROPIC_AUTH_TOKEN: "",
+   ANTHROPIC_BASE_URL: "",
+   BLOB_READ_WRITE_TOKEN: "",
+--- a/lib/import/model.ts
++++ b/lib/import/model.ts
+@@ -0,0 +1,13 @@
++/** Explicit server-side choice. Never silently upgrade to a costlier model. */
++export const IMPORT_MODELS = [
++  "claude-opus-5-5",
++  "claude-sonnet-5-5",
++  "claude-haiku-5-5",
++] as const;
++export type ImportModel = (typeof IMPORT_MODELS)[number];
++export const DEFAULT_IMPORT_MODEL: ImportModel = "claude-haiku-5-5";
++
++export function configuredImportModel(value: string | undefined): ImportModel | null {
++  const model = value?.trim() || DEFAULT_IMPORT_MODEL;
++  return IMPORT_MODELS.includes(model as ImportModel) ? model as ImportModel : null;
++}
+--- a/lib/import/claude.test.ts
++++ b/lib/import/claude.test.ts
+@@ -0,0 +1,56 @@
++import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
++const mocks = vi.hoisted(() => ({ construct: vi.fn(), stream: vi.fn(), finalMessage: vi.fn() }));
++vi.mock("@anthropic-ai/sdk", () => ({ default: class {
++  constructor(options: unknown) { mocks.construct(options); }
++  beta = { messages: { stream: mocks.stream } };
++} }));
++vi.mock("@/lib/media-storage", () => ({ readDevMedia: vi.fn() }));
++import { isImportAiConfigured, proposeCalendar, ImportAiError } from "./claude";
++import { configuredImportModel } from "./model";
++
++const input = { clientName: "Fixture", today: "2026-10-23", files: [], media: [] };
++beforeEach(() => {
++  vi.clearAllMocks();
++  vi.stubEnv("ANTHROPIC_API_KEY", "qa-not-a-real-key");
++  vi.stubEnv("ANTHROPIC_IMPORT_MODEL", "");
++  mocks.stream.mockReturnValue({ finalMessage: mocks.finalMessage });
++  mocks.finalMessage.mockResolvedValue({ model: "claude-haiku-5-5", stop_reason: "end_turn",
++    parsed_output: { summary: "Fixture", posts: [], warnings: [] },
++    usage: { input_tokens: 100, output_tokens: 25, cache_creation_input_tokens: 10, cache_read_input_tokens: 5 } });
++});
++afterEach(() => vi.unstubAllEnvs());
++describe("explicit import model and paid failure behavior", () => {
++  it("defaults to the economical model and accepts only measured model choices", () => {
++    expect(configuredImportModel(undefined)).toBe("claude-haiku-5-5");
++    expect(configuredImportModel(" claude-haiku-5-5 ")).toBe("claude-haiku-5-5");
++    expect(configuredImportModel("claude-sonnet-5-5")).toBe("claude-sonnet-5-5");
++    expect(configuredImportModel("unknown-model")).toBeNull();
++  });
++  it("uses the explicit economical model without fallback or hidden retries", async () => {
++    vi.stubEnv("ANTHROPIC_IMPORT_MODEL", "claude-haiku-5-5");
++    const result = await proposeCalendar(input);
++    expect(mocks.construct).toHaveBeenCalledWith({ maxRetries: 0 });
++    const request = mocks.stream.mock.calls[0][0];
++    expect(request.model).toBe("claude-haiku-5-5");
++    expect(request).not.toHaveProperty("fallbacks");
++    expect(request).not.toHaveProperty("betas");
++    expect(result).toMatchObject({ model: "claude-haiku-5-5", inputTokens: 115, outputTokens: 25 });
++  });
++  it("rejects unknown configuration before instantiating the paid client", async () => {
++    vi.stubEnv("ANTHROPIC_IMPORT_MODEL", "unknown-model");
++    expect(isImportAiConfigured()).toBe(false);
++    await expect(proposeCalendar(input)).rejects.toBeInstanceOf(ImportAiError);
++    expect(mocks.construct).not.toHaveBeenCalled();
++  });
++  it("preserves refusal usage and makes no second request", async () => {
++    mocks.finalMessage.mockResolvedValue({ model: "claude-haiku-5-5", stop_reason: "refusal", parsed_output: null,
++      usage: { input_tokens: 40, output_tokens: 5 } });
++    await expect(proposeCalendar(input)).rejects.toMatchObject({ usage: { inputTokens: 40, outputTokens: 5 } });
++    expect(mocks.stream).toHaveBeenCalledTimes(1);
++  });
++  it("does not fall back after a transport failure", async () => {
++    mocks.finalMessage.mockRejectedValue(new Error("synthetic timeout"));
++    await expect(proposeCalendar(input)).rejects.toThrow("synthetic timeout");
++    expect(mocks.stream).toHaveBeenCalledTimes(1);
++  });
++});
+--- a/scripts/qa/import-score-results.mjs
++++ b/scripts/qa/import-score-results.mjs
+@@ -0,0 +1,34 @@
++// Rescore saved provider outputs only; no network, credentials, or changes to the ledger.
++import fs from 'node:fs';
++import path from 'node:path';
++const root=path.resolve('docs/qa/2026-10-23-ai-import');
++const ledger=JSON.parse(fs.readFileSync(path.join(root,'benchmark/ledger.json'),'utf8'));
++const results=[];
++for(const row of ledger.filter(r=>r.status==='complete'&&(/^0[1-6]-/.test(r.caseId)||/^(hard|clarity)--/.test(r.caseId)))){
++ const fixture=/^(hard|clarity)--/.test(row.caseId)?path.join('supplement',row.caseId.replace(/^(hard|clarity)--/,'')):row.caseId;
++ const gold=JSON.parse(fs.readFileSync(path.join(root,'fixtures',fixture,'expected.json'),'utf8'));
++ const actual=JSON.parse(fs.readFileSync(path.join(root,'benchmark',`${row.caseId}-${row.requestedModel}.json`),'utf8'));
++ const available=new Set(actual.posts.map((_,i)=>i));const differences=[];
++ const count={copy:0,date:0,time:0,dateIsSuggested:0,channel:0,format:0,mediaOrder:0,titleLiteral:0,titleWithoutDocumentBrand:0,coreCorrect:0};
++ let matched=0,unmatchedExpected=0;
++ for(const exp of gold.proposal?.posts??[]){
++  let index=[...available].find(i=>actual.posts[i].title===exp.title&&actual.posts[i].channel===exp.channel);
++  if(index===undefined){
++   const sameSlot=[...available].filter(i=>actual.posts[i].date===exp.date&&actual.posts[i].channel===exp.channel);
++   if(sameSlot.length===1)index=sameSlot[0];
++  }
++  if(index===undefined){unmatchedExpected++;differences.push({title:exp.title,issue:'unmatched; inspect before classifying missing'});continue;}
++  matched++;available.delete(index);const got=actual.posts[index];
++  const fields={copy:got.copyText===exp.copyText,date:got.date===exp.date,time:got.time===exp.time,dateIsSuggested:got.dateIsSuggested===exp.dateIsSuggested,
++   channel:got.channel===exp.channel,format:got.format===exp.format,mediaOrder:JSON.stringify(got.media)===JSON.stringify(exp.media),
++   titleLiteral:got.title===exp.title,titleWithoutDocumentBrand:got.title.replace(/^Oficina Aurora\s*\|\s*/,'')===exp.title};
++  for(const [k,v] of Object.entries(fields))if(v)count[k]++;
++  if(['copy','date','time','dateIsSuggested','channel','format','mediaOrder'].every(k=>fields[k]))count.coreCorrect++;
++  if(Object.values(fields).some(v=>!v))differences.push({title:exp.title,actualTitle:got.title,fields});
++ }
++ results.push({caseId:row.caseId,model:row.requestedModel,expected:gold.expectedPosts,found:actual.posts.length,matched,unmatchedExpected:gold.proposal?unmatchedExpected:null,unmatchedActual:gold.proposal?available.size:null,
++  counts:count,differences,latencyMs:row.latencyMs,costUSD:row.costUSD,costPerCoreCorrect:count.coreCorrect?row.costUSD/count.coreCorrect:null,
++  usage:row.usage,warnings:actual.warnings,semanticReview:gold.proposal?'See manual audit for warnings, timezone and text-only':'No fixed post count gold; manually assess invented content and grouping assumptions'});
++}
++fs.writeFileSync(path.join(root,'benchmark/scored-results.json'),JSON.stringify({method:'One-to-one title+channel; fallback only for unique date+channel. Core includes literal copy, date, time, suggested flag, channel, format and ordered media. Titles separately scored, brand-prefix normalization explicit. No model output used as truth.',results},null,2));
++console.log('Scored',results.length,'saved responses. No API calls.');

@@ -1,0 +1,89 @@
+{
+  "results": [
+    {
+      "caseId": "01-texto",
+      "expected": 3,
+      "created": 3,
+      "uploadAndStartMs": 55.28795899999932,
+      "offlineProcessingAndPollMs": 4354.547208,
+      "automatedReviewMs": 570.5204169999997,
+      "commitMs": 1845.9188749999994,
+      "edited": true,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 6854.994167000001,
+      "ai": "MOCK - no inference/tokens"
+    },
+    {
+      "caseId": "02-planilha",
+      "expected": 24,
+      "created": 24,
+      "uploadAndStartMs": 263.7440000000024,
+      "offlineProcessingAndPollMs": 3349.052499999998,
+      "automatedReviewMs": 114.88950000000114,
+      "commitMs": 307.4031250000007,
+      "edited": false,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 4058.218582999998,
+      "ai": "MOCK - no inference/tokens"
+    },
+    {
+      "caseId": "03-apresentacao",
+      "expected": 4,
+      "created": 4,
+      "uploadAndStartMs": 1508.3996249999982,
+      "offlineProcessingAndPollMs": 3359.102833000001,
+      "automatedReviewMs": 203.51583299999766,
+      "commitMs": 226.30737500000032,
+      "edited": true,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 5320.5459999999985,
+      "ai": "MOCK - no inference/tokens"
+    },
+    {
+      "caseId": "04-csv-ambiguo",
+      "expected": 6,
+      "created": 6,
+      "uploadAndStartMs": 221.484583999998,
+      "offlineProcessingAndPollMs": 3354.5645829999994,
+      "automatedReviewMs": 91.79979200000162,
+      "commitMs": 251.46704099999988,
+      "edited": false,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 3941.596625000002,
+      "ai": "MOCK - no inference/tokens"
+    },
+    {
+      "caseId": "05-misto",
+      "expected": 8,
+      "created": 8,
+      "uploadAndStartMs": 992.4387499999975,
+      "offlineProcessingAndPollMs": 2851.1664999999994,
+      "automatedReviewMs": 104.221166000003,
+      "commitMs": 312.5279589999991,
+      "edited": false,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 4305.581708999998,
+      "ai": "MOCK - no inference/tokens"
+    },
+    {
+      "caseId": "06-limite",
+      "expected": 200,
+      "created": 200,
+      "uploadAndStartMs": 883.414125000003,
+      "offlineProcessingAndPollMs": 3221.3205000000016,
+      "automatedReviewMs": 321.2448749999967,
+      "commitMs": 346.0943750000006,
+      "edited": false,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 4806.7172500000015,
+      "ai": "MOCK - no inference/tokens"
+    }
+  ],
+  "errors": []
+}

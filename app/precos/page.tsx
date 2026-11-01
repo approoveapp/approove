@@ -3,6 +3,8 @@ import { MarketingPageIntro } from "@/components/landing/page-intro";
 import { LandingPricing } from "@/components/landing/pricing";
 import { MarketingShell } from "@/components/landing/shell";
 import { getAppBaseUrl } from "@/lib/app-url";
+import { getFoundingOffer } from "@/lib/founding-offer";
+import { importFeatureEnabled } from "@/lib/import/feature";
 import { marketingPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
@@ -20,16 +22,19 @@ export function generateMetadata() {
   });
 }
 
-export default function PrecosPage() {
+export default async function PrecosPage() {
+  const aiImport = importFeatureEnabled();
+  const foundingOffer = await getFoundingOffer();
+
   return (
-    <MarketingShell locale="pt-BR" page="pricing">
-      <LandingJsonLd locale="pt-BR" includeFaq={false} />
+    <MarketingShell locale="pt-BR" page="pricing" aiImport={aiImport}>
+      <LandingJsonLd locale="pt-BR" aiImport={aiImport} includeFaq={false} />
       <MarketingPageIntro
         eyebrow="Preços"
         title="Planos da aprovação de conteúdo para agências"
         description="15 dias grátis, sem cartão. Os limites crescem com a carteira de clientes, usuários da agência e revisores. Publicações são ilimitadas em todos os planos."
       />
-      <LandingPricing locale="pt-BR" showHeader={false} />
+      <LandingPricing locale="pt-BR" showHeader={false} aiImport={aiImport} foundingOffer={foundingOffer} />
     </MarketingShell>
   );
 }

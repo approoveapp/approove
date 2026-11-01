@@ -1,0 +1,156 @@
+{
+  "summary": "Foram encontrados 12 cards de publicação para novembro de 2026 da Oficina Aurora, com datas, horários e legendas em sua maioria completos. Os cards 01 a 07 e 09 a 12 são para Instagram (feed), e o card 08 é para LinkedIn (feed) sem horário definido. Nenhum arquivo de mídia foi enviado, então as artes não foram associadas aos posts.",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 01",
+      "copyText": "Oficina Aurora. Ideia 01.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 1, Card 01"
+    },
+    {
+      "date": "2026-11-02",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 02",
+      "copyText": "Oficina Aurora. Ideia 02.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 1, Card 02"
+    },
+    {
+      "date": "2026-11-03",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 03",
+      "copyText": "Oficina Aurora. Ideia 03.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 2, Card 03"
+    },
+    {
+      "date": "2026-11-04",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 04",
+      "copyText": "Oficina Aurora. Ideia 04.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 2, Card 04"
+    },
+    {
+      "date": "2026-11-05",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 05",
+      "copyText": "Oficina Aurora. Ideia 05.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 3, Card 05"
+    },
+    {
+      "date": "2026-11-06",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 06",
+      "copyText": "Oficina Aurora. Ideia 06.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 3, Card 06"
+    },
+    {
+      "date": "2026-11-07",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 07",
+      "copyText": "Oficina Aurora. Ideia 07.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 4, Card 07"
+    },
+    {
+      "date": "2026-11-08",
+      "time": null,
+      "dateIsSuggested": false,
+      "channel": "LinkedIn",
+      "format": "feed",
+      "title": "Ideia 08",
+      "copyText": "Oficina Aurora. Ideia 08.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 4, Card 08"
+    },
+    {
+      "date": "2026-11-09",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 09",
+      "copyText": "Oficina Aurora. Ideia 09.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 5, Card 09"
+    },
+    {
+      "date": "2026-11-10",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 10",
+      "copyText": "Oficina Aurora. Ideia 10.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 5, Card 10"
+    },
+    {
+      "date": "2026-11-11",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 11",
+      "copyText": "",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 6, Card 11"
+    },
+    {
+      "date": "2026-11-12",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Ideia 12",
+      "copyText": "Oficina Aurora. Ideia 12.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 6, Card 12"
+    }
+  ],
+  "warnings": [
+    "Card 08 (LinkedIn, 08/11) não tem horário no documento; confirmar o horário de publicação antes de aprovar.",
+    "Card 11 (Instagram, 11/11) não tem legenda final, só a indicação de que a ideia não tem texto; a legenda precisa ser escrita pelo time antes da aprovação.",
+    "As artes aparecem apenas como placeholders 'ARTE FICTICIA' dentro do PDF e nenhum arquivo de imagem foi enviado; por isso nenhum post recebeu mídia. As artes precisam ser enviadas para associação.",
+    "O PDF está parcialmente rasterizado: as páginas 1 a 3 e 5 a 6 têm texto pesquisável, mas a página 4 (cards 07 e 08) é imagem. Os dados dessa página foram lidos visualmente, então vale conferir data, horário e legenda dos cards 07 e 08.",
+    "Os cards 01 a 12 são todos de novembro de 2026, com datas explícitas no documento; nenhuma data foi deduzida."
+  ]
+}

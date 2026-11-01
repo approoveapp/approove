@@ -1,4 +1,7 @@
+import { assertImportMediaOrganization } from "@/lib/import/media-write-access";
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { apiErrorResponse } from "@/lib/api-error";
@@ -21,6 +24,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ postId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { user, organization } = await requireActiveOrganization();
     const { postId } = await params;
@@ -28,20 +32,36 @@ export async function POST(
 
     const post = await getPostForOrganization(postId, organization.id);
     if (!post) {
-      return NextResponse.json({ error: "Publicação não encontrada" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Publicação não encontrada", "Post not found.") },
+        { status: 404 }
+      );
     }
 
     const slideItems = normalizeSlides(url, urls, slides);
+    assertImportMediaOrganization(slideItems.map(slide => slide.url), organization.id);
     if (!type || slideItems.length === 0) {
       return NextResponse.json(
-        { error: "Type e ao menos uma imagem (url ou urls) são obrigatórios" },
+        {
+          error: localizedText(
+            locale,
+            "Type e ao menos uma imagem (url ou urls) são obrigatórios",
+            "type and at least one image (url or urls) are required."
+          ),
+        },
         { status: 400 }
       );
     }
 
     if (type === "carousel" && slideItems.length < 2) {
       return NextResponse.json(
-        { error: "Carrossel exige ao menos 2 imagens" },
+        {
+          error: localizedText(
+            locale,
+            "Carrossel exige ao menos 2 imagens",
+            "A carousel needs at least 2 images."
+          ),
+        },
         { status: 400 }
       );
     }
@@ -80,7 +100,7 @@ export async function POST(
 
     return NextResponse.json({ attachment });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error creating attachment:", error);
     return NextResponse.json(
@@ -94,6 +114,7 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ postId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { user, organization } = await requireActiveOrganization();
     const { postId } = await params;
@@ -108,14 +129,20 @@ export async function DELETE(
 
     const post = await getPostForOrganization(postId, organization.id);
     if (!post) {
-      return NextResponse.json({ error: "Publicação não encontrada" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Publicação não encontrada", "Post not found.") },
+        { status: 404 }
+      );
     }
 
     const attachment = await prisma.postAttachment.findFirst({
       where: { id: attachmentId, postItemId: postId },
     });
     if (!attachment) {
-      return NextResponse.json({ error: "Material não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Material não encontrado", "Creative not found.") },
+        { status: 404 }
+      );
     }
 
     await invalidateApprovalIfNeeded({
@@ -130,7 +157,7 @@ export async function DELETE(
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error deleting attachment:", error);
     return NextResponse.json(

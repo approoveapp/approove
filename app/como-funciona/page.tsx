@@ -5,6 +5,7 @@ import { MarketingPageIntro } from "@/components/landing/page-intro";
 import { MarketingShell } from "@/components/landing/shell";
 import { LandingWorkflow } from "@/components/landing/workflow";
 import { getAppBaseUrl } from "@/lib/app-url";
+import { importFeatureEnabled } from "@/lib/import/feature";
 import { marketingPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
@@ -24,7 +25,7 @@ export function generateMetadata() {
 
 export default function ComoFuncionaPage() {
   return (
-    <MarketingShell locale="pt-BR" page="how">
+    <MarketingShell locale="pt-BR" page="how" aiImport={importFeatureEnabled()}>
       <HowToJsonLd locale="pt-BR" />
       <MarketingPageIntro
         eyebrow="Como funciona"

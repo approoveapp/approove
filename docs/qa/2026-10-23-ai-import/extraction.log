@@ -1,0 +1,89 @@
+(node:14552) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{
+  "rows": [
+    {
+      "case": "01-texto",
+      "documents": 1,
+      "media": 0,
+      "posts": 3,
+      "documentBytes": 650,
+      "textChars": 631,
+      "extractionMs": 0.38120900000001257,
+      "rssDeltaBytes": 7225344,
+      "rssBytes": 147685376,
+      "expectedCommitValid": true,
+      "excelTimePreserved": null
+    },
+    {
+      "case": "02-planilha",
+      "documents": 1,
+      "media": 0,
+      "posts": 24,
+      "documentBytes": 6287,
+      "textChars": 3640,
+      "extractionMs": 17.117917000000034,
+      "rssDeltaBytes": 4734976,
+      "rssBytes": 152502272,
+      "expectedCommitValid": true,
+      "excelTimePreserved": true
+    },
+    {
+      "case": "03-apresentacao",
+      "documents": 1,
+      "media": 5,
+      "posts": 4,
+      "documentBytes": 101064,
+      "textChars": 0,
+      "extractionMs": 0.2955840000000194,
+      "rssDeltaBytes": 393216,
+      "rssBytes": 152928256,
+      "expectedCommitValid": true,
+      "excelTimePreserved": null
+    },
+    {
+      "case": "04-csv-ambiguo",
+      "documents": 1,
+      "media": 0,
+      "posts": 6,
+      "documentBytes": 694,
+      "textChars": 757,
+      "extractionMs": 0.22129200000000537,
+      "rssDeltaBytes": 147456,
+      "rssBytes": 153075712,
+      "expectedCommitValid": true,
+      "excelTimePreserved": null
+    },
+    {
+      "case": "05-misto",
+      "documents": 2,
+      "media": 6,
+      "posts": 8,
+      "documentBytes": 37146,
+      "textChars": 1643,
+      "extractionMs": 37.36870800000003,
+      "rssDeltaBytes": 28360704,
+      "rssBytes": 181436416,
+      "expectedCommitValid": true,
+      "excelTimePreserved": null
+    },
+    {
+      "case": "06-limite",
+      "documents": 10,
+      "media": 30,
+      "posts": 200,
+      "documentBytes": 32440,
+      "textChars": 32030,
+      "extractionMs": 1.519125000000031,
+      "rssDeltaBytes": 6078464,
+      "rssBytes": 187514880,
+      "expectedCommitValid": true,
+      "excelTimePreserved": null
+    }
+  ],
+  "limits": {
+    "byteLimit": 4194304,
+    "textLimit": 300000,
+    "posts201Accepted": false
+  }
+}

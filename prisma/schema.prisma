@@ -99,6 +99,7 @@ model User {
   postsHandedOff PostItem[] @relation("PostHandedOffBy")
   passwordResetTokens PasswordResetToken[]
   statusEvents  PostStatusEvent[] @relation("StatusEventActorUser")
+  importJobs    ImportJob[]
 }
 
 model Organization {
@@ -113,12 +114,18 @@ model Organization {
   currentPeriodEnd     DateTime?
   trialUsedAt          DateTime?
   trialEndsAt          DateTime?
+  // Respostas do onboarding (dono da organização): quem é, quantos clientes, onde aprova hoje.
+  profileRole          String?   // freelancer | agency | in_house
+  profileClientRange   String?   // 1-2 | 3-5 | 6-15 | 16+
+  profileChannels      String?   // lista separada por vírgula: whatsapp,email,slack,drive,other
+  profileAnsweredAt    DateTime?
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt
 
   memberships Membership[]
   clients     Client[]
   reviewers   ClientReviewer[]
+  importJobs  ImportJob[]
 }
 
 model Membership {
@@ -154,6 +161,7 @@ model Client {
   organization Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   versions     CalendarVersion[]
   reviewerLinks ClientReviewerClient[]
+  importJobs   ImportJob[]
 
   @@index([organizationId])
 }
@@ -202,6 +210,7 @@ model CalendarVersion {
   posts  PostItem[]
   tokens ShareToken[]
   invites ClientInvite[]
+  importJobs ImportJob[]
 
   @@unique([clientId, version])
 }
@@ -380,4 +389,37 @@ model ClientInvite {
   @@index([reviewerId])
   @@index([calendarVersionId])
   @@index([status])
+}
+
+// Importação com IA: arquivos → proposta de publicações → revisão → criação dos posts.
+// Documentos não são guardados (só nome, tamanho e tipo em filesJson); as mídias vão para
+// o storage antes do job e ficam em mediaJson, para virarem material dos posts no commit.
+model ImportJob {
+  id                String    @id @default(cuid())
+  organizationId    String
+  clientId          String
+  calendarVersionId String
+  createdByUserId   String?
+  status            String    @default("processing") // processing, review, committing, committed, failed, discarded
+  filesJson         String // [{ name, size, kind }]
+  mediaJson         String    @default("[]") // [{ name, url, mediaType, mime }]
+  resultJson        String? // proposta validada (ImportProposal)
+  error             String?
+  model             String?
+  inputTokens       Int       @default(0)
+  outputTokens      Int       @default(0)
+  postsCreated      Int       @default(0)
+  committedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  organization    Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  client          Client          @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  calendarVersion CalendarVersion @relation(fields: [calendarVersionId], references: [id], onDelete: Cascade)
+  createdBy       User?           @relation(fields: [createdByUserId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+  @@index([clientId, status])
+  @@index([calendarVersionId])
+  @@index([createdByUserId])
 }

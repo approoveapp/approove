@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { canManageWorkspace, requireActiveOrganization } from "@/lib/auth";
 import { attachmentVersionInclude } from "@/lib/attachment-slides";
@@ -10,6 +12,7 @@ export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ clientSlug: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization, membership } = await requireActiveOrganization();
     const { clientSlug } = await params;
@@ -40,7 +43,10 @@ export async function GET(
     });
 
     if (!client) {
-      return NextResponse.json({ error: "Cliente não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Cliente não encontrado", "Client not found.") },
+        { status: 404 }
+      );
     }
 
     const canManage = canManageWorkspace(membership.role);
@@ -64,10 +70,13 @@ export async function GET(
       canManage,
     });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error fetching client:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }
 
@@ -75,6 +84,7 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ clientSlug: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization } = await requireActiveOrganization({ roles: ["owner", "admin"] });
     const { clientSlug } = await params;
@@ -84,7 +94,10 @@ export async function PATCH(
     });
 
     if (!client) {
-      return NextResponse.json({ error: "Cliente não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Cliente não encontrado", "Client not found.") },
+        { status: 404 }
+      );
     }
 
     const body = (await request.json()) as Record<string, unknown>;
@@ -100,7 +113,7 @@ export async function PATCH(
 
     return NextResponse.json({ client: updated });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error updating client:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -111,6 +124,7 @@ export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ clientSlug: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     // Apaga versões, posts e todo o histórico de aprovação: só owner/admin.
     const { organization } = await requireActiveOrganization({ roles: ["owner", "admin"] });
@@ -121,14 +135,17 @@ export async function DELETE(
     });
 
     if (!client) {
-      return NextResponse.json({ error: "Cliente não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Cliente não encontrado", "Client not found.") },
+        { status: 404 }
+      );
     }
 
     await prisma.client.delete({ where: { id: client.id } });
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error deleting client:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

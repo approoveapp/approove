@@ -1,22 +1,37 @@
 import { NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { requireOrganization } from "@/lib/auth";
 import { absoluteUrl } from "@/lib/app-url";
 import { getStripe } from "@/lib/stripe";
 
 export async function POST() {
+  const locale = await getRequestLocale();
   try {
     const { membership, organization } = await requireOrganization();
 
     if (membership.role !== "owner" && membership.role !== "admin") {
       return NextResponse.json(
-        { error: "Sem permissão para gerenciar cobrança" },
+        {
+          error: localizedText(
+            locale,
+            "Sem permissão para gerenciar cobrança",
+            "You don't have permission to manage billing."
+          ),
+        },
         { status: 403 }
       );
     }
 
     if (!organization.stripeCustomerId) {
       return NextResponse.json(
-        { error: "Cliente Stripe ainda não existe" },
+        {
+          error: localizedText(
+            locale,
+            "Cliente Stripe ainda não existe",
+            "No Stripe customer exists yet."
+          ),
+        },
         { status: 400 }
       );
     }
@@ -34,7 +49,7 @@ export async function POST() {
     }
     console.error("Error creating billing portal session:", error);
     return NextResponse.json(
-      { error: "Erro interno do servidor" },
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
       { status: 500 }
     );
   }

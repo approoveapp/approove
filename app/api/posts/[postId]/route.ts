@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { isoDateSchema } from "@/lib/validation";
@@ -35,6 +37,7 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ postId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { user, organization } = await requireActiveOrganization();
     const { postId } = await params;
@@ -43,18 +46,30 @@ export async function PATCH(
 
     const post = await getPostForOrganization(postId, organization.id);
     if (!post) {
-      return NextResponse.json({ error: "Publicação não encontrada" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Publicação não encontrada", "Post not found.") },
+        { status: 404 }
+      );
     }
 
     if (data.productionStage && !isProductionStage(data.productionStage)) {
-      return NextResponse.json({ error: "Etapa de produção inválida" }, { status: 400 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Etapa de produção inválida", "Invalid production stage.") },
+        { status: 400 }
+      );
     }
 
     if (data.assigneeId) {
       const isMember = await isOrganizationMember(data.assigneeId, organization.id);
       if (!isMember) {
         return NextResponse.json(
-          { error: "Responsável deve ser membro da organização" },
+          {
+            error: localizedText(
+              locale,
+              "Responsável deve ser membro da organização",
+              "The assignee must be a member of the organization."
+            ),
+          },
           { status: 400 }
         );
       }
@@ -122,10 +137,13 @@ export async function PATCH(
 
     return NextResponse.json({ post: updatedPost });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error updating post:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }
 
@@ -133,13 +151,17 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ postId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization, membership } = await requireActiveOrganization();
     const { postId } = await params;
 
     const post = await getPostForOrganization(postId, organization.id);
     if (!post) {
-      return NextResponse.json({ error: "Publicação não encontrada" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Publicação não encontrada", "Post not found.") },
+        { status: 404 }
+      );
     }
 
     // Apagar o post apaga o histórico de aprovação junto (cascade). Membro só apaga
@@ -149,7 +171,11 @@ export async function DELETE(
       if (history > 0) {
         return NextResponse.json(
           {
-            error: "Esta publicação já tem histórico de aprovação. Peça a um administrador para apagá-la.",
+            error: localizedText(
+              locale,
+              "Esta publicação já tem histórico de aprovação. Peça a um administrador para apagá-la.",
+              "This post already has approval history. Ask an admin to delete it."
+            ),
             code: "FORBIDDEN_ROLE",
           },
           { status: 403 }
@@ -163,9 +189,12 @@ export async function DELETE(
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error deleting post:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }

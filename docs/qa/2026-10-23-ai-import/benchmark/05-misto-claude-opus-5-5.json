@@ -1,0 +1,115 @@
+{
+  "summary": "Encontramos 8 publicações para o Instagram da Oficina Aurora, de 1 a 8 de novembro de 2026, todas às 09:30. As artes enviadas foram associadas às pautas 01 (carrossel com 3 slides), 02 (vídeo dos bastidores) e 03 (imagem do produto).",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "carousel",
+      "title": "Pauta 01",
+      "copyText": "Legenda 01.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "slide-01.png",
+        "slide-02.png",
+        "slide-03.png"
+      ],
+      "notes": null,
+      "source": "briefing.docx, Pauta 01"
+    },
+    {
+      "date": "2026-11-02",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "reels",
+      "title": "Pauta 02",
+      "copyText": "Legenda 02.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "bastidores.mp4"
+      ],
+      "notes": null,
+      "source": "briefing.docx, Pauta 02"
+    },
+    {
+      "date": "2026-11-03",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 03",
+      "copyText": "Legenda 03.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "produto.png"
+      ],
+      "notes": null,
+      "source": "briefing.docx, Pauta 03"
+    },
+    {
+      "date": "2026-11-04",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 04",
+      "copyText": "",
+      "media": [],
+      "notes": null,
+      "source": "briefing.docx, Pauta 04"
+    },
+    {
+      "date": "2026-11-05",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 05",
+      "copyText": "Legenda 05.\nConheça a Oficina Aurora. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "briefing.docx, Pauta 05"
+    },
+    {
+      "date": "2026-11-06",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 06",
+      "copyText": "Legenda 06.\nConheça a Oficina Aurora. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "briefing.docx, Pauta 06"
+    },
+    {
+      "date": "2026-11-07",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 07",
+      "copyText": "Legenda 07.\nConheça a Oficina Aurora. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "briefing.docx, Pauta 07"
+    },
+    {
+      "date": "2026-11-08",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 08",
+      "copyText": "Legenda 08.\nConheça a Oficina Aurora. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "briefing.docx, Pauta 08"
+    }
+  ],
+  "warnings": [
+    "A Pauta 04 (4 de novembro) está sem legenda no briefing e também sem arte. É preciso enviar o texto e a arte.",
+    "As Pautas 05, 06, 07 e 08 (5 a 8 de novembro) estão sem arte: o briefing indica \"nenhuma\". É preciso enviar as artes.",
+    "O arquivo logo-referencia.png é apenas material de referência, segundo as observações, e não foi usado como arte de nenhuma publicação.",
+    "Os horários seguem o fuso de São Paulo, conforme as observações."
+  ]
+}

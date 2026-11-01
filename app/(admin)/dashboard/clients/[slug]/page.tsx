@@ -34,6 +34,7 @@ import {
   MessageSquare,
   Users,
   UserRound,
+  Sparkles,
 } from "lucide-react";
 import { ClientReviewersTab } from "@/components/client-reviewers-tab";
 import { PostHandoffDialog } from "@/components/post-handoff-dialog";
@@ -45,12 +46,16 @@ import {
   getMaterialDraftLabel,
   type PostMaterialDraft,
 } from "@/components/post-material-form";
-import { ATTACHMENT_TYPES } from "@/components/post-slide";
+import { getAttachmentTypeLabel } from "@/components/post-slide";
+import { getProductionStageStyle } from "@/lib/production-stages";
 import {
-  getProductionStageLabel,
-  getProductionStageStyle,
-} from "@/lib/production-stages";
-import { PostProductionFields } from "@/components/post-production-fields";
+  PostProductionFields,
+  getLocalizedProductionStageLabel,
+} from "@/components/post-production-fields";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
+import { AiImportDialog } from "@/components/ai-import-dialog";
+import { MediaThumb } from "@/components/media-thumb";
 
 interface AttachmentVersionData {
   id: string;
@@ -114,10 +119,10 @@ const CHANNELS = [
   { value: "YouTube", color: "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-400" },
 ];
 
-const STATUS_MAP: Record<string, { label: string; class: string }> = {
-  pending: { label: "Pendente", class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300" },
-  approved: { label: "Aprovado", class: "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400" },
-  adjustments: { label: "Ajustes", class: "bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-400" },
+const STATUS_MAP: Record<string, { label: string; labelEn: string; class: string }> = {
+  pending: { label: "Pendente", labelEn: "Pending", class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300" },
+  approved: { label: "Aprovado", labelEn: "Approved", class: "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400" },
+  adjustments: { label: "Ajustes", labelEn: "Changes", class: "bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-400" },
 };
 
 const defaultPostForm = {
@@ -135,6 +140,8 @@ const defaultProductionForm = {
 
 export default function ClientDetailPage() {
   const router = useRouter();
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const params = useParams();
   const searchParams = useSearchParams();
   const slug = params.slug as string;
@@ -164,6 +171,7 @@ export default function ClientDetailPage() {
 
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [handoffPost, setHandoffPost] = useState<PostData | null>(null);
+  const [aiImportOpen, setAiImportOpen] = useState(false);
 
   const fetchTeamMembers = useCallback(async () => {
     try {
@@ -185,7 +193,11 @@ export default function ClientDetailPage() {
         setLoadError(
           typeof data.error === "string"
             ? data.error
-            : "Cliente não encontrado ou sem permissão de acesso"
+            : localizedText(
+                locale,
+                "Cliente não encontrado ou sem permissão de acesso",
+                "Client not found or you don't have access"
+              )
         );
         return;
       }
@@ -201,11 +213,17 @@ export default function ClientDetailPage() {
         linkedin: data.client.linkedin || "",
       });
     } catch {
-      setLoadError("Erro ao carregar cliente. Tente novamente.");
+      setLoadError(
+        localizedText(
+          locale,
+          "Erro ao carregar cliente. Tente novamente.",
+          "Unable to load client. Please try again."
+        )
+      );
     } finally {
       setLoading(false);
     }
-  }, [slug]);
+  }, [slug, locale]);
 
   useEffect(() => {
     fetchClient();
@@ -231,7 +249,12 @@ export default function ClientDetailPage() {
   const handleGenerateToken = async () => {
     if (
       shareUrl &&
-      !window.confirm("Gerar um novo link desativa o link atual. Quem tem o link antigo perde o acesso. Continuar?")
+      !window.confirm(
+        tr(
+          "Gerar um novo link desativa o link atual. Quem tem o link antigo perde o acesso. Continuar?",
+          "Generating a new link disables the current one. Anyone with the old link loses access. Continue?"
+        )
+      )
     ) {
       return;
     }
@@ -297,7 +320,9 @@ export default function ClientDetailPage() {
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         throw new Error(
-          typeof data.error === "string" ? data.error : "Erro ao adicionar material"
+          typeof data.error === "string"
+            ? data.error
+            : tr("Erro ao adicionar material", "Unable to add material")
         );
       }
     }
@@ -337,7 +362,9 @@ export default function ClientDetailPage() {
         if (!res.ok) {
           const data = await res.json().catch(() => ({}));
           throw new Error(
-            typeof data.error === "string" ? data.error : "Erro ao salvar publicação"
+            typeof data.error === "string"
+              ? data.error
+              : tr("Erro ao salvar publicação", "Unable to save post")
           );
         }
       } else {
@@ -349,12 +376,14 @@ export default function ClientDetailPage() {
         if (!res.ok) {
           const data = await res.json().catch(() => ({}));
           throw new Error(
-            typeof data.error === "string" ? data.error : "Erro ao criar publicação"
+            typeof data.error === "string"
+              ? data.error
+              : tr("Erro ao criar publicação", "Unable to create post")
           );
         }
         const data = await res.json();
         postId = data.post?.id;
-        if (!postId) throw new Error("Publicação criada sem identificador");
+        if (!postId) throw new Error(tr("Publicação criada sem identificador", "Post was created without an ID"));
       }
 
       if (materials.length > 0 && postId) {
@@ -369,19 +398,19 @@ export default function ClientDetailPage() {
       fetchClient();
     } catch (error) {
       console.error("Error saving post:", error);
-      alert(error instanceof Error ? error.message : "Erro ao salvar publicação");
+      alert(error instanceof Error ? error.message : tr("Erro ao salvar publicação", "Unable to save post"));
     } finally {
       setPostSaving(false);
     }
   };
 
   const handleDeletePost = async (postId: string) => {
-    if (!confirm("Tem certeza que deseja excluir esta publicação?")) return;
+    if (!confirm(tr("Tem certeza que deseja excluir esta publicação?", "Are you sure you want to delete this post?"))) return;
     try {
       const res = await fetch(`/api/posts/${postId}`, { method: "DELETE" });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        alert(data.error || "Não foi possível excluir a publicação");
+        alert(data.error || tr("Não foi possível excluir a publicação", "Unable to delete the post"));
         return;
       }
       fetchClient();
@@ -411,12 +440,12 @@ export default function ClientDetailPage() {
 
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
-    return d.toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" });
+    return d.toLocaleDateString(locale, { day: "2-digit", month: "short", year: "numeric" });
   };
 
   const formatTime = (dateStr: string) => {
     const d = new Date(dateStr);
-    return d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    return d.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
   };
 
   // Group posts by date
@@ -449,21 +478,28 @@ export default function ClientDetailPage() {
           <Button variant="ghost" size="icon" onClick={() => router.push("/dashboard/clients")}>
             <ArrowLeft className="h-5 w-5" />
           </Button>
-          <h1 className="text-2xl font-bold">Cliente</h1>
+          <h1 className="text-2xl font-bold">{tr("Cliente", "Client")}</h1>
         </div>
         <Card>
           <CardContent className="py-12 text-center space-y-4">
             <p className="text-muted-foreground">
-              {loadError ?? "Cliente não encontrado."}
+              {loadError ?? tr("Cliente não encontrado.", "Client not found.")}
             </p>
             <p className="text-sm text-muted-foreground">
-              A gestão interna (publicações, revisores, informações) fica em{" "}
+              {tr(
+                "A gestão interna (publicações, revisores, informações) fica em",
+                "Internal management (posts, reviewers, details) lives at"
+              )}{" "}
               <code className="text-xs bg-muted px-1.5 py-0.5 rounded">/dashboard/clients/demo-client</code>
-              {" "}- não confunda com a visão do calendário em{" "}
+              {" "}-{" "}
+              {tr(
+                "não confunda com a visão do calendário em",
+                "not to be confused with the calendar view at"
+              )}{" "}
               <code className="text-xs bg-muted px-1.5 py-0.5 rounded">/c/demo-client/v1</code>.
             </p>
             <Button onClick={() => router.push("/dashboard/clients")}>
-              Voltar para clientes
+              {tr("Voltar para clientes", "Back to clients")}
             </Button>
           </CardContent>
         </Card>
@@ -498,20 +534,20 @@ export default function ClientDetailPage() {
           {shareUrl && (
             <Button variant="outline" size="sm" onClick={handleCopyLink}>
               {copied ? <Check className="h-4 w-4 mr-2" /> : <Copy className="h-4 w-4 mr-2" />}
-              {copied ? "Copiado!" : "Copiar link"}
+              {copied ? tr("Copiado!", "Copied!") : tr("Copiar link", "Copy link")}
             </Button>
           )}
           {canManage && (
             <Button variant="outline" size="sm" onClick={handleGenerateToken}>
               <Link2 className="h-4 w-4 mr-2" />
-              {shareUrl ? "Novo link" : "Gerar link"}
+              {shareUrl ? tr("Novo link", "New link") : tr("Gerar link", "Generate link")}
             </Button>
           )}
 
           <Button variant="default" size="sm" asChild>
             <a href={calendarHref} target="_blank" rel="noopener noreferrer">
               <ImageIcon className="h-4 w-4 mr-2" />
-              Montar calendário e artes
+              {tr("Montar calendário e artes", "Build calendar and creatives")}
             </a>
           </Button>
 
@@ -524,14 +560,20 @@ export default function ClientDetailPage() {
                 rel="noopener noreferrer"
               >
                 <ExternalLink className="h-4 w-4 mr-2" />
-                Visão do cliente
+                {tr("Visão do cliente", "Client view")}
               </a>
             </Button>
           )}
 
+          {/* Qualquer papel importa: member já cria e edita posts; a cota limita o custo. */}
+          <Button variant="outline" size="sm" onClick={() => setAiImportOpen(true)}>
+            <Sparkles className="h-4 w-4 mr-2" />
+            {tr("Importar com IA", "Import with AI")}
+          </Button>
+
           <Button size="sm" onClick={openCreatePost}>
             <Plus className="h-4 w-4 mr-2" />
-            Nova Publicação
+            {tr("Nova Publicação", "New post")}
           </Button>
         </div>
       </div>
@@ -539,15 +581,22 @@ export default function ClientDetailPage() {
       <Card className="border-primary/20 bg-primary/5">
         <CardContent className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
           <div className="space-y-1">
-            <p className="font-medium">Calendário de produção</p>
+            <p className="font-medium">{tr("Calendário de produção", "Production calendar")}</p>
             <p className="text-sm text-muted-foreground max-w-2xl">
-              Nesta página você gerencia publicações (data, canal e copy), revisores e informações do cliente.
-              Para <strong>enviar artes</strong>, criar pins, comentar e aprovar, abra o calendário de produção - é lá que o time monta o conteúdo visual.
+              {tr(
+                "Nesta página você gerencia publicações (data, canal e copy), revisores e informações do cliente.",
+                "On this page you manage posts (date, channel and copy), reviewers and client details."
+              )}{" "}
+              {tr("Para", "To")} <strong>{tr("enviar artes", "upload creatives")}</strong>
+              {tr(
+                ", criar pins, comentar e aprovar, abra o calendário de produção - é lá que o time monta o conteúdo visual.",
+                ", add pins, comment and approve, open the production calendar - that's where the team builds the visual content."
+              )}
             </p>
           </div>
           <Button asChild className="shrink-0">
             <a href={calendarHref} target="_blank" rel="noopener noreferrer">
-              Montar calendário e artes
+              {tr("Montar calendário e artes", "Build calendar and creatives")}
               <ArrowRight className="h-4 w-4 ml-2" />
             </a>
           </Button>
@@ -559,25 +608,25 @@ export default function ClientDetailPage() {
         <Card>
           <CardContent className="p-4 text-center">
             <p className="text-2xl font-bold">{stats.total}</p>
-            <p className="text-xs text-muted-foreground">Total</p>
+            <p className="text-xs text-muted-foreground">{tr("Total", "Total")}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <p className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.approved}</p>
-            <p className="text-xs text-muted-foreground">Aprovadas</p>
+            <p className="text-xs text-muted-foreground">{tr("Aprovadas", "Approved")}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <p className="text-2xl font-bold">{stats.pending}</p>
-            <p className="text-xs text-muted-foreground">Pendentes</p>
+            <p className="text-xs text-muted-foreground">{tr("Pendentes", "Pending")}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.adjustments}</p>
-            <p className="text-xs text-muted-foreground">Ajustes</p>
+            <p className="text-xs text-muted-foreground">{tr("Ajustes", "Changes")}</p>
           </CardContent>
         </Card>
       </div>
@@ -586,16 +635,16 @@ export default function ClientDetailPage() {
       <Tabs defaultValue={initialTab}>
         <TabsList>
           <TabsTrigger value="posts" className="gap-2">
-            <FileText className="h-4 w-4" /> Publicações
+            <FileText className="h-4 w-4" /> {tr("Publicações", "Posts")}
           </TabsTrigger>
           <TabsTrigger value="calendar" className="gap-2">
-            <Calendar className="h-4 w-4" /> Calendário
+            <Calendar className="h-4 w-4" /> {tr("Calendário", "Calendar")}
           </TabsTrigger>
           <TabsTrigger value="reviewers" className="gap-2">
-            <Users className="h-4 w-4" /> Revisores
+            <Users className="h-4 w-4" /> {tr("Revisores", "Reviewers")}
           </TabsTrigger>
           <TabsTrigger value="info" className="gap-2">
-            <Pencil className="h-4 w-4" /> Informações
+            <Pencil className="h-4 w-4" /> {tr("Informações", "Details")}
           </TabsTrigger>
         </TabsList>
 
@@ -603,24 +652,33 @@ export default function ClientDetailPage() {
         <TabsContent value="posts" className="mt-4 space-y-6">
           {posts.length > 0 && (
             <p className="text-sm text-muted-foreground">
-              Planeje o calendário com data e copy - as artes podem ser adicionadas depois no calendário de produção ou ao editar a publicação.
+              {tr(
+                "Planeje o calendário com data e copy - as artes podem ser adicionadas depois no calendário de produção ou ao editar a publicação.",
+                "Plan the calendar with dates and copy - creatives can be added later in the production calendar or when editing the post."
+              )}
             </p>
           )}
           {posts.length === 0 ? (
             <Card>
               <CardContent className="flex flex-col items-center justify-center py-16">
                 <ImageIcon className="h-12 w-12 text-muted-foreground mb-4" />
-                <p className="text-lg font-medium">Nenhuma publicação</p>
+                <p className="text-lg font-medium">{tr("Nenhuma publicação", "No posts yet")}</p>
                 <p className="text-sm text-muted-foreground mt-1 text-center max-w-md">
-                  Comece registrando data e texto - ideal para planejar o mês. As imagens entram depois.
+                  {tr(
+                    "Comece registrando data e texto - ideal para planejar o mês. As imagens entram depois.",
+                    "Start by adding dates and text - ideal for planning the month. Images come later."
+                  )}
                 </p>
                 <div className="flex flex-wrap gap-2 justify-center mt-4">
                   <Button onClick={openCreatePost}>
-                    <Plus className="h-4 w-4 mr-2" /> Nova Publicação
+                    <Plus className="h-4 w-4 mr-2" /> {tr("Nova Publicação", "New post")}
+                  </Button>
+                  <Button variant="outline" onClick={() => setAiImportOpen(true)}>
+                    <Sparkles className="h-4 w-4 mr-2" /> {tr("Importar calendário com IA", "Import calendar with AI")}
                   </Button>
                   <Button variant="outline" asChild>
                     <a href={calendarHref} target="_blank" rel="noopener noreferrer">
-                      <ImageIcon className="h-4 w-4 mr-2" /> Montar calendário e artes
+                      <ImageIcon className="h-4 w-4 mr-2" /> {tr("Montar calendário e artes", "Build calendar and creatives")}
                     </a>
                   </Button>
                 </div>
@@ -643,8 +701,8 @@ export default function ClientDetailPage() {
                             </div>
                           )}
                           {post.attachments?.[0]?.versions?.[0]?.url && (
-                            <img
-                              src={post.attachments[0].versions[post.attachments[0].versions.length - 1].url}
+                            <MediaThumb
+                              url={post.attachments[0].versions[post.attachments[0].versions.length - 1].url}
                               alt=""
                               className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
                             />
@@ -655,13 +713,15 @@ export default function ClientDetailPage() {
                                 {post.channel}
                               </Badge>
                               <Badge variant="secondary" className={STATUS_MAP[post.status]?.class}>
-                                {STATUS_MAP[post.status]?.label}
+                                {STATUS_MAP[post.status]
+                                  ? tr(STATUS_MAP[post.status].label, STATUS_MAP[post.status].labelEn)
+                                  : null}
                               </Badge>
                               <Badge
                                 variant="secondary"
                                 className={getProductionStageStyle(post.productionStage)}
                               >
-                                {getProductionStageLabel(post.productionStage)}
+                                {getLocalizedProductionStageLabel(post.productionStage, locale)}
                               </Badge>
                               {post.assignee && (
                                 <span className="text-xs text-muted-foreground flex items-center gap-1">
@@ -680,7 +740,7 @@ export default function ClientDetailPage() {
                               )}
                             </div>
                             <p className="text-sm font-medium truncate">
-                              {post.title?.trim() || "Sem título"}
+                              {post.title?.trim() || tr("Sem título", "Untitled")}
                             </p>
                             <p className="text-sm text-muted-foreground line-clamp-2">{post.copyText}</p>
                           </div>
@@ -691,9 +751,15 @@ export default function ClientDetailPage() {
                               className="h-8 text-xs"
                               onClick={() => setHandoffPost(post)}
                             >
-                              Delegar
+                              {tr("Delegar", "Assign")}
                             </Button>
-                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openEditPost(post)}>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8"
+                              onClick={() => openEditPost(post)}
+                              aria-label={tr("Editar publicação", "Edit post")}
+                            >
                               <Pencil className="h-3.5 w-3.5" />
                             </Button>
                             <Button
@@ -701,6 +767,7 @@ export default function ClientDetailPage() {
                               size="icon"
                               className="h-8 w-8 text-destructive hover:text-destructive"
                               onClick={() => handleDeletePost(post.id)}
+                              aria-label={tr("Excluir publicação", "Delete post")}
                             >
                               <Trash2 className="h-3.5 w-3.5" />
                             </Button>
@@ -752,7 +819,10 @@ export default function ClientDetailPage() {
           ) : (
             <Card>
               <CardContent className="py-12 text-center text-sm text-muted-foreground">
-                Crie uma versão de calendário antes de convidar revisores.
+                {tr(
+                  "Crie uma versão de calendário antes de convidar revisores.",
+                  "Create a calendar version before inviting reviewers."
+                )}
               </CardContent>
             </Card>
           )}
@@ -762,21 +832,21 @@ export default function ClientDetailPage() {
         <TabsContent value="info" className="mt-4">
           <Card>
             <CardHeader>
-              <CardTitle>Dados do Cliente</CardTitle>
+              <CardTitle>{tr("Dados do Cliente", "Client details")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label>Nome</Label>
+                  <Label>{tr("Nome", "Name")}</Label>
                   <Input readOnly={!canManage} value={infoForm.name} onChange={(e) => setInfoForm((p) => ({ ...p, name: e.target.value }))} />
                 </div>
                 <div className="space-y-2">
-                  <Label>CNPJ</Label>
+                  <Label>{tr("CNPJ", "Tax ID")}</Label>
                   <Input readOnly={!canManage} value={infoForm.cnpj} onChange={(e) => setInfoForm((p) => ({ ...p, cnpj: e.target.value }))} />
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Endereço</Label>
+                <Label>{tr("Endereço", "Address")}</Label>
                 <Input readOnly={!canManage} value={infoForm.address} onChange={(e) => setInfoForm((p) => ({ ...p, address: e.target.value }))} />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -799,11 +869,14 @@ export default function ClientDetailPage() {
               </div>
               {canManage ? (
                 <Button onClick={handleSaveInfo} disabled={infoSaving}>
-                  {infoSaving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Salvando...</> : "Salvar alterações"}
+                  {infoSaving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {tr("Salvando...", "Saving...")}</> : tr("Salvar alterações", "Save changes")}
                 </Button>
               ) : (
                 <p className="text-sm text-muted-foreground">
-                  Só proprietários e administradores editam os dados do cliente.
+                  {tr(
+                    "Só proprietários e administradores editam os dados do cliente.",
+                    "Only owners and admins can edit client details."
+                  )}
                 </p>
               )}
             </CardContent>
@@ -815,16 +888,19 @@ export default function ClientDetailPage() {
       <Dialog open={postDialogOpen} onOpenChange={setPostDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] flex flex-col gap-0 p-0 overflow-hidden">
           <DialogHeader className="px-6 pt-6 pb-4 shrink-0">
-            <DialogTitle>{editingPostId ? "Editar Publicação" : "Nova Publicação"}</DialogTitle>
+            <DialogTitle>{editingPostId ? tr("Editar Publicação", "Edit post") : tr("Nova Publicação", "New post")}</DialogTitle>
             <p className="text-sm text-muted-foreground pt-1">
-              Registre data e copy para planejar o calendário. Artes e materiais visuais são opcionais e podem ser adicionados depois.
+              {tr(
+                "Registre data e copy para planejar o calendário. Artes e materiais visuais são opcionais e podem ser adicionados depois.",
+                "Add the date and copy to plan the calendar. Creatives and visual materials are optional and can be added later."
+              )}
             </p>
           </DialogHeader>
 
           <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-6 space-y-5 pb-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label>Data e hora</Label>
+                <Label>{tr("Data e hora", "Date and time")}</Label>
                 <Input
                   type="datetime-local"
                   value={postForm.scheduledAt}
@@ -832,7 +908,7 @@ export default function ClientDetailPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label>Canal</Label>
+                <Label>{tr("Canal", "Channel")}</Label>
                 <select
                   value={postForm.channel}
                   onChange={(e) => setPostForm((p) => ({ ...p, channel: e.target.value }))}
@@ -846,33 +922,39 @@ export default function ClientDetailPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Título</Label>
+              <Label>{tr("Título", "Title")}</Label>
               <Input
                 value={postForm.title}
                 onChange={(e) => setPostForm((p) => ({ ...p, title: e.target.value }))}
-                placeholder="Tema do post (ex.: Lançamento coleção verão)"
+                placeholder={tr("Tema do post (ex.: Lançamento coleção verão)", "Post topic (e.g. Summer collection launch)")}
               />
             </div>
 
             <div className="space-y-2">
-              <Label>Texto da publicação</Label>
+              <Label>{tr("Texto da publicação", "Post text")}</Label>
               <textarea
                 value={postForm.copyText}
                 onChange={(e) => setPostForm((p) => ({ ...p, copyText: e.target.value }))}
                 rows={5}
-                placeholder="Escreva o texto da publicação para esta data..."
+                placeholder={tr("Escreva o texto da publicação para esta data...", "Write the post text for this date...")}
                 className="w-full px-3 py-2 rounded-md border bg-background text-sm resize-none"
               />
               <p className="text-xs text-muted-foreground">
-                Salve só o texto para ir montando o planejamento editorial - sem obrigatoriedade de anexar imagens agora.
+                {tr(
+                  "Salve só o texto para ir montando o planejamento editorial - sem obrigatoriedade de anexar imagens agora.",
+                  "Save just the text to build your editorial plan - no need to attach images now."
+                )}
               </p>
             </div>
 
             <div className="space-y-3 rounded-lg border p-4 bg-muted/20">
               <div>
-                <p className="text-sm font-medium">Produção e responsável</p>
+                <p className="text-sm font-medium">{tr("Produção e responsável", "Production and assignee")}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Defina a etapa e transfira a tarefa para alguém do time.
+                  {tr(
+                    "Defina a etapa e transfira a tarefa para alguém do time.",
+                    "Set the stage and hand the task off to someone on the team."
+                  )}
                 </p>
               </div>
               <PostProductionFields
@@ -895,11 +977,11 @@ export default function ClientDetailPage() {
 
             {editingPost?.attachments && editingPost.attachments.length > 0 && (
               <div className="space-y-2">
-                <Label>Materiais já anexados</Label>
+                <Label>{tr("Materiais já anexados", "Attached materials")}</Label>
                 <div className="flex flex-wrap gap-2">
                   {editingPost.attachments.map((att) => {
                     const cover = att.versions[att.versions.length - 1]?.url;
-                    const label = att.label || ATTACHMENT_TYPES[att.type] || att.type;
+                    const label = att.label || getAttachmentTypeLabel(att.type, locale);
                     return (
                       <div
                         key={att.id}
@@ -916,7 +998,10 @@ export default function ClientDetailPage() {
                   })}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Novos materiais abaixo serão adicionados à publicação ao salvar.
+                  {tr(
+                    "Novos materiais abaixo serão adicionados à publicação ao salvar.",
+                    "New materials below will be added to the post when you save."
+                  )}
                 </p>
               </div>
             )}
@@ -928,9 +1013,12 @@ export default function ClientDetailPage() {
                 onClick={() => setShowMaterialsSection((v) => !v)}
               >
                 <div>
-                  <p className="text-sm font-medium">Materiais visuais (opcional)</p>
+                  <p className="text-sm font-medium">{tr("Materiais visuais (opcional)", "Visual materials (optional)")}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    Upload, URL, carrossel ou vídeo - pode ficar para depois do planejamento.
+                    {tr(
+                      "Upload, URL, carrossel ou vídeo - pode ficar para depois do planejamento.",
+                      "Upload, URL, carousel or video - this can wait until after planning."
+                    )}
                   </p>
                 </div>
                 {showMaterialsSection ? (
@@ -953,13 +1041,17 @@ export default function ClientDetailPage() {
                 disabled={!isMaterialDraftValid(materialDraft)}
               >
                 <Plus className="h-4 w-4 mr-2" />
-                Adicionar material à publicação
+                {tr("Adicionar material à publicação", "Add material to post")}
               </Button>
 
               {pendingMaterials.length > 0 && (
                 <div className="space-y-2">
                   <p className="text-xs font-medium text-muted-foreground">
-                    {pendingMaterials.length} material(is) na fila
+                    {pendingMaterials.length}{" "}
+                    {tr(
+                      "material(is) na fila",
+                      pendingMaterials.length === 1 ? "material queued" : "materials queued"
+                    )}
                   </p>
                   <div className="space-y-2">
                     {pendingMaterials.map((draft, index) => {
@@ -969,7 +1061,7 @@ export default function ClientDetailPage() {
                           : draft.url;
                       return (
                         <div
-                          key={`${index}-${getMaterialDraftLabel(draft)}`}
+                          key={`${index}-${getMaterialDraftLabel(draft, locale)}`}
                           className="flex items-center justify-between gap-2 rounded-lg border px-3 py-2"
                         >
                           <div className="flex items-center gap-2 min-w-0">
@@ -979,10 +1071,10 @@ export default function ClientDetailPage() {
                               <ImageIcon className="w-10 h-10 text-muted-foreground shrink-0" />
                             )}
                             <div className="min-w-0">
-                              <p className="text-sm font-medium truncate">{getMaterialDraftLabel(draft)}</p>
+                              <p className="text-sm font-medium truncate">{getMaterialDraftLabel(draft, locale)}</p>
                               {draft.type === "carousel" && (
                                 <p className="text-xs text-muted-foreground">
-                                  {draft.slides.filter((s) => s.url.trim()).length} slides
+                                  {draft.slides.filter((s) => s.url.trim()).length} {tr("slides", "slides")}
                                 </p>
                               )}
                             </div>
@@ -993,6 +1085,7 @@ export default function ClientDetailPage() {
                             size="icon"
                             className="h-8 w-8 shrink-0 text-destructive"
                             onClick={() => removePendingMaterial(index)}
+                            aria-label={tr("Remover material", "Remove material")}
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
@@ -1009,7 +1102,7 @@ export default function ClientDetailPage() {
 
           <div className="shrink-0 border-t px-6 py-4 flex gap-3 bg-background">
             <Button variant="outline" onClick={() => setPostDialogOpen(false)} className="flex-1">
-              Cancelar
+              {tr("Cancelar", "Cancel")}
             </Button>
             <Button
               onClick={handleSavePost}
@@ -1017,12 +1110,20 @@ export default function ClientDetailPage() {
               className="flex-1"
             >
               {postSaving ? (
-                <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Salvando...</>
-              ) : editingPostId ? "Salvar alterações" : "Criar Publicação"}
+                <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {tr("Salvando...", "Saving...")}</>
+              ) : editingPostId ? tr("Salvar alterações", "Save changes") : tr("Criar Publicação", "Create post")}
             </Button>
           </div>
         </DialogContent>
       </Dialog>
+
+      <AiImportDialog
+        open={aiImportOpen}
+        onOpenChange={setAiImportOpen}
+        clientSlug={client.slug}
+        clientName={client.name}
+        onImported={fetchClient}
+      />
 
       {handoffPost && (
         <PostHandoffDialog
@@ -1049,6 +1150,8 @@ function SimpleCalendar({
   onDateClick: (dateKey: string) => void;
   onEmptyDateClick: (dateKey: string) => void;
 }) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const [currentMonth, setCurrentMonth] = useState(() => new Date());
 
   const year = currentMonth.getFullYear();
@@ -1057,7 +1160,7 @@ function SimpleCalendar({
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-  const monthName = currentMonth.toLocaleDateString("pt-BR", {
+  const monthName = currentMonth.toLocaleDateString(locale, {
     month: "long",
     year: "numeric",
   });
@@ -1088,10 +1191,10 @@ function SimpleCalendar({
       {/* Navigation header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" onClick={prevYear} title="Ano anterior">
+          <Button variant="ghost" size="sm" onClick={prevYear} title={tr("Ano anterior", "Previous year")}>
             &laquo;
           </Button>
-          <Button variant="ghost" size="sm" onClick={prevMonth} title="Mês anterior">
+          <Button variant="ghost" size="sm" onClick={prevMonth} title={tr("Mês anterior", "Previous month")}>
             &lsaquo;
           </Button>
         </div>
@@ -1101,7 +1204,8 @@ function SimpleCalendar({
           <div className="flex items-center justify-center gap-2 mt-1">
             {monthPostCount > 0 && (
               <span className="text-xs text-muted-foreground">
-                {monthPostCount} {monthPostCount === 1 ? "publicação" : "publicações"}
+                {monthPostCount}{" "}
+                {monthPostCount === 1 ? tr("publicação", "post") : tr("publicações", "posts")}
               </span>
             )}
             {!isCurrentViewToday && (
@@ -1109,17 +1213,17 @@ function SimpleCalendar({
                 onClick={goToToday}
                 className="text-xs text-primary hover:underline"
               >
-                Hoje
+                {tr("Hoje", "Today")}
               </button>
             )}
           </div>
         </div>
 
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" onClick={nextMonth} title="Próximo mês">
+          <Button variant="ghost" size="sm" onClick={nextMonth} title={tr("Próximo mês", "Next month")}>
             &rsaquo;
           </Button>
-          <Button variant="ghost" size="sm" onClick={nextYear} title="Próximo ano">
+          <Button variant="ghost" size="sm" onClick={nextYear} title={tr("Próximo ano", "Next year")}>
             &raquo;
           </Button>
         </div>
@@ -1127,7 +1231,10 @@ function SimpleCalendar({
 
       {/* Calendar grid */}
       <div className="grid grid-cols-7 gap-1 text-center">
-        {["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"].map((d) => (
+        {(locale === "pt-BR"
+          ? ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
+          : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        ).map((d) => (
           <div
             key={d}
             className="text-xs font-medium text-muted-foreground py-2"
@@ -1160,8 +1267,11 @@ function SimpleCalendar({
               `}
               title={
                 hasPosts
-                  ? `${dayPosts!.length} publicação(ões)`
-                  : "Clique para criar publicação"
+                  ? `${dayPosts!.length} ${tr(
+                      "publicação(ões)",
+                      dayPosts!.length === 1 ? "post" : "posts"
+                    )}`
+                  : tr("Clique para criar publicação", "Click to create a post")
               }
             >
               {day}

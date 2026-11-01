@@ -1,0 +1,46 @@
+{
+  "summary": "A pauta de novembro de 2026 traz 3 publicações: duas para Instagram e uma para LinkedIn. Nenhuma arte foi enviada e a pauta do dia 05 está sem legenda e sem horário.",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 01",
+      "copyText": "Olá, novembro! ☀️\n\nCafé, ideias e cuidado. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "pauta.txt, Pauta 01"
+    },
+    {
+      "date": "2026-11-03",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "LinkedIn",
+      "format": "article",
+      "title": "Pauta 03",
+      "copyText": "Trabalho com calma também é trabalho bem feito.",
+      "media": [],
+      "notes": "Post somente de texto, sem necessidade de arte.",
+      "source": "pauta.txt, Pauta 03"
+    },
+    {
+      "date": "2026-11-05",
+      "time": null,
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 05",
+      "copyText": "",
+      "media": [],
+      "notes": null,
+      "source": "pauta.txt, Pauta 05"
+    }
+  ],
+  "warnings": [
+    "Nenhum arquivo de mídia foi enviado; as pautas 01 e 05 estão sem arte (a pauta 03 é só texto e não precisa).",
+    "A Pauta 05 (05/11) está sem legenda no documento.",
+    "A Pauta 05 (05/11) não tem horário de publicação informado."
+  ]
+}

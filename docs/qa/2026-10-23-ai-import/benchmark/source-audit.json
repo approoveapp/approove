@@ -1,0 +1,20 @@
+[
+  {
+    "model": "claude-haiku-5-5",
+    "csvSourceRows": 120,
+    "csvOutputRows": 110,
+    "csvRowsWithExactSourceCaptionTimeChannel": 110,
+    "inventedCsvRows": [],
+    "manifestExactSourceFields": 4,
+    "coverRoleOnlyInNotes": true
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "csvSourceRows": 120,
+    "csvOutputRows": 120,
+    "csvRowsWithExactSourceCaptionTimeChannel": 120,
+    "inventedCsvRows": [],
+    "manifestExactSourceFields": 4,
+    "coverRoleOnlyInNotes": true
+  }
+]

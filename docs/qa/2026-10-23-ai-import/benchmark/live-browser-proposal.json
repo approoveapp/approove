@@ -1,0 +1,66 @@
+{
+  "summary": "A apresentação traz quatro publicações da Oficina Aurora em novembro de 2026: um carrossel no Instagram, um post de feed no Instagram, o mesmo post repetido no Facebook (com reaproveitamento da arte indicado no documento) e um stories no Instagram. Todas as artes enviadas foram associadas aos posts.",
+  "posts": [
+    {
+      "date": "2026-11-07",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "carousel",
+      "title": "Oficina Aurora | Pauta 07",
+      "copyText": "Legenda 07.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "aurora-01.png",
+        "aurora-02.png",
+        "aurora-03.png"
+      ],
+      "notes": "Horário em America/Sao_Paulo. Carrossel = um post, três slides.",
+      "source": "apresentacao.pdf, p. 1"
+    },
+    {
+      "date": "2026-11-10",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Oficina Aurora | Pauta 10",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "cafe.png"
+      ],
+      "notes": "Horário em America/Sao_Paulo.",
+      "source": "apresentacao.pdf, p. 2"
+    },
+    {
+      "date": "2026-11-12",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Facebook",
+      "format": "feed",
+      "title": "Oficina Aurora | Pauta 10 no Facebook",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "cafe.png"
+      ],
+      "notes": "Horário em America/Sao_Paulo. Reutilizar cafe.png no Facebook conforme indicado. Não é duplicata acidental.",
+      "source": "apresentacao.pdf, p. 3"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "stories",
+      "title": "Oficina Aurora | Pauta 14",
+      "copyText": "Legenda 14.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "convite.png"
+      ],
+      "notes": "Horário em America/Sao_Paulo.",
+      "source": "apresentacao.pdf, p. 4"
+    }
+  ],
+  "warnings": [
+    "A arte cafe.png foi usada em dois posts (Instagram em 10/11 e Facebook em 12/11), conforme orientação expressa do documento na página 3."
+  ]
+}

@@ -9,9 +9,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2, Mail, ArrowLeft } from "lucide-react";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 
 function InviteForm() {
   const router = useRouter();
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const searchParams = useSearchParams();
   const emailParam = searchParams.get("email") || "";
   const callbackUrl = safeCallbackUrl(searchParams.get("callbackUrl"));
@@ -45,7 +49,7 @@ function InviteForm() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || "Erro ao enviar código");
+        setError(data.error || tr("Erro ao enviar código", "Failed to send code"));
         return;
       }
 
@@ -53,7 +57,7 @@ function InviteForm() {
       setCountdown(60);
       setTimeout(() => inputRefs.current[0]?.focus(), 100);
     } catch {
-      setError("Erro ao enviar código. Tente novamente.");
+      setError(tr("Erro ao enviar código. Tente novamente.", "Failed to send code. Please try again."));
     } finally {
       setLoading(false);
     }
@@ -91,7 +95,7 @@ function InviteForm() {
   const handleVerifyCode = async () => {
     const fullCode = code.join("");
     if (fullCode.length !== 6) {
-      setError("Digite o código completo de 6 dígitos");
+      setError(tr("Digite o código completo de 6 dígitos", "Enter the full 6-digit code"));
       return;
     }
 
@@ -108,8 +112,8 @@ function InviteForm() {
       if (result?.error) {
         setError(
           result.code === "rate_limited"
-            ? "Muitas tentativas. Aguarde alguns minutos."
-            : "Código inválido ou expirado"
+            ? tr("Muitas tentativas. Aguarde alguns minutos.", "Too many attempts. Please wait a few minutes.")
+            : tr("Código inválido ou expirado", "Invalid or expired code")
         );
         setCode(["", "", "", "", "", ""]);
         inputRefs.current[0]?.focus();
@@ -119,7 +123,7 @@ function InviteForm() {
       router.push(callbackUrl);
       router.refresh();
     } catch {
-      setError("Erro ao verificar código. Tente novamente.");
+      setError(tr("Erro ao verificar código. Tente novamente.", "Failed to verify code. Please try again."));
     } finally {
       setLoading(false);
     }
@@ -141,12 +145,20 @@ function InviteForm() {
           Approove
         </h1>
         <h2 className="text-2xl font-semibold tracking-tight">
-          {step === "send" ? "Acessar sua conta" : "Digite o código"}
+          {step === "send"
+            ? tr("Acessar sua conta", "Sign in to your account")
+            : tr("Digite o código", "Enter the code")}
         </h2>
         <p className="text-sm text-muted-foreground">
           {step === "send"
-            ? "Enviaremos um código de acesso para o seu e-mail"
-            : `Enviamos um código de 6 dígitos para ${email}`}
+            ? tr(
+                "Enviaremos um código de acesso para o seu e-mail",
+                "We'll send an access code to your email"
+              )
+            : tr(
+                `Enviamos um código de 6 dígitos para ${email}`,
+                `We sent a 6-digit code to ${email}`
+              )}
         </p>
       </div>
 
@@ -180,10 +192,10 @@ function InviteForm() {
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Enviando...
+                {tr("Enviando...", "Sending...")}
               </>
             ) : (
-              "Enviar código de acesso"
+              tr("Enviar código de acesso", "Send access code")
             )}
           </Button>
         </div>
@@ -220,10 +232,10 @@ function InviteForm() {
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Verificando...
+                {tr("Verificando...", "Verifying...")}
               </>
             ) : (
-              "Verificar código"
+              tr("Verificar código", "Verify code")
             )}
           </Button>
 
@@ -238,7 +250,7 @@ function InviteForm() {
               className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="mr-1 h-3 w-3" />
-              Voltar
+              {tr("Voltar", "Back")}
             </button>
 
             <button
@@ -248,8 +260,8 @@ function InviteForm() {
               className="text-sm text-primary hover:underline disabled:text-muted-foreground disabled:no-underline"
             >
               {countdown > 0
-                ? `Reenviar em ${countdown}s`
-                : "Reenviar código"}
+                ? tr(`Reenviar em ${countdown}s`, `Resend in ${countdown}s`)
+                : tr("Reenviar código", "Resend code")}
             </button>
           </div>
         </div>

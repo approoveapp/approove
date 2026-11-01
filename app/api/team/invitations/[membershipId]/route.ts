@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { requireAuth } from "@/lib/auth";
@@ -11,6 +13,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ membershipId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const user = await requireAuth();
     const { membershipId } = await params;
@@ -20,7 +23,10 @@ export async function POST(
       where: { id: membershipId, userId: user.id, acceptedAt: null },
     });
     if (!invite) {
-      return NextResponse.json({ error: "Convite não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Convite não encontrado", "Invite not found.") },
+        { status: 404 }
+      );
     }
 
     if (action === "decline") {
@@ -33,7 +39,13 @@ export async function POST(
     });
     if (alreadyMember > 0) {
       return NextResponse.json(
-        { error: "Você já participa de outra agência no Approove" },
+        {
+          error: localizedText(
+            locale,
+            "Você já participa de outra agência no Approove",
+            "You're already part of another agency on Approove."
+          ),
+        },
         { status: 409 }
       );
     }
@@ -48,9 +60,12 @@ export async function POST(
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error answering team invite:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }

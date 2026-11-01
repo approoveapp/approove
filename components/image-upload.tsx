@@ -4,6 +4,8 @@ import { useState, useRef, useCallback } from "react";
 import { Upload, X, Loader2, ImageIcon, Film } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 import {
   inferMediaType,
   isVideoMime,
@@ -33,6 +35,8 @@ export function ImageUpload({
   dense = false,
   allowVideo = false,
 }: ImageUploadProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState("");
@@ -73,19 +77,19 @@ export function ImageUpload({
 
         if (!response.ok) {
           const data = await response.json();
-          throw new Error(data.error || "Erro no upload");
+          throw new Error(data.error || localizedText(locale, "Erro no upload", "Upload failed"));
         }
 
         const data = await response.json();
         const mediaType: MediaType = isVideoMime(file.type) ? "video" : inferMediaType(data.url);
         onChange(data.url, mediaType);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Erro no upload");
+        setError(err instanceof Error ? err.message : localizedText(locale, "Erro no upload", "Upload failed"));
       } finally {
         setUploading(false);
       }
     },
-    [onChange]
+    [onChange, locale]
   );
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,7 +137,7 @@ export function ImageUpload({
               onClick={() => onChange(null)}
             >
               <X className="h-4 w-4 mr-1" />
-              Remover
+              {tr("Remover", "Remove")}
             </Button>
           </div>
         </div>
@@ -164,7 +168,7 @@ export function ImageUpload({
         {uploading ? (
           <>
             <Loader2 className={cn("animate-spin text-muted-foreground", compact ? "h-6 w-6" : "h-8 w-8")} />
-            <p className="text-sm text-muted-foreground">Enviando...</p>
+            <p className="text-sm text-muted-foreground">{tr("Enviando...", "Uploading...")}</p>
           </>
         ) : (
           <>
@@ -182,12 +186,12 @@ export function ImageUpload({
             </div>
             <div className="text-center">
               <p className={cn("font-medium", compact ? "text-xs" : "text-sm")}>
-                {dragOver ? "Solte aqui" : "Clique ou arraste"}
+                {dragOver ? tr("Solte aqui", "Drop here") : tr("Clique ou arraste", "Click or drag")}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
                 {allowVideo
-                  ? "PNG, JPG, GIF, WebP ou MP4 · máx. 50MB"
-                  : "PNG, JPG, GIF ou WebP · máx. 50MB"}
+                  ? tr("PNG, JPG, GIF, WebP ou MP4 · máx. 50MB", "PNG, JPG, GIF, WebP or MP4 · max. 50MB")
+                  : tr("PNG, JPG, GIF ou WebP · máx. 50MB", "PNG, JPG, GIF or WebP · max. 50MB")}
               </p>
             </div>
           </>

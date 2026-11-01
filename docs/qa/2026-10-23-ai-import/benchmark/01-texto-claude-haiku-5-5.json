@@ -1,0 +1,47 @@
+{
+  "summary": "Foram encontrados três posts de novembro de 2026 na pauta: dois com data e horário definidos, um para Instagram e um para LinkedIn, e um terceiro para Instagram sem horário e sem legenda.",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 01",
+      "copyText": "Olá, novembro! ☀️\n\nCafé, ideias e cuidado. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "pauta.txt, bloco \"Pauta 01\""
+    },
+    {
+      "date": "2026-11-03",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "LinkedIn",
+      "format": "article",
+      "title": "Pauta 03",
+      "copyText": "Trabalho com calma também é trabalho bem feito.",
+      "media": [],
+      "notes": "Post somente texto, sem arte, conforme o próprio documento.",
+      "source": "pauta.txt, bloco \"Pauta 03\""
+    },
+    {
+      "date": "2026-11-05",
+      "time": null,
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 05",
+      "copyText": "",
+      "media": [],
+      "notes": null,
+      "source": "pauta.txt, bloco \"Pauta 05\""
+    }
+  ],
+  "warnings": [
+    "A Pauta 05 não tem horário definido no documento e não tem legenda; confira ambos antes de aprovar.",
+    "O post da Pauta 05 também não tem arte, e nenhum arquivo de mídia foi enviado para a migração.",
+    "A numeração das pautas pula as de número 02 e 04. O documento não traz esses posts, então não foram criados; confira se estão faltando ou se foram removidos de propósito.",
+    "O documento não informa fuso ou horário específico para a Pauta 05, apenas a indicação geral de fuso America/Sao_Paulo."
+  ]
+}

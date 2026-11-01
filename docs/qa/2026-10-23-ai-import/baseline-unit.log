@@ -1,0 +1,31 @@
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v5.0.3 /private/tmp/approove-import-qa-20261023
+
+Error reading /var/folders/z_/stqx3kq10vg5x4830kjhr26c0000gn/T/docx-g7sYdT/in.html.  Couldn’t communicate with a helper application.
+ ❯ lib/import/files.test.ts (13 tests | 1 failed) 60ms
+   ❯ docx (1)
+     × keeps one line per Word paragraph, like the document shows 33ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  lib/import/files.test.ts > docx > keeps one line per Word paragraph, like the document shows
+Error: ENOENT: no such file or directory, open '/var/folders/z_/stqx3kq10vg5x4830kjhr26c0000gn/T/docx-g7sYdT/out.docx'
+ ❯ lib/import/files.test.ts:76:74
+     74|       return; // textutil só existe no macOS; o CI roda em Linux
+     75|     }
+     76|     const file = await prepareImportFile("legendas.docx", new Uint8Arr…
+       |                                                                          ^
+     77|     expect(file.kind === "docx" && file.text).toBe("Linha 1\nLinha 2\n…
+     78|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  1 failed | 33 passed (34)
+   Start at  07:53:05
+   Duration  465ms (import 73%, transform 18%, tests 7%, worker 1%)
+

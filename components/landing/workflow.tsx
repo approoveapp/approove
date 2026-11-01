@@ -26,9 +26,9 @@ export function LandingWorkflow({ locale }: { locale: AppLocale }) {
       ];
 
   return (
-    <section id="como-funciona" className="scroll-mt-16">
+    <section id="equipes" className="scroll-mt-16">
       <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
-        <Eyebrow>{tr("Fluxo", "Workflow")}</Eyebrow>
+        <Eyebrow>{tr("Para equipes", "For teams")}</Eyebrow>
         <Reveal bare>
           <SectionHeading>
             <MaskedWords text={tr("Da produção interna à aprovação do cliente.", "From internal production to client approval.")} />

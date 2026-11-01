@@ -7,6 +7,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 
 interface OrgClient {
   id: string;
@@ -34,10 +36,10 @@ interface Reviewer {
   invites: ReviewerInvite[];
 }
 
-const ROLE_LABELS: Record<string, string> = {
-  viewer: "Visualizador",
-  reviewer: "Revisor",
-  approver: "Aprovador",
+const ROLE_LABELS: Record<string, { pt: string; en: string }> = {
+  viewer: { pt: "Visualizador", en: "Viewer" },
+  reviewer: { pt: "Revisor", en: "Reviewer" },
+  approver: { pt: "Aprovador", en: "Approver" },
 };
 
 interface ClientReviewersTabProps {
@@ -55,6 +57,8 @@ export function ClientReviewersTab({
   calendarVersionId,
   calendarVersionLabel,
 }: ClientReviewersTabProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const [reviewers, setReviewers] = useState<Reviewer[]>([]);
   const [orgClients, setOrgClients] = useState<OrgClient[]>([]);
   const [loading, setLoading] = useState(true);
@@ -83,7 +87,9 @@ export function ClientReviewersTab({
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         throw new Error(
-          typeof data.error === "string" ? data.error : "Erro ao carregar revisores"
+          typeof data.error === "string"
+            ? data.error
+            : localizedText(locale, "Erro ao carregar revisores", "Unable to load reviewers")
         );
       }
       setReviewers(data.reviewers);
@@ -91,13 +97,15 @@ export function ClientReviewersTab({
       setCanManage(data.canManage === true);
     } catch (error) {
       setLoadError(
-        error instanceof Error ? error.message : "Erro ao carregar revisores"
+        error instanceof Error
+          ? error.message
+          : localizedText(locale, "Erro ao carregar revisores", "Unable to load reviewers")
       );
       console.error(error);
     } finally {
       setLoading(false);
     }
-  }, [clientSlug]);
+  }, [clientSlug, locale]);
 
   useEffect(() => {
     fetchReviewers();
@@ -117,7 +125,7 @@ export function ClientReviewersTab({
       });
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Erro ao convidar");
+        throw new Error(data.error || tr("Erro ao convidar", "Unable to send invite"));
       }
       const data = await res.json();
       setInviteFeedback({
@@ -130,35 +138,35 @@ export function ClientReviewersTab({
       setForm({ name: "", email: "", role: "approver", clientIds: [clientId] });
       await fetchReviewers();
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Erro ao convidar revisor");
+      alert(error instanceof Error ? error.message : tr("Erro ao convidar revisor", "Unable to invite reviewer"));
     } finally {
       setSaving(false);
     }
   };
 
   const handleRevoke = async (inviteId: string) => {
-    if (!confirm("Revogar este convite? O link deixará de funcionar.")) return;
+    if (!confirm(tr("Revogar este convite? O link deixará de funcionar.", "Revoke this invite? The link will stop working."))) return;
     try {
       const res = await fetch(`/api/invites/${inviteId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: "revoked" }),
       });
-      if (!res.ok) throw new Error("Erro ao revogar");
+      if (!res.ok) throw new Error(tr("Erro ao revogar", "Unable to revoke"));
       await fetchReviewers();
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Erro ao revogar");
+      alert(error instanceof Error ? error.message : tr("Erro ao revogar", "Unable to revoke"));
     }
   };
 
   const handleDeleteReviewer = async (reviewerId: string) => {
-    if (!confirm("Remover este revisor e todos os convites associados?")) return;
+    if (!confirm(tr("Remover este revisor e todos os convites associados?", "Remove this reviewer and all of their invites?"))) return;
     try {
       const res = await fetch(`/api/reviewers/${reviewerId}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("Erro ao remover");
+      if (!res.ok) throw new Error(tr("Erro ao remover", "Unable to remove"));
       await fetchReviewers();
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Erro ao remover");
+      alert(error instanceof Error ? error.message : tr("Erro ao remover", "Unable to remove"));
     }
   };
 
@@ -192,7 +200,7 @@ export function ClientReviewersTab({
         <CardContent className="py-12 text-center space-y-3">
           <p className="text-sm text-destructive">{loadError}</p>
           <Button size="sm" variant="outline" onClick={() => { setLoading(true); fetchReviewers(); }}>
-            Tentar novamente
+            {tr("Tentar novamente", "Try again")}
           </Button>
         </CardContent>
       </Card>
@@ -203,15 +211,20 @@ export function ClientReviewersTab({
     <div className="space-y-4 mt-4">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h3 className="font-semibold">Revisores convidados</h3>
+          <h3 className="font-semibold">{tr("Revisores convidados", "Invited reviewers")}</h3>
           <p className="text-sm text-muted-foreground">
-            Pessoas autorizadas a revisar calendários de {clientName} - cada uma com link próprio e empresas vinculadas.
+            {tr("Pessoas autorizadas a revisar calendários de", "People allowed to review calendars for")}{" "}
+            {clientName}{" "}
+            {tr(
+              "- cada uma com link próprio e empresas vinculadas.",
+              "- each with their own link and linked clients."
+            )}
           </p>
         </div>
         {canManage && (
           <Button size="sm" onClick={() => setShowForm((v) => !v)}>
             {showForm ? <X className="h-4 w-4 mr-1" /> : <UserPlus className="h-4 w-4 mr-1" />}
-            {showForm ? "Cancelar" : "Convidar revisor"}
+            {showForm ? tr("Cancelar", "Cancel") : tr("Convidar revisor", "Invite reviewer")}
           </Button>
         )}
       </div>
@@ -219,20 +232,20 @@ export function ClientReviewersTab({
       {canManage && showForm && (
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-base">Novo convite</CardTitle>
+            <CardTitle className="text-base">{tr("Novo convite", "New invite")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid sm:grid-cols-2 gap-3">
               <input
                 type="text"
-                placeholder="Nome completo"
+                placeholder={tr("Nome completo", "Full name")}
                 value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
                 className="text-sm px-3 py-2 border rounded-lg bg-background"
               />
               <input
                 type="email"
-                placeholder="E-mail"
+                placeholder={tr("E-mail", "Email")}
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
                 className="text-sm px-3 py-2 border rounded-lg bg-background"
@@ -240,21 +253,21 @@ export function ClientReviewersTab({
             </div>
 
             <div>
-              <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Papel</label>
+              <label className="text-xs font-medium text-muted-foreground mb-1.5 block">{tr("Papel", "Role")}</label>
               <select
                 value={form.role}
                 onChange={(e) => setForm((f) => ({ ...f, role: e.target.value }))}
                 className="text-sm px-3 py-2 border rounded-lg bg-background w-full sm:w-auto"
               >
-                <option value="viewer">Visualizador - só visualiza</option>
-                <option value="reviewer">Revisor - comenta e anota</option>
-                <option value="approver">Aprovador - comenta, anota e aprova</option>
+                <option value="viewer">{tr("Visualizador - só visualiza", "Viewer - view only")}</option>
+                <option value="reviewer">{tr("Revisor - comenta e anota", "Reviewer - comments and annotates")}</option>
+                <option value="approver">{tr("Aprovador - comenta, anota e aprova", "Approver - comments, annotates and approves")}</option>
               </select>
             </div>
 
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-2 block">
-                Empresas vinculadas (pode selecionar mais de uma)
+                {tr("Empresas vinculadas (pode selecionar mais de uma)", "Linked clients (you can select more than one)")}
               </label>
               <div className="flex flex-wrap gap-2">
                 {orgClients.map((c) => (
@@ -276,7 +289,7 @@ export function ClientReviewersTab({
 
             <Button onClick={handleCreate} disabled={saving || !form.name || !form.email || form.clientIds.length === 0}>
               {saving ? <Loader2 className="h-4 w-4 mr-1 animate-spin" /> : <Mail className="h-4 w-4 mr-1" />}
-              Enviar convite
+              {tr("Enviar convite", "Send invite")}
             </Button>
           </CardContent>
         </Card>
@@ -292,21 +305,22 @@ export function ClientReviewersTab({
             )}
             <div className="space-y-1 text-sm">
               {inviteFeedback.emailSent ? (
-                <p className="font-medium">Convite enviado para {inviteFeedback.email}</p>
+                <p className="font-medium">{tr("Convite enviado para", "Invite sent to")} {inviteFeedback.email}</p>
               ) : inviteFeedback.emailSkipped ? (
                 <>
-                  <p className="font-medium">Convite criado - e-mail não configurado</p>
+                  <p className="font-medium">{tr("Convite criado - e-mail não configurado", "Invite created - email not configured")}</p>
                   <p className="text-muted-foreground">
-                    Defina <code className="text-xs bg-muted px-1 py-0.5 rounded">RESEND_API_KEY</code> e{" "}
-                    <code className="text-xs bg-muted px-1 py-0.5 rounded">EMAIL_FROM</code> no servidor.
-                    Enquanto isso, copie o link do revisor abaixo.
+                    {tr("Defina", "Set")} <code className="text-xs bg-muted px-1 py-0.5 rounded">RESEND_API_KEY</code> {tr("e", "and")}{" "}
+                    <code className="text-xs bg-muted px-1 py-0.5 rounded">EMAIL_FROM</code> {tr("no servidor.", "on the server.")}{" "}
+                    {tr("Enquanto isso, copie o link do revisor abaixo.", "In the meantime, copy the reviewer link below.")}
                   </p>
                 </>
               ) : (
                 <>
-                  <p className="font-medium">Convite criado, mas o e-mail falhou</p>
+                  <p className="font-medium">{tr("Convite criado, mas o e-mail falhou", "Invite created, but the email failed")}</p>
                   <p className="text-muted-foreground">
-                    {inviteFeedback.emailError ?? "Não foi possível enviar o e-mail"} - copie o link manualmente na lista abaixo.
+                    {inviteFeedback.emailError ?? tr("Não foi possível enviar o e-mail", "Unable to send the email")}{" "}
+                    {tr("- copie o link manualmente na lista abaixo.", "- copy the link manually from the list below.")}
                   </p>
                 </>
               )}
@@ -316,7 +330,7 @@ export function ClientReviewersTab({
                 className="h-7 px-2 text-xs"
                 onClick={() => setInviteFeedback(null)}
               >
-                Fechar
+                {tr("Fechar", "Close")}
               </Button>
             </div>
           </CardContent>
@@ -326,7 +340,12 @@ export function ClientReviewersTab({
       {reviewers.length === 0 ? (
         <Card>
           <CardContent className="py-12 text-center text-muted-foreground text-sm">
-            Nenhum revisor convidado ainda.{canManage && " Use o botão acima para enviar um link personalizado."}
+            {tr("Nenhum revisor convidado ainda.", "No reviewers invited yet.")}
+            {canManage &&
+              ` ${tr(
+                "Use o botão acima para enviar um link personalizado.",
+                "Use the button above to send a personal link."
+              )}`}
           </CardContent>
         </Card>
       ) : (
@@ -351,6 +370,7 @@ export function ClientReviewersTab({
                     size="icon"
                     className="h-8 w-8 text-destructive hover:text-destructive shrink-0"
                     onClick={() => handleDeleteReviewer(reviewer.id)}
+                    aria-label={tr("Remover revisor", "Remove reviewer")}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -365,13 +385,15 @@ export function ClientReviewersTab({
                   >
                     <div className="flex items-center gap-2 flex-wrap">
                       <Badge variant={invite.status === "active" ? "default" : "secondary"}>
-                        {invite.status === "revoked" ? "Revogado" : "Ativo"}
+                        {invite.status === "revoked" ? tr("Revogado", "Revoked") : tr("Ativo", "Active")}
                       </Badge>
-                      <span className="text-muted-foreground">{ROLE_LABELS[invite.role] ?? invite.role}</span>
-                      <span className="text-xs text-muted-foreground">· cal. {invite.calendarVersion}</span>
+                      <span className="text-muted-foreground">{ROLE_LABELS[invite.role]
+                          ? tr(ROLE_LABELS[invite.role].pt, ROLE_LABELS[invite.role].en)
+                          : invite.role}</span>
+                      <span className="text-xs text-muted-foreground">· {tr("cal.", "cal.")} {invite.calendarVersion}</span>
                       {invite.lastAccessAt && (
                         <span className="text-xs text-muted-foreground">
-                          · último acesso {new Date(invite.lastAccessAt).toLocaleDateString("pt-BR")}
+                          · {tr("último acesso", "last access")} {new Date(invite.lastAccessAt).toLocaleDateString(locale)}
                         </span>
                       )}
                     </div>
@@ -384,7 +406,7 @@ export function ClientReviewersTab({
                             ) : (
                               <Copy className="h-3 w-3 mr-1" />
                             )}
-                            {copiedToken === invite.token ? "Copiado" : "Copiar link"}
+                            {copiedToken === invite.token ? tr("Copiado", "Copied") : tr("Copiar link", "Copy link")}
                           </Button>
                           <Button
                             size="sm"
@@ -392,7 +414,7 @@ export function ClientReviewersTab({
                             className="h-7 text-xs text-destructive"
                             onClick={() => handleRevoke(invite.id)}
                           >
-                            Revogar
+                            {tr("Revogar", "Revoke")}
                           </Button>
                         </>
                       )}
@@ -409,8 +431,14 @@ export function ClientReviewersTab({
         <CardContent className="p-4 flex gap-3 text-sm text-muted-foreground">
           <Link2 className="h-4 w-4 shrink-0 mt-0.5" />
           <p>
-            Cada revisor recebe um link único. O acesso é limitado às empresas selecionadas e ao papel definido.
-            Remover um revisor desativa os links dele na hora.
+            {tr(
+              "Cada revisor recebe um link único. O acesso é limitado às empresas selecionadas e ao papel definido.",
+              "Each reviewer gets a unique link. Access is limited to the selected clients and the assigned role."
+            )}{" "}
+            {tr(
+              "Remover um revisor desativa os links dele na hora.",
+              "Removing a reviewer disables their links immediately."
+            )}
           </p>
         </CardContent>
       </Card>

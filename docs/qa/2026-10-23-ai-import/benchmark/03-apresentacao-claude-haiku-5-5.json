@@ -1,0 +1,68 @@
+{
+  "summary": "Foram encontradas quatro publicações planejadas para novembro de 2026 (Instagram, Facebook e Instagram stories), com legendas e artes associadas, todas com horário 09:30.",
+  "posts": [
+    {
+      "date": "2026-11-07",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "carousel",
+      "title": "Oficina Aurora | Pauta 07",
+      "copyText": "Legenda 07.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "aurora-01.png",
+        "aurora-02.png",
+        "aurora-03.png"
+      ],
+      "notes": null,
+      "source": "apresentacao.pdf, p. 1"
+    },
+    {
+      "date": "2026-11-10",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Oficina Aurora | Pauta 10",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "cafe.png"
+      ],
+      "notes": null,
+      "source": "apresentacao.pdf, p. 2"
+    },
+    {
+      "date": "2026-11-12",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Facebook",
+      "format": "feed",
+      "title": "Oficina Aurora | Pauta 10 no Facebook",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "cafe.png"
+      ],
+      "notes": "Reutilizar cafe.png no Facebook conforme indicado. Não é duplicata acidental.",
+      "source": "apresentacao.pdf, p. 3"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "stories",
+      "title": "Oficina Aurora | Pauta 14",
+      "copyText": "Legenda 14.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "convite.png"
+      ],
+      "notes": null,
+      "source": "apresentacao.pdf, p. 4"
+    }
+  ],
+  "warnings": [
+    "A arte cafe.png aparece em duas publicações (Instagram em 10/11 e Facebook em 12/11), o que o documento indica de propósito; confirme antes de aprovar.",
+    "A pauta de stories do Instagram (14/11) traz legenda; confira se ela deve ser publicada, já que stories normalmente não exibem legenda.",
+    "Todas as cinco mídias enviadas foram associadas a alguma publicação, e nenhuma ficou de fora."
+  ]
+}

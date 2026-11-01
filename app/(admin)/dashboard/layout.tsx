@@ -12,8 +12,9 @@ export default async function DashboardLayout({
 }) {
   let organization;
   let user;
+  let membership;
   try {
-    ({ organization, user } = await requireOrganization());
+    ({ organization, user, membership } = await requireOrganization());
   } catch (error) {
     redirectForAuthError(error);
   }
@@ -24,7 +25,8 @@ export default async function DashboardLayout({
     redirect("/subscribe");
   }
 
-  if (pathname === "/dashboard") {
+  // Onboarding asks about the business, so only the owner who signed up sees it.
+  if (pathname === "/dashboard" && membership.role === "owner") {
     const dbUser = await prisma.user.findUnique({
       where: { id: user.id },
       select: { hasCompletedOnboarding: true },

@@ -1,4 +1,6 @@
+import { withImportMediaAccess } from "@/lib/import/private-media-url";
 import { NextRequest, NextResponse } from "next/server";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { authorizeCalendarView, rolePermissions, touchInviteAccess } from "@/lib/share-access";
 import { attachmentVersionInclude } from "@/lib/attachment-slides";
@@ -32,6 +34,7 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ clientSlug: string; versionId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { clientSlug, versionId } = await params;
     const token = request.nextUrl.searchParams.get("t") ?? undefined;
@@ -70,7 +73,7 @@ export async function GET(
       : posts.map(serializeClientPost);
 
     return NextResponse.json({
-      posts: serialized,
+      posts: withImportMediaAccess(serialized, token),
       isAdmin: authResult.isAgency,
       access: authResult.isAgency
         ? {
@@ -87,7 +90,7 @@ export async function GET(
           },
     });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error fetching posts:", error);
     return NextResponse.json(

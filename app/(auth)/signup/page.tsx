@@ -105,7 +105,7 @@ export default function SignupPage() {
           {tr("Crie sua conta", "Create your account")}
         </h2>
         <p className="text-sm text-muted-foreground">
-          {tr("Comece a organizar e aprovar conteúdo com seu time", "Start organizing and approving content with your team")}
+          {tr("Teste grátis por 15 dias, sem cartão. Leva um minuto.", "Free for 15 days, no credit card. Takes a minute.")}
         </p>
       </div>
 
@@ -164,7 +164,7 @@ export default function SignupPage() {
             id="name"
             name="name"
             type="text"
-            placeholder="João Silva"
+            placeholder={tr("João Silva", "Jane Doe")}
             value={formData.name}
             onChange={handleChange}
             required
@@ -178,7 +178,7 @@ export default function SignupPage() {
             id="email"
             name="email"
             type="email"
-            placeholder="seu@email.com"
+            placeholder={tr("seu@email.com", "you@example.com")}
             value={formData.email}
             onChange={handleChange}
             required
@@ -202,12 +202,12 @@ export default function SignupPage() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="organizationName">{tr("Nome da empresa / agência", "Company / agency name")}</Label>
+          <Label htmlFor="organizationName">{tr("Nome do seu negócio", "Your business name")}</Label>
           <Input
             id="organizationName"
             name="organizationName"
             type="text"
-            placeholder={tr("Minha Agência", "My Agency")}
+            placeholder={tr("Ex.: Ana Lima Social ou Agência Pixel", "e.g. Jane Doe Social or Pixel Studio")}
             value={formData.organizationName}
             onChange={handleChange}
             required

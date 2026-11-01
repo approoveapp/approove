@@ -1,0 +1,11 @@
+{
+  "summary": "Não há calendário editorial nos arquivos enviados: o texto de instruções pede para não inventar datas, canais, legendas ou agrupamentos, então nenhuma publicação foi criada. Sete imagens chegaram, e o vídeo asset-f.mp4 está na lista, mas não foi recebido.",
+  "posts": [],
+  "warnings": [
+    "Nenhuma data, horário, canal, formato, título ou legenda foi informado nos arquivos, então nenhuma publicação foi criada. Será preciso enviar a pauta ou o planejamento para migrar o calendário.",
+    "Não há agrupamento nem ordem definidos para as mídias, então nenhuma delas foi associada a uma publicação.",
+    "O vídeo asset-f.mp4 consta na lista de mídias, mas o arquivo não chegou aqui. Conferir e reenviar.",
+    "As sete imagens recebidas (asset-a.png, asset-b.png, asset-c.png, asset-d.png, asset-e.png, asset-g.png e asset-h.png) mostram apenas o nome do arquivo, a marca Oficina Aurora e a legenda 'Material ficticio' sobre fundo colorido. Não há conteúdo visual que indique o tema de alguma publicação.",
+    "Não há frequência de publicação definida, e nada foi criado para completar um calendário."
+  ]
+}

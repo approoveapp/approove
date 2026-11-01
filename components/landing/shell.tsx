@@ -9,18 +9,21 @@ import { MARKETING_PATHS, type MarketingPage } from "@/lib/marketing-routes";
 export function MarketingShell({
   locale,
   page = "home",
+  aiImport = false,
   children,
 }: {
   locale: AppLocale;
   page?: MarketingPage;
+  /** Shows the AI import link; follows IMPORT_AI_ENABLED. */
+  aiImport?: boolean;
   children: ReactNode;
 }) {
   return (
     <div className="lp flex min-h-screen flex-col antialiased" style={{ backgroundColor: cream, color: ink }}>
       <Preloader />
-      <LandingNavbar locale={locale} languageHref={MARKETING_PATHS[page]} />
+      <LandingNavbar locale={locale} languageHref={MARKETING_PATHS[page]} aiImport={aiImport} />
       <main className="flex-1">{children}</main>
-      <LandingFinalCta locale={locale} />
+      <LandingFinalCta locale={locale} languageHref={MARKETING_PATHS[page]} />
     </div>
   );
 }

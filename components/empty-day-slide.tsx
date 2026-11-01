@@ -4,6 +4,8 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Clock, Plus, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 
 interface EmptyDaySlideProps {
   date: Date;
@@ -12,7 +14,12 @@ interface EmptyDaySlideProps {
 }
 
 export function EmptyDaySlide({ date, isAdmin, onAddPost }: EmptyDaySlideProps) {
-  const dateLabel = format(date, "dd 'de' MMMM, yyyy", { locale: ptBR });
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
+  const dateLabel =
+    locale === "pt-BR"
+      ? format(date, "dd 'de' MMMM, yyyy", { locale: ptBR })
+      : format(date, "MMMM d, yyyy");
 
   return (
     <div className="h-screen w-full flex flex-col pt-16" data-component="empty-day-slide">
@@ -25,7 +32,7 @@ export function EmptyDaySlide({ date, isAdmin, onAddPost }: EmptyDaySlideProps) 
           {isAdmin && onAddPost && (
             <div className="flex gap-2 ml-4 pl-4 border-l">
               <Button size="sm" variant="outline" onClick={onAddPost}>
-                <Plus className="h-4 w-4 mr-1" /> Novo post
+                <Plus className="h-4 w-4 mr-1" /> {tr("Novo post", "New post")}
               </Button>
             </div>
           )}
@@ -38,16 +45,22 @@ export function EmptyDaySlide({ date, isAdmin, onAddPost }: EmptyDaySlideProps) 
             <ImageIcon className="h-7 w-7 text-muted-foreground" />
           </div>
           <div className="space-y-1">
-            <p className="font-medium">Nenhuma publicação neste dia</p>
+            <p className="font-medium">{tr("Nenhuma publicação neste dia", "No posts on this day")}</p>
             <p className="text-sm text-muted-foreground">
               {isAdmin
-                ? "Clique em “+ Novo post” para criar uma publicação nesta data."
-                : "Ainda não há conteúdo para revisar neste dia."}
+                ? tr(
+                    "Clique em “+ Novo post” para criar uma publicação nesta data.",
+                    "Click “+ New post” to create a post on this date."
+                  )
+                : tr(
+                    "Ainda não há conteúdo para revisar neste dia.",
+                    "There's nothing to review on this day yet."
+                  )}
             </p>
           </div>
           {isAdmin && onAddPost && (
             <Button onClick={onAddPost} className="mt-2">
-              <Plus className="h-4 w-4 mr-2" /> Novo post
+              <Plus className="h-4 w-4 mr-2" /> {tr("Novo post", "New post")}
             </Button>
           )}
         </div>

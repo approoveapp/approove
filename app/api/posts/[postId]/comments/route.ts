@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { authorizeShareOrSession } from "@/lib/share-access";
@@ -11,6 +13,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ postId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { postId } = await params;
     await enforceRateLimit("publicIp", clientIp(request.headers));
@@ -39,7 +42,16 @@ export async function POST(
     }
 
     if (!authResult.isAgency && !authResult.access?.permissions.canComment) {
-      return NextResponse.json({ error: "Sem permissão para comentar" }, { status: 403 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "Sem permissão para comentar",
+            "You don't have permission to comment."
+          ),
+        },
+        { status: 403 }
+      );
     }
 
     if (!authResult.isAgency && token) {
@@ -64,7 +76,7 @@ export async function POST(
 
     return NextResponse.json({ comment });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error creating comment:", error);
     return NextResponse.json(

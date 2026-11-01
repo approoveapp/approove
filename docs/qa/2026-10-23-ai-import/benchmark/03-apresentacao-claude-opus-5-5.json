@@ -1,0 +1,67 @@
+{
+  "summary": "O arquivo apresentacao.pdf traz quatro publicações da Oficina Aurora em novembro de 2026: um carrossel e um post de feed no Instagram, a mesma arte de feed no Facebook e um story no Instagram. Todas as cinco artes enviadas foram associadas.",
+  "posts": [
+    {
+      "date": "2026-11-07",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "carousel",
+      "title": "Oficina Aurora | Pauta 07",
+      "copyText": "Legenda 07.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "aurora-01.png",
+        "aurora-02.png",
+        "aurora-03.png"
+      ],
+      "notes": "Carrossel = um post, três slides. Horário em America/Sao_Paulo.",
+      "source": "apresentacao.pdf, p. 1"
+    },
+    {
+      "date": "2026-11-10",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Oficina Aurora | Pauta 10",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "cafe.png"
+      ],
+      "notes": "Horário em America/Sao_Paulo.",
+      "source": "apresentacao.pdf, p. 2"
+    },
+    {
+      "date": "2026-11-12",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Facebook",
+      "format": "feed",
+      "title": "Oficina Aurora | Pauta 10 no Facebook",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "cafe.png"
+      ],
+      "notes": "Reutilizar cafe.png no Facebook conforme indicado. Não é duplicata acidental. Horário em America/Sao_Paulo.",
+      "source": "apresentacao.pdf, p. 3"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "stories",
+      "title": "Oficina Aurora | Pauta 14",
+      "copyText": "Legenda 14.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "convite.png"
+      ],
+      "notes": "Horário em America/Sao_Paulo.",
+      "source": "apresentacao.pdf, p. 4"
+    }
+  ],
+  "warnings": [
+    "A arte cafe.png foi usada em dois posts (Instagram em 10/11 e Facebook em 12/11), porque o documento pede explicitamente a reutilização no Facebook.",
+    "O story de 14/11 tem legenda no documento; vale confirmar se o texto deve aparecer na arte ou ser descartado, já que stories normalmente não têm legenda."
+  ]
+}

@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { invalidDataMessage, localizeValidationMessage } from "@/lib/validation-messages";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { requireOrganization } from "@/lib/auth";
 import { z } from "zod";
@@ -13,12 +16,19 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ memberId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { membership, organization } = await requireOrganization();
 
     if (membership.role !== "owner") {
       return NextResponse.json(
-        { error: "Apenas o proprietário pode alterar funções" },
+        {
+          error: localizedText(
+            locale,
+            "Apenas o proprietário pode alterar funções",
+            "Only the owner can change roles."
+          ),
+        },
         { status: 403 }
       );
     }
@@ -36,21 +46,33 @@ export async function PATCH(
 
     if (!targetMembership) {
       return NextResponse.json(
-        { error: "Membro não encontrado" },
+        { error: localizedText(locale, "Membro não encontrado", "Member not found.") },
         { status: 404 }
       );
     }
 
     if (targetMembership.userId === membership.userId) {
       return NextResponse.json(
-        { error: "Você não pode alterar sua própria função" },
+        {
+          error: localizedText(
+            locale,
+            "Você não pode alterar sua própria função",
+            "You can't change your own role."
+          ),
+        },
         { status: 400 }
       );
     }
 
     if (targetMembership.role === "owner") {
       return NextResponse.json(
-        { error: "Não é possível alterar a função do proprietário" },
+        {
+          error: localizedText(
+            locale,
+            "Não é possível alterar a função do proprietário",
+            "The owner's role can't be changed."
+          ),
+        },
         { status: 400 }
       );
     }
@@ -77,7 +99,11 @@ export async function PATCH(
     }
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: error.issues[0]?.message ?? "Dados inválidos" },
+        {
+          error: error.issues[0]?.message
+            ? localizeValidationMessage(error.issues[0].message, locale)
+            : invalidDataMessage(locale),
+        },
         { status: 400 }
       );
     }
@@ -93,12 +119,19 @@ export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ memberId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { membership, organization } = await requireOrganization();
 
     if (membership.role !== "owner" && membership.role !== "admin") {
       return NextResponse.json(
-        { error: "Apenas proprietários e administradores podem remover membros" },
+        {
+          error: localizedText(
+            locale,
+            "Apenas proprietários e administradores podem remover membros",
+            "Only owners and admins can remove members."
+          ),
+        },
         { status: 403 }
       );
     }
@@ -114,28 +147,46 @@ export async function DELETE(
 
     if (!targetMembership) {
       return NextResponse.json(
-        { error: "Membro não encontrado" },
+        { error: localizedText(locale, "Membro não encontrado", "Member not found.") },
         { status: 404 }
       );
     }
 
     if (targetMembership.role === "owner") {
       return NextResponse.json(
-        { error: "Não é possível remover o proprietário da organização" },
+        {
+          error: localizedText(
+            locale,
+            "Não é possível remover o proprietário da organização",
+            "The organization owner can't be removed."
+          ),
+        },
         { status: 400 }
       );
     }
 
     if (targetMembership.userId === membership.userId) {
       return NextResponse.json(
-        { error: "Você não pode remover a si mesmo" },
+        {
+          error: localizedText(
+            locale,
+            "Você não pode remover a si mesmo",
+            "You can't remove yourself."
+          ),
+        },
         { status: 400 }
       );
     }
 
     if (targetMembership.role === "admin" && membership.role !== "owner") {
       return NextResponse.json(
-        { error: "Apenas o proprietário pode remover administradores" },
+        {
+          error: localizedText(
+            locale,
+            "Apenas o proprietário pode remover administradores",
+            "Only the owner can remove admins."
+          ),
+        },
         { status: 403 }
       );
     }

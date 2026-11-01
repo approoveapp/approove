@@ -2,9 +2,23 @@ import { Reveal } from "@/components/landing/reveal";
 import { Eyebrow } from "@/components/landing/ui";
 import { localizedText, type AppLocale } from "@/lib/locale";
 
-export function getLandingFaqs(locale: AppLocale) {
+export function getLandingFaqs(locale: AppLocale, aiImport = false) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
-  return [
+  const faqs = [
+    {
+      question: tr("O Approove agenda ou publica os posts?", "Does Approove schedule or publish posts?"),
+      answer: tr(
+        "Não. O Approove cuida da aprovação: calendário, revisão do cliente e registro do que foi aprovado. Depois de aprovado, você publica pela ferramenta que já usa (Meta Business Suite, Later, Buffer, mLabs ou outra).",
+        "No. Approove handles the approval: the calendar, client review, and a record of what was approved. Once a post is approved, you publish it with the tool you already use (Meta Business Suite, Later, Buffer, or any other)."
+      ),
+    },
+    {
+      question: tr("Qual a diferença para Planable, Later ou Sprout Social?", "How is it different from Planable, Later, or Sprout Social?"),
+      answer: tr(
+        "Essas ferramentas são, em geral, agendadores que oferecem aprovação, muitas vezes em planos mais caros ou cobrando por usuário. O Approove é focado na aprovação: a aprovação fica presa à versão exata da arte e da legenda, o cliente marca pins na arte, e o preço é pelo número de clientes, com revisores ilimitados em todos os planos.",
+        "Those tools are mostly schedulers that also offer approvals, often on higher plans or priced per seat. Approove focuses on the approval itself: each approval is tied to the exact version of the creative and caption, clients pin feedback on the creative, and pricing is by number of clients, with unlimited reviewers on every plan."
+      ),
+    },
     {
       question: tr("Preciso instalar alguma coisa?", "Do I need to install anything?"),
       answer: tr(
@@ -48,6 +62,14 @@ export function getLandingFaqs(locale: AppLocale) {
       ),
     },
     {
+      id: "ai-import",
+      question: tr("Consigo trazer o calendário que já tenho?", "Can I bring the calendar I already have?"),
+      answer: tr(
+        "Sim. Na importação com IA você envia a planilha de pauta, o briefing, os documentos de legenda e as artes (imagens e vídeos). A IA monta as publicações com datas, horários, canais, legendas exatamente como estão e cada arte no post certo. Ela não escreve conteúdo, e nada é criado antes de você conferir.",
+        "Yes. With AI import you upload the content plan, the brief, caption documents, and creatives (images and videos). The AI builds the posts with dates, times, channels, captions exactly as written, and each creative on the right post. It does not write content, and nothing is created until you check it."
+      ),
+    },
+    {
       question: tr("Preciso cadastrar cartão?", "Do I need to add a card?"),
       answer: tr(
         "Não para começar. O teste de 15 dias não pede cartão. O cartão só entra quando você escolhe um plano para continuar.",
@@ -76,11 +98,12 @@ export function getLandingFaqs(locale: AppLocale) {
       ),
     },
   ];
+  return aiImport ? faqs : faqs.filter((faq) => faq.id !== "ai-import");
 }
 
-export function LandingFaq({ locale }: { locale: AppLocale }) {
+export function LandingFaq({ locale, aiImport }: { locale: AppLocale; aiImport: boolean }) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
-  const faqs = getLandingFaqs(locale);
+  const faqs = getLandingFaqs(locale, aiImport);
 
   return (
     <section id="faq" className="scroll-mt-16 border-t" style={{ borderColor: "rgba(27,25,23,0.12)" }}>

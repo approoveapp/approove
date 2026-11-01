@@ -6,9 +6,11 @@ import { MARKETING_PATHS, marketingPath } from "@/lib/marketing-routes";
 export function LandingNavbar({
   locale,
   languageHref = MARKETING_PATHS.home,
+  aiImport = false,
 }: {
   locale: AppLocale;
   languageHref?: { "pt-BR": string; en: string };
+  aiImport?: boolean;
 }) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const home = marketingPath("home", locale);
@@ -24,10 +26,12 @@ export function LandingNavbar({
         <Link href={home} aria-label={tr("Approove - página inicial", "Approove - home")} className="text-xl">
           <Wordmark />
         </Link>
-        <nav className="hidden items-center gap-8 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.2em] md:flex">
+        {/* Os links só cabem a partir de lg; entre lg e xl o espaçamento aperta para não empurrar o CTA. */}
+        <nav className="hidden items-center gap-5 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.12em] lg:flex xl:gap-8 xl:tracking-[0.2em]">
           {[
             [how, tr("Como funciona", "How it works")],
             [`${how}#aprovacao`, tr("Aprovação", "Approval")],
+            ...(aiImport ? [[`${home}#importar`, tr("Importação", "Import")]] : []),
             [`${home}#funcionalidades`, tr("Funcionalidades", "Features")],
             [pricing, tr("Preços", "Pricing")],
             [`${home}#faq`, "FAQ"],
@@ -76,7 +80,7 @@ export function LandingNavbar({
           </Link>
           <Link
             href="/signup"
-            className="inline-flex items-center rounded-full bg-[#1B1917] px-5 py-2.5 text-sm font-semibold text-[#F4E9E1] transition-colors duration-300 hover:bg-[#0072E3] hover:text-white"
+            className="inline-flex items-center whitespace-nowrap rounded-full bg-[#1B1917] px-5 py-2.5 text-sm font-semibold text-[#F4E9E1] transition-colors duration-300 hover:bg-[#0072E3] hover:text-white"
           >
             {tr("Testar grátis", "Start free trial")}
           </Link>

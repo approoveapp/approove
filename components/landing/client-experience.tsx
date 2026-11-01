@@ -24,7 +24,7 @@ export function LandingClientExperience({ locale }: { locale: AppLocale }) {
       ];
 
   return (
-    <section className="scroll-mt-16" style={{ backgroundColor: "#EFE2D6" }}>
+    <section id="como-funciona" className="scroll-mt-16" style={{ backgroundColor: "#EFE2D6" }}>
       <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
         <Eyebrow>{tr("Experiência do cliente", "Client experience")}</Eyebrow>
         <Reveal bare>
@@ -35,7 +35,7 @@ export function LandingClientExperience({ locale }: { locale: AppLocale }) {
         <p className="mt-6 max-w-2xl text-lg font-medium leading-snug" style={{ color: "rgba(27,25,23,0.6)" }}>
           {tr(
             "O caminho mais comum continua o mesmo: WhatsApp → link → revisão no navegador. Sem app para instalar. Sem conta obrigatória no link compartilhado.",
-            "The usual path stays the same: WhatsApp → link → review in the browser. Nothing to install. No account required on the shared link."
+            "Send one link wherever you already talk to them: email, Slack, or WhatsApp. They review in the browser. Nothing to install, no account on the shared link."
           )}
         </p>
 

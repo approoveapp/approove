@@ -6,9 +6,11 @@ import { absoluteUrl } from "@/lib/app-url";
 import { prisma } from "@/lib/prisma";
 import { getStripe } from "@/lib/stripe";
 import { currencyForLocale } from "@/lib/pricing";
-import { getBillingLocale } from "@/lib/request-locale";
+import { getBillingLocale, getRequestLocale } from "@/lib/request-locale";
+import { localizedText } from "@/lib/locale";
 import { hasLiveSubscription } from "@/lib/billing-access";
 import { apiErrorResponse } from "@/lib/api-error";
+import { foundingCouponForCheckout } from "@/lib/founding-offer";
 
 function isCurrencyMismatch(error: unknown) {
   return (
@@ -33,9 +35,12 @@ export async function POST(request: NextRequest) {
   try {
     const { membership, organization, user } = await requireOrganization();
 
+    const locale = await getRequestLocale();
+    const tr = (pt: string, en: string) => localizedText(locale, pt, en);
+
     if (membership.role !== "owner" && membership.role !== "admin") {
       return NextResponse.json(
-        { error: "Sem permissão para gerenciar cobrança" },
+        { error: tr("Sem permissão para gerenciar cobrança", "You don't have permission to manage billing") },
         { status: 403 }
       );
     }
@@ -46,7 +51,12 @@ export async function POST(request: NextRequest) {
     // duas assinaturas cobrando em paralelo.
     if (hasLiveSubscription(organization)) {
       return NextResponse.json(
-        { error: "Sua assinatura já está ativa. Altere o plano em Gerenciar assinatura." },
+        {
+          error: tr(
+            "Sua assinatura já está ativa. Altere o plano em Gerenciar assinatura.",
+            "Your subscription is already active. Change your plan in Manage subscription."
+          ),
+        },
         { status: 409 }
       );
     }
@@ -54,7 +64,7 @@ export async function POST(request: NextRequest) {
 
     if (!price) {
       return NextResponse.json(
-        { error: "Preço Stripe não configurado" },
+        { error: tr("Preço Stripe não configurado", "Stripe price is not configured") },
         { status: 500 }
       );
     }
@@ -85,6 +95,7 @@ export async function POST(request: NextRequest) {
       stripeCustomerId = saved?.stripeCustomerId ?? customer.id;
     }
 
+    // Currency follows geography, not the UI language: a Brazilian on /en still pays in BRL.
     const currency = currencyForLocale(await getBillingLocale());
 
     const params: Stripe.Checkout.SessionCreateParams = {
@@ -104,6 +115,12 @@ export async function POST(request: NextRequest) {
         metadata: { app: "approove", organizationId: organization.id, plan },
       },
     };
+
+    const foundingCoupon = await foundingCouponForCheckout();
+    if (foundingCoupon) {
+      params.discounts = [{ coupon: foundingCoupon }];
+      params.metadata = { ...params.metadata, offer: "founding" };
+    }
 
     let session;
 

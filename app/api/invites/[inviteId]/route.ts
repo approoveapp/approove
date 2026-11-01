@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { requireActiveOrganization } from "@/lib/auth";
@@ -13,6 +15,7 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ inviteId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization } = await requireActiveOrganization({ roles: ["owner", "admin"] });
     const { inviteId } = await params;
@@ -26,7 +29,10 @@ export async function PATCH(
     });
 
     if (!invite) {
-      return NextResponse.json({ error: "Convite não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Convite não encontrado", "Invite not found.") },
+        { status: 404 }
+      );
     }
 
     const updated = await prisma.clientInvite.update({
@@ -39,7 +45,7 @@ export async function PATCH(
 
     return NextResponse.json({ invite: updated });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error updating invite:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

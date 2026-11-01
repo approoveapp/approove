@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { canManageWorkspace, requireActiveOrganization } from "@/lib/auth";
@@ -9,6 +10,7 @@ import { enforceRateLimit } from "@/lib/rate-limit";
 import { isoDateSchema } from "@/lib/validation";
 import { sendEmail } from "@/lib/email";
 import { buildReviewerInviteEmail } from "@/lib/email-templates/reviewer-invite";
+import { getRequestLocale } from "@/lib/request-locale";
 
 const createReviewerSchema = z.object({
   name: z.string().trim().min(1, "Nome é obrigatório").max(120),
@@ -32,6 +34,7 @@ export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ clientSlug: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization, membership } = await requireActiveOrganization();
     const canManage = canManageWorkspace(membership.role);
@@ -39,7 +42,10 @@ export async function GET(
 
     const client = await getClientForOrg(clientSlug, organization.id);
     if (!client) {
-      return NextResponse.json({ error: "Cliente não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Cliente não encontrado", "Client not found.") },
+        { status: 404 }
+      );
     }
 
     const links = await prisma.clientReviewerClient.findMany({
@@ -91,10 +97,13 @@ export async function GET(
 
     return NextResponse.json({ reviewers, orgClients, canManage });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error fetching reviewers:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }
 
@@ -102,6 +111,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ clientSlug: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { user, organization } = await requireActiveOrganization({ roles: ["owner", "admin"] });
     const { clientSlug } = await params;
@@ -112,7 +122,10 @@ export async function POST(
 
     const client = await getClientForOrg(clientSlug, organization.id);
     if (!client) {
-      return NextResponse.json({ error: "Cliente não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Cliente não encontrado", "Client not found.") },
+        { status: 404 }
+      );
     }
 
     const validClients = await prisma.client.findMany({
@@ -121,7 +134,16 @@ export async function POST(
       orderBy: { name: "asc" },
     });
     if (validClients.length !== clientIds.length) {
-      return NextResponse.json({ error: "Um ou mais clientes inválidos" }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "Um ou mais clientes inválidos",
+            "One or more clients are invalid."
+          ),
+        },
+        { status: 400 }
+      );
     }
 
     const targetVersion = calendarVersionId
@@ -129,7 +151,16 @@ export async function POST(
       : client.versions[0];
 
     if (!targetVersion) {
-      return NextResponse.json({ error: "Nenhuma versão de calendário encontrada" }, { status: 404 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "Nenhuma versão de calendário encontrada",
+            "No calendar version found."
+          ),
+        },
+        { status: 404 }
+      );
     }
 
     const existingReviewer = await prisma.clientReviewer.findUnique({
@@ -207,6 +238,7 @@ export async function POST(
       calendarVersion: targetVersion.version,
       sharePath: shareUrl,
       invitedByName: user.name,
+      locale: await getRequestLocale(),
     });
 
     const emailResult = await sendEmail({
@@ -225,9 +257,12 @@ export async function POST(
       emailSkipped: emailResult.skipped ?? false,
     });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error creating reviewer:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }

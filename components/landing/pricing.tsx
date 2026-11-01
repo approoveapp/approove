@@ -7,6 +7,8 @@ import { blue, cream, green, ink } from "@/components/landing/tokens";
 import { PLAN_LIMITS } from "@/lib/plan-limits";
 import { localizedText, type AppLocale } from "@/lib/locale";
 import { planPrice, type PaidPlan } from "@/lib/pricing";
+import type { FoundingOffer } from "@/lib/founding-offer";
+import { FoundingOfferNote } from "@/components/landing/hero";
 
 const planOrder = ["solo", "starter", "pro", "studio"] as const;
 
@@ -25,7 +27,17 @@ function limitLabel(value: number | null, singular: string, plural: string, unli
   return `${value} ${value === 1 ? singular : plural}`;
 }
 
-export function LandingPricing({ locale, showHeader = true }: { locale: AppLocale; showHeader?: boolean }) {
+export function LandingPricing({
+  locale,
+  aiImport = false,
+  foundingOffer = null,
+  showHeader = true,
+}: {
+  locale: AppLocale;
+  aiImport?: boolean;
+  foundingOffer?: FoundingOffer | null;
+  showHeader?: boolean;
+}) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const pricingByPlan = planPricing(locale);
   const planCopy: Record<(typeof planOrder)[number], { name: string; description: string; highlighted?: boolean }> = {
@@ -46,13 +58,32 @@ export function LandingPricing({ locale, showHeader = true }: { locale: AppLocal
                 <MaskedWords text={tr("Planos que crescem com a sua carteira.", "Plans that grow with your client roster.")} />
               </SectionHeading>
             </Reveal>
-            <div className="mt-6">
-              <TrialNote>
-                {tr("15 dias grátis · sem cartão", "15 days free · no credit card")}
-              </TrialNote>
-            </div>
+            <p className="mt-6 max-w-2xl text-lg font-medium leading-snug" style={{ color: "rgba(27,25,23,0.6)" }}>
+              {tr(
+                "Preço pelo número de clientes, não por usuário. Revisores ilimitados em todos os planos.",
+                "Priced by number of clients, not per seat. Unlimited reviewers on every plan."
+              )}
+            </p>
           </>
         ) : null}
+        <div className={showHeader ? "mt-4" : ""}>
+          {showHeader && (
+            <TrialNote>
+              {tr("15 dias grátis · sem cartão", "15 days free · no credit card")}
+            </TrialNote>
+          )}
+          {foundingOffer && (
+            <div>
+              <FoundingOfferNote locale={locale} offer={foundingOffer} />
+              <p className="mt-2 text-sm font-medium" style={{ color: "rgba(27,25,23,0.55)" }}>
+                {tr(
+                  "O desconto entra automaticamente quando você assina, em qualquer plano.",
+                  "The discount applies automatically when you subscribe, on any plan."
+                )}
+              </p>
+            </div>
+          )}
+        </div>
         <div className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ${showHeader ? "mt-16" : "mt-8"}`}>
           {planOrder.map((plan, i) => {
             const { name, description, highlighted } = planCopy[plan];
@@ -63,6 +94,14 @@ export function LandingPricing({ locale, showHeader = true }: { locale: AppLocal
               limitLabel(limits.members, tr("usuário da agência", "agency user"), tr("usuários da agência", "agency users"), tr("Usuários ilimitados", "Unlimited users")),
               limitLabel(limits.reviewers, tr("revisor", "reviewer"), tr("revisores", "reviewers"), tr("Revisores ilimitados", "Unlimited reviewers")),
               tr("Publicações ilimitadas", "Unlimited posts"),
+              ...(aiImport && limits.aiImports !== null
+                ? [
+                    tr(
+                      `${limits.aiImports} importações com IA por mês`,
+                      `${limits.aiImports} AI imports per month`
+                    ),
+                  ]
+                : []),
               tr("Aprovação por link", "Link-based approval"),
               tr("Etapas internas e papéis do cliente", "Internal stages and client roles"),
             ];

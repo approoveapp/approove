@@ -1,0 +1,46 @@
+{
+  "summary": "A pauta de novembro de 2026 da Oficina Aurora traz três publicações: duas no Instagram (dias 1 e 5) e um artigo no LinkedIn (dia 3). Nenhum arquivo de arte foi enviado.",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 01",
+      "copyText": "Olá, novembro! ☀️\n\nCafé, ideias e cuidado. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "pauta.txt, Pauta 01"
+    },
+    {
+      "date": "2026-11-03",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "LinkedIn",
+      "format": "article",
+      "title": "Pauta 03",
+      "copyText": "Trabalho com calma também é trabalho bem feito.",
+      "media": [],
+      "notes": "Somente texto, não precisa de arte.",
+      "source": "pauta.txt, Pauta 03"
+    },
+    {
+      "date": "2026-11-05",
+      "time": null,
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 05",
+      "copyText": "",
+      "media": [],
+      "notes": null,
+      "source": "pauta.txt, Pauta 05"
+    }
+  ],
+  "warnings": [
+    "Pauta 01 (Instagram, 01/11) está sem arte: nenhuma imagem foi indicada nem enviada.",
+    "Pauta 05 (Instagram, 05/11) está sem legenda, sem horário e sem arte nos arquivos.",
+    "A numeração das pautas pula números (01, 03, 05). Confirmem se as pautas 02 e 04 existem ou se a sequência é proposital; nenhum post foi criado para elas."
+  ]
+}

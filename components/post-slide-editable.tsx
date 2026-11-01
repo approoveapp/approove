@@ -6,6 +6,7 @@ import { ptBR } from "date-fns/locale";
 import {
   Copy, Clock, Edit2, Trash2, Save, X, Plus, ImageIcon, Upload, Info, UserRound, ArrowRightLeft,
 } from "lucide-react";
+import { MediaThumb } from "@/components/media-thumb";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -45,12 +46,10 @@ import type { AttachmentVersion } from "@/lib/types";
 import {
   type Post,
   type PostAttachment,
-  ATTACHMENT_TYPES,
+  getAttachmentTypeLabel,
 } from "./post-slide";
-import {
-  getProductionStageLabel,
-  getProductionStageStyle,
-} from "@/lib/production-stages";
+import { getProductionStageStyle } from "@/lib/production-stages";
+import { getLocalizedProductionStageLabel } from "@/components/post-production-fields";
 
 interface PostSlideEditableProps {
   post: Post;
@@ -213,7 +212,7 @@ export function PostSlideEditable({
   };
 
   const handleDelete = async () => {
-    if (confirm("Tem certeza que deseja deletar este post?")) {
+    if (confirm(tr("Tem certeza que deseja deletar este post?", "Are you sure you want to delete this post?"))) {
       onPostDelete?.(post.id);
     }
   };
@@ -249,7 +248,7 @@ export function PostSlideEditable({
   };
 
   const getAttachmentLabel = (att: PostAttachment) => {
-    return att.label || ATTACHMENT_TYPES[att.type] || att.type;
+    return att.label || getAttachmentTypeLabel(att.type, locale);
   };
 
   return (
@@ -272,19 +271,21 @@ export function PostSlideEditable({
                   type="text"
                   value={editData.channel}
                   onChange={(e) => setEditData({ ...editData, channel: e.target.value })}
-                  placeholder="Canal"
+                  placeholder={tr("Canal", "Channel")}
                   className="text-xs px-2 py-1 border rounded bg-background"
                 />
               </div>
             ) : (
               <>
                 <p className="text-sm font-semibold">
-                  {format(new Date(post.scheduledAt), "dd 'de' MMMM, yyyy", {
-                    locale: ptBR,
-                  })}
+                  {locale === "pt-BR"
+                    ? format(new Date(post.scheduledAt), "dd 'de' MMMM, yyyy", {
+                        locale: ptBR,
+                      })
+                    : format(new Date(post.scheduledAt), "MMMM d, yyyy")}
                   {dayPostCount && dayPostCount > 1 && (
                     <span className="text-muted-foreground font-normal">
-                      {" "}- {dayPostIndex} de {dayPostCount}
+                      {" "}- {dayPostIndex} {tr("de", "of")} {dayPostCount}
                     </span>
                   )}
                 </p>
@@ -316,10 +317,10 @@ export function PostSlideEditable({
               {editing ? (
                 <>
                   <Button size="sm" variant="outline" onClick={handleCancel}>
-                    <X className="h-4 w-4 mr-1" /> Cancelar
+                    <X className="h-4 w-4 mr-1" /> {tr("Cancelar", "Cancel")}
                   </Button>
                   <Button size="sm" onClick={handleSave}>
-                    <Save className="h-4 w-4 mr-1" /> Salvar
+                    <Save className="h-4 w-4 mr-1" /> {tr("Salvar", "Save")}
                   </Button>
                 </>
               ) : (
@@ -330,14 +331,14 @@ export function PostSlideEditable({
                       variant="outline"
                       onClick={() => onAddPostToDay(new Date(post.scheduledAt))}
                     >
-                      <Plus className="h-4 w-4 mr-1" /> Novo post
+                      <Plus className="h-4 w-4 mr-1" /> {tr("Novo post", "New post")}
                     </Button>
                   )}
                   <Button size="sm" variant="outline" onClick={() => setEditing(true)}>
-                    <Edit2 className="h-4 w-4 mr-1" /> Editar
+                    <Edit2 className="h-4 w-4 mr-1" /> {tr("Editar", "Edit")}
                   </Button>
                   <Button size="sm" variant="destructive" onClick={handleDelete}>
-                    <Trash2 className="h-4 w-4 mr-1" /> Deletar
+                    <Trash2 className="h-4 w-4 mr-1" /> {tr("Deletar", "Delete")}
                   </Button>
                 </>
               )}
@@ -350,7 +351,7 @@ export function PostSlideEditable({
           <div className="flex items-center justify-center gap-2 flex-wrap" data-section="production-info">
             {post.productionStage && (
               <Badge variant="secondary" className={getProductionStageStyle(post.productionStage)}>
-                {getProductionStageLabel(post.productionStage)}
+                {getLocalizedProductionStageLabel(post.productionStage, locale)}
               </Badge>
             )}
             {post.assignee ? (
@@ -360,7 +361,7 @@ export function PostSlideEditable({
               </span>
             ) : (
               <span className="text-xs text-muted-foreground bg-background/80 border rounded-full px-2.5 py-1">
-                Sem responsável
+                {tr("Sem responsável", "Unassigned")}
               </span>
             )}
             {onDelegate && (
@@ -371,7 +372,7 @@ export function PostSlideEditable({
                 onClick={() => onDelegate(post)}
               >
                 <ArrowRightLeft className="h-3.5 w-3.5 mr-1" />
-                Delegar
+                {tr("Delegar", "Delegate")}
               </Button>
             )}
             {post.handoffNote && (
@@ -433,9 +434,9 @@ export function PostSlideEditable({
               <div className="absolute inset-0 z-20 bg-background/95 backdrop-blur-sm rounded-lg flex flex-col overflow-hidden">
                 <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
                   <div>
-                    <h3 className="font-semibold text-sm">Nova versão</h3>
+                    <h3 className="font-semibold text-sm">{tr("Nova versão", "New version")}</h3>
                     <p className="text-xs text-muted-foreground">
-                      {getAttachmentLabel(currentAttachment)} - versão {currentAttachment.versions.length + 1}
+                      {getAttachmentLabel(currentAttachment)} - {tr("versão", "version")} {currentAttachment.versions.length + 1}
                     </p>
                   </div>
                   <Button
@@ -450,7 +451,7 @@ export function PostSlideEditable({
                         { url: "", mediaType: "image" },
                       ]);
                     }}
-                    aria-label="Cancelar"
+                    aria-label={tr("Cancelar", "Cancel")}
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -489,7 +490,7 @@ export function PostSlideEditable({
                           ]);
                         }}
                       >
-                        Cancelar
+                        {tr("Cancelar", "Cancel")}
                       </Button>
                       <Button
                         size="sm"
@@ -501,7 +502,7 @@ export function PostSlideEditable({
                             : !newVersionUrl
                         }
                       >
-                        <Upload className="h-4 w-4 mr-1" /> Enviar v{currentAttachment.versions.length + 1}
+                        <Upload className="h-4 w-4 mr-1" /> {tr("Enviar", "Upload")} v{currentAttachment.versions.length + 1}
                       </Button>
                   </div>
                 </div>
@@ -513,9 +514,9 @@ export function PostSlideEditable({
               <div className="absolute inset-0 z-20 bg-background/95 backdrop-blur-sm rounded-lg flex flex-col overflow-hidden">
                 <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
                   <div>
-                    <h3 className="font-semibold text-sm">Novo material</h3>
+                    <h3 className="font-semibold text-sm">{tr("Novo material", "New creative")}</h3>
                     <p className="text-xs text-muted-foreground">
-                      Adicione um anexo ao post
+                      {tr("Adicione um anexo ao post", "Add an attachment to the post")}
                     </p>
                   </div>
                   <Button
@@ -526,7 +527,7 @@ export function PostSlideEditable({
                       setShowAddAttachment(false);
                       setMaterialDraft(createEmptyMaterialDraft());
                     }}
-                    aria-label="Cancelar"
+                    aria-label={tr("Cancelar", "Cancel")}
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -551,7 +552,7 @@ export function PostSlideEditable({
                           setMaterialDraft(createEmptyMaterialDraft());
                         }}
                       >
-                        Cancelar
+                        {tr("Cancelar", "Cancel")}
                       </Button>
                       <Button
                         size="sm"
@@ -559,7 +560,7 @@ export function PostSlideEditable({
                         onClick={handleAddAttachment}
                         disabled={!isMaterialDraftValid(materialDraft)}
                       >
-                        <Plus className="h-4 w-4 mr-1" /> Adicionar
+                        <Plus className="h-4 w-4 mr-1" /> {tr("Adicionar", "Add")}
                       </Button>
                   </div>
                 </div>
@@ -597,12 +598,12 @@ export function PostSlideEditable({
                         className="aspect-[4/5] flex flex-col items-center justify-center gap-1.5 rounded-md border-2 border-dashed border-muted-foreground/30 text-muted-foreground transition-colors hover:border-primary hover:bg-primary/5 hover:text-foreground"
                       >
                         <Plus className="h-6 w-6" />
-                        <span className="text-xs font-medium">Enviar imagem</span>
+                        <span className="text-xs font-medium">{tr("Enviar imagem", "Upload image")}</span>
                       </button>
                     ) : (
                       <div className="col-span-full flex flex-col items-center justify-center gap-2 py-12 text-muted-foreground">
                         <ImageIcon className="h-12 w-12" />
-                        <p className="text-sm">Nenhum material anexado</p>
+                        <p className="text-sm">{tr("Nenhum material anexado", "No creatives attached")}</p>
                       </div>
                     )}
                     {isAdmin &&
@@ -616,7 +617,10 @@ export function PostSlideEditable({
                   </div>
                   {isAdmin && (
                     <p className="mt-3 text-xs text-muted-foreground">
-                      Envie uma imagem, um vídeo ou várias imagens para um carrossel.
+                      {tr(
+                        "Envie uma imagem, um vídeo ou várias imagens para um carrossel.",
+                        "Upload an image, a video, or several images for a carousel."
+                      )}
                     </p>
                   )}
                 </div>
@@ -648,8 +652,8 @@ export function PostSlideEditable({
                   >
                     <div className="relative w-14 h-14 shrink-0">
                       {lastVersion?.url ? (
-                        <img
-                          src={lastVersion.url}
+                        <MediaThumb
+                          url={lastVersion.url}
                           alt={getAttachmentLabel(att)}
                           className="w-full h-full object-cover rounded"
                         />
@@ -676,7 +680,10 @@ export function PostSlideEditable({
                       <Tooltip>
                         <TooltipTrigger asChild>{thumbButton}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs">
-                          {att.versions.length} versões disponíveis - selecione no preview para alternar
+                          {tr(
+                            `${att.versions.length} versões disponíveis - selecione no preview para alternar`,
+                            `${att.versions.length} versions available - select one in the preview to switch`
+                          )}
                         </TooltipContent>
                       </Tooltip>
                     ) : (
@@ -697,7 +704,7 @@ export function PostSlideEditable({
                 className="flex-shrink-0 flex flex-col items-center justify-center gap-1 p-1.5 rounded-lg border-2 border-dashed border-muted-foreground/30 hover:border-primary hover:bg-primary/5 transition-all w-[68px] h-[82px]"
               >
                 <Plus className="h-6 w-6 text-muted-foreground" />
-                <span className="text-[10px] text-muted-foreground font-medium">Adicionar</span>
+                <span className="text-[10px] text-muted-foreground font-medium">{tr("Adicionar", "Add")}</span>
               </button>
             )}
             </div>
@@ -709,20 +716,20 @@ export function PostSlideEditable({
           <div className="shrink-0" data-section="title-section">
             <Card>
               <CardHeader className="pb-2 pt-4">
-                <CardTitle className="text-sm font-medium">Título</CardTitle>
+                <CardTitle className="text-sm font-medium">{tr("Título", "Title")}</CardTitle>
               </CardHeader>
               <CardContent className="pb-4">
                 {editing ? (
                   <Input
                     value={editData.title}
                     onChange={(e) => setEditData({ ...editData, title: e.target.value })}
-                    placeholder="Tema do post (ex.: Lançamento coleção verão)"
+                    placeholder={tr("Tema do post (ex.: Lançamento coleção verão)", "Post topic (e.g.: Summer collection launch)")}
                     className="font-semibold"
                   />
                 ) : post.title?.trim() ? (
                   <p className="text-base font-semibold leading-snug">{post.title}</p>
                 ) : (
-                  <p className="text-sm text-muted-foreground">Sem título</p>
+                  <p className="text-sm text-muted-foreground">{tr("Sem título", "Untitled")}</p>
                 )}
               </CardContent>
             </Card>
@@ -731,11 +738,11 @@ export function PostSlideEditable({
           <div className="flex-1 min-h-0 flex flex-col" data-section="copy-section">
             <Card className="h-full flex flex-col">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                <CardTitle className="text-sm font-medium">Copy</CardTitle>
+                <CardTitle className="text-sm font-medium">{tr("Copy", "Caption")}</CardTitle>
                 {!editing && (
                   <Button size="sm" variant="outline" onClick={handleCopy} disabled={copying}>
                     <Copy className="h-4 w-4 mr-2" />
-                    {copying ? "Copiado!" : "Copiar"}
+                    {copying ? tr("Copiado!", "Copied!") : tr("Copiar", "Copy")}
                   </Button>
                 )}
               </CardHeader>
@@ -745,7 +752,7 @@ export function PostSlideEditable({
                     value={editData.copyText}
                     onChange={(e) => setEditData({ ...editData, copyText: e.target.value })}
                     className="w-full h-full min-h-[120px] px-3 py-2 text-sm border rounded-md bg-background resize-none"
-                    placeholder="Digite o texto do post..."
+                    placeholder={tr("Digite o texto do post...", "Type the post text...")}
                   />
                 ) : (
                   <p className="text-sm whitespace-pre-wrap">{post.copyText}</p>

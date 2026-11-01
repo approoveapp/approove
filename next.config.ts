@@ -31,6 +31,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  serverExternalPackages: ["exceljs", "mammoth"],
+  outputFileTracingIncludes: { "/api/clients/*/imports": ["./node_modules/exceljs/**/*", "./node_modules/mammoth/**/*"] },
   // next/image não é usado: sem remotePatterns o otimizador não vira proxy aberto.
   async headers() {
     return [

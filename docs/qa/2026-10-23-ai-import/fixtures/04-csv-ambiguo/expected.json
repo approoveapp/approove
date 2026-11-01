@@ -1,0 +1,95 @@
+{
+  "id": "04-csv-ambiguo",
+  "client": "Oficina Aurora (fictícia)",
+  "timezone": "America/Sao_Paulo",
+  "referenceDate": "2026-10-23",
+  "expectedPosts": 6,
+  "documents": [
+    "pauta.csv"
+  ],
+  "media": [],
+  "proposal": {
+    "summary": "6 publicações fictícias para revisão.",
+    "posts": [
+      {
+        "date": "2026-11-02",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Pauta 02",
+        "copyText": "Legenda 02.\nConheça a Oficina Aurora. #Aurora",
+        "media": [],
+        "notes": null,
+        "source": "pauta.csv, publicação 1"
+      },
+      {
+        "date": "2026-11-04",
+        "time": null,
+        "dateIsSuggested": false,
+        "channel": "LinkedIn",
+        "format": "feed",
+        "title": "Pauta 04",
+        "copyText": "Legenda 04.\nConheça a Oficina Aurora. #Aurora",
+        "media": [],
+        "notes": null,
+        "source": "pauta.csv, publicação 2"
+      },
+      {
+        "date": "2026-11-06",
+        "time": "09:30",
+        "dateIsSuggested": true,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Pauta 06",
+        "copyText": "Legenda 06.\nConheça a Oficina Aurora. #Aurora",
+        "media": [],
+        "notes": null,
+        "source": "pauta.csv, publicação 3"
+      },
+      {
+        "date": "2026-11-08",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Pauta 08",
+        "copyText": "",
+        "media": [],
+        "notes": null,
+        "source": "pauta.csv, publicação 4"
+      },
+      {
+        "date": "2026-11-10",
+        "time": "18:00",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Pauta 10",
+        "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+        "media": [],
+        "notes": null,
+        "source": "pauta.csv, publicação 5"
+      },
+      {
+        "date": "2026-11-12",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Pauta 12",
+        "copyText": "Legenda 12.\nConheça a Oficina Aurora. #Aurora",
+        "media": [],
+        "notes": null,
+        "source": "pauta.csv, publicação 6"
+      }
+    ],
+    "warnings": [
+      "Data 06/11 deduzida da primeira sexta de novembro; conferir.",
+      "Horário ausente na pauta 04.",
+      "Pauta 08 sem legenda.",
+      "Linha idêntica repetida da pauta 02: não duplicar.",
+      "Pauta 10: usar 18:00, correção explícita."
+    ]
+  }
+}

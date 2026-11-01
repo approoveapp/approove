@@ -1,0 +1,85 @@
+{
+  "summary": "Encontrei 6 publicações válidas na pauta de novembro de 2026 (Instagram e LinkedIn), com a linha 8 repetindo a linha 2, e nenhuma arte enviada. Há três pontos para conferir: a data da Pauta 06 foi deduzida, a Pauta 04 não tem horário e a Pauta 10 tem horário corrigido.",
+  "posts": [
+    {
+      "date": "2026-11-02",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 02",
+      "copyText": "Legenda 02.\nConheça a Oficina Aurora. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "pauta.csv, linha 2"
+    },
+    {
+      "date": "2026-11-04",
+      "time": null,
+      "dateIsSuggested": false,
+      "channel": "LinkedIn",
+      "format": "feed",
+      "title": "Pauta 04",
+      "copyText": "Legenda 04.\nConheça a Oficina Aurora. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "pauta.csv, linha 3"
+    },
+    {
+      "date": "2026-11-06",
+      "time": "09:30",
+      "dateIsSuggested": true,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 06",
+      "copyText": "Legenda 06.\nConheça a Oficina Aurora. #Aurora",
+      "media": [],
+      "notes": "Data na pauta: primeira sexta de novembro de 2026.",
+      "source": "pauta.csv, linha 4"
+    },
+    {
+      "date": "2026-11-08",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 08",
+      "copyText": "",
+      "media": [],
+      "notes": null,
+      "source": "pauta.csv, linha 5"
+    },
+    {
+      "date": "2026-11-10",
+      "time": "18:00",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 10",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "media": [],
+      "notes": "Nota da pauta: antes 09:30, CORREÇÃO FINAL 18:00.",
+      "source": "pauta.csv, linha 6"
+    },
+    {
+      "date": "2026-11-12",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 12",
+      "copyText": "Legenda 12.\nConheça a Oficina Aurora. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "pauta.csv, linha 7"
+    }
+  ],
+  "warnings": [
+    "A linha 8 da pauta repete a linha 2 (mesma data, horário, canal, título e legenda). Migrei só uma vez; confirmar se é duplicata.",
+    "Pauta 06 (linha 4): a data está escrita como \"primeira sexta de novembro de 2026\". Considerei 6 de novembro de 2026, mas conferir a data.",
+    "Pauta 04 (linha 3): não há horário na pauta. Conferir o horário de publicação.",
+    "Pauta 08 (linha 5): não há legenda na pauta. Precisa ser preenchida antes da aprovação.",
+    "Pauta 10 (linha 6): a pauta traz dois horários, 09:30 e 18:00, marcados como correção final. Usei 18:00; confirmar.",
+    "Nenhum arquivo de arte foi enviado, então nenhum post tem imagem ou vídeo associado. Todas as artes precisam ser enviadas."
+  ]
+}

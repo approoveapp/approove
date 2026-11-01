@@ -1,0 +1,115 @@
+MANIFESTO EXPLÍCITO. Um objeto posts = uma publicação. Capa é vinculada ao vídeo, não novo post.
+{
+  "client": "Oficina Aurora (fictícia)",
+  "timezone": "America/Sao_Paulo",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "carousel",
+      "title": "Manifesto 01",
+      "copyText": "Oficina Aurora. Ideia 01.\nConheca nosso trabalho.",
+      "media": [
+        "asset-a.png",
+        "asset-b.png",
+        "asset-c.png",
+        "asset-d.png"
+      ],
+      "notes": null,
+      "source": "Fixture suplementar, registro 1",
+      "assets": [
+        {
+          "filename": "asset-a.png",
+          "role": "slide",
+          "order": 1
+        },
+        {
+          "filename": "asset-b.png",
+          "role": "slide",
+          "order": 2
+        },
+        {
+          "filename": "asset-c.png",
+          "role": "slide",
+          "order": 3
+        },
+        {
+          "filename": "asset-d.png",
+          "role": "slide",
+          "order": 4
+        }
+      ]
+    },
+    {
+      "date": "2026-11-02",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Manifesto 02",
+      "copyText": "Oficina Aurora. Ideia 02.\nConheca nosso trabalho.",
+      "media": [
+        "asset-e.png"
+      ],
+      "notes": null,
+      "source": "Fixture suplementar, registro 2",
+      "assets": [
+        {
+          "filename": "asset-e.png",
+          "role": "slide",
+          "order": 1
+        }
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "reels",
+      "title": "Manifesto 03",
+      "copyText": "Oficina Aurora. Ideia 03.\nConheca nosso trabalho.",
+      "media": [
+        "asset-f.mp4",
+        "asset-g.png"
+      ],
+      "notes": null,
+      "source": "Fixture suplementar, registro 3",
+      "assets": [
+        {
+          "filename": "asset-f.mp4",
+          "role": "video",
+          "order": 1
+        },
+        {
+          "filename": "asset-g.png",
+          "role": "cover",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Manifesto 04",
+      "copyText": "Oficina Aurora. Ideia 04.\nConheca nosso trabalho.",
+      "media": [
+        "asset-h.png"
+      ],
+      "notes": null,
+      "source": "Fixture suplementar, registro 4",
+      "assets": [
+        {
+          "filename": "asset-h.png",
+          "role": "slide",
+          "order": 1
+        }
+      ]
+    }
+  ]
+}

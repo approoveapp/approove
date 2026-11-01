@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { canManageWorkspace, requireActiveOrganization } from "@/lib/auth";
 import { findAgencyShareToken } from "@/lib/share-access";
@@ -11,6 +13,7 @@ import { getEffectivePlan } from "@/lib/billing-access";
 const createClientSchema = clientFieldsSchema.extend({ slug: slugSchema });
 
 export async function GET() {
+  const locale = await getRequestLocale();
   try {
     const { organization, membership } = await requireActiveOrganization();
     const canManage = canManageWorkspace(membership.role);
@@ -55,17 +58,18 @@ export async function GET() {
 
     return NextResponse.json({ clients: clientsWithStats, canManage });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error fetching clients:", error);
     return NextResponse.json(
-      { error: "Erro interno do servidor" },
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
       { status: 500 }
     );
   }
 }
 
 export async function POST(request: NextRequest) {
+  const locale = await getRequestLocale();
   try {
     const { organization } = await requireActiveOrganization({ roles: ["owner", "admin"] });
     const data = createClientSchema.parse(await request.json());
@@ -75,7 +79,16 @@ export async function POST(request: NextRequest) {
       select: { id: true },
     });
     if (ownSlug) {
-      return NextResponse.json({ error: "Você já tem um cliente com este slug" }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "Você já tem um cliente com este slug",
+            "You already have a client with this slug."
+          ),
+        },
+        { status: 400 }
+      );
     }
 
     // Slugs são globais (URL pública). Se outra agência já usa, um sufixo aleatório
@@ -91,7 +104,7 @@ export async function POST(request: NextRequest) {
       where: { organizationId: organization.id },
     });
     if (!planAllows(plan, "clients", clientCount)) {
-      return NextResponse.json(planLimitResponse(plan, "clients", clientCount), { status: 403 });
+      return NextResponse.json(planLimitResponse(plan, "clients", clientCount, locale), { status: 403 });
     }
 
     const client = await prisma.client.create({
@@ -120,12 +133,12 @@ export async function POST(request: NextRequest) {
     });
     if (!planAllows(plan, "clients", countAfter - 1)) {
       await prisma.client.delete({ where: { id: client.id } });
-      return NextResponse.json(planLimitResponse(plan, "clients", countAfter - 1), { status: 403 });
+      return NextResponse.json(planLimitResponse(plan, "clients", countAfter - 1, locale), { status: 403 });
     }
 
     return NextResponse.json({ client });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error creating client:", error);
     return NextResponse.json(

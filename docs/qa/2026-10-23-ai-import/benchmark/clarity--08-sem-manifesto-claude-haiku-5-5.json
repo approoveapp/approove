@@ -1,0 +1,11 @@
+{
+  "summary": "O material enviado não contém nenhuma publicação para migrar: há apenas oito arquivos de mídia, sem agrupamento, datas, canais, legendas nem ordem. Nenhum post foi criado.",
+  "posts": [],
+  "warnings": [
+    "Nenhuma publicação foi criada porque o material não informa agrupamento, datas, horários, canais, legendas nem ordem de publicação. A equipe precisa enviar essas informações para que o calendário possa ser montado.",
+    "As oito mídias (asset-a.png a asset-e.png, asset-g.png, asset-h.png e o vídeo asset-f.mp4) ficaram sem vínculo com qualquer post, pois não há indicação de qual arte pertence a qual publicação.",
+    "As sete imagens têm o mesmo layout, com a marca Oficina Aurora, o nome do arquivo escrito no centro e a frase Material ficticio. Pelo visual, não é possível saber se são as artes finais ou apenas material de teste, então a equipe deve confirmar isso.",
+    "O vídeo asset-f.mp4 não pode ser identificado pelo conteúdo, então depende de uma referência escrita para ser associado a algum post.",
+    "Não há dados de data de referência de publicação, canal ou horário para nenhuma das mídias; qualquer calendário precisa ser definido pela equipe antes da migração."
+  ]
+}

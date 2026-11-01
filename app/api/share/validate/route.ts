@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getRequestLocale } from "@/lib/request-locale";
 import { validateShareToken, touchInviteAccess } from "@/lib/share-access";
 import { apiErrorResponse } from "@/lib/api-error";
 import { clientIp, enforceRateLimit } from "@/lib/rate-limit";
 
 export async function GET(request: NextRequest) {
+  const locale = await getRequestLocale();
   try {
     const token = request.nextUrl.searchParams.get("t");
     const clientSlug = request.nextUrl.searchParams.get("clientSlug") ?? undefined;
@@ -34,7 +36,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error validating share token:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

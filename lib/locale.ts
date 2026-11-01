@@ -4,10 +4,19 @@ export type AppLocale = (typeof SUPPORTED_LOCALES)[number];
 
 export const DEFAULT_LOCALE: AppLocale = "en";
 
+/** Language the visitor picked (URL, switcher or `?lang=`); it wins over country and browser. */
 export const LOCALE_COOKIE = "approove-locale";
 
 export function isAppLocale(value: string | null | undefined): value is AppLocale {
   return value === "en" || value === "pt-BR";
+}
+
+/** Accepts the short forms used in `?lang=` (`en`, `pt`, `pt-br`). */
+export function parseLocale(value: string | null | undefined): AppLocale | null {
+  const normalized = value?.trim().toLowerCase();
+  if (normalized === "en") return "en";
+  if (normalized === "pt" || normalized === "pt-br") return "pt-BR";
+  return null;
 }
 
 /**
@@ -42,12 +51,17 @@ export function persistableMarketingLocale(pathname: string): AppLocale | null {
 }
 
 export function localeFromRequest({
+  override,
   country,
   acceptLanguage,
 }: {
+  override?: string | null;
   country?: string | null;
   acceptLanguage?: string | null;
 }): AppLocale {
+  const chosen = parseLocale(override);
+  if (chosen) return chosen;
+
   const normalizedCountry = country?.trim().toUpperCase();
 
   if (normalizedCountry) {

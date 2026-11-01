@@ -109,7 +109,7 @@ export default function NewClientPage() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Ex: Acme Corporation"
+                  placeholder={tr("Ex: Acme Corporation", "E.g. Acme Corporation")}
                   required
                 />
               </div>
@@ -127,7 +127,7 @@ export default function NewClientPage() {
                     onChange={handleChange}
                     placeholder="acme-corporation"
                     required
-                    pattern="[a-z0-9-]+"
+                    pattern="[a-z0-9\-]+"
                   />
                 </div>
               </div>
@@ -135,13 +135,13 @@ export default function NewClientPage() {
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="cnpj">CNPJ</Label>
+                <Label htmlFor="cnpj">{tr("CNPJ", "Tax ID")}</Label>
                 <Input
                   id="cnpj"
                   name="cnpj"
                   value={formData.cnpj}
                   onChange={handleChange}
-                  placeholder="00.000.000/0000-00"
+                  placeholder={tr("00.000.000/0000-00", "Optional")}
                 />
               </div>
 
@@ -153,7 +153,7 @@ export default function NewClientPage() {
                   type="url"
                   value={formData.website}
                   onChange={handleChange}
-                  placeholder="https://www.exemplo.com"
+                  placeholder={tr("https://www.exemplo.com", "https://www.example.com")}
                 />
               </div>
             </div>

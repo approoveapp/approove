@@ -1,0 +1,401 @@
+data;hora;canal;formato;titulo;legenda;nota
+2026-11-02;08:30;Instagram;feed;Pauta 001;"Post 001 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-02;12:00;LinkedIn;feed;Pauta 002;"Post 002 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-02;17:45;Facebook;feed;Pauta 003;"Post 003 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-02;19:15;TikTok;video;Pauta 004;"Post 004 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-03;08:30;Instagram;feed;Pauta 005;"Post 005 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-03;12:00;LinkedIn;feed;Pauta 006;"Post 006 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-03;17:45;Facebook;feed;Pauta 007;"Post 007 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-03;19:15;TikTok;video;Pauta 008;"Post 008 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-04;08:30;Instagram;feed;Pauta 009;"Post 009 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-04;12:00;LinkedIn;feed;Pauta 010;"Post 010 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-04;17:45;Facebook;feed;Pauta 011;"Post 011 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-04;19:15;TikTok;video;Pauta 012;"Post 012 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-05;08:30;Instagram;feed;Pauta 013;"Post 013 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-05;12:00;LinkedIn;feed;Pauta 014;"Post 014 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-05;17:45;Facebook;feed;Pauta 015;"Post 015 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-05;19:15;TikTok;video;Pauta 016;"Post 016 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-06;08:30;Instagram;feed;Pauta 017;"Post 017 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-06;12:00;LinkedIn;feed;Pauta 018;"Post 018 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-06;17:45;Facebook;feed;Pauta 019;"Post 019 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-06;19:15;TikTok;video;Pauta 020;"Post 020 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-07;08:30;Instagram;feed;Pauta 021;"Post 021 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-07;12:00;LinkedIn;feed;Pauta 022;"Post 022 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-07;17:45;Facebook;feed;Pauta 023;"Post 023 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-07;19:15;TikTok;video;Pauta 024;"Post 024 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-08;08:30;Instagram;feed;Pauta 025;"Post 025 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-08;12:00;LinkedIn;feed;Pauta 026;"Post 026 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-08;17:45;Facebook;feed;Pauta 027;"Post 027 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-08;19:15;TikTok;video;Pauta 028;"Post 028 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-09;08:30;Instagram;feed;Pauta 029;"Post 029 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-09;12:00;LinkedIn;feed;Pauta 030;"Post 030 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-09;17:45;Facebook;feed;Pauta 031;"Post 031 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-09;19:15;TikTok;video;Pauta 032;"Post 032 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-10;08:30;Instagram;feed;Pauta 033;"Post 033 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-10;12:00;LinkedIn;feed;Pauta 034;"Post 034 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-10;17:45;Facebook;feed;Pauta 035;"Post 035 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-10;19:15;TikTok;video;Pauta 036;"Post 036 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-11;08:30;Instagram;feed;Pauta 037;"Post 037 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-11;12:00;LinkedIn;feed;Pauta 038;"Post 038 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-11;17:45;Facebook;feed;Pauta 039;"Post 039 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-11;19:15;TikTok;video;Pauta 040;"Post 040 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-12;08:30;Instagram;feed;Pauta 041;"Post 041 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-12;12:00;LinkedIn;feed;Pauta 042;"Post 042 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-12;17:45;Facebook;feed;Pauta 043;"Post 043 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-12;19:15;TikTok;video;Pauta 044;"Post 044 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-13;08:30;Instagram;feed;Pauta 045;"Post 045 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-13;12:00;LinkedIn;feed;Pauta 046;"Post 046 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-13;17:45;Facebook;feed;Pauta 047;"Post 047 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-13;19:15;TikTok;video;Pauta 048;"Post 048 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-14;08:30;Instagram;feed;Pauta 049;"Post 049 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-14;12:00;LinkedIn;feed;Pauta 050;"Post 050 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-14;17:45;Facebook;feed;Pauta 051;"Post 051 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-14;19:15;TikTok;video;Pauta 052;"Post 052 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-15;08:30;Instagram;feed;Pauta 053;"Post 053 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-15;12:00;LinkedIn;feed;Pauta 054;"Post 054 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-15;17:45;Facebook;feed;Pauta 055;"Post 055 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-15;19:15;TikTok;video;Pauta 056;"Post 056 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-16;08:30;Instagram;feed;Pauta 057;"Post 057 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-16;12:00;LinkedIn;feed;Pauta 058;"Post 058 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-16;17:45;Facebook;feed;Pauta 059;"Post 059 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-16;19:15;TikTok;video;Pauta 060;"Post 060 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-17;08:30;Instagram;feed;Pauta 061;"Post 061 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-17;12:00;LinkedIn;feed;Pauta 062;"Post 062 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-17;17:45;Facebook;feed;Pauta 063;"Post 063 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-17;19:15;TikTok;video;Pauta 064;"Post 064 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-18;08:30;Instagram;feed;Pauta 065;"Post 065 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-18;12:00;LinkedIn;feed;Pauta 066;"Post 066 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-18;17:45;Facebook;feed;Pauta 067;"Post 067 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-18;19:15;TikTok;video;Pauta 068;"Post 068 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-19;08:30;Instagram;feed;Pauta 069;"Post 069 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-19;12:00;LinkedIn;feed;Pauta 070;"Post 070 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-19;17:45;Facebook;feed;Pauta 071;"Post 071 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-19;19:15;TikTok;video;Pauta 072;"Post 072 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-20;08:30;Instagram;feed;Pauta 073;"Post 073 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-20;12:00;LinkedIn;feed;Pauta 074;"Post 074 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-20;17:45;Facebook;feed;Pauta 075;"Post 075 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-20;19:15;TikTok;video;Pauta 076;"Post 076 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-21;08:30;Instagram;feed;Pauta 077;"Post 077 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-21;12:00;LinkedIn;feed;Pauta 078;"Post 078 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-21;17:45;Facebook;feed;Pauta 079;"Post 079 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-21;19:15;TikTok;video;Pauta 080;"Post 080 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-22;08:30;Instagram;feed;Pauta 081;"Post 081 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-22;12:00;LinkedIn;feed;Pauta 082;"Post 082 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-22;17:45;Facebook;feed;Pauta 083;"Post 083 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-22;19:15;TikTok;video;Pauta 084;"Post 084 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-23;08:30;Instagram;feed;Pauta 085;"Post 085 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-23;12:00;LinkedIn;feed;Pauta 086;"Post 086 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-23;17:45;Facebook;feed;Pauta 087;"Post 087 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-23;19:15;TikTok;video;Pauta 088;"Post 088 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-24;08:30;Instagram;feed;Pauta 089;"Post 089 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-24;12:00;LinkedIn;feed;Pauta 090;"Post 090 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-24;17:45;Facebook;feed;Pauta 091;"Post 091 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-24;19:15;TikTok;video;Pauta 092;"Post 092 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-25;08:30;Instagram;feed;Pauta 093;"Post 093 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-25;12:00;LinkedIn;feed;Pauta 094;"Post 094 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-25;17:45;Facebook;feed;Pauta 095;"Post 095 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-25;19:15;TikTok;video;Pauta 096;"Post 096 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-26;08:30;Instagram;feed;Pauta 097;"Post 097 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-26;12:00;LinkedIn;feed;Pauta 098;"Post 098 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-26;17:45;Facebook;feed;Pauta 099;"Post 099 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-26;19:15;TikTok;video;Pauta 100;"Post 100 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-27;08:30;Instagram;feed;Pauta 101;"Post 101 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-27;12:00;LinkedIn;feed;Pauta 102;"Post 102 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-27;17:45;Facebook;feed;Pauta 103;"Post 103 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-27;19:15;TikTok;video;Pauta 104;"Post 104 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-28;08:30;Instagram;feed;Pauta 105;"Post 105 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-28;12:00;LinkedIn;feed;Pauta 106;"Post 106 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-28;17:45;Facebook;feed;Pauta 107;"Post 107 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-28;19:15;TikTok;video;Pauta 108;"Post 108 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-29;08:30;Instagram;feed;Pauta 109;"Post 109 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-29;12:00;LinkedIn;feed;Pauta 110;"Post 110 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-29;17:45;Facebook;feed;Pauta 111;"Post 111 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-29;19:15;TikTok;video;Pauta 112;"Post 112 da Oficina Aurora.
+#Aurora #TikTok";
+2026-11-30;08:30;Instagram;feed;Pauta 113;"Post 113 da Oficina Aurora.
+#Aurora #Instagram";
+2026-11-30;12:00;LinkedIn;feed;Pauta 114;"Post 114 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-11-30;17:45;Facebook;feed;Pauta 115;"Post 115 da Oficina Aurora.
+#Aurora #Facebook";
+2026-11-30;19:15;TikTok;video;Pauta 116;"Post 116 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-01;08:30;Instagram;feed;Pauta 117;"Post 117 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-01;12:00;LinkedIn;feed;Pauta 118;"Post 118 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-01;17:45;Facebook;feed;Pauta 119;"Post 119 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-01;19:15;TikTok;video;Pauta 120;"Post 120 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-02;08:30;Instagram;feed;Pauta 121;"Post 121 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-02;12:00;LinkedIn;feed;Pauta 122;"Post 122 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-02;17:45;Facebook;feed;Pauta 123;"Post 123 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-02;19:15;TikTok;video;Pauta 124;"Post 124 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-03;08:30;Instagram;feed;Pauta 125;"Post 125 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-03;12:00;LinkedIn;feed;Pauta 126;"Post 126 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-03;17:45;Facebook;feed;Pauta 127;"Post 127 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-03;19:15;TikTok;video;Pauta 128;"Post 128 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-04;08:30;Instagram;feed;Pauta 129;"Post 129 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-04;12:00;LinkedIn;feed;Pauta 130;"Post 130 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-04;17:45;Facebook;feed;Pauta 131;"Post 131 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-04;19:15;TikTok;video;Pauta 132;"Post 132 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-05;08:30;Instagram;feed;Pauta 133;"Post 133 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-05;12:00;LinkedIn;feed;Pauta 134;"Post 134 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-05;17:45;Facebook;feed;Pauta 135;"Post 135 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-05;19:15;TikTok;video;Pauta 136;"Post 136 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-06;08:30;Instagram;feed;Pauta 137;"Post 137 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-06;12:00;LinkedIn;feed;Pauta 138;"Post 138 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-06;17:45;Facebook;feed;Pauta 139;"Post 139 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-06;19:15;TikTok;video;Pauta 140;"Post 140 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-07;08:30;Instagram;feed;Pauta 141;"Post 141 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-07;12:00;LinkedIn;feed;Pauta 142;"Post 142 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-07;17:45;Facebook;feed;Pauta 143;"Post 143 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-07;19:15;TikTok;video;Pauta 144;"Post 144 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-08;08:30;Instagram;feed;Pauta 145;"Post 145 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-08;12:00;LinkedIn;feed;Pauta 146;"Post 146 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-08;17:45;Facebook;feed;Pauta 147;"Post 147 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-08;19:15;TikTok;video;Pauta 148;"Post 148 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-09;08:30;Instagram;feed;Pauta 149;"Post 149 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-09;12:00;LinkedIn;feed;Pauta 150;"Post 150 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-09;17:45;Facebook;feed;Pauta 151;"Post 151 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-09;19:15;TikTok;video;Pauta 152;"Post 152 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-10;08:30;Instagram;feed;Pauta 153;"Post 153 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-10;12:00;LinkedIn;feed;Pauta 154;"Post 154 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-10;17:45;Facebook;feed;Pauta 155;"Post 155 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-10;19:15;TikTok;video;Pauta 156;"Post 156 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-11;08:30;Instagram;feed;Pauta 157;"Post 157 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-11;12:00;LinkedIn;feed;Pauta 158;"Post 158 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-11;17:45;Facebook;feed;Pauta 159;"Post 159 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-11;19:15;TikTok;video;Pauta 160;"Post 160 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-12;08:30;Instagram;feed;Pauta 161;"Post 161 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-12;12:00;LinkedIn;feed;Pauta 162;"Post 162 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-12;17:45;Facebook;feed;Pauta 163;"Post 163 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-12;19:15;TikTok;video;Pauta 164;"Post 164 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-13;08:30;Instagram;feed;Pauta 165;"Post 165 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-13;12:00;LinkedIn;feed;Pauta 166;"Post 166 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-13;17:45;Facebook;feed;Pauta 167;"Post 167 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-13;19:15;TikTok;video;Pauta 168;"Post 168 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-14;08:30;Instagram;feed;Pauta 169;"Post 169 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-14;12:00;LinkedIn;feed;Pauta 170;"Post 170 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-14;17:45;Facebook;feed;Pauta 171;"Post 171 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-14;19:15;TikTok;video;Pauta 172;"Post 172 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-15;08:30;Instagram;feed;Pauta 173;"Post 173 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-15;12:00;LinkedIn;feed;Pauta 174;"Post 174 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-15;17:45;Facebook;feed;Pauta 175;"Post 175 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-15;19:15;TikTok;video;Pauta 176;"Post 176 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-16;08:30;Instagram;feed;Pauta 177;"Post 177 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-16;12:00;LinkedIn;feed;Pauta 178;"Post 178 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-16;17:45;Facebook;feed;Pauta 179;"Post 179 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-16;19:15;TikTok;video;Pauta 180;"Post 180 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-17;08:30;Instagram;feed;Pauta 181;"Post 181 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-17;12:00;LinkedIn;feed;Pauta 182;"Post 182 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-17;17:45;Facebook;feed;Pauta 183;"Post 183 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-17;19:15;TikTok;video;Pauta 184;"Post 184 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-18;08:30;Instagram;feed;Pauta 185;"Post 185 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-18;12:00;LinkedIn;feed;Pauta 186;"Post 186 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-18;17:45;Facebook;feed;Pauta 187;"Post 187 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-18;19:15;TikTok;video;Pauta 188;"Post 188 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-19;08:30;Instagram;feed;Pauta 189;"Post 189 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-19;12:00;LinkedIn;feed;Pauta 190;"Post 190 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-19;17:45;Facebook;feed;Pauta 191;"Post 191 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-19;19:15;TikTok;video;Pauta 192;"Post 192 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-20;08:30;Instagram;feed;Pauta 193;"Post 193 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-20;12:00;LinkedIn;feed;Pauta 194;"Post 194 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-20;17:45;Facebook;feed;Pauta 195;"Post 195 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-20;19:15;TikTok;video;Pauta 196;"Post 196 da Oficina Aurora.
+#Aurora #TikTok";
+2026-12-21;08:30;Instagram;feed;Pauta 197;"Post 197 da Oficina Aurora.
+#Aurora #Instagram";
+2026-12-21;12:00;LinkedIn;feed;Pauta 198;"Post 198 da Oficina Aurora.
+#Aurora #LinkedIn";
+2026-12-21;17:45;Facebook;feed;Pauta 199;"Post 199 da Oficina Aurora.
+#Aurora #Facebook";
+2026-12-21;19:15;TikTok;video;Pauta 200;"Post 200 da Oficina Aurora.
+#Aurora #TikTok";

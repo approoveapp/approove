@@ -5,6 +5,7 @@ import {
   isAppLocale,
   LOCALE_COOKIE,
   marketingLocaleFromPath,
+  parseLocale,
   persistableMarketingLocale,
 } from "@/lib/locale";
 
@@ -55,16 +56,19 @@ export async function proxy(req: NextRequest) {
   }
   requestHeaders.set("x-approove-pathname", pathname);
 
+  // The marketing URL decides its own language; elsewhere `?lang=en|pt` (switcher, ad
+  // links) wins over the saved cookie.
   const pathLocale = marketingLocaleFromPath(pathname);
+  const chosenLocale = parseLocale(req.nextUrl.searchParams.get("lang"));
   const cookieLocale = req.cookies.get(LOCALE_COOKIE)?.value;
-  const uiLocale = pathLocale ?? (isAppLocale(cookieLocale) ? cookieLocale : null);
+  const uiLocale = pathLocale ?? chosenLocale ?? (isAppLocale(cookieLocale) ? cookieLocale : null);
 
   if (uiLocale) {
     requestHeaders.set("x-approove-locale", uiLocale);
   }
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
-  const persist = persistableMarketingLocale(pathname);
+  const persist = persistableMarketingLocale(pathname) ?? chosenLocale;
 
   if (persist) {
     response.cookies.set(LOCALE_COOKIE, persist, localeCookieOptions(req));
