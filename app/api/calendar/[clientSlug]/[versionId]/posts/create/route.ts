@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { isoDateSchema } from "@/lib/validation";
@@ -34,6 +36,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ clientSlug: string; versionId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { user, organization } = await requireActiveOrganization();
     const { clientSlug, versionId } = await params;
@@ -48,7 +51,10 @@ export async function POST(
     });
 
     if (!calendarVersion) {
-      return NextResponse.json({ error: "Calendário não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Calendário não encontrado", "Calendar not found.") },
+        { status: 404 }
+      );
     }
 
     const productionStage =
@@ -60,7 +66,13 @@ export async function POST(
       const isMember = await isOrganizationMember(data.assigneeId, organization.id);
       if (!isMember) {
         return NextResponse.json(
-          { error: "Responsável deve ser membro da organização" },
+          {
+            error: localizedText(
+              locale,
+              "Responsável deve ser membro da organização",
+              "The assignee must be a member of the organization."
+            ),
+          },
           { status: 400 }
         );
       }
@@ -85,9 +97,12 @@ export async function POST(
 
     return NextResponse.json({ post });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error creating post:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "unit",
+    "status": 0
+  },
+  {
+    "name": "typecheck",
+    "status": 0
+  },
+  {
+    "name": "lint",
+    "status": 0
+  }
+]

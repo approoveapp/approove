@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
+import { LOCALE_COOKIE, parseLocale } from "@/lib/locale";
 
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -40,7 +41,22 @@ export async function proxy(req: NextRequest) {
   }
   requestHeaders.set("x-approove-pathname", pathname);
 
-  return NextResponse.next({ request: { headers: requestHeaders } });
+  // `?lang=en|pt` (language switcher, ad links) pins the language for this and later visits.
+  const chosenLocale = parseLocale(req.nextUrl.searchParams.get("lang"));
+  if (chosenLocale) {
+    requestHeaders.set("x-approove-locale", chosenLocale);
+  }
+
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  if (chosenLocale) {
+    response.cookies.set(LOCALE_COOKIE, chosenLocale, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365,
+      sameSite: "lax",
+      secure: req.nextUrl.protocol === "https:",
+    });
+  }
+  return response;
 }
 
 export const config = {

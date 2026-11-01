@@ -3,6 +3,8 @@
 import { useCallback, useRef, useState } from "react";
 import { Loader2, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText, type AppLocale } from "@/lib/locale";
 import { inferMediaType, isVideoMime, MEDIA_UPLOAD_ACCEPT, type MediaType } from "@/lib/media-utils";
 
 export interface UploadedMedia {
@@ -16,7 +18,7 @@ interface BatchMediaUploadProps {
   label?: string;
 }
 
-async function uploadFile(file: File): Promise<UploadedMedia> {
+async function uploadFile(file: File, locale: AppLocale): Promise<UploadedMedia> {
   const formData = new FormData();
   formData.append("file", file);
 
@@ -27,7 +29,7 @@ async function uploadFile(file: File): Promise<UploadedMedia> {
 
   if (!response.ok) {
     const data = await response.json().catch(() => ({}));
-    throw new Error(typeof data.error === "string" ? data.error : "Erro no upload");
+    throw new Error(typeof data.error === "string" ? data.error : localizedText(locale, "Erro no upload", "Upload failed"));
   }
 
   const data = await response.json();
@@ -40,8 +42,10 @@ async function uploadFile(file: File): Promise<UploadedMedia> {
 export function BatchMediaUpload({
   onUploaded,
   className,
-  label = "Upload em lote",
+  label,
 }: BatchMediaUploadProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
@@ -55,16 +59,16 @@ export function BatchMediaUpload({
       setError(null);
       setUploading(true);
       try {
-        const results = await Promise.all(files.map((file) => uploadFile(file)));
+        const results = await Promise.all(files.map((file) => uploadFile(file, locale)));
         onUploaded(results);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Erro no upload em lote");
+        setError(err instanceof Error ? err.message : localizedText(locale, "Erro no upload em lote", "Batch upload failed"));
       } finally {
         setUploading(false);
         if (inputRef.current) inputRef.current.value = "";
       }
     },
-    [onUploaded]
+    [onUploaded, locale]
   );
 
   return (
@@ -90,14 +94,17 @@ export function BatchMediaUpload({
         {uploading ? (
           <div className="flex flex-col items-center gap-2 py-2">
             <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-            <p className="text-xs text-muted-foreground">Enviando arquivos...</p>
+            <p className="text-xs text-muted-foreground">{tr("Enviando arquivos...", "Uploading files...")}</p>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-2 py-2">
             <Upload className="h-5 w-5 text-muted-foreground" />
-            <p className="text-sm font-medium">{label}</p>
+            <p className="text-sm font-medium">{label ?? tr("Upload em lote", "Batch upload")}</p>
             <p className="text-xs text-muted-foreground">
-              Arraste várias imagens ou vídeos · PNG, JPG, MP4 · máx. 50MB cada
+              {tr(
+                "Arraste várias imagens ou vídeos · PNG, JPG, MP4 · máx. 50MB cada",
+                "Drag in multiple images or videos · PNG, JPG, MP4 · max. 50MB each"
+              )}
             </p>
           </div>
         )}

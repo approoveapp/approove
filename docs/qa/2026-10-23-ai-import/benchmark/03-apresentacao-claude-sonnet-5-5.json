@@ -1,0 +1,68 @@
+{
+  "summary": "O PDF traz quatro pautas da Oficina Aurora (7, 10, 12 e 14 de novembro de 2026), sendo três no Instagram e uma no Facebook, todas com legenda e arte indicadas. Todas as cinco imagens enviadas foram associadas a um post.",
+  "posts": [
+    {
+      "date": "2026-11-07",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "carousel",
+      "title": "Oficina Aurora | Pauta 07",
+      "copyText": "Legenda 07.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "aurora-01.png",
+        "aurora-02.png",
+        "aurora-03.png"
+      ],
+      "notes": "Carrossel com três slides.",
+      "source": "apresentacao.pdf, p. 1"
+    },
+    {
+      "date": "2026-11-10",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Oficina Aurora | Pauta 10",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "cafe.png"
+      ],
+      "notes": null,
+      "source": "apresentacao.pdf, p. 2"
+    },
+    {
+      "date": "2026-11-12",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Facebook",
+      "format": "feed",
+      "title": "Oficina Aurora | Pauta 10 no Facebook",
+      "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "cafe.png"
+      ],
+      "notes": "O documento indica reutilizar cafe.png no Facebook; não é duplicata acidental.",
+      "source": "apresentacao.pdf, p. 3"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "stories",
+      "title": "Oficina Aurora | Pauta 14",
+      "copyText": "Legenda 14.\nConheça a Oficina Aurora. #Aurora",
+      "media": [
+        "convite.png"
+      ],
+      "notes": null,
+      "source": "apresentacao.pdf, p. 4"
+    }
+  ],
+  "warnings": [
+    "A arte cafe.png aparece em dois posts (Instagram em 10/11 e Facebook em 12/11); o documento diz que a reutilização é intencional.",
+    "O post do Facebook leva o título \"Pauta 10\", mas está marcado para 12/11, dois dias depois do post do Instagram com a mesma legenda. Vale confirmar se a data está correta.",
+    "O post de stories de 14/11 traz uma legenda no documento; confirme se ela realmente será usada nesse formato."
+  ]
+}

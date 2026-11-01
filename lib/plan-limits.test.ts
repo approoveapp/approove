@@ -22,7 +22,7 @@ describe("plan limits v2", () => {
     expect(planAllows("solo", "members", 1)).toBe(false);
     expect(planAllows("solo", "reviewers", 40)).toBe(true);
 
-    const response = planLimitResponse("solo", "members", 1);
+    const response = planLimitResponse("solo", "members", 1, "pt-BR");
     expect(response.error).toContain("1 usuário da agência");
     expect(response.error).not.toContain("usuários");
   });
@@ -46,11 +46,20 @@ describe("plan limits v2", () => {
   });
 
   it("returns a specific upgrade message for client limits", () => {
-    const response = planLimitResponse("starter", "clients", 5);
+    const response = planLimitResponse("starter", "clients", 5, "pt-BR");
     expect(response.code).toBe("PLAN_LIMIT_REACHED");
     expect(response.error).toContain("5");
     expect(response.error).toContain("Starter");
     expect(response.upgradePath).toBe("/dashboard/settings");
+  });
+
+  it("answers in English for English requests", () => {
+    expect(planLimitResponse("starter", "clients", 5, "en").error).toBe(
+      "Your Starter plan allows up to 5 clients."
+    );
+    expect(planLimitResponse("solo", "members", 1, "en").error).toBe(
+      "Your Solo plan allows up to 1 agency user."
+    );
   });
 });
 
@@ -58,5 +67,20 @@ describe("free fallback", () => {
   it("allows nothing new without a trial or subscription", () => {
     expect(planAllows("free", "clients", 0)).toBe(false);
     expect(planAllows("free", "members", 1)).toBe(false);
+  });
+});
+
+describe("AI import quota", () => {
+  it("scales monthly imports with the plan and blocks free orgs", () => {
+    expect(getPlanLimit("free", "aiImports")).toBe(0);
+    expect(planAllows("solo", "aiImports", 3)).toBe(true);
+    expect(planAllows("solo", "aiImports", 4)).toBe(false);
+    expect(getPlanLimit("starter", "aiImports")).toBe(10);
+    expect(getPlanLimit("pro", "aiImports")).toBe(30);
+    expect(getPlanLimit("studio", "aiImports")).toBe(80);
+    expect(planAllows("enterprise", "aiImports", 10_000)).toBe(true);
+    expect(planLimitResponse("pro", "aiImports", 30, "pt-BR").error).toBe(
+      "Seu plano Pro permite até 30 importações com IA por mês."
+    );
   });
 });

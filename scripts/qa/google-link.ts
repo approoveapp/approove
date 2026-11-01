@@ -1,10 +1,6 @@
-// Usado pelo QA: executa o passo de segurança do vínculo Google para um e-mail.
+// Synthetic local QA helper; the parent harness supplies its disposable database.
 import { secureGoogleLink } from "../../lib/google-link";
-
 secureGoogleLink(process.argv[2]).then(
   () => process.exit(0),
-  (error) => {
-    console.error(error);
-    process.exit(1);
-  }
+  () => { console.error("QA Google-link helper failed"); process.exit(1); }
 );

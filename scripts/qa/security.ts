@@ -14,11 +14,12 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createClient, type Client } from "@libsql/client";
 import Stripe from "stripe";
+import { OFFLINE_IMPORT_ENV } from "./import-offline-env";
 
 const PROD = process.argv.includes("--prod");
 const SERVE = process.argv.includes("--serve");
-const PORT = SERVE ? Number(process.env.QA_PORT ?? 3015) : 3900 + Math.floor(Math.random() * 90);
-const BASE = `http://localhost:${PORT}`;
+const PORT = Number(process.env.QA_PORT ?? (SERVE ? 3015 : 3900 + Math.floor(Math.random() * 90)));
+const BASE = `http://127.0.0.1:${PORT}`;
 const WORK = mkdtempSync(join(tmpdir(), "approove-qa-"));
 const DB_URL = `file:${join(WORK, "qa.db")}`;
 const WEBHOOK_SECRET = "whsec_qa_" + randomBytes(8).toString("hex");
@@ -41,6 +42,10 @@ function blankProjectEnvKeys() {
 
 const ISOLATED_ENV: NodeJS.ProcessEnv = {
   ...blankProjectEnvKeys(),
+  ...OFFLINE_IMPORT_ENV,
+  NODE_OPTIONS: process.env.NODE_OPTIONS,
+  QA_EGRESS_LOG: process.env.QA_EGRESS_LOG,
+  CHECKPOINT_DISABLE: "1",
   NODE_ENV: "test",
   PATH: process.env.PATH,
   HOME: process.env.HOME,
@@ -174,13 +179,13 @@ const iso = (ms: number) => new Date(ms).toISOString().replace("Z", "+00:00");
 // ─── setup ───
 
 function run(cmd: string, args: string[], env: NodeJS.ProcessEnv) {
-  execFileSync(cmd, args, { env: { ...env }, stdio: "pipe" });
+  execFileSync(cmd, args, { env: { ...env }, stdio: "pipe", timeout: 60000 });
 }
 
 let serverLog = "";
 
 async function startServer(): Promise<ChildProcess> {
-  const args = PROD ? ["next", "start", "-p", String(PORT)] : ["next", "dev", "-p", String(PORT)];
+  const args = PROD ? ["next", "start", "--hostname", "127.0.0.1", "-p", String(PORT)] : ["next", "dev", "--webpack", "--hostname", "127.0.0.1", "-p", String(PORT)];
   const server = spawn("npx", args, {
     env: { ...ISOLATED_ENV, NODE_ENV: PROD ? "production" : "development" },
     stdio: ["ignore", "pipe", "pipe"],
@@ -189,16 +194,17 @@ async function startServer(): Promise<ChildProcess> {
   server.stdout?.on("data", (chunk) => (serverLog += chunk));
   server.stderr?.on("data", (chunk) => (serverLog += chunk));
 
-  for (let i = 0; i < 180; i++) {
+  for (let i = 0; i < 60; i++) {
     try {
-      const response = await fetch(BASE + "/login");
+      const response = await fetch(BASE + "/login", { signal: AbortSignal.timeout(10000) });
       if (response.status === 200) return server;
     } catch {
       /* ainda subindo */
     }
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
-  throw new Error("Servidor não subiu");
+  try { process.kill(-server.pid!, "SIGTERM"); } catch { /* own server already stopped */ }
+  throw new Error("Servidor não subiu dentro do prazo");
 }
 
 async function main() {
@@ -674,6 +680,113 @@ async function suite(db: Client) {
   });
   await check("onboarding sem login responde 401", async () => {
     expectEqual((await http(new Jar(), "POST", "/api/user/onboarding")).status, 401);
+  });
+
+  console.log("\nImportação com IA");
+  // A sessão de copy@ caiu no teste de redefinição de senha; design@ também é membro.
+  const importMember = await login("design@approove.com", "member123");
+  const importRoutes = [
+    ["GET", "/api/clients/demo-client/imports", undefined],
+    ["POST", "/api/clients/demo-client/imports", new FormData()],
+    ["POST", "/api/clients/demo-client/imports/media", new FormData()],
+    ["GET", "/api/imports/qa-missing", undefined],
+    ["POST", "/api/imports/qa-missing/commit", { posts: [{ scheduledAt: new Date().toISOString(), channel: "Instagram", format: "feed", title: "QA", copyText: "" }] }],
+    ["DELETE", "/api/imports/qa-missing", undefined],
+  ] as const;
+  await check("as seis rotas recusam anônimo e token público de revisor", async () => {
+    for (const [method, path, body] of importRoutes) {
+      expectEqual((await http(new Jar(), method, path, body)).status, 401, `${method} ${path}`);
+      expectEqual((await http(new Jar(), method, `${path}?t=demo-token-123`, body)).status, 401, `revisor ${path}`);
+    }
+  });
+  await check("convite pendente, paywall e sessão revogada bloqueiam todas as rotas de importação", async () => {
+    const actor = new Jar();
+    expectEqual((await http(actor, "POST", "/api/auth/signup", { name: "QA Import Guard", email: "import-guard@qa.test", password: "qa-guard-123", organizationName: "QA Guard" })).status, 200);
+    await credentialsLogin("import-guard@qa.test", "qa-guard-123", "credentials", actor);
+    const actorRow = await one(db, `SELECT u.id, m.id AS membershipId, m.organizationId FROM User u JOIN Membership m ON m.userId = u.id WHERE u.email = 'import-guard@qa.test'`);
+    await db.execute({ sql: `UPDATE Membership SET acceptedAt = NULL WHERE id = ?`, args: [String(actorRow!.membershipId)] });
+    for (const [method, path, body] of importRoutes) expectEqual((await http(actor, method, path, body)).status, 403, `pending ${path}`);
+    await db.execute({ sql: `UPDATE Membership SET acceptedAt = ? WHERE id = ?`, args: [iso(Date.now()), String(actorRow!.membershipId)] });
+    await db.execute({ sql: `UPDATE Organization SET trialEndsAt = ? WHERE id = ?`, args: [iso(Date.now()-86400000), String(actorRow!.organizationId)] });
+    for (const [method, path, body] of importRoutes) expectEqual((await http(actor, method, path, body)).status, 402, `paywall ${path}`);
+    await db.execute({ sql: `UPDATE User SET sessionVersion = sessionVersion + 1 WHERE id = ?`, args: [String(actorRow!.id)] });
+    for (const [method, path, body] of importRoutes) expectEqual((await http(actor, method, path, body)).status, 401, `revoked ${path}`);
+  });
+  await check("owner, admin e member aceitos podem abrir importação (política existente)", async () => {
+    const administrator = await login("review@approove.com", "member123");
+    for (const actor of [admin, administrator, importMember]) expectEqual((await http(actor, "GET", "/api/clients/demo-client/imports")).status, 200);
+  });
+  await check("membro também importa; sem ANTHROPIC_API_KEY responde 503 sem gastar cota", async () => {
+    expectEqual((await http(importMember, "GET", "/api/clients/demo-client/imports")).status, 200, "membro GET");
+    expectEqual((await http(importMember, "POST", "/api/clients/demo-client/imports", new FormData())).status, 503, "membro POST");
+    // Sem arquivo: passa do papel e para na validação, sem gravar nada.
+    expectEqual((await http(importMember, "POST", "/api/clients/demo-client/imports/media", new FormData())).status, 400, "membro mídia");
+    const status = await http(admin, "GET", "/api/clients/demo-client/imports");
+    expectEqual(status.status, 200, "admin GET");
+    expectEqual(status.json.configured, false, "configured");
+    const form = new FormData();
+    form.append("files", new Blob(["data,canal\n2026-11-03,Instagram"]), "pauta.csv");
+    expectEqual((await http(admin, "POST", "/api/clients/demo-client/imports", form)).status, 503, "admin POST");
+    const jobs = await one(db, `SELECT COUNT(*) AS n FROM ImportJob`);
+    expectEqual(Number(jobs!.n), 0, "job criado");
+  });
+  await check("proposta só vira post uma vez, com mídia só do próprio job, e nunca por outra agência", async () => {
+    const org = String((await one(db, `SELECT organizationId FROM Client WHERE id = ?`, [demoClientId]))!.organizationId);
+    const jobId = "qa-import-" + randomBytes(4).toString("hex");
+    const mediaForm = new FormData();
+    mediaForm.append("file", new Blob([Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/l4sAAAAASUVORK5CYII=", "base64")], { type: "image/png" }), "arte.jpg");
+    const upload = await http(admin, "POST", "/api/clients/demo-client/imports/media", mediaForm);
+    expectEqual(upload.status, 200, "upload local assinado");
+    const uploaded = upload.json.media as { name: string; url: string; receipt: string };
+    expectTrue(Boolean(uploaded.receipt), "comprovante de upload ausente");
+    await db.execute({
+      sql: `INSERT INTO ImportJob (id, organizationId, clientId, calendarVersionId, status, filesJson, mediaJson, resultJson, createdAt, updatedAt)
+            VALUES (?, ?, ?, ?, 'review', '[]', ?, ?, ?, ?)`,
+      args: [
+        jobId, org, demoClientId, demoVersion,
+        JSON.stringify([uploaded]),
+        JSON.stringify({summary:"QA",warnings:[],posts:[{date:"2026-11-01",time:null,dateIsSuggested:false,channel:"Instagram",format:"feed",title:"importado",copyText:"",media:["arte.jpg"],notes:null,source:"QA fixture"}]}),
+        iso(Date.now()), iso(Date.now()),
+      ],
+    });
+    const post = { scheduledAt: new Date().toISOString(), channel: "Instagram", format: "feed", title: "importado", copyText: "" };
+    const body = { reviewAcknowledged: true, posts: [{ ...post, media: ["arte.jpg"] }] };
+
+    // Nome de mídia que o job não tem: recusado antes de reservar o job.
+    const foreign = await http(admin, "POST", `/api/imports/${jobId}/commit`, { reviewAcknowledged: true, posts: [{ ...post, media: ["outra.jpg"] }] });
+    expectEqual(foreign.status, 400, "mídia de fora do job");
+
+    const mallory = new Jar();
+    await http(mallory, "POST", "/api/auth/signup", { name: "Mallory", email: "mallory@qa.test", password: "mallorypass1", organizationName: "Mallory" });
+    await credentialsLogin("mallory@qa.test", "mallorypass1", "credentials", mallory);
+    expectEqual((await http(mallory, "GET", `/api/imports/${jobId}`)).status, 404, "outra agência GET");
+    expectEqual((await http(mallory, "POST", `/api/imports/${jobId}/commit`, body)).status, 404, "outra agência commit");
+    expectEqual((await http(mallory, "DELETE", `/api/imports/${jobId}`)).status, 404, "outra agência delete");
+    expectEqual((await http(mallory, "GET", "/api/clients/demo-client/imports")).status, 404, "outra agência cliente");
+    expectEqual((await http(mallory, "POST", "/api/clients/demo-client/imports/media", new FormData())).status, 404, "outra agência upload");
+    const first = await http(importMember, "POST", `/api/imports/${jobId}/commit`, body);
+    expectEqual(first.status, 200, "membro commit");
+    expectEqual(first.json.created, 1, "posts criados");
+    expectEqual((await http(admin, "POST", `/api/imports/${jobId}/commit`, body)).json.alreadyCommitted, true, "commit repetido idempotente");
+    const created = await one(db, `SELECT id, productionStage, status FROM PostItem WHERE title = 'importado'`);
+    expectEqual(created?.productionStage, "draft_copy", "etapa (arte sem legenda)");
+    expectEqual(created?.status, "pending", "status");
+    const material = await one(
+      db,
+      `SELECT a.type, s.url FROM PostAttachment a JOIN AttachmentVersion v ON v.postAttachmentId = a.id
+       JOIN AttachmentSlide s ON s.attachmentVersionId = v.id WHERE a.postItemId = ?`,
+      [String(created!.id)]
+    );
+    expectEqual(material?.type, "post_feed", "tipo do material");
+    expectEqual(material?.url, uploaded.url, "URL resolvida pelo job");
+  });
+  await check("limpeza de artes (cron) recusa chamada sem CRON_SECRET", async () => {
+    expectEqual((await http(new Jar(), "GET", "/api/cron/import-cleanup")).status, 401, "sem header");
+    expectEqual(
+      (await http(new Jar(), "GET", "/api/cron/import-cleanup", undefined, { authorization: "Bearer " })).status,
+      401,
+      "segredo vazio"
+    );
   });
 }
 

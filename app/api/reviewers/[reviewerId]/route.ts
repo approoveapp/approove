@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { requireActiveOrganization } from "@/lib/auth";
@@ -15,6 +17,7 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ reviewerId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization } = await requireActiveOrganization({ roles: ["owner", "admin"] });
     const { reviewerId } = await params;
@@ -25,7 +28,10 @@ export async function PATCH(
     });
 
     if (!reviewer) {
-      return NextResponse.json({ error: "Revisor não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Revisor não encontrado", "Reviewer not found.") },
+        { status: 404 }
+      );
     }
 
     if (email && email !== reviewer.email) {
@@ -34,7 +40,16 @@ export async function PATCH(
         select: { id: true },
       });
       if (duplicate) {
-        return NextResponse.json({ error: "Já existe um revisor com este e-mail" }, { status: 400 });
+        return NextResponse.json(
+          {
+            error: localizedText(
+              locale,
+              "Já existe um revisor com este e-mail",
+              "A reviewer with this email already exists."
+            ),
+          },
+          { status: 400 }
+        );
       }
     }
 
@@ -53,7 +68,16 @@ export async function PATCH(
       });
 
       if (validClients.length !== clientIds.length) {
-        return NextResponse.json({ error: "Um ou mais clientes inválidos" }, { status: 400 });
+        return NextResponse.json(
+          {
+            error: localizedText(
+              locale,
+              "Um ou mais clientes inválidos",
+              "One or more clients are invalid."
+            ),
+          },
+          { status: 400 }
+        );
       }
 
       await prisma.clientReviewerClient.deleteMany({
@@ -70,7 +94,7 @@ export async function PATCH(
 
     return NextResponse.json({ reviewer: updated });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error updating reviewer:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -81,6 +105,7 @@ export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ reviewerId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization } = await requireActiveOrganization({ roles: ["owner", "admin"] });
     const { reviewerId } = await params;
@@ -90,7 +115,10 @@ export async function DELETE(
     });
 
     if (!reviewer) {
-      return NextResponse.json({ error: "Revisor não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Revisor não encontrado", "Reviewer not found.") },
+        { status: 404 }
+      );
     }
 
     // Os links do revisor saem junto (ShareToken -> ClientInvite em cascata). Sem isso
@@ -102,7 +130,7 @@ export async function DELETE(
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error deleting reviewer:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

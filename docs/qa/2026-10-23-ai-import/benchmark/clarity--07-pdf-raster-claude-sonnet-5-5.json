@@ -1,0 +1,155 @@
+{
+  "summary": "O PDF traz 12 cards de publicação para novembro de 2026 (11 no Instagram e 1 no LinkedIn), cada um com data e legenda, exceto o Card 11, que não tem legenda. Nenhum arquivo de mídia foi enviado; as artes aparecem apenas como quadros ilustrativos dentro do PDF.",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 01",
+      "copyText": "Oficina Aurora. Ideia 01.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 1"
+    },
+    {
+      "date": "2026-11-02",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 02",
+      "copyText": "Oficina Aurora. Ideia 02.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 1"
+    },
+    {
+      "date": "2026-11-03",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 03",
+      "copyText": "Oficina Aurora. Ideia 03.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 2"
+    },
+    {
+      "date": "2026-11-04",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 04",
+      "copyText": "Oficina Aurora. Ideia 04.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 2"
+    },
+    {
+      "date": "2026-11-05",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 05",
+      "copyText": "Oficina Aurora. Ideia 05.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 3"
+    },
+    {
+      "date": "2026-11-06",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 06",
+      "copyText": "Oficina Aurora. Ideia 06.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 3"
+    },
+    {
+      "date": "2026-11-07",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 07",
+      "copyText": "Oficina Aurora. Ideia 07.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 4"
+    },
+    {
+      "date": "2026-11-08",
+      "time": null,
+      "dateIsSuggested": false,
+      "channel": "LinkedIn",
+      "format": "feed",
+      "title": "Card 08",
+      "copyText": "Oficina Aurora. Ideia 08.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 4"
+    },
+    {
+      "date": "2026-11-09",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 09",
+      "copyText": "Oficina Aurora. Ideia 09.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 5"
+    },
+    {
+      "date": "2026-11-10",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 10",
+      "copyText": "Oficina Aurora. Ideia 10.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 5"
+    },
+    {
+      "date": "2026-11-11",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 11",
+      "copyText": "",
+      "media": [],
+      "notes": "O documento indica que a legenda está ausente e que há apenas a ideia.",
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 6"
+    },
+    {
+      "date": "2026-11-12",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Card 12",
+      "copyText": "Oficina Aurora. Ideia 12.\nConheca nosso trabalho.",
+      "media": [],
+      "notes": null,
+      "source": "apresentacao-parcialmente-rasterizada.pdf, p. 6"
+    }
+  ],
+  "warnings": [
+    "Nenhum arquivo de mídia foi enviado. As artes dos 12 posts aparecem só como quadros ilustrativos (\"ARTE FICTICIA\") dentro do PDF, então todos os posts estão sem arte.",
+    "O Card 11 (11/11) não tem legenda: o documento diz \"ausente; apenas ideia\".",
+    "O Card 08 (LinkedIn, 08/11) está sem horário no documento.",
+    "O PDF indica revisão humana obrigatória em todas as páginas; confira os dados antes de aprovar."
+  ]
+}

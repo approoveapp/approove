@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
 import { prisma } from "@/lib/prisma";
 import { requireActiveOrganization, requireOrganization } from "@/lib/auth";
 import { z } from "zod";
@@ -9,6 +10,7 @@ import { planAllows, planLimitResponse } from "@/lib/plan-limits";
 import { getEffectivePlan } from "@/lib/billing-access";
 import { sendEmail } from "@/lib/email";
 import { buildMemberInviteEmail } from "@/lib/email-templates/member-invite";
+import { getRequestLocale } from "@/lib/request-locale";
 
 const inviteSchema = z.object({
   email: emailSchema,
@@ -57,6 +59,7 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const locale = await getRequestLocale();
   try {
     const { membership, organization } = await requireActiveOrganization({
       roles: ["owner", "admin"],
@@ -68,7 +71,13 @@ export async function POST(request: NextRequest) {
     // Só o proprietário define administradores (convite ou troca de função).
     if (data.role === "admin" && membership.role !== "owner") {
       return NextResponse.json(
-        { error: "Apenas o proprietário pode convidar administradores" },
+        {
+          error: localizedText(
+            locale,
+            "Apenas o proprietário pode convidar administradores",
+            "Only the owner can invite admins."
+          ),
+        },
         { status: 403 }
       );
     }
@@ -84,7 +93,13 @@ export async function POST(request: NextRequest) {
 
     if (existingMembership) {
       return NextResponse.json(
-        { error: "Este usuário já faz parte da organização" },
+        {
+          error: localizedText(
+            locale,
+            "Este usuário já faz parte da organização",
+            "This user is already part of the organization."
+          ),
+        },
         { status: 400 }
       );
     }
@@ -94,7 +109,7 @@ export async function POST(request: NextRequest) {
       where: { organizationId: organization.id },
     });
     if (!planAllows(plan, "members", memberCount)) {
-      return NextResponse.json(planLimitResponse(plan, "members", memberCount), { status: 403 });
+      return NextResponse.json(planLimitResponse(plan, "members", memberCount, locale), { status: 403 });
     }
 
     let user = await prisma.user.findUnique({
@@ -108,7 +123,13 @@ export async function POST(request: NextRequest) {
       });
       if (elsewhere > 0) {
         return NextResponse.json(
-          { error: "Este e-mail já participa de outra agência no Approove" },
+          {
+            error: localizedText(
+              locale,
+              "Este e-mail já participa de outra agência no Approove",
+              "This email is already part of another agency on Approove."
+            ),
+          },
           { status: 409 }
         );
       }
@@ -151,7 +172,7 @@ export async function POST(request: NextRequest) {
     });
     if (!planAllows(plan, "members", countAfter - 1)) {
       await prisma.membership.delete({ where: { id: newMembership.id } });
-      return NextResponse.json(planLimitResponse(plan, "members", countAfter - 1), { status: 403 });
+      return NextResponse.json(planLimitResponse(plan, "members", countAfter - 1, locale), { status: 403 });
     }
 
     const inviter = await prisma.user.findUnique({
@@ -165,6 +186,7 @@ export async function POST(request: NextRequest) {
       organizationName: organization.name,
       role: data.role,
       invitedByName: inviter?.name,
+      locale: await getRequestLocale(),
     });
 
     const emailResult = await sendEmail({
@@ -180,7 +202,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ member: newMembership });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error inviting member:", error);
     return NextResponse.json(

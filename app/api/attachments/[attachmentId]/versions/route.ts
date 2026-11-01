@@ -1,4 +1,7 @@
+import { assertImportMediaOrganization } from "@/lib/import/media-write-access";
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { apiErrorResponse } from "@/lib/api-error";
 import { requireActiveOrganization } from "@/lib/auth";
@@ -15,6 +18,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ attachmentId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { user, organization } = await requireActiveOrganization();
     const { attachmentId } = await params;
@@ -45,8 +49,19 @@ export async function POST(
         : [{ url: lastVersion.url, mediaType: "image" as const }];
     }
 
+    assertImportMediaOrganization(slideItems.map(slide => slide.url), organization.id);
+
     if (slideItems.length === 0) {
-      return NextResponse.json({ error: "URL ou urls são obrigatórios" }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "URL ou urls são obrigatórios",
+            "url or urls is required."
+          ),
+        },
+        { status: 400 }
+      );
     }
 
     const attachmentType = await prisma.postAttachment.findUnique({
@@ -56,7 +71,13 @@ export async function POST(
 
     if (attachmentType?.type === "carousel" && slideItems.length < 2) {
       return NextResponse.json(
-        { error: "Nova versão de carrossel exige ao menos 2 imagens" },
+        {
+          error: localizedText(
+            locale,
+            "Nova versão de carrossel exige ao menos 2 imagens",
+            "A new carousel version needs at least 2 images."
+          ),
+        },
         { status: 400 }
       );
     }
@@ -81,7 +102,7 @@ export async function POST(
 
     return NextResponse.json({ version });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error creating attachment version:", error);
     return NextResponse.json(

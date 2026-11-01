@@ -1,3 +1,4 @@
+import { privateImportPath } from "./import/private-media-url";
 import { z } from "zod";
 
 function hasProtocol(value: string, protocols: string[]) {
@@ -19,13 +20,13 @@ export const optionalLinkSchema = z
     message: "Use um link começando com https://",
   });
 
-/** Mídia do post (upload no Blob ou link colado): só https. */
+/** HTTPS externo ou caminho privado canônico; a rota confere a organização. */
 export const mediaUrlSchema = z
   .string()
   .trim()
   .min(1, "URL obrigatória")
   .max(2048)
-  .refine((value) => hasProtocol(value, ["https:"]), {
+  .refine((value) => hasProtocol(value, ["https:"]) || privateImportPath(value) !== null, {
     message: "A mídia precisa de um link https://",
   });
 

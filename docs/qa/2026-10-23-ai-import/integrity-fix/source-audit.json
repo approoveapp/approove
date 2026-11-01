@@ -1,0 +1,115 @@
+{
+  "claude-haiku-5-5": {
+    "posts": 120,
+    "uniqueSourceRows": 120,
+    "exactFields": {
+      "title": 120,
+      "copy": 120,
+      "date": 118,
+      "time": 120,
+      "channel": 120,
+      "format": 120,
+      "noMedia": 120
+    },
+    "differences": [
+      {
+        "row": 7,
+        "checks": {
+          "title": true,
+          "copy": true,
+          "date": false,
+          "time": true,
+          "channel": true,
+          "format": true,
+          "noMedia": true
+        }
+      },
+      {
+        "row": 117,
+        "checks": {
+          "title": true,
+          "copy": true,
+          "date": false,
+          "time": true,
+          "channel": true,
+          "format": true,
+          "noMedia": true
+        }
+      }
+    ],
+    "warnings": [
+      "As linhas 112 a 121 da planilha repetem as linhas 2 a 11 (mesma data, horário, título e legenda). Mantive cada ocorrência separada; confirme se essas publicações devem existir duas vezes.",
+      "As linhas 5 e 115 (CSV 004, 04/11) não têm horário. Defina o horário antes da aprovação.",
+      "As linhas 6 e 116 (CSV 005, 05/11) não têm legenda. Falta o texto desses posts.",
+      "A linha 7 e a linha 117 (CSV 006) trazem a data como 'primeira sexta de novembro de 2026'. Coloquei 06/11/2026, primeira sexta-feira do mês, mas é uma suposição que precisa ser confirmada.",
+      "As linhas 2, 3 e 4 (e 112, 113 e 114) usam a mesma legenda, que aponta para a pauta 001. Confira se o texto repetido é intencional.",
+      "As linhas 3, 4, 113 e 114 têm a observação 'recorrência intencional' e foram mantidas como estão.",
+      "Nenhuma arte foi enviada. Os 120 posts estão sem mídia e precisam de arte antes da aprovação."
+    ],
+    "duplicateOccurrencesPreserved": true,
+    "distinctDateChannelRecurrencesPreserved": true,
+    "dateInterpretation": {
+      "literalIsoDates": 118,
+      "explicitTextDates": 2,
+      "expectedFromSourceText": "2026-11-06",
+      "bothCorrectAndFlaggedSuggested": true
+    }
+  },
+  "claude-sonnet-5-5": {
+    "posts": 120,
+    "uniqueSourceRows": 120,
+    "exactFields": {
+      "title": 120,
+      "copy": 120,
+      "date": 118,
+      "time": 120,
+      "channel": 120,
+      "format": 120,
+      "noMedia": 120
+    },
+    "differences": [
+      {
+        "row": 7,
+        "checks": {
+          "title": true,
+          "copy": true,
+          "date": false,
+          "time": true,
+          "channel": true,
+          "format": true,
+          "noMedia": true
+        }
+      },
+      {
+        "row": 117,
+        "checks": {
+          "title": true,
+          "copy": true,
+          "date": false,
+          "time": true,
+          "channel": true,
+          "format": true,
+          "noMedia": true
+        }
+      }
+    ],
+    "warnings": [
+      "Possíveis duplicatas: as linhas 112 a 121 repetem exatamente as linhas 2 a 11 (mesma data, horário, canal, título e legenda). Todas foram mantidas como itens separados; a equipe deve decidir se são repetições desejadas.",
+      "As linhas 3 e 4 (e suas repetições, linhas 113 e 114) têm a legenda da pauta 001, embora os títulos sejam CSV 002 e CSV 003. A legenda foi transcrita como está; vale conferir se é a legenda correta. Essas linhas trazem a nota 'recorrência intencional'.",
+      "As linhas 4 e 114 são para LinkedIn com formato feed; confirmar se o formato serve para esse canal.",
+      "As linhas 5 e 115 (CSV 004) não têm horário definido.",
+      "As linhas 6 e 116 (CSV 005) não têm legenda na fonte; ficaram sem legenda.",
+      "As linhas 7 e 117 (CSV 006) trazem a data como 'primeira sexta de novembro de 2026'. Foi sugerido 2026-11-06; confirmar a data.",
+      "Nenhum arquivo de mídia foi enviado, então nenhum post tem arte associada.",
+      "Várias linhas têm o mesmo dia e horário no mesmo canal (por exemplo, linhas 2 e 112 em 2026-11-01 às 08:30); conferir se não há conflito de agenda."
+    ],
+    "duplicateOccurrencesPreserved": true,
+    "distinctDateChannelRecurrencesPreserved": true,
+    "dateInterpretation": {
+      "literalIsoDates": 118,
+      "explicitTextDates": 2,
+      "expectedFromSourceText": "2026-11-06",
+      "bothCorrectAndFlaggedSuggested": true
+    }
+  }
+}

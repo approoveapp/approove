@@ -2,7 +2,9 @@
 
 import { CarouselSlidesInput, type SlideDraft } from "./carousel-slides-input";
 import { MediaSourceInput } from "./media-source-input";
-import { ATTACHMENT_TYPES } from "./post-slide";
+import { getAttachmentTypeLabel, getAttachmentTypeLabels } from "./post-slide";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText, type AppLocale } from "@/lib/locale";
 
 export interface PostMaterialDraft {
   type: string;
@@ -36,9 +38,9 @@ export function isMaterialDraftValid(draft: PostMaterialDraft): boolean {
   return Boolean(draft.url.trim());
 }
 
-export function getMaterialDraftLabel(draft: PostMaterialDraft): string {
+export function getMaterialDraftLabel(draft: PostMaterialDraft, locale: AppLocale): string {
   if (draft.type === "other" && draft.label.trim()) return draft.label.trim();
-  return ATTACHMENT_TYPES[draft.type] ?? draft.type;
+  return getAttachmentTypeLabel(draft.type, locale);
 }
 
 export function buildAttachmentRequestBody(draft: PostMaterialDraft): {
@@ -70,16 +72,18 @@ interface PostMaterialFormProps {
 }
 
 export function PostMaterialForm({ draft, onChange, dense = false }: PostMaterialFormProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <label className="text-xs font-medium text-muted-foreground">Tipo de material</label>
+        <label className="text-xs font-medium text-muted-foreground">{tr("Tipo de material", "Creative type")}</label>
         <select
           value={draft.type}
           onChange={(e) => onChange({ ...draft, type: e.target.value })}
           className="text-sm px-3 py-2 border rounded-lg bg-background w-full"
         >
-          {Object.entries(ATTACHMENT_TYPES).map(([key, label]) => (
+          {Object.entries(getAttachmentTypeLabels(locale)).map(([key, label]) => (
             <option key={key} value={key}>
               {label}
             </option>
@@ -89,12 +93,12 @@ export function PostMaterialForm({ draft, onChange, dense = false }: PostMateria
 
       {draft.type === "other" && (
         <div className="space-y-2">
-          <label className="text-xs font-medium text-muted-foreground">Nome personalizado</label>
+          <label className="text-xs font-medium text-muted-foreground">{tr("Nome personalizado", "Custom name")}</label>
           <input
             type="text"
             value={draft.label}
             onChange={(e) => onChange({ ...draft, label: e.target.value })}
-            placeholder="Ex.: Banner site, Thumb YouTube..."
+            placeholder={tr("Ex.: Banner site, Thumb YouTube...", "E.g.: Website banner, YouTube thumbnail...")}
             className="text-sm px-3 py-2 border rounded-lg bg-background w-full"
           />
         </div>

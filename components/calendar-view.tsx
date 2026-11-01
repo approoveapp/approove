@@ -23,6 +23,8 @@ import {
   ChevronsRight,
   Plus,
 } from "lucide-react";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 import type { Post } from "./post-slide";
 
 export interface CalendarViewProps {
@@ -35,6 +37,17 @@ export interface CalendarViewProps {
   subtitle?: string;
   className?: string;
 }
+
+// `key` keeps the original Portuguese value used in the data-weekday attribute.
+const WEEKDAYS = [
+  { key: "Dom", pt: "Dom", en: "Sun" },
+  { key: "Seg", pt: "Seg", en: "Mon" },
+  { key: "Ter", pt: "Ter", en: "Tue" },
+  { key: "Qua", pt: "Qua", en: "Wed" },
+  { key: "Qui", pt: "Qui", en: "Thu" },
+  { key: "Sex", pt: "Sex", en: "Fri" },
+  { key: "Sáb", pt: "Sáb", en: "Sat" },
+] as const;
 
 function capitalizeFirst(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -50,6 +63,8 @@ export function CalendarView({
   subtitle,
   className,
 }: CalendarViewProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const [viewMonth, setViewMonth] = useState(initialMonth);
 
   useEffect(() => {
@@ -89,7 +104,9 @@ export function CalendarView({
     .reduce((count, day) => count + postsOnDay(day).length, 0);
 
   const formattedMonth = capitalizeFirst(
-    format(viewMonth, "MMMM 'de' yyyy", { locale: ptBR })
+    locale === "pt-BR"
+      ? format(viewMonth, "MMMM 'de' yyyy", { locale: ptBR })
+      : format(viewMonth, "MMMM yyyy")
   );
 
   return (
@@ -110,7 +127,7 @@ export function CalendarView({
             size="icon"
             className="h-8 w-8"
             onClick={() => setViewMonth(subYears(viewMonth, 1))}
-            title="Ano anterior"
+            title={tr("Ano anterior", "Previous year")}
           >
             <ChevronsLeft className="h-4 w-4" />
           </Button>
@@ -119,7 +136,7 @@ export function CalendarView({
             size="icon"
             className="h-8 w-8"
             onClick={() => setViewMonth(subMonths(viewMonth, 1))}
-            title="Mês anterior"
+            title={tr("Mês anterior", "Previous month")}
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
@@ -131,7 +148,9 @@ export function CalendarView({
             {monthPostCount > 0 && (
               <span className="text-xs text-muted-foreground">
                 {monthPostCount}{" "}
-                {monthPostCount === 1 ? "publicação" : "publicações"}
+                {monthPostCount === 1
+                  ? tr("publicação", "post")
+                  : tr("publicações", "posts")}
               </span>
             )}
             {!isCurrentViewMonth && (
@@ -139,7 +158,7 @@ export function CalendarView({
                 onClick={() => setViewMonth(new Date())}
                 className="text-xs text-primary font-medium hover:underline"
               >
-                Ir para hoje
+                {tr("Ir para hoje", "Go to today")}
               </button>
             )}
           </div>
@@ -151,7 +170,7 @@ export function CalendarView({
             size="icon"
             className="h-8 w-8"
             onClick={() => setViewMonth(addMonths(viewMonth, 1))}
-            title="Próximo mês"
+            title={tr("Próximo mês", "Next month")}
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
@@ -160,7 +179,7 @@ export function CalendarView({
             size="icon"
             className="h-8 w-8"
             onClick={() => setViewMonth(addYears(viewMonth, 1))}
-            title="Próximo ano"
+            title={tr("Próximo ano", "Next year")}
           >
             <ChevronsRight className="h-4 w-4" />
           </Button>
@@ -173,26 +192,26 @@ export function CalendarView({
       >
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-full bg-green-500" />
-          <span>Aprovado</span>
+          <span>{tr("Aprovado", "Approved")}</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-full bg-gray-500" />
-          <span>Pendente</span>
+          <span>{tr("Pendente", "Pending")}</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-full bg-orange-500" />
-          <span>Ajustes</span>
+          <span>{tr("Ajustes", "Changes")}</span>
         </div>
       </div>
 
       <div className="grid grid-cols-7 gap-2 mt-4" data-section="calendar-grid">
-        {["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"].map((day) => (
+        {WEEKDAYS.map((day) => (
           <div
-            key={day}
+            key={day.key}
             className="text-center text-sm font-semibold text-muted-foreground p-2"
-            data-weekday={day.toLowerCase()}
+            data-weekday={day.key.toLowerCase()}
           >
-            {day}
+            {tr(day.pt, day.en)}
           </div>
         ))}
 
@@ -250,19 +269,19 @@ export function CalendarView({
                     badges.push({
                       count: approved,
                       color: "bg-green-500",
-                      label: "Aprovado",
+                      label: tr("Aprovado", "Approved"),
                     });
                   if (pending > 0)
                     badges.push({
                       count: pending,
                       color: "bg-gray-500",
-                      label: "Pendente",
+                      label: tr("Pendente", "Pending"),
                     });
                   if (adjustments > 0)
                     badges.push({
                       count: adjustments,
                       color: "bg-orange-500",
-                      label: "Ajustes",
+                      label: tr("Ajustes", "Changes"),
                     });
 
                   return (
@@ -291,7 +310,7 @@ export function CalendarView({
               {canOpenEmpty && (
                 <div className="hidden group-hover:flex flex-col items-center gap-0.5">
                   <span className="text-[10px] text-primary font-medium leading-tight">
-                    Abrir
+                    {tr("Abrir", "Open")}
                   </span>
                 </div>
               )}
@@ -309,7 +328,7 @@ export function CalendarView({
                       );
                   }}
                   className="absolute top-0.5 right-0.5 h-5 w-5 rounded-full bg-primary/10 text-primary flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary/20 cursor-pointer"
-                  title="Adicionar post neste dia"
+                  title={tr("Adicionar post neste dia", "Add a post on this day")}
                 >
                   <Plus className="h-3 w-3" />
                 </div>

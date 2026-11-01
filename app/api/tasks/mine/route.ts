@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { apiErrorResponse } from "@/lib/api-error";
 import { requireActiveOrganization } from "@/lib/auth";
 
 export async function GET() {
+  const locale = await getRequestLocale();
   try {
     const { user, organization } = await requireActiveOrganization();
 
@@ -26,9 +29,12 @@ export async function GET() {
 
     return NextResponse.json({ tasks });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error fetching tasks:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }

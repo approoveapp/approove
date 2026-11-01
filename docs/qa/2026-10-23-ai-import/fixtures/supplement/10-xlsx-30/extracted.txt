@@ -1,0 +1,77 @@
+## Aba: Quinzena 1
+[linha 1] OFICINA AURORA • Novembro 2026 • America/Sao_Paulo • FICTÍCIO,,,,,,
+[linha 2] Data,Hora,Canal,Formato,Título,Legenda final,Referência (não é arte anexada)
+[linha 3] 2026-11-01,09:30,LinkedIn,feed,Mensal 01,"Novembro, dia 1.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 4] 2026-11-02,09:30,Instagram,feed,Mensal 02,"Novembro, dia 2.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 5] 2026-11-03,09:30,Instagram,feed,Mensal 03,"Novembro, dia 3.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 6] 2026-11-04,09:30,LinkedIn,feed,Mensal 04,"Novembro, dia 4.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 7] 2026-11-05,09:30,Instagram,feed,Mensal 05,"Novembro, dia 5.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 8] 2026-11-06,,Instagram,feed,Mensal 06,"Novembro, dia 6.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 9] 2026-11-07,09:30,LinkedIn,feed,Mensal 07,"Novembro, dia 7.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 10] 2026-11-08,09:30,Instagram,feed,Mensal 08,"Novembro, dia 8.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 11] 2026-11-09,09:30,Instagram,feed,Mensal 09,"Novembro, dia 9.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 12] 2026-11-10,09:30,LinkedIn,feed,Mensal 10,"Novembro, dia 10.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 13] 2026-11-11,09:30,Instagram,feed,Mensal 11,,https://example.com/referencia
+[linha 14] 2026-11-12,09:30,Instagram,feed,Mensal 12,"Novembro, dia 12.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 15] 2026-11-13,09:30,LinkedIn,feed,Mensal 13,"Novembro, dia 13.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 16] 2026-11-14,09:30,Instagram,feed,Mensal 14,"Novembro, dia 14.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 17] 2026-11-15,09:30,Instagram,feed,Mensal 15,"Novembro, dia 15.
+Pauta fictícia; copy final.",https://example.com/referencia
+
+## Aba: Quinzena 2
+[linha 1] OFICINA AURORA • Novembro 2026 • America/Sao_Paulo • FICTÍCIO,,,,,,
+[linha 2] Data,Hora,Canal,Formato,Título,Legenda final,Referência (não é arte anexada)
+[linha 3] 2026-11-16,09:30,LinkedIn,feed,Mensal 16,"Novembro, dia 16.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 4] 2026-11-17,09:30,Instagram,feed,Mensal 17,"Novembro, dia 17.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 5] 2026-11-18,09:30,Instagram,feed,Mensal 18,"Novembro, dia 18.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 6] 2026-11-19,09:30,LinkedIn,feed,Mensal 19,"Novembro, dia 19.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 7] 2026-11-20,09:30,Instagram,feed,Mensal 20,"Novembro, dia 20.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 8] 2026-11-21,09:30,Instagram,feed,Mensal 21,"Novembro, dia 21.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 9] 2026-11-22,09:30,LinkedIn,feed,Mensal 22,"Novembro, dia 22.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 10] 2026-11-23,09:30,Instagram,feed,Mensal 23,"Novembro, dia 23.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 11] 2026-11-24,09:30,Instagram,feed,Mensal 24,"Novembro, dia 24.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 12] 2026-11-25,09:30,LinkedIn,feed,Mensal 25,"Novembro, dia 25.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 13] 2026-11-26,09:30,Instagram,feed,Mensal 26,"Novembro, dia 26.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 14] 2026-11-27,09:30,Instagram,feed,Mensal 27,"Novembro, dia 27.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 15] 2026-11-28,09:30,LinkedIn,feed,Mensal 28,"Novembro, dia 28.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 16] 2026-11-29,09:30,Instagram,feed,Mensal 29,"Novembro, dia 29.
+Pauta fictícia; copy final.",https://example.com/referencia
+[linha 17] 2026-11-30,09:30,Instagram,feed,Mensal 30,"Novembro, dia 30.
+Pauta fictícia; copy final.",https://example.com/referencia
+
+## Aba: Analytics - não importar
+[linha 1] Métricas passadas (não são publicações),Valor
+[linha 2] Alcance outubro,1200
+[linha 3] Cliques outubro,50
+
+## Aba: Legenda - não importar
+[linha 1] Referência de preenchimento,Significado
+[linha 2] Data,Novembro de 2026; fuso America/Sao_Paulo
+[linha 3] Link,"Referência de criação, não arquivo anexado"
+[linha 4] Vazio,Ainda não definido; não inventar

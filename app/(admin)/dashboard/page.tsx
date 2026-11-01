@@ -29,9 +29,11 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
-import { getProductionStageLabel, getProductionStageStyle } from "@/lib/production-stages";
+import { getProductionStageStyle } from "@/lib/production-stages";
+import { getLocalizedProductionStageLabel } from "@/components/post-production-fields";
 import { useLocale } from "@/components/locale-provider";
 import { localizedText } from "@/lib/locale";
+import { FirstSteps } from "@/components/first-steps";
 
 interface ClientData {
   id: string;
@@ -84,6 +86,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [tasks, setTasks] = useState<TaskData[]>([]);
+  const [aiImport, setAiImport] = useState(false);
 
   const fetchClients = useCallback(async () => {
     setLoadError(null);
@@ -121,6 +124,10 @@ export default function DashboardPage() {
   useEffect(() => {
     fetchClients();
     fetchMyTasks();
+    fetch("/api/features")
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => setAiImport(data?.aiImport === true))
+      .catch(() => {});
   }, [fetchClients, fetchMyTasks]);
 
   const stats: DashboardStats = clients.reduce(
@@ -221,6 +228,8 @@ export default function DashboardPage() {
         )}
       </div>
 
+      {canManage && <FirstSteps clients={clients} aiImport={aiImport} />}
+
       {tasks.length > 0 && (
         <Card>
           <CardHeader>
@@ -252,7 +261,7 @@ export default function DashboardPage() {
                   variant="secondary"
                   className={getProductionStageStyle(task.productionStage)}
                 >
-                  {getProductionStageLabel(task.productionStage)}
+                  {getLocalizedProductionStageLabel(task.productionStage, locale)}
                 </Badge>
               </div>
             ))}

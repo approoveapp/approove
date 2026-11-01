@@ -1,0 +1,216 @@
+{
+  "at": "2026-10-31T17:24:45.588Z",
+  "results": [
+    {
+      "gate": 6,
+      "name": "no session GET /api/clients/demo-client/imports is refused",
+      "pass": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "gate": 6,
+      "name": "no session POST /api/clients/demo-client/imports is refused",
+      "pass": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "gate": 6,
+      "name": "no session POST /api/clients/demo-client/imports/media is refused",
+      "pass": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "gate": 6,
+      "name": "no session GET /api/imports/anything is refused",
+      "pass": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "gate": 6,
+      "name": "no session POST /api/imports/anything/commit is refused",
+      "pass": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "gate": 5,
+      "name": "features endpoint reports AI import enabled",
+      "pass": true,
+      "detail": "{\"aiImport\":true}"
+    },
+    {
+      "gate": 5,
+      "name": "org A sees import configured with Studio quota",
+      "pass": true,
+      "detail": "{\"used\":0,\"limit\":80}"
+    },
+    {
+      "gate": 5,
+      "name": "org A uploads private import media",
+      "pass": true,
+      "detail": "HTTP 200"
+    },
+    {
+      "gate": 5,
+      "name": "non-media bytes renamed .png are rejected",
+      "pass": true,
+      "detail": "HTTP 400"
+    },
+    {
+      "gate": 6,
+      "name": "owner org reads its media (same-origin, no-store)",
+      "pass": true,
+      "detail": "HTTP 200 private, no-store"
+    },
+    {
+      "gate": 5,
+      "name": "range request on private media returns 206",
+      "pass": true,
+      "detail": "HTTP 206"
+    },
+    {
+      "gate": 6,
+      "name": "anonymous cannot read private media",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 6,
+      "name": "other tenant cannot read private media",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 6,
+      "name": "valid share token cannot read a draft upload",
+      "pass": true,
+      "detail": "HTTP 404"
+    },
+    {
+      "gate": 6,
+      "name": "invalid share token is refused",
+      "pass": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "gate": 6,
+      "name": "direct private Blob URL is not publicly readable",
+      "pass": true,
+      "detail": "HTTP 403"
+    },
+    {
+      "gate": 6,
+      "name": "tampered media receipt is refused before inference",
+      "pass": true,
+      "detail": "HTTP 400 {\"error\":\"Mídia inválida\"}"
+    },
+    {
+      "gate": 6,
+      "name": "org A receipt is refused in org B",
+      "pass": true,
+      "detail": "HTTP 404 {\"error\":\"Calendário não encontrado\"}"
+    },
+    {
+      "gate": 6,
+      "name": "org B cannot open org A client imports",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 5,
+      "name": "negative vazio.txt rejected",
+      "pass": true,
+      "detail": "HTTP 400 {\"error\":\"Arquivo vazio ou maior que 4 MB.\"}"
+    },
+    {
+      "gate": 5,
+      "name": "negative corrompido.docx rejected",
+      "pass": true,
+      "detail": "HTTP 400 {\"error\":\"\\\"corrompido.docx\\\": não foi possível ler o arquivo. Ele pode estar corrompido.\""
+    },
+    {
+      "gate": 5,
+      "name": "negative texto-300001.txt rejected",
+      "pass": true,
+      "detail": "HTTP 400 {\"error\":\"Texto extraído excede o limite; divida o arquivo.\"}"
+    },
+    {
+      "gate": 5,
+      "name": "negative acima-4mb.txt rejected",
+      "pass": true,
+      "detail": "HTTP 413 {\"error\":\"Arquivos grandes demais. Máximo: 4 MB no total.\"}"
+    },
+    {
+      "gate": 5,
+      "name": "negatives created no import jobs",
+      "pass": true,
+      "detail": "0 jobs"
+    },
+    {
+      "gate": 5,
+      "name": "plan quota reached returns 403 PLAN_LIMIT_REACHED",
+      "pass": true,
+      "detail": "HTTP 403 {\"error\":\"Limite de importações do plano atingido\",\"code\":\"PLAN_LIMIT_REACHED\"}"
+    },
+    {
+      "gate": 5,
+      "name": "quota refusal created no billable job",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 6,
+      "name": "pending invite cannot use org A imports",
+      "pass": true,
+      "detail": "HTTP 403"
+    },
+    {
+      "gate": 6,
+      "name": "fresh admin session works before revocation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 6,
+      "name": "revoked session (sessionVersion bump) is refused",
+      "pass": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "gate": 6,
+      "name": "media read with revoked session is refused",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 6,
+      "name": "member role access to imports (observed)",
+      "pass": true,
+      "detail": "HTTP 200"
+    },
+    {
+      "gate": 7,
+      "name": "cron without secret is refused",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 7,
+      "name": "cron with wrong secret is refused",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 7,
+      "name": "cron with secret runs cleanup",
+      "pass": true,
+      "detail": "{\"expiredReviews\":0,\"checked\":1,\"deleted\":0}"
+    },
+    {
+      "gate": 7,
+      "name": "cleanup keeps a fresh (in-grace) upload",
+      "pass": true,
+      "detail": "HTTP 200"
+    }
+  ],
+  "probeMedia": "/api/import-media/cmvwo0ula000129q0s8oqgyrw/import-1793467469448-yMM3PwoEUejk.png"
+}

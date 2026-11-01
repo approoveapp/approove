@@ -230,22 +230,22 @@ export default function TeamPage() {
 
             <div className="space-y-4 py-2">
               <div className="space-y-2">
-                <Label htmlFor="invite-name">Nome</Label>
+                <Label htmlFor="invite-name">{tr("Nome", "Name")}</Label>
                 <Input
                   id="invite-name"
                   type="text"
-                  placeholder="Nome do membro"
+                  placeholder={tr("Nome do membro", "Member name")}
                   value={inviteName}
                   onChange={(e) => setInviteName(e.target.value)}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="invite-email">Email</Label>
+                <Label htmlFor="invite-email">{tr("Email", "Email")}</Label>
                 <Input
                   id="invite-email"
                   type="email"
-                  placeholder="nome@exemplo.com"
+                  placeholder={tr("nome@exemplo.com", "name@example.com")}
                   value={inviteEmail}
                   onChange={(e) => setInviteEmail(e.target.value)}
                 />
@@ -500,8 +500,10 @@ export default function TeamPage() {
 
       {!loading && members.length > 0 && (
         <p className="text-xs text-muted-foreground text-center">
-          {members.length} {members.length === 1 ? "membro" : "membros"} na
-          organização
+          {members.length}{" "}
+          {members.length === 1
+            ? tr("membro na organização", "member in the organization")
+            : tr("membros na organização", "members in the organization")}
         </p>
       )}
     </div>

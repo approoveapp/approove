@@ -1,0 +1,175 @@
+{
+  "id": "07-pdf-raster",
+  "status": "expected_only_no_ai_execution",
+  "client": "Oficina Aurora (fictícia)",
+  "timezone": "America/Sao_Paulo",
+  "referenceDate": "2026-10-23",
+  "documents": [
+    "apresentacao-parcialmente-rasterizada.pdf"
+  ],
+  "media": [],
+  "expectedPosts": 12,
+  "criteria": [
+    "12 cards = 12 posts; cabeçalho e marca não viram publicações.",
+    "Página 4 rasterizada contém cards 07 e 08; leitura visual/OCR necessária.",
+    "Card 08 não tem horário; não inventar meia-noite. Card 11 não tem legenda final.",
+    "Arte embutida no PDF não é um arquivo de mídia disponível no importador atual.",
+    "Preservar copy literal e quebras, sem aprovação ou publicação automática."
+  ],
+  "proposal": {
+    "summary": "Expectativa humana da fixture.",
+    "posts": [
+      {
+        "date": "2026-11-01",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 01",
+        "copyText": "Oficina Aurora. Ideia 01.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 1"
+      },
+      {
+        "date": "2026-11-02",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 02",
+        "copyText": "Oficina Aurora. Ideia 02.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 2"
+      },
+      {
+        "date": "2026-11-03",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 03",
+        "copyText": "Oficina Aurora. Ideia 03.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 3"
+      },
+      {
+        "date": "2026-11-04",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 04",
+        "copyText": "Oficina Aurora. Ideia 04.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 4"
+      },
+      {
+        "date": "2026-11-05",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 05",
+        "copyText": "Oficina Aurora. Ideia 05.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 5"
+      },
+      {
+        "date": "2026-11-06",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 06",
+        "copyText": "Oficina Aurora. Ideia 06.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 6"
+      },
+      {
+        "date": "2026-11-07",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 07",
+        "copyText": "Oficina Aurora. Ideia 07.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 7"
+      },
+      {
+        "date": "2026-11-08",
+        "time": null,
+        "dateIsSuggested": false,
+        "channel": "LinkedIn",
+        "format": "feed",
+        "title": "Card 08",
+        "copyText": "Oficina Aurora. Ideia 08.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 8"
+      },
+      {
+        "date": "2026-11-09",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 09",
+        "copyText": "Oficina Aurora. Ideia 09.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 9"
+      },
+      {
+        "date": "2026-11-10",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 10",
+        "copyText": "Oficina Aurora. Ideia 10.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 10"
+      },
+      {
+        "date": "2026-11-11",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 11",
+        "copyText": "",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 11"
+      },
+      {
+        "date": "2026-11-12",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Card 12",
+        "copyText": "Oficina Aurora. Ideia 12.\nConheca nosso trabalho.",
+        "media": [],
+        "notes": null,
+        "source": "Fixture suplementar, registro 12"
+      }
+    ],
+    "warnings": [
+      "12 cards = 12 posts; cabeçalho e marca não viram publicações.",
+      "Página 4 rasterizada contém cards 07 e 08; leitura visual/OCR necessária.",
+      "Card 08 não tem horário; não inventar meia-noite. Card 11 não tem legenda final.",
+      "Arte embutida no PDF não é um arquivo de mídia disponível no importador atual.",
+      "Preservar copy literal e quebras, sem aprovação ou publicação automática."
+    ]
+  }
+}

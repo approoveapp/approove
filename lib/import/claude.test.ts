@@ -1,0 +1,94 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+const mocks = vi.hoisted(() => ({ construct: vi.fn(), stream: vi.fn(), finalMessage: vi.fn(), count: vi.fn() }));
+vi.mock("@anthropic-ai/sdk", () => ({ default: class {
+  constructor(options: unknown) { mocks.construct(options); }
+  beta = { messages: { stream: mocks.stream, countTokens:mocks.count } };
+} }));
+vi.mock("@/lib/media-storage", () => ({ readDevMedia: vi.fn() }));
+import { isImportAiConfigured, proposeCalendar, ImportAiError } from "./claude";
+import { configuredImportModel } from "./model";
+
+const input = { clientName: "Fixture", today: "2026-10-23", files: [], media: [], locale: "pt-BR" as const };
+beforeEach(() => {
+  vi.clearAllMocks();
+  vi.stubEnv("ANTHROPIC_API_KEY", "qa-not-a-real-key");
+  vi.stubEnv("ANTHROPIC_IMPORT_MODEL", "");
+  mocks.count.mockResolvedValue({input_tokens:100});
+  mocks.stream.mockReturnValue({ finalMessage: mocks.finalMessage });
+  mocks.finalMessage.mockResolvedValue({ model: "claude-haiku-5-5", stop_reason: "end_turn",
+    parsed_output: { summary: "Fixture", posts: [], warnings: [] },
+    usage: { input_tokens: 100, output_tokens: 25, cache_creation_input_tokens: 10, cache_read_input_tokens: 5 } });
+});
+afterEach(() => vi.unstubAllEnvs());
+describe("explicit import model and paid failure behavior", () => {
+  it("defaults to the economical model and accepts only measured model choices", () => {
+    expect(configuredImportModel(undefined)).toBe("claude-haiku-5-5");
+    expect(configuredImportModel(" claude-haiku-5-5 ")).toBe("claude-haiku-5-5");
+    expect(configuredImportModel("claude-sonnet-5-5")).toBe("claude-sonnet-5-5");
+    expect(configuredImportModel("unknown-model")).toBeNull();
+  });
+  it("uses the explicit economical model without fallback or hidden retries", async () => {
+    vi.stubEnv("ANTHROPIC_IMPORT_MODEL", "claude-haiku-5-5");
+    const result = await proposeCalendar(input);
+    expect(mocks.construct).toHaveBeenCalledWith({ maxRetries: 0, timeout: 270000 });
+    const request = mocks.stream.mock.calls[0][0];
+    expect(request.model).toBe("claude-haiku-5-5");
+    expect(request.max_tokens).toBe(48000);
+    expect(mocks.count.mock.calls[0][0].output_config).toEqual(request.output_config);
+    expect(request).not.toHaveProperty("fallbacks");
+    expect(request).not.toHaveProperty("betas");
+    expect(result).toMatchObject({ model: "claude-haiku-5-5", inputTokens: 115, outputTokens: 25 });
+  });
+  it("rejects unknown configuration before instantiating the paid client", async () => {
+    vi.stubEnv("ANTHROPIC_IMPORT_MODEL", "unknown-model");
+    expect(isImportAiConfigured()).toBe(false);
+    await expect(proposeCalendar(input)).rejects.toBeInstanceOf(ImportAiError);
+    expect(mocks.construct).not.toHaveBeenCalled();
+  });
+  it("preserves refusal usage and makes no second request", async () => {
+    mocks.finalMessage.mockResolvedValue({ model: "claude-haiku-5-5", stop_reason: "refusal", parsed_output: null,
+      usage: { input_tokens: 40, output_tokens: 5 } });
+    await expect(proposeCalendar(input)).rejects.toMatchObject({ usage: { inputTokens: 40, outputTokens: 5 } });
+    expect(mocks.stream).toHaveBeenCalledTimes(1);
+  });
+  it("does not fall back after a transport failure", async () => {
+    mocks.finalMessage.mockRejectedValue(new Error("synthetic timeout"));
+    await expect(proposeCalendar(input)).rejects.toThrow("synthetic timeout");
+    expect(mocks.stream).toHaveBeenCalledTimes(1);
+  });
+});
+
+it("blocks a missing source occurrence before review while retaining paid usage", async () => {
+  const { prepareImportFile } = await import("./files");
+  const file = await prepareImportFile("pauta.csv", new TextEncoder().encode("canal,titulo,legenda\nInstagram,A,copy\nInstagram,A,copy"), "pt-BR");
+  await expect(proposeCalendar({ ...input, files: [file] })).rejects.toMatchObject({
+    message: expect.stringContaining("2 ausentes"), usage: { inputTokens: 115, outputTokens: 25 },
+  });
+  const content = mocks.stream.mock.calls[0][0].messages[0].content;
+  expect(content.at(-1).text).toContain("T1A1L3:");
+  expect(mocks.stream).toHaveBeenCalledTimes(1);
+});
+
+it("accepts structured row ids when source omits the text marker, and keeps source human-readable", async () => {
+  const { prepareImportFile } = await import("./files");
+  const file = await prepareImportFile("pauta.csv", new TextEncoder().encode("canal,titulo,legenda\nInstagram,A,copy\nInstagram,A,copy"), "pt-BR");
+  const post = { date: "2026-11-01", time: null, dateIsSuggested: false, channel: "Instagram", format: "feed", title: "A", copyText: "copy", media: [], notes: null };
+  mocks.finalMessage.mockResolvedValue({ model: "claude-haiku-5-5", stop_reason: "end_turn", usage: { input_tokens: 100, output_tokens: 25 },
+    parsed_output: { summary: "", warnings: [], posts: [
+      { ...post, source: "pauta.csv, linha 2", sourceRef: "T1A1L2" },
+      { ...post, source: "[origem:T1A1L3] pauta.csv, linha 3", sourceRef: "T1A1L3" },
+    ] } });
+  const result = await proposeCalendar({ ...input, files: [file] });
+  expect(result.proposal.posts.map(p => p.source)).toEqual(["pauta.csv, linha 2", "pauta.csv, linha 3"]);
+  expect(result.proposal.posts[0]).not.toHaveProperty("sourceRef");
+  const item = mocks.stream.mock.calls[0][0].output_config.format.schema.properties.posts.items;
+  expect(item.required).toContain("sourceRef");
+  expect(JSON.stringify(item.properties.sourceRef)).toContain("T1A1L3");
+});
+
+it("blocks over-budget inputs before inference without retry",async()=>{
+  mocks.count.mockResolvedValue({input_tokens:90001});
+  await expect(proposeCalendar(input)).rejects.toThrow("grandes demais");
+  await expect(proposeCalendar({ ...input, locale: "en" })).rejects.toThrow("too large to read at once");
+  expect(mocks.stream).not.toHaveBeenCalled();
+});

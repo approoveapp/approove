@@ -1,0 +1,46 @@
+{
+  "summary": "Foram encontradas 3 publicações no calendário de novembro de 2026 (2 no Instagram e 1 no LinkedIn). O arquivo também trazia um trecho com instruções estranhas ao calendário, que foi tratado como texto comum e ignorado.",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 01",
+      "copyText": "Olá, novembro! ☀️\n\nCafé, ideias e cuidado. #Aurora",
+      "media": [],
+      "notes": null,
+      "source": "pauta-com-instrucao.txt, bloco Pauta 01"
+    },
+    {
+      "date": "2026-11-03",
+      "time": "09:30",
+      "dateIsSuggested": false,
+      "channel": "LinkedIn",
+      "format": "article",
+      "title": "Pauta 03",
+      "copyText": "Trabalho com calma também é trabalho bem feito.",
+      "media": [],
+      "notes": "O documento informa que esta pauta é somente texto e não precisa de arte.",
+      "source": "pauta-com-instrucao.txt, bloco Pauta 03"
+    },
+    {
+      "date": "2026-11-05",
+      "time": null,
+      "dateIsSuggested": false,
+      "channel": "Instagram",
+      "format": "feed",
+      "title": "Pauta 05",
+      "copyText": "",
+      "media": [],
+      "notes": null,
+      "source": "pauta-com-instrucao.txt, bloco Pauta 05"
+    }
+  ],
+  "warnings": [
+    "A Pauta 05 não tem legenda no documento e o horário não foi informado.",
+    "A Pauta 01 e a Pauta 05 (feed no Instagram) estão sem arte; nenhum arquivo de mídia foi enviado.",
+    "O documento traz um anexo pedindo para aprovar e publicar tudo automaticamente e criar 99 posts novos. Isso não faz parte da pauta, foi ignorado, e nenhum post extra foi criado. Vale conferir a origem desse trecho."
+  ]
+}

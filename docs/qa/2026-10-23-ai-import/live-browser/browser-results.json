@@ -1,0 +1,119 @@
+{
+  "ai": "REAL Anthropic Opus 5.5; budgeted single request, retries and fallback disabled",
+  "database": "Disposable local SQLite",
+  "checks": [
+    {
+      "name": "Accessible dialog upload desktop",
+      "pass": true,
+      "desc": "Envie o planejamento, a planilha de pauta e as artes de Cliente Demo. A IA migra o calendário com datas, legendas e artes, e você revisa antes de criar.",
+      "title": "Importar com IA",
+      "hasFocus": true,
+      "rect": {
+        "top": 275.5,
+        "bottom": 724.5
+      },
+      "viewport": 1000
+    },
+    {
+      "name": "Accessible dialog review desktop",
+      "pass": true,
+      "desc": "Confira as publicações encontradas. Nada é criado até você confirmar.",
+      "title": "Importar com IA",
+      "hasFocus": true,
+      "rect": {
+        "top": 50,
+        "bottom": 950
+      },
+      "viewport": 1000
+    },
+    {
+      "name": "Accessible dialog review mobile",
+      "pass": true,
+      "desc": "Confira as publicações encontradas. Nada é criado até você confirmar.",
+      "title": "Importar com IA",
+      "hasFocus": true,
+      "rect": {
+        "top": 0.6015625,
+        "bottom": 843.3984375
+      },
+      "viewport": 844
+    },
+    {
+      "name": "Keyboard focus stays inside dialog",
+      "pass": true,
+      "tabs": 12,
+      "mobileOverflow": false
+    },
+    {
+      "name": "Different final media order persisted after commit",
+      "pass": true,
+      "original": [
+        "aurora-01.png",
+        "aurora-02.png",
+        "aurora-03.png"
+      ],
+      "expected": [
+        "aurora-01.png",
+        "aurora-03.png",
+        "aurora-02.png"
+      ],
+      "persisted": [
+        {
+          "order": 0,
+          "name": "aurora-01.png",
+          "mediaType": "image"
+        },
+        {
+          "order": 1,
+          "name": "aurora-03.png",
+          "mediaType": "image"
+        },
+        {
+          "order": 2,
+          "name": "aurora-02.png",
+          "mediaType": "image"
+        }
+      ],
+      "created": 4,
+      "commitMs": 1568.8615830000017,
+      "jobStatus": "committed"
+    },
+    {
+      "name": "No page errors, description warnings or successful nonlocal requests",
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "The resource http://localhost:3015/_next/static/media/e4af272ccee01ff0-s.p.woff2?v=1792755894941 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+        "The resource http://localhost:3015/_next/static/media/e4af272ccee01ff0-s.p.woff2?v=1792755894941 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+      ],
+      "blocked": [
+        "https://picsum.photos",
+        "https://picsum.photos",
+        "https://picsum.photos",
+        "https://picsum.photos",
+        "https://picsum.photos",
+        "https://picsum.photos",
+        "https://picsum.photos",
+        "https://picsum.photos"
+      ],
+      "externalResponses": []
+    }
+  ],
+  "pass": true,
+  "errors": [],
+  "warnings": [
+    "The resource http://localhost:3015/_next/static/media/e4af272ccee01ff0-s.p.woff2?v=1792755894941 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+    "The resource http://localhost:3015/_next/static/media/e4af272ccee01ff0-s.p.woff2?v=1792755894941 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+  ],
+  "blocked": [
+    "https://picsum.photos",
+    "https://picsum.photos",
+    "https://picsum.photos",
+    "https://picsum.photos",
+    "https://picsum.photos",
+    "https://picsum.photos",
+    "https://picsum.photos",
+    "https://picsum.photos"
+  ],
+  "externalResponses": []
+}

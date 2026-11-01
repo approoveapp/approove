@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Wordmark } from "@/components/landing/ui";
 import { localizedText, type AppLocale } from "@/lib/locale";
 
-export function LandingNavbar({ locale }: { locale: AppLocale }) {
+export function LandingNavbar({ locale, aiImport }: { locale: AppLocale; aiImport: boolean }) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
 
   return (
@@ -14,10 +14,12 @@ export function LandingNavbar({ locale }: { locale: AppLocale }) {
         <Link href="/" aria-label={tr("Approove - página inicial", "Approove - home")} className="text-xl">
           <Wordmark />
         </Link>
-        <nav className="hidden items-center gap-8 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.2em] md:flex">
+        {/* Os links só cabem a partir de lg; entre lg e xl o espaçamento aperta para não empurrar o CTA. */}
+        <nav className="hidden items-center gap-5 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.12em] lg:flex xl:gap-8 xl:tracking-[0.2em]">
           {[
             ["#como-funciona", tr("Como funciona", "How it works")],
             ["#aprovacao", tr("Aprovação", "Approval")],
+            ...(aiImport ? [["#importar", tr("Importação", "Import")]] : []),
             ["#funcionalidades", tr("Funcionalidades", "Features")],
             ["#precos", tr("Preços", "Pricing")],
             ["#faq", "FAQ"],
@@ -40,7 +42,7 @@ export function LandingNavbar({ locale }: { locale: AppLocale }) {
           </Link>
           <Link
             href="/signup"
-            className="inline-flex items-center rounded-full bg-[#1B1917] px-5 py-2.5 text-sm font-semibold text-[#F4E9E1] transition-colors duration-300 hover:bg-[#0072E3] hover:text-white"
+            className="inline-flex items-center whitespace-nowrap rounded-full bg-[#1B1917] px-5 py-2.5 text-sm font-semibold text-[#F4E9E1] transition-colors duration-300 hover:bg-[#0072E3] hover:text-white"
           >
             {tr("Testar grátis", "Start free trial")}
           </Link>

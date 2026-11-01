@@ -1,0 +1,33 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/Users/murillo/Projects/approove[39m
+
+ [32m✓[39m lib/locale-pricing.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m lib/import/proposal.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m lib/import/review.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m lib/stripe-webhook.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m lib/stripe-sync-guard.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m lib/billing-access.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m lib/approval.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m lib/security.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m lib/org-slug.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m lib/workspace-unavailable.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m lib/post-serializer.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m lib/plan-limits.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m lib/google-auth.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m lib/import/claude.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m lib/stripe.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m lib/stripe-sync.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m lib/viewed-approval-package.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m lib/import/files.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 107[2mms[22m[39m
+ [32m✓[39m lib/import/files-regression.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 121[2mms[22m[39m
+ [32m✓[39m lib/import/media.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m lib/import/cleanup.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m21 passed[39m[22m[90m (21)[39m
+[2m      Tests [22m [1m[32m126 passed[39m[22m[90m (126)[39m
+[2m   Start at [22m 09:10:50
+[2m   Duration [22m 751ms[2m (import 65%, transform 21%, tests 12%, worker 2%)[22m
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.

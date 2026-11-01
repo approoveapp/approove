@@ -16,6 +16,8 @@ type Props = {
   organizationName: string;
   canManageBilling: boolean;
   copyKind: SubscribeCopyKind;
+  /** Already-worded founding offer, or null when there is none. */
+  foundingOffer?: { headline: string; spots: string | null } | null;
 };
 
 export function SubscribePlans({
@@ -23,6 +25,7 @@ export function SubscribePlans({
   organizationName,
   canManageBilling,
   copyKind,
+  foundingOffer = null,
 }: Props) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const [loading, setLoading] = useState<PaidPlan | null>(null);
@@ -122,6 +125,15 @@ export function SubscribePlans({
                         "Your organization has no active subscription. Choose a plan to restore access. Nothing is deleted."
                       )}
               </p>
+              {foundingOffer && (
+                <p className="mt-4 inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm font-semibold">
+                  <span className="rounded-full bg-primary px-3 py-1 text-primary-foreground">{foundingOffer.headline}</span>
+                  {foundingOffer.spots && <span className="text-muted-foreground">{foundingOffer.spots}</span>}
+                  <span className="w-full text-muted-foreground font-normal">
+                    {tr("O desconto entra automaticamente no checkout.", "The discount applies automatically at checkout.")}
+                  </span>
+                </p>
+              )}
             </div>
 
             {error && (

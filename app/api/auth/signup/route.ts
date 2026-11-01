@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
@@ -20,6 +22,7 @@ const signupSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  const locale = await getRequestLocale();
   try {
     const body = await request.json();
     const data = signupSchema.parse(body);
@@ -32,7 +35,13 @@ export async function POST(request: NextRequest) {
 
     if (existingUser) {
       return NextResponse.json(
-        { error: "Este email já está cadastrado. Entre ou use \"Esqueci minha senha\"." },
+        {
+          error: localizedText(
+            locale,
+            "Este email já está cadastrado. Entre ou use \"Esqueci minha senha\".",
+            "This email is already registered. Sign in or use \"Forgot your password?\"."
+          ),
+        },
         { status: 400 }
       );
     }
@@ -86,7 +95,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Signup error:", error);
     return NextResponse.json(

@@ -1,12 +1,15 @@
 import Link from "next/link";
+import { localizedText, type AppLocale } from "@/lib/locale";
 
 interface LegalPageLayoutProps {
   title: string;
   updatedAt: string;
+  locale: AppLocale;
   children: React.ReactNode;
 }
 
-export function LegalPageLayout({ title, updatedAt, children }: LegalPageLayoutProps) {
+export function LegalPageLayout({ title, updatedAt, locale, children }: LegalPageLayoutProps) {
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b">
@@ -18,7 +21,7 @@ export function LegalPageLayout({ title, updatedAt, children }: LegalPageLayoutP
             href="/"
             className="text-sm font-medium text-muted-foreground hover:text-foreground"
           >
-            Voltar ao início
+            {tr("Voltar ao início", "Back to home")}
           </Link>
         </div>
       </header>
@@ -26,7 +29,7 @@ export function LegalPageLayout({ title, updatedAt, children }: LegalPageLayoutP
       <main className="mx-auto max-w-3xl px-6 py-16">
         <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Última atualização: {updatedAt}
+          {tr("Última atualização", "Last updated")}: {updatedAt}
         </p>
 
         <div className="prose-legal mt-10 space-y-8 text-[15px] leading-relaxed text-foreground">

@@ -1,0 +1,14 @@
+[linha 1] data;hora;canal;formato;titulo;legenda;nota
+[linha 2] 2026-11-02;09:30;Instagram;feed;Pauta 02;"Legenda 02.
+Conheça a Oficina Aurora. #Aurora";
+[linha 3] 2026-11-04;;LinkedIn;feed;Pauta 04;"Legenda 04.
+Conheça a Oficina Aurora. #Aurora";
+[linha 4] primeira sexta de novembro de 2026;09:30;Instagram;feed;Pauta 06;"Legenda 06.
+Conheça a Oficina Aurora. #Aurora";
+[linha 5] 2026-11-08;09:30;Instagram;feed;Pauta 08;;
+[linha 6] 2026-11-10;18:00;Instagram;feed;Pauta 10;"Legenda 10.
+Conheça a Oficina Aurora. #Aurora";antes 09:30, CORREÇÃO FINAL 18:00
+[linha 7] 2026-11-12;09:30;Instagram;feed;Pauta 12;"Legenda 12.
+Conheça a Oficina Aurora. #Aurora";
+[linha 8] 2026-11-02;09:30;Instagram;feed;Pauta 02;"Legenda 02.
+Conheça a Oficina Aurora. #Aurora";

@@ -13,6 +13,7 @@ Plataforma de aprovação de conteúdo para redes sociais. Organize calendários
 - **Gestão de time**: Convite por email, roles (owner/admin/member), remoção de membros
 - **Onboarding**: Carrossel de boas-vindas para novos usuários
 - **Upload de mídia**: Drag-and-drop via Vercel Blob na tela de publicação (JPEG, PNG, GIF, WebP, SVG, MP4)
+- **Importação com IA (migração de calendário)**: qualquer papel da agência (owner, admin, member) envia o calendário que a agência já tem (planejamento, planilha de pauta: PDF, DOCX, XLSX, CSV, TXT; até 10 e 4 MB no total) e as artes (imagens e vídeos; até 30, 4 MB cada). O Claude (modelo configurado no servidor; padrão `claude-haiku-5-5`) transcreve as publicações (data, horário, canal, formato, título e legenda exatamente como estão; nunca escreve conteúdo) e associa cada arte ao post certo pelo nome, pelas referências e, nas imagens, pelo conteúdo. O usuário revisa e edita; só então os posts são criados com os materiais anexados. A etapa vem do que foi migrado (legenda + arte = `internal_review`, só legenda = `waiting_design`, senão `draft_copy`); nunca `ready_for_client`. Roda em segundo plano (`ImportJob` + `after()`); documentos não são guardados, artes vão para o Vercel Blob (em dev sem token, para `public/dev-uploads/`); cota mensal por plano (`aiImports` em `lib/plan-limits.ts`). Artes que não viram material são apagadas no commit/descarte e por um cron diário (`vercel.json` → `/api/cron/import-cleanup`, exige `CRON_SECRET`), que também descarta propostas esquecidas em revisão há 14 dias e uploads sem importação após 24 h
 
 ### Tela de publicação (admin + cliente)
 
@@ -74,6 +75,12 @@ BLOB_READ_WRITE_TOKEN=""
 # E-mail (Resend - convites de revisor no piloto)
 RESEND_API_KEY=""
 EMAIL_FROM="Approove <convites@seudominio.com>"
+
+# Importação com IA (Anthropic)
+ANTHROPIC_API_KEY=""
+
+# Vercel Cron (faxina diária das artes de importação não usadas)
+CRON_SECRET=""
 
 # Stripe Billing (sandbox/dev)
 STRIPE_SECRET_KEY=""
@@ -366,6 +373,7 @@ Papéis na agência (`Membership.role`), conferidos na API e refletidos na UI:
 | Apagar post com histórico de aprovação | ✅ | ✅ | ❌ |
 | Aprovar, pedir ajustes ou reabrir em nome do cliente | ✅ | ✅ | ❌ |
 | Criar, editar e apagar clientes | ✅ | ✅ | ❌ |
+| Importar calendário com IA (usa a cota mensal do plano) | ✅ | ✅ | ✅ |
 | Ver/gerar o link da agência; gerenciar revisores e convites | ✅ | ✅ | ❌ |
 | Abrir Time e Configurações (plano e cobrança) | ✅ | ✅ | ❌ |
 | Convidar e remover membros | ✅ | ✅ | ❌ |
@@ -673,3 +681,7 @@ Ainda não fazem parte do produto. Na matriz de funcionalidades, a coluna “Sta
 ## Licença
 
 Este projeto é privado e proprietário.
+
+## Gate de liberação da importação com IA
+
+As novas importações usam mídia privada e exigem revisão explícita. Em produção, a feature fica desativada sem `IMPORT_AI_ENABLED=1`; `IMPORT_BLOB_READ_WRITE_TOKEN` deve apontar para storage privado dedicado, separado do Blob das demais funcionalidades. Veja [controles, requisitos de staging e rollback](docs/import-production-readiness.md). Os uploads antigos públicos não se tornam privados retroativamente.

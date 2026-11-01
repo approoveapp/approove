@@ -7,6 +7,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { CalendarView } from "@/components/calendar-view";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 import type { Post } from "./post-slide";
 
 interface CalendarModalProps {
@@ -28,6 +30,7 @@ export function CalendarModal({
   currentMonth,
   isAdmin = false,
 }: CalendarModalProps) {
+  const locale = useLocale();
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
@@ -36,7 +39,9 @@ export function CalendarModal({
         id="calendar-modal"
       >
         <DialogHeader>
-          <DialogTitle className="sr-only">Calendário</DialogTitle>
+          <DialogTitle className="sr-only">
+            {localizedText(locale, "Calendário", "Calendar")}
+          </DialogTitle>
         </DialogHeader>
 
         <CalendarView

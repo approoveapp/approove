@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Copy, Clock, ImageIcon, Info } from "lucide-react";
+import { MediaThumb } from "@/components/media-thumb";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -23,7 +24,7 @@ import {
   isViewingLatestApprovalPackage,
 } from "@/lib/viewed-approval-package";
 import { useLocale } from "@/components/locale-provider";
-import { localizedText } from "@/lib/locale";
+import { localizedText, type AppLocale } from "@/lib/locale";
 
 export type PostStatus = "pending" | "approved" | "adjustments";
 
@@ -35,6 +36,23 @@ export const ATTACHMENT_TYPES: Record<string, string> = {
   carousel: "Carrossel",
   other: "Outro",
 };
+
+const ATTACHMENT_TYPES_EN: Record<string, string> = {
+  post_feed: "Feed Post",
+  post_stories: "Stories",
+  post_linkedin: "LinkedIn",
+  reels_cover: "Reels Cover",
+  carousel: "Carousel",
+  other: "Other",
+};
+
+export function getAttachmentTypeLabels(locale: AppLocale): Record<string, string> {
+  return locale === "pt-BR" ? ATTACHMENT_TYPES : ATTACHMENT_TYPES_EN;
+}
+
+export function getAttachmentTypeLabel(type: string, locale: AppLocale): string {
+  return getAttachmentTypeLabels(locale)[type] ?? type;
+}
 
 export interface AnnotationPin {
   id: string;
@@ -200,7 +218,7 @@ export function PostSlide({
   };
 
   const getAttachmentLabel = (att: PostAttachment) => {
-    return att.label || ATTACHMENT_TYPES[att.type] || att.type;
+    return att.label || getAttachmentTypeLabel(att.type, locale);
   };
 
   return (
@@ -211,12 +229,14 @@ export function PostSlide({
           <Clock className="w-4 h-4 text-muted-foreground" />
           <div className="text-center" data-section="date-info">
             <p className="text-sm font-semibold">
-              {format(new Date(post.scheduledAt), "dd 'de' MMMM, yyyy", {
-                locale: ptBR,
-              })}
+              {locale === "pt-BR"
+                ? format(new Date(post.scheduledAt), "dd 'de' MMMM, yyyy", {
+                    locale: ptBR,
+                  })
+                : format(new Date(post.scheduledAt), "MMMM d, yyyy")}
               {dayPostCount && dayPostCount > 1 && (
                 <span className="text-muted-foreground font-normal">
-                  {" "}- {dayPostIndex} de {dayPostCount}
+                  {" "}- {dayPostIndex} {tr("de", "of")} {dayPostCount}
                 </span>
               )}
             </p>
@@ -294,7 +314,7 @@ export function PostSlide({
             ) : (
               <div className="absolute inset-0 p-4 flex flex-col items-center justify-center text-muted-foreground gap-2">
                 <ImageIcon className="h-12 w-12" />
-                <p className="text-sm">Nenhum material anexado</p>
+                <p className="text-sm">{tr("Nenhum material anexado", "No creatives attached")}</p>
               </div>
             )}
           </div>
@@ -321,8 +341,8 @@ export function PostSlide({
                     >
                       <div className="relative w-14 h-14 shrink-0">
                         {lastVersion?.url ? (
-                          <img
-                            src={lastVersion.url}
+                          <MediaThumb
+                            url={lastVersion.url}
                             alt={getAttachmentLabel(att)}
                             className="w-full h-full object-cover rounded"
                           />
@@ -354,7 +374,10 @@ export function PostSlide({
                         <Tooltip>
                           <TooltipTrigger asChild>{thumbButton}</TooltipTrigger>
                           <TooltipContent side="top" className="text-xs">
-                            {att.versions.length} versões disponíveis - selecione no preview para alternar
+                            {tr(
+                              `${att.versions.length} versões disponíveis - selecione no preview para alternar`,
+                              `${att.versions.length} versions available - select one in the preview to switch`
+                            )}
                           </TooltipContent>
                         </Tooltip>
                       ) : (
@@ -373,13 +396,13 @@ export function PostSlide({
           <div className="shrink-0" data-section="title-section">
             <Card>
               <CardHeader className="pb-2 pt-4">
-                <CardTitle className="text-sm font-medium">Título</CardTitle>
+                <CardTitle className="text-sm font-medium">{tr("Título", "Title")}</CardTitle>
               </CardHeader>
               <CardContent className="pb-4">
                 {post.title?.trim() ? (
                   <p className="text-base font-semibold leading-snug">{post.title}</p>
                 ) : (
-                  <p className="text-sm text-muted-foreground">Sem título</p>
+                  <p className="text-sm text-muted-foreground">{tr("Sem título", "Untitled")}</p>
                 )}
               </CardContent>
             </Card>
@@ -388,7 +411,7 @@ export function PostSlide({
           <div className="flex-1 min-h-0 flex flex-col" data-section="copy-section">
             <Card className="h-full flex flex-col">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                <CardTitle className="text-sm font-medium">Copy</CardTitle>
+                <CardTitle className="text-sm font-medium">{tr("Copy", "Caption")}</CardTitle>
                 <Button
                   size="sm"
                   variant="outline"
@@ -396,7 +419,7 @@ export function PostSlide({
                   disabled={copying}
                 >
                   <Copy className="h-4 w-4 mr-2" />
-                  {copying ? "Copiado!" : "Copiar"}
+                  {copying ? tr("Copiado!", "Copied!") : tr("Copiar", "Copy")}
                 </Button>
               </CardHeader>
               <CardContent className="flex-1 overflow-y-auto">

@@ -5,6 +5,7 @@ import { generateLoginCode, generateShareToken, safeEqual, sha256 } from "./cryp
 import { sniffMedia } from "./file-sniff";
 import { resolveDatabaseUrl } from "./prisma";
 import { mediaUrlSchema, optionalLinkSchema, slugSchema } from "./validation";
+import { localizeValidationMessage } from "./validation-messages";
 
 describe("safeCallbackUrl", () => {
   it.each([
@@ -30,6 +31,13 @@ describe("email and password rules", () => {
   it("rejects passwords under 8 characters", () => {
     expect(passwordSchema.safeParse("1234567").success).toBe(false);
     expect(passwordSchema.safeParse("12345678").success).toBe(true);
+  });
+
+  it("keeps Portuguese messages and translates them for English requests", () => {
+    const result = passwordSchema.safeParse("1234567");
+    const message = result.success ? "" : result.error.issues[0].message;
+    expect(localizeValidationMessage(message, "pt-BR")).toBe("Senha deve ter pelo menos 8 caracteres");
+    expect(localizeValidationMessage(message, "en")).toBe("Password must be at least 8 characters.");
   });
 });
 

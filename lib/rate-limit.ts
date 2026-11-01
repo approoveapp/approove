@@ -16,6 +16,7 @@ export const RATE_LIMITS = {
   signupIp: { limit: 5, windowMs: HOUR },
   inviteOrg: { limit: 30, windowMs: HOUR },
   uploadUser: { limit: 120, windowMs: HOUR },
+  importUser: { limit: 20, windowMs: HOUR },
   publicIp: { limit: 300, windowMs: 15 * MINUTE },
   publicWriteToken: { limit: 120, windowMs: 15 * MINUTE },
 } as const;
@@ -55,7 +56,10 @@ export async function enforceRateLimit(name: RateLimitName, subject: string) {
   if (!result.ok) {
     throw new ApiError(
       429,
-      "Muitas tentativas. Aguarde alguns minutos e tente novamente.",
+      {
+        pt: "Muitas tentativas. Aguarde alguns minutos e tente novamente.",
+        en: "Too many attempts. Wait a few minutes and try again.",
+      },
       "RATE_LIMITED",
       undefined,
       { "Retry-After": String(result.retryAfterSeconds) }

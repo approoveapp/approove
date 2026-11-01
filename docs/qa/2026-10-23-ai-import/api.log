@@ -1,0 +1,50 @@
+[
+  {
+    "name": "rejects oversized document before AI",
+    "pass": true
+  },
+  {
+    "name": "rejects text over 300k chars",
+    "pass": true
+  },
+  {
+    "name": "rejects corrupt DOCX",
+    "pass": true
+  },
+  {
+    "name": "rejects invalid media bytes",
+    "pass": true
+  },
+  {
+    "name": "rejects media above 4MB",
+    "pass": true
+  },
+  {
+    "name": "rejects 201 posts without writing",
+    "pass": true
+  },
+  {
+    "name": "unknown media cannot be attached",
+    "pass": true
+  },
+  {
+    "name": "anonymous cannot access import",
+    "pass": true
+  },
+  {
+    "name": "posts and final job state roll back together after DB failure",
+    "pass": true
+  },
+  {
+    "name": "all imported posts are pending and never ready_for_client",
+    "pass": true
+  },
+  {
+    "name": "browser in UTC still saves 09:30 Sao Paulo as 12:30Z",
+    "pass": true
+  },
+  {
+    "name": "all upload URLs are local",
+    "pass": true
+  }
+]

@@ -1,0 +1,1828 @@
+[
+  {
+    "caseId": "01-texto",
+    "requestedModel": "claude-opus-5-5",
+    "countedInputTokens": 1558,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.146232,
+    "extractionMs": 0.25908300000003237,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:34:27.521Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 6240.4751670000005,
+    "actualModel": "claude-opus-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 2976,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 592,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.023744,
+    "quality": {
+      "expected": 3,
+      "found": 3,
+      "exactCopy": 3,
+      "exactSchedule": 3,
+      "exactChannel": 3,
+      "exactMedia": 3,
+      "fullyCorrect": 3,
+      "costPerFullyCorrect": 0.007914666666666667,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "01-texto",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 1558,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.073116,
+    "extractionMs": 0.25908300000003237,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:34:33.983Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 5620.567458,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 2976,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 544,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.011392,
+    "quality": {
+      "expected": 3,
+      "found": 3,
+      "exactCopy": 3,
+      "exactSchedule": 3,
+      "exactChannel": 3,
+      "exactMedia": 3,
+      "fullyCorrect": 3,
+      "costPerFullyCorrect": 0.003797333333333333,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "01-texto",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 1558,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.0036558000000000003,
+    "extractionMs": 0.25908300000003237,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:34:39.834Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 8069.306708,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 2976,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1322,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 674
+      }
+    },
+    "costUSD": 0.0009586,
+    "quality": {
+      "expected": 3,
+      "found": 3,
+      "exactCopy": 3,
+      "exactSchedule": 3,
+      "exactChannel": 3,
+      "exactMedia": 3,
+      "fullyCorrect": 3,
+      "costPerFullyCorrect": 0.0003195333333333333,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "02-planilha",
+    "requestedModel": "claude-opus-5-5",
+    "countedInputTokens": 3241,
+    "maxOutputTokens": 14000,
+    "reservedUSD": 0.312964,
+    "extractionMs": 37.16462499999761,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:34:48.178Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 28338.099416,
+    "actualModel": "claude-opus-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 4659,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 4084,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 181
+      }
+    },
+    "costUSD": 0.100316,
+    "quality": {
+      "expected": 24,
+      "found": 24,
+      "exactCopy": 24,
+      "exactSchedule": 24,
+      "exactChannel": 24,
+      "exactMedia": 24,
+      "fullyCorrect": 24,
+      "costPerFullyCorrect": 0.004179833333333333,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "02-planilha",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 3241,
+    "maxOutputTokens": 14000,
+    "reservedUSD": 0.156482,
+    "extractionMs": 37.16462499999761,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:35:16.744Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 27905.560584000006,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 4659,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 3682,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.046138,
+    "quality": {
+      "expected": 24,
+      "found": 24,
+      "exactCopy": 24,
+      "exactSchedule": 24,
+      "exactChannel": 24,
+      "exactMedia": 24,
+      "fullyCorrect": 24,
+      "costPerFullyCorrect": 0.0019224166666666667,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "02-planilha",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 3241,
+    "maxOutputTokens": 14000,
+    "reservedUSD": 0.0078241,
+    "extractionMs": 37.16462499999761,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:35:44.888Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 15676.807417000004,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 4659,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 4742,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 1090
+      }
+    },
+    "costUSD": 0.0028369000000000003,
+    "quality": {
+      "expected": 24,
+      "found": 24,
+      "exactCopy": 24,
+      "exactSchedule": 24,
+      "exactChannel": 24,
+      "exactMedia": 24,
+      "fullyCorrect": 24,
+      "costPerFullyCorrect": 0.00011820416666666668,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "03-apresentacao",
+    "requestedModel": "claude-opus-5-5",
+    "countedInputTokens": 12388,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.189552,
+    "extractionMs": 0.9294589999917662,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:36:00.884Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 9664.609916999994,
+    "actualModel": "claude-opus-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 13806,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 906,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.073344,
+    "quality": {
+      "expected": 4,
+      "found": 4,
+      "exactCopy": 0,
+      "exactSchedule": 0,
+      "exactChannel": 0,
+      "exactMedia": 0,
+      "fullyCorrect": 0,
+      "costPerFullyCorrect": null,
+      "differences": [
+        {
+          "title": "Pauta 07",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Pauta 10",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Pauta 10 no Facebook",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Pauta 14",
+          "issue": "missing or renamed"
+        }
+      ]
+    }
+  },
+  {
+    "caseId": "03-apresentacao",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 12388,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.094776,
+    "extractionMs": 0.9294589999917662,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:36:10.869Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 7779.863207999995,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 13806,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 884,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.036452,
+    "quality": {
+      "expected": 4,
+      "found": 4,
+      "exactCopy": 0,
+      "exactSchedule": 0,
+      "exactChannel": 0,
+      "exactMedia": 0,
+      "fullyCorrect": 0,
+      "costPerFullyCorrect": null,
+      "differences": [
+        {
+          "title": "Pauta 07",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Pauta 10",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Pauta 10 no Facebook",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Pauta 14",
+          "issue": "missing or renamed"
+        }
+      ]
+    }
+  },
+  {
+    "caseId": "03-apresentacao",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 12388,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.0047388000000000005,
+    "extractionMs": 0.9294589999917662,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:36:19.091Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 8134.2485000000015,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 13806,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1863,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 1027
+      }
+    },
+    "costUSD": 0.0023121000000000005,
+    "quality": {
+      "expected": 4,
+      "found": 4,
+      "exactCopy": 0,
+      "exactSchedule": 0,
+      "exactChannel": 0,
+      "exactMedia": 0,
+      "fullyCorrect": 0,
+      "costPerFullyCorrect": null,
+      "differences": [
+        {
+          "title": "Pauta 07",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Pauta 10",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Pauta 10 no Facebook",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Pauta 14",
+          "issue": "missing or renamed"
+        }
+      ]
+    }
+  },
+  {
+    "caseId": "04-csv-ambiguo",
+    "requestedModel": "claude-opus-5-5",
+    "countedInputTokens": 1680,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.14672,
+    "extractionMs": 2.0916250000009313,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:36:27.439Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 13274.589082999999,
+    "actualModel": "claude-opus-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 3098,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1576,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 446
+      }
+    },
+    "costUSD": 0.043912,
+    "quality": {
+      "expected": 6,
+      "found": 6,
+      "exactCopy": 6,
+      "exactSchedule": 6,
+      "exactChannel": 6,
+      "exactMedia": 6,
+      "fullyCorrect": 6,
+      "costPerFullyCorrect": 0.007318666666666667,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "04-csv-ambiguo",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 1680,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.07336,
+    "extractionMs": 2.0916250000009313,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:36:40.930Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 7175.455541000003,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 3098,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1089,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.017086,
+    "quality": {
+      "expected": 6,
+      "found": 6,
+      "exactCopy": 6,
+      "exactSchedule": 6,
+      "exactChannel": 6,
+      "exactMedia": 6,
+      "fullyCorrect": 6,
+      "costPerFullyCorrect": 0.0028476666666666667,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "04-csv-ambiguo",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 1680,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.003668,
+    "extractionMs": 2.0916250000009313,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:36:48.342Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 8785.300458000012,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 3098,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 2027,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 847
+      }
+    },
+    "costUSD": 0.0013233,
+    "quality": {
+      "expected": 6,
+      "found": 6,
+      "exactCopy": 6,
+      "exactSchedule": 6,
+      "exactChannel": 6,
+      "exactMedia": 6,
+      "fullyCorrect": 6,
+      "costPerFullyCorrect": 0.00022055,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "05-misto",
+    "requestedModel": "claude-opus-5-5",
+    "countedInputTokens": 6579,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.166316,
+    "extractionMs": 65.04783399999724,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:36:57.480Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 14921.559874999977,
+    "actualModel": "claude-opus-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 7997,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1272,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.057428,
+    "quality": {
+      "expected": 8,
+      "found": 8,
+      "exactCopy": 8,
+      "exactSchedule": 8,
+      "exactChannel": 8,
+      "exactMedia": 8,
+      "fullyCorrect": 8,
+      "costPerFullyCorrect": 0.0071785,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "05-misto",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 6579,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.083158,
+    "extractionMs": 65.04783399999724,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:37:12.769Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 7791.0752909999865,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 7997,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1189,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.027884,
+    "quality": {
+      "expected": 8,
+      "found": 8,
+      "exactCopy": 8,
+      "exactSchedule": 8,
+      "exactChannel": 8,
+      "exactMedia": 8,
+      "fullyCorrect": 8,
+      "costPerFullyCorrect": 0.0034855,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "05-misto",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 6579,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.0041579,
+    "extractionMs": 65.04783399999724,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:37:20.808Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 11117.298792000016,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 7997,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1966,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 661
+      }
+    },
+    "costUSD": 0.0017827000000000001,
+    "quality": {
+      "expected": 8,
+      "found": 8,
+      "exactCopy": 8,
+      "exactSchedule": 8,
+      "exactChannel": 8,
+      "exactMedia": 8,
+      "fullyCorrect": 8,
+      "costPerFullyCorrect": 0.00022283750000000002,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "06-limite",
+    "requestedModel": "claude-opus-5-5",
+    "countedInputTokens": 46236,
+    "maxOutputTokens": 64000,
+    "reservedUSD": 1.484944,
+    "extractionMs": 2.964124999998603,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:37:32.477Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 144259.03495900004,
+    "actualModel": "claude-opus-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 47654,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 21748,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 515
+      }
+    },
+    "costUSD": 0.625576,
+    "quality": {
+      "expected": 200,
+      "found": 200,
+      "exactCopy": 200,
+      "exactSchedule": 200,
+      "exactChannel": 200,
+      "exactMedia": 200,
+      "fullyCorrect": 200,
+      "costPerFullyCorrect": 0.00312788,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "06-limite",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 46236,
+    "maxOutputTokens": 64000,
+    "reservedUSD": 0.742472,
+    "extractionMs": 2.964124999998603,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:39:57.021Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 98917.39962500002,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 47654,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 21858,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 720
+      }
+    },
+    "costUSD": 0.313888,
+    "quality": {
+      "expected": 200,
+      "found": 200,
+      "exactCopy": 200,
+      "exactSchedule": 200,
+      "exactChannel": 200,
+      "exactMedia": 200,
+      "fullyCorrect": 200,
+      "costPerFullyCorrect": 0.00156944,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "06-limite",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 46236,
+    "maxOutputTokens": 64000,
+    "reservedUSD": 0.0371236,
+    "extractionMs": 2.964124999998603,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:41:36.321Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "latencyMs": 72249.82958299998,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 47654,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 24436,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 3191
+      }
+    },
+    "costUSD": 0.016983400000000003,
+    "quality": {
+      "expected": 200,
+      "found": 200,
+      "exactCopy": 200,
+      "exactSchedule": 200,
+      "exactChannel": 200,
+      "exactMedia": 200,
+      "fullyCorrect": 200,
+      "costPerFullyCorrect": 8.491700000000001e-05,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "live-browser-03",
+    "requestedModel": "claude-opus-5-5",
+    "status": "complete",
+    "reservedUSD": 0.229524,
+    "countedInputTokens": 12381,
+    "maxOutputTokens": 8000,
+    "startedAt": "2026-10-23T11:45:04.202Z",
+    "startedMs": 1792755904202,
+    "actualModel": "claude-opus-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 13799,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 857,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "latencyMs": 7596,
+    "costUSD": 0.072336
+  },
+  {
+    "caseId": "hard--07-pdf-raster",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 11966,
+    "maxOutputTokens": 8000,
+    "reservedUSD": 0.0056966000000000004,
+    "extractionMs": 0.44258400000001075,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:55:27.106Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "b32d15318313f85573735b40cc173938405fd03d0903bbe88ffbf9a5afc68961",
+    "latencyMs": 13800.690875,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 13384,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 3280,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 1131
+      }
+    },
+    "costUSD": 0.0029784,
+    "quality": {
+      "expected": 12,
+      "found": 12,
+      "exactCopy": 0,
+      "exactSchedule": 0,
+      "exactChannel": 0,
+      "exactMedia": 0,
+      "fullyCorrect": 0,
+      "costPerFullyCorrect": null,
+      "differences": [
+        {
+          "title": "Card 01",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 02",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 03",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 04",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 05",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 06",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 07",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 08",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 09",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 10",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 11",
+          "issue": "missing or renamed"
+        },
+        {
+          "title": "Card 12",
+          "issue": "missing or renamed"
+        }
+      ]
+    }
+  },
+  {
+    "caseId": "hard--07-pdf-raster",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 11966,
+    "maxOutputTokens": 8000,
+    "reservedUSD": 0.113932,
+    "extractionMs": 0.44258400000001075,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:55:41.186Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "b32d15318313f85573735b40cc173938405fd03d0903bbe88ffbf9a5afc68961",
+    "latencyMs": 14914.400375,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 13384,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1877,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.045538,
+    "quality": {
+      "expected": 12,
+      "found": 12,
+      "exactCopy": 12,
+      "exactSchedule": 12,
+      "exactChannel": 12,
+      "exactMedia": 12,
+      "fullyCorrect": 12,
+      "costPerFullyCorrect": 0.0037948333333333337,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "hard--08-manifesto",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 8442,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.0043441999999999995,
+    "extractionMs": 1.3930419999996957,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:55:56.360Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "ab2185763b33e6b54ea16578254c6f5ba357f10d27ccdbf1896da24385ef041d",
+    "latencyMs": 8454.738624999998,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 9860,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1779,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 860
+      }
+    },
+    "costUSD": 0.0018755,
+    "quality": {
+      "expected": 4,
+      "found": 4,
+      "exactCopy": 4,
+      "exactSchedule": 4,
+      "exactChannel": 4,
+      "exactMedia": 4,
+      "fullyCorrect": 4,
+      "costPerFullyCorrect": 0.000468875,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "hard--08-manifesto",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 8442,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.086884,
+    "extractionMs": 1.3930419999996957,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:56:05.111Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "ab2185763b33e6b54ea16578254c6f5ba357f10d27ccdbf1896da24385ef041d",
+    "latencyMs": 5866.923625000003,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 9860,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 811,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.02783,
+    "quality": {
+      "expected": 4,
+      "found": 4,
+      "exactCopy": 4,
+      "exactSchedule": 4,
+      "exactChannel": 4,
+      "exactMedia": 4,
+      "fullyCorrect": 4,
+      "costPerFullyCorrect": 0.0069575,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "hard--08-sem-manifesto",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 7377,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.0042377,
+    "extractionMs": 1.212374999995518,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:56:11.264Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "79165eb7619a9e6a832080ba13fc5e5e33e1e3be149b1239b6ead3346402400f",
+    "latencyMs": 8105.2250829999975,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 8795,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1075,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 616
+      }
+    },
+    "costUSD": 0.001417,
+    "quality": {
+      "expected": null,
+      "found": 0,
+      "exactCopy": 0,
+      "exactSchedule": 0,
+      "exactChannel": 0,
+      "exactMedia": 0,
+      "fullyCorrect": 0,
+      "costPerFullyCorrect": null,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "hard--08-sem-manifesto",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 7377,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.084754,
+    "extractionMs": 1.212374999995518,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:56:19.898Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "79165eb7619a9e6a832080ba13fc5e5e33e1e3be149b1239b6ead3346402400f",
+    "latencyMs": 4342.842625000005,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 8795,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 396,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.02155,
+    "quality": {
+      "expected": null,
+      "found": 0,
+      "exactCopy": 0,
+      "exactSchedule": 0,
+      "exactChannel": 0,
+      "exactMedia": 0,
+      "fullyCorrect": 0,
+      "costPerFullyCorrect": null,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "hard--09-csv-120",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 9136,
+    "maxOutputTokens": 57000,
+    "reservedUSD": 0.0299136,
+    "extractionMs": 1.5955420000027516,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:56:24.464Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "5d0de6fea8bdfab942d7896614552f833390b08df842e23d6b1e91899671f7f7",
+    "latencyMs": 57488.93675,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 10554,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 18590,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 4589
+      }
+    },
+    "costUSD": 0.0103504,
+    "quality": {
+      "expected": 110,
+      "found": 110,
+      "exactCopy": 110,
+      "exactSchedule": 110,
+      "exactChannel": 110,
+      "exactMedia": 110,
+      "fullyCorrect": 110,
+      "costPerFullyCorrect": 9.409454545454545e-05,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "hard--09-csv-120",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 9136,
+    "maxOutputTokens": 57000,
+    "reservedUSD": 0.598272,
+    "extractionMs": 1.5955420000027516,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:57:22.184Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "5d0de6fea8bdfab942d7896614552f833390b08df842e23d6b1e91899671f7f7",
+    "latencyMs": 74622.101333,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 10554,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 16213,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 1033
+      }
+    },
+    "costUSD": 0.183238,
+    "quality": {
+      "expected": 110,
+      "found": 120,
+      "exactCopy": 110,
+      "exactSchedule": 110,
+      "exactChannel": 110,
+      "exactMedia": 110,
+      "fullyCorrect": 110,
+      "costPerFullyCorrect": 0.0016658,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "hard--10-xlsx-30",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 3676,
+    "maxOutputTokens": 17000,
+    "reservedUSD": 0.0093676,
+    "extractionMs": 31.76587499998277,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:58:37.083Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "435b259bf64ac91277f1730964862a9d7b251b4ca9c88ca0e264d3dff9677cc0",
+    "latencyMs": 20213.499749999988,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 5094,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 6414,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 1599
+      }
+    },
+    "costUSD": 0.0037164,
+    "quality": {
+      "expected": 30,
+      "found": 30,
+      "exactCopy": 30,
+      "exactSchedule": 30,
+      "exactChannel": 30,
+      "exactMedia": 30,
+      "fullyCorrect": 30,
+      "costPerFullyCorrect": 0.00012387999999999999,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "hard--10-xlsx-30",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 3676,
+    "maxOutputTokens": 17000,
+    "reservedUSD": 0.187352,
+    "extractionMs": 31.76587499998277,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:58:57.507Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "435b259bf64ac91277f1730964862a9d7b251b4ca9c88ca0e264d3dff9677cc0",
+    "latencyMs": 19696.68183299998,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 5094,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 4349,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.053678,
+    "quality": {
+      "expected": 30,
+      "found": 30,
+      "exactCopy": 30,
+      "exactSchedule": 30,
+      "exactChannel": 30,
+      "exactMedia": 30,
+      "fullyCorrect": 30,
+      "costPerFullyCorrect": 0.0017892666666666666,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "hard--11-instrucao",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 1768,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.0036768,
+    "extractionMs": 0.9257499999948777,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:59:17.437Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "501626395d0d3a70a4539b01660b9c47f3f992518611b2d26714d33b2b7888cf",
+    "latencyMs": 6058.16616600001,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 3186,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1202,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 416
+      }
+    },
+    "costUSD": 0.0009196,
+    "quality": {
+      "expected": 3,
+      "found": 3,
+      "exactCopy": 3,
+      "exactSchedule": 3,
+      "exactChannel": 3,
+      "exactMedia": 3,
+      "fullyCorrect": 3,
+      "costPerFullyCorrect": 0.0003065333333333333,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "hard--11-instrucao",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 1768,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.073536,
+    "extractionMs": 0.9257499999948777,
+    "status": "complete",
+    "startedAt": "2026-10-23T11:59:23.732Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "ac6721387ece357a48e245e87ff0f7deef8b705d52026d863114914f25f8f424",
+    "inputSha256": "501626395d0d3a70a4539b01660b9c47f3f992518611b2d26714d33b2b7888cf",
+    "latencyMs": 4327.125042,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 3186,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 649,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.012862,
+    "quality": {
+      "expected": 3,
+      "found": 3,
+      "exactCopy": 3,
+      "exactSchedule": 3,
+      "exactChannel": 3,
+      "exactMedia": 3,
+      "fullyCorrect": 3,
+      "costPerFullyCorrect": 0.004287333333333333,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "clarity--07-pdf-raster",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 12084,
+    "maxOutputTokens": 8000,
+    "reservedUSD": 0.0057084,
+    "extractionMs": 0.4422500000000582,
+    "status": "complete",
+    "startedAt": "2026-10-23T12:00:15.871Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "4e153f50294decac0c157484510a13695990b1f270ced8f2f2129ba2115db478",
+    "inputSha256": "b32d15318313f85573735b40cc173938405fd03d0903bbe88ffbf9a5afc68961",
+    "latencyMs": 13583.817583,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 13502,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 3081,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 1106
+      }
+    },
+    "costUSD": 0.0028907,
+    "quality": {
+      "expected": 12,
+      "found": 12,
+      "exactCopy": 12,
+      "exactSchedule": 12,
+      "exactChannel": 12,
+      "exactMedia": 12,
+      "fullyCorrect": 12,
+      "costPerFullyCorrect": 0.00024089166666666666,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "clarity--07-pdf-raster",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 12084,
+    "maxOutputTokens": 8000,
+    "reservedUSD": 0.114168,
+    "extractionMs": 0.4422500000000582,
+    "status": "complete",
+    "startedAt": "2026-10-23T12:00:29.754Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "4e153f50294decac0c157484510a13695990b1f270ced8f2f2129ba2115db478",
+    "inputSha256": "b32d15318313f85573735b40cc173938405fd03d0903bbe88ffbf9a5afc68961",
+    "latencyMs": 13186.293334,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 13502,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1892,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.045924,
+    "quality": {
+      "expected": 12,
+      "found": 12,
+      "exactCopy": 12,
+      "exactSchedule": 12,
+      "exactChannel": 12,
+      "exactMedia": 12,
+      "fullyCorrect": 12,
+      "costPerFullyCorrect": 0.003827,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "clarity--08-sem-manifesto",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 7495,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.0042495,
+    "extractionMs": 1.7119579999998678,
+    "status": "complete",
+    "startedAt": "2026-10-23T12:00:43.188Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "4e153f50294decac0c157484510a13695990b1f270ced8f2f2129ba2115db478",
+    "inputSha256": "79165eb7619a9e6a832080ba13fc5e5e33e1e3be149b1239b6ead3346402400f",
+    "latencyMs": 7439.903208,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 8913,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1065,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 599
+      }
+    },
+    "costUSD": 0.0014238000000000002,
+    "quality": {
+      "expected": null,
+      "found": 0,
+      "exactCopy": 0,
+      "exactSchedule": 0,
+      "exactChannel": 0,
+      "exactMedia": 0,
+      "fullyCorrect": 0,
+      "costPerFullyCorrect": null,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "clarity--08-sem-manifesto",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 7495,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.08499,
+    "extractionMs": 1.7119579999998678,
+    "status": "complete",
+    "startedAt": "2026-10-23T12:00:51.096Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "4e153f50294decac0c157484510a13695990b1f270ced8f2f2129ba2115db478",
+    "inputSha256": "79165eb7619a9e6a832080ba13fc5e5e33e1e3be149b1239b6ead3346402400f",
+    "latencyMs": 11720.340749999996,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 8913,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 404,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.021866,
+    "quality": {
+      "expected": null,
+      "found": 0,
+      "exactCopy": 0,
+      "exactSchedule": 0,
+      "exactChannel": 0,
+      "exactMedia": 0,
+      "fullyCorrect": 0,
+      "costPerFullyCorrect": null,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "clarity--11-instrucao",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 1886,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.0036885999999999998,
+    "extractionMs": 0.9988329999978305,
+    "status": "complete",
+    "startedAt": "2026-10-23T12:01:03.052Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "4e153f50294decac0c157484510a13695990b1f270ced8f2f2129ba2115db478",
+    "inputSha256": "501626395d0d3a70a4539b01660b9c47f3f992518611b2d26714d33b2b7888cf",
+    "latencyMs": 6128.818583,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 3304,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1257,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 543
+      }
+    },
+    "costUSD": 0.0009589,
+    "quality": {
+      "expected": 3,
+      "found": 3,
+      "exactCopy": 3,
+      "exactSchedule": 3,
+      "exactChannel": 3,
+      "exactMedia": 3,
+      "fullyCorrect": 3,
+      "costPerFullyCorrect": 0.00031963333333333337,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "clarity--11-instrucao",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 1886,
+    "maxOutputTokens": 6000,
+    "reservedUSD": 0.073772,
+    "extractionMs": 0.9988329999978305,
+    "status": "complete",
+    "startedAt": "2026-10-23T12:01:09.399Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "4e153f50294decac0c157484510a13695990b1f270ced8f2f2129ba2115db478",
+    "inputSha256": "501626395d0d3a70a4539b01660b9c47f3f992518611b2d26714d33b2b7888cf",
+    "latencyMs": 4777.082457999997,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 3304,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 660,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "costUSD": 0.013208,
+    "quality": {
+      "expected": 3,
+      "found": 3,
+      "exactCopy": 3,
+      "exactSchedule": 3,
+      "exactChannel": 3,
+      "exactMedia": 3,
+      "fullyCorrect": 3,
+      "costPerFullyCorrect": 0.004402666666666667,
+      "differences": []
+    }
+  },
+  {
+    "caseId": "live-browser-haiku",
+    "requestedModel": "claude-haiku-5-5",
+    "status": "complete",
+    "reservedUSD": 0.0057499,
+    "countedInputTokens": 12499,
+    "maxOutputTokens": 8000,
+    "startedAt": "2026-10-23T12:05:06.988Z",
+    "startedMs": 1792757106988,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 13917,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 882,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      }
+    },
+    "latencyMs": 4704,
+    "costUSD": 0.0018327
+  },
+  {
+    "caseId": "integrity--09-csv-120",
+    "requestedModel": "claude-haiku-5-5",
+    "countedInputTokens": 13370,
+    "maxOutputTokens": 57000,
+    "reservedUSD": 0.030337,
+    "extractionMs": 0.5569999999999595,
+    "status": "complete",
+    "startedAt": "2026-10-23T12:19:45.597Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "10d3e5959950dc7967f9a6069a100f918845bb79e1a8fd13a83b37377616842f",
+    "inputSha256": "21685dfc866546cd24037393a2b629c56b32c38d77fdca089cd8077030954d82",
+    "latencyMs": 68420.009417,
+    "actualModel": "claude-haiku-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 14788,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 21974,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 4678
+      }
+    },
+    "costUSD": 0.012465799999999999,
+    "integrity": {
+      "sourceOccurrences": 120,
+      "error": null
+    },
+    "quality": {
+      "scoring": "source-row audit; original fixture gold predates preservation policy",
+      "expected": 120,
+      "found": 120,
+      "uniqueSourceRows": 120,
+      "exactFields": {
+        "title": 120,
+        "copy": 120,
+        "date": 118,
+        "time": 120,
+        "channel": 120,
+        "format": 120,
+        "noMedia": 120
+      },
+      "dateInterpretation": {
+        "literalIsoDates": 118,
+        "explicitTextDates": 2,
+        "expectedFromSourceText": "2026-11-06",
+        "bothCorrectAndFlaggedSuggested": true
+      },
+      "duplicateOccurrencesPreserved": true
+    }
+  },
+  {
+    "caseId": "integrity--09-csv-120",
+    "requestedModel": "claude-sonnet-5-5",
+    "countedInputTokens": 13370,
+    "maxOutputTokens": 57000,
+    "reservedUSD": 0.60674,
+    "extractionMs": 0.5569999999999595,
+    "status": "complete",
+    "startedAt": "2026-10-23T12:20:54.267Z",
+    "schemaCache": "uncontrolled; first invocation may compile schema",
+    "promptSha256": "10d3e5959950dc7967f9a6069a100f918845bb79e1a8fd13a83b37377616842f",
+    "inputSha256": "21685dfc866546cd24037393a2b629c56b32c38d77fdca089cd8077030954d82",
+    "latencyMs": 81992.368375,
+    "actualModel": "claude-sonnet-5-5",
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 14788,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 17823,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard",
+      "output_tokens_details": {
+        "thinking_tokens": 1180
+      }
+    },
+    "costUSD": 0.207806,
+    "integrity": {
+      "sourceOccurrences": 120,
+      "error": null
+    },
+    "quality": {
+      "scoring": "source-row audit; original fixture gold predates preservation policy",
+      "expected": 120,
+      "found": 120,
+      "uniqueSourceRows": 120,
+      "exactFields": {
+        "title": 120,
+        "copy": 120,
+        "date": 118,
+        "time": 120,
+        "channel": 120,
+        "format": 120,
+        "noMedia": 120
+      },
+      "dateInterpretation": {
+        "literalIsoDates": 118,
+        "explicitTextDates": 2,
+        "expectedFromSourceText": "2026-11-06",
+        "bothCorrectAndFlaggedSuggested": true
+      },
+      "duplicateOccurrencesPreserved": true
+    }
+  }
+]

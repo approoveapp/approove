@@ -1,0 +1,773 @@
+[
+  {
+    "caseId": "01-texto",
+    "user": "admin@approove.com",
+    "at": "2026-10-31T17:26:25.174Z",
+    "jobId": "cmvwoam850003t34n1cwv4xx2",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 3474,
+    "outputTokens": 1248,
+    "costUSD": 0.0009714000000000001,
+    "latencyMs": 11017,
+    "error": null,
+    "posts": 3,
+    "warnings": 4,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 3,
+      "got": 3,
+      "matched": 3,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 3,
+        "time": 3,
+        "dateIsSuggested": 3,
+        "channel": 3,
+        "format": 3,
+        "copyText": 3,
+        "media": 3
+      },
+      "unmatched": []
+    },
+    "stages": {
+      "draft_copy": 1,
+      "internal_review": 2
+    }
+  },
+  {
+    "caseId": "supplement/11-instrucao",
+    "user": "admin@approove.com",
+    "at": "2026-10-31T17:26:46.796Z",
+    "jobId": "cmvwob2c20007t34nuapzzbr9",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 3684,
+    "outputTokens": 1425,
+    "costUSD": 0.0010809,
+    "latencyMs": 10076,
+    "error": null,
+    "posts": 3,
+    "warnings": 3,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 3,
+      "got": 3,
+      "matched": 3,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 3,
+        "time": 3,
+        "dateIsSuggested": 3,
+        "channel": 3,
+        "format": 3,
+        "copyText": 3,
+        "media": 3
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "02-planilha",
+    "user": "review@approove.com",
+    "at": "2026-10-31T17:26:58.704Z",
+    "jobId": "cmvwobbp8000at34ns79uayox",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 7556,
+    "outputTokens": 5226,
+    "costUSD": 0.0033686,
+    "latencyMs": 20022,
+    "error": null,
+    "posts": 24,
+    "warnings": 6,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 24,
+      "got": 24,
+      "matched": 24,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 24,
+        "time": 24,
+        "dateIsSuggested": 24,
+        "channel": 24,
+        "format": 24,
+        "copyText": 24,
+        "media": 24
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "supplement/10-xlsx-30",
+    "user": "admin@approove.com",
+    "at": "2026-10-31T17:27:20.436Z",
+    "jobId": "cmvwobsk0000dt34npswzyzuj",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 8552,
+    "outputTokens": 6534,
+    "costUSD": 0.0041221999999999995,
+    "latencyMs": 23379,
+    "error": null,
+    "posts": 30,
+    "warnings": 8,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 30,
+      "got": 30,
+      "matched": 30,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 30,
+        "time": 30,
+        "dateIsSuggested": 30,
+        "channel": 30,
+        "format": 30,
+        "copyText": 30,
+        "media": 30
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "04-csv-ambiguo",
+    "user": "review@approove.com",
+    "at": "2026-10-31T17:27:45.522Z",
+    "jobId": "cmvwocbjt000gt34nw3smacpl",
+    "status": "failed",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 4507,
+    "outputTokens": 2200,
+    "costUSD": 0.0015507000000000001,
+    "latencyMs": 9992,
+    "error": "A resposta da IA não preservou todas as ocorrências identificadas nas tabelas: 7 esperadas, 7 ausentes, 0 repetidas e 7 referências inválidas. Confira: pauta.csv, linha 2; pauta.csv, linha 3; pauta.csv, linha 4; pauta.csv, linha 5; pauta.csv, linha 6. Nenhuma publicação foi criada. Revise os arquivos e tente novamente; uma nova tentativa pode consumir a cota.",
+    "posts": 0,
+    "warnings": 0,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 6,
+      "got": 0,
+      "matched": 0,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 0,
+        "time": 0,
+        "dateIsSuggested": 0,
+        "channel": 0,
+        "format": 0,
+        "copyText": 0,
+        "media": 0
+      },
+      "unmatched": [
+        "Pauta 02",
+        "Pauta 04",
+        "Pauta 06",
+        "Pauta 08",
+        "Pauta 10"
+      ]
+    }
+  },
+  {
+    "caseId": "03-apresentacao",
+    "user": "admin@approove.com",
+    "at": "2026-10-31T17:27:57.265Z",
+    "jobId": "cmvwocmas000jt34n0poiqtu8",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 14412,
+    "outputTokens": 2028,
+    "costUSD": 0.0024552,
+    "latencyMs": 10225,
+    "error": null,
+    "posts": 4,
+    "warnings": 2,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 4,
+      "got": 4,
+      "matched": 4,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 4,
+        "time": 4,
+        "dateIsSuggested": 4,
+        "channel": 4,
+        "format": 4,
+        "copyText": 4,
+        "media": 4
+      },
+      "unmatched": []
+    },
+    "stages": {
+      "internal_review": 4
+    }
+  },
+  {
+    "caseId": "supplement/08-manifesto",
+    "user": "review@approove.com",
+    "at": "2026-10-31T17:28:20.327Z",
+    "jobId": "cmvwod4q1000mt34ni199gqwn",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 10512,
+    "outputTokens": 1807,
+    "costUSD": 0.0019547,
+    "latencyMs": 9956,
+    "error": null,
+    "posts": 4,
+    "warnings": 3,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 4,
+      "got": 4,
+      "matched": 4,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 4,
+        "time": 4,
+        "dateIsSuggested": 4,
+        "channel": 4,
+        "format": 4,
+        "copyText": 4,
+        "media": 4
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "supplement/08-sem-manifesto",
+    "user": "admin@approove.com",
+    "at": "2026-10-31T17:28:42.927Z",
+    "jobId": "cmvwodm9c000st34navuc098b",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 9447,
+    "outputTokens": 1217,
+    "costUSD": 0.0015532,
+    "latencyMs": 10593,
+    "error": null,
+    "posts": 0,
+    "warnings": 6,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 0,
+      "got": 0,
+      "matched": 0,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 0,
+        "time": 0,
+        "dateIsSuggested": 0,
+        "channel": 0,
+        "format": 0,
+        "copyText": 0,
+        "media": 0
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "05-misto",
+    "user": "review@approove.com",
+    "at": "2026-10-31T17:29:05.930Z",
+    "jobId": "cmvwoe3r6000vt34nn5ik2zcb",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 8609,
+    "outputTokens": 2194,
+    "costUSD": 0.0019579000000000003,
+    "latencyMs": 10639,
+    "error": null,
+    "posts": 8,
+    "warnings": 7,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 8,
+      "got": 8,
+      "matched": 8,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 8,
+        "time": 8,
+        "dateIsSuggested": 8,
+        "channel": 8,
+        "format": 6,
+        "copyText": 8,
+        "media": 8
+      },
+      "unmatched": []
+    },
+    "stages": {
+      "draft_copy": 1,
+      "internal_review": 7
+    }
+  },
+  {
+    "caseId": "supplement/07-pdf-raster",
+    "user": "admin@approove.com",
+    "at": "2026-10-31T17:29:32.849Z",
+    "jobId": "cmvwoemiv000yt34n4ktr7gup",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 13882,
+    "outputTokens": 2880,
+    "costUSD": 0.0028282,
+    "latencyMs": 13343,
+    "error": null,
+    "posts": 12,
+    "warnings": 5,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 12,
+      "got": 12,
+      "matched": 12,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 12,
+        "time": 12,
+        "dateIsSuggested": 12,
+        "channel": 12,
+        "format": 12,
+        "copyText": 12,
+        "media": 12
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "supplement/09-csv-120",
+    "user": "review@approove.com",
+    "at": "2026-10-31T17:29:47.903Z",
+    "jobId": "cmvwoey1e0011t34n0fmui77x",
+    "status": "failed",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUSD": 0,
+    "latencyMs": 3740,
+    "error": "A entrada excede 20 mil tokens. Divida os documentos e as mídias.",
+    "posts": 0,
+    "warnings": 0,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 110,
+      "got": 0,
+      "matched": 0,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 0,
+        "time": 0,
+        "dateIsSuggested": 0,
+        "channel": 0,
+        "format": 0,
+        "copyText": 0,
+        "media": 0
+      },
+      "unmatched": [
+        "CSV 001",
+        "CSV 002",
+        "CSV 003",
+        "CSV 004",
+        "CSV 005"
+      ]
+    }
+  },
+  {
+    "caseId": "06-limite",
+    "user": "admin@approove.com",
+    "at": "2026-10-31T17:29:53.110Z",
+    "jobId": "cmvwofb140014t34nk57jakwp",
+    "status": "failed",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "costUSD": 0,
+    "latencyMs": 3869,
+    "error": "A entrada excede 20 mil tokens. Divida os documentos e as mídias.",
+    "posts": 0,
+    "warnings": 0,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 200,
+      "got": 0,
+      "matched": 0,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 0,
+        "time": 0,
+        "dateIsSuggested": 0,
+        "channel": 0,
+        "format": 0,
+        "copyText": 0,
+        "media": 0
+      },
+      "unmatched": [
+        "Lote 001",
+        "Lote 002",
+        "Lote 003",
+        "Lote 004",
+        "Lote 005"
+      ]
+    }
+  },
+  {
+    "caseId": "04-csv-ambiguo",
+    "user": "admin@approove.com",
+    "at": "2026-10-31T17:30:53.789Z",
+    "jobId": "cmvwogcs30017t34nz026j7ho",
+    "status": "failed",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 4507,
+    "outputTokens": 2174,
+    "costUSD": 0.0015377000000000001,
+    "latencyMs": 10027,
+    "error": "A resposta da IA não preservou todas as ocorrências identificadas nas tabelas: 7 esperadas, 7 ausentes, 0 repetidas e 7 referências inválidas. Confira: pauta.csv, linha 2; pauta.csv, linha 3; pauta.csv, linha 4; pauta.csv, linha 5; pauta.csv, linha 6. Nenhuma publicação foi criada. Revise os arquivos e tente novamente; uma nova tentativa pode consumir a cota.",
+    "posts": 0,
+    "warnings": 0,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 6,
+      "got": 0,
+      "matched": 0,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 0,
+        "time": 0,
+        "dateIsSuggested": 0,
+        "channel": 0,
+        "format": 0,
+        "copyText": 0,
+        "media": 0
+      },
+      "unmatched": [
+        "Pauta 02",
+        "Pauta 04",
+        "Pauta 06",
+        "Pauta 08",
+        "Pauta 10"
+      ]
+    }
+  },
+  {
+    "caseId": "04-csv-ambiguo",
+    "user": "admin@approove.com",
+    "at": "2026-11-01T00:29:57.967Z",
+    "jobId": "cmvx3fb510002t9473ij1nbka",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 4621,
+    "outputTokens": 2262,
+    "costUSD": 0.0015930999999999999,
+    "latencyMs": 15546,
+    "error": null,
+    "posts": 7,
+    "warnings": 6,
+    "suggestedDates": 1,
+    "score": {
+      "gold": 6,
+      "got": 7,
+      "matched": 6,
+      "extra": 1,
+      "fieldsCorrect": {
+        "date": 6,
+        "time": 6,
+        "dateIsSuggested": 6,
+        "channel": 6,
+        "format": 6,
+        "copyText": 6,
+        "media": 6
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "04-csv-ambiguo",
+    "user": "admin@approove.com",
+    "at": "2026-11-01T00:30:16.143Z",
+    "jobId": "cmvx3fo710005t947x467ijy0",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 4621,
+    "outputTokens": 2363,
+    "costUSD": 0.0016435999999999998,
+    "latencyMs": 9941,
+    "error": null,
+    "posts": 7,
+    "warnings": 6,
+    "suggestedDates": 1,
+    "score": {
+      "gold": 6,
+      "got": 7,
+      "matched": 6,
+      "extra": 1,
+      "fieldsCorrect": {
+        "date": 6,
+        "time": 6,
+        "dateIsSuggested": 6,
+        "channel": 6,
+        "format": 6,
+        "copyText": 6,
+        "media": 6
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "04-csv-ambiguo",
+    "user": "admin@approove.com",
+    "at": "2026-11-01T00:30:28.083Z",
+    "jobId": "cmvx3fxd10008t947sdifzugd",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 4621,
+    "outputTokens": 2154,
+    "costUSD": 0.0015390999999999998,
+    "latencyMs": 10074,
+    "error": null,
+    "posts": 7,
+    "warnings": 6,
+    "suggestedDates": 1,
+    "score": {
+      "gold": 6,
+      "got": 7,
+      "matched": 6,
+      "extra": 1,
+      "fieldsCorrect": {
+        "date": 6,
+        "time": 6,
+        "dateIsSuggested": 6,
+        "channel": 6,
+        "format": 6,
+        "copyText": 6,
+        "media": 6
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "04-csv-ambiguo",
+    "user": "admin@approove.com",
+    "at": "2026-11-01T00:30:40.233Z",
+    "jobId": "cmvx3g6qe000bt94744y5lpw8",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 4621,
+    "outputTokens": 2136,
+    "costUSD": 0.0015301,
+    "latencyMs": 9981,
+    "error": null,
+    "posts": 7,
+    "warnings": 7,
+    "suggestedDates": 1,
+    "score": {
+      "gold": 6,
+      "got": 7,
+      "matched": 6,
+      "extra": 1,
+      "fieldsCorrect": {
+        "date": 6,
+        "time": 6,
+        "dateIsSuggested": 6,
+        "channel": 6,
+        "format": 6,
+        "copyText": 6,
+        "media": 6
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "02-planilha",
+    "user": "admin@approove.com",
+    "at": "2026-11-01T00:32:01.249Z",
+    "jobId": "cmvx3hxl1000ht947h1tze0h2",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 7876,
+    "outputTokens": 5022,
+    "costUSD": 0.0032986,
+    "latencyMs": 20002,
+    "error": null,
+    "posts": 24,
+    "warnings": 5,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 24,
+      "got": 24,
+      "matched": 24,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 24,
+        "time": 24,
+        "dateIsSuggested": 24,
+        "channel": 24,
+        "format": 24,
+        "copyText": 24,
+        "media": 24
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "supplement/10-xlsx-30",
+    "user": "review@approove.com",
+    "at": "2026-11-01T00:32:23.622Z",
+    "jobId": "cmvx3iewi000kt947hmy6mg4q",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 8908,
+    "outputTokens": 6501,
+    "costUSD": 0.0041413000000000005,
+    "latencyMs": 23310,
+    "error": null,
+    "posts": 30,
+    "warnings": 6,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 30,
+      "got": 30,
+      "matched": 30,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 30,
+        "time": 30,
+        "dateIsSuggested": 30,
+        "channel": 30,
+        "format": 30,
+        "copyText": 30,
+        "media": 30
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "04-csv-ambiguo",
+    "user": "admin@approove.com",
+    "at": "2026-11-01T00:32:59.892Z",
+    "jobId": "cmvx3j6hz000nt9475obp76fx",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 4621,
+    "outputTokens": 2435,
+    "costUSD": 0.0016795999999999998,
+    "latencyMs": 13099,
+    "error": null,
+    "posts": 7,
+    "warnings": 7,
+    "suggestedDates": 1,
+    "score": {
+      "gold": 6,
+      "got": 7,
+      "matched": 6,
+      "extra": 1,
+      "fieldsCorrect": {
+        "date": 6,
+        "time": 6,
+        "dateIsSuggested": 6,
+        "channel": 6,
+        "format": 6,
+        "copyText": 6,
+        "media": 6
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "supplement/09-csv-120",
+    "user": "admin@approove.com",
+    "at": "2026-11-01T13:04:13.570Z",
+    "jobId": "cmvxudazq0002vuc56nu3hk77",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 26757,
+    "outputTokens": 20102,
+    "costUSD": 0.0127267,
+    "latencyMs": 64107,
+    "error": null,
+    "posts": 120,
+    "warnings": 8,
+    "suggestedDates": 2,
+    "score": {
+      "gold": 110,
+      "got": 120,
+      "matched": 110,
+      "extra": 10,
+      "fieldsCorrect": {
+        "date": 110,
+        "time": 110,
+        "dateIsSuggested": 110,
+        "channel": 110,
+        "format": 110,
+        "copyText": 110,
+        "media": 110
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "06-limite",
+    "user": "review@approove.com",
+    "at": "2026-11-01T13:05:19.593Z",
+    "jobId": "cmvxueypm0005vuc5m8vlruz6",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 48760,
+    "outputTokens": 25699,
+    "costUSD": 0.0177255,
+    "latencyMs": 77690,
+    "error": null,
+    "posts": 200,
+    "warnings": 5,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 200,
+      "got": 200,
+      "matched": 200,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 200,
+        "time": 200,
+        "dateIsSuggested": 200,
+        "channel": 200,
+        "format": 200,
+        "copyText": 200,
+        "media": 200
+      },
+      "unmatched": []
+    }
+  },
+  {
+    "caseId": "12-csv-200",
+    "user": "admin@approove.com",
+    "at": "2026-11-01T13:07:04.141Z",
+    "jobId": "cmvxugxnb0008vuc5lzpl5qby",
+    "status": "review",
+    "model": "claude-haiku-5-5",
+    "inputTokens": 41305,
+    "outputTokens": 27976,
+    "costUSD": 0.0181185,
+    "latencyMs": 80970,
+    "error": null,
+    "posts": 200,
+    "warnings": 4,
+    "suggestedDates": 0,
+    "score": {
+      "gold": 200,
+      "got": 200,
+      "matched": 200,
+      "extra": 0,
+      "fieldsCorrect": {
+        "date": 200,
+        "time": 200,
+        "dateIsSuggested": 200,
+        "channel": 200,
+        "format": 200,
+        "copyText": 200,
+        "media": 200
+      },
+      "unmatched": []
+    }
+  }
+]

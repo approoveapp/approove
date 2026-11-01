@@ -5,6 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Keyboard } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SlideMediaPreview } from "./slide-media-preview";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 import {
   isSequenceAttachment,
   resolveVersionSlides,
@@ -41,6 +43,8 @@ export function AttachmentSequenceViewer({
   onPinResolve,
   onPinDelete,
 }: AttachmentSequenceViewerProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const slides = resolveVersionSlides(version);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const safeIndex = Math.min(activeSlideIndex, Math.max(slides.length - 1, 0));
@@ -119,14 +123,14 @@ export function AttachmentSequenceViewer({
             <button
               type="button"
               className={`slide-prev-${version.id} absolute left-2 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full border bg-background/90 shadow-sm hover:bg-accent`}
-              aria-label="Slide anterior"
+              aria-label={tr("Slide anterior", "Previous slide")}
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
             <button
               type="button"
               className={`slide-next-${version.id} absolute right-2 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full border bg-background/90 shadow-sm hover:bg-accent`}
-              aria-label="Próximo slide"
+              aria-label={tr("Próximo slide", "Next slide")}
             >
               <ChevronRight className="h-4 w-4" />
             </button>
@@ -135,9 +139,9 @@ export function AttachmentSequenceViewer({
       </div>
 
       <p className="text-center text-xs text-muted-foreground mt-2 shrink-0">
-        {safeIndex + 1} de {slides.length}
-        {currentSlide.mediaType === "video" ? " · vídeo" : ""}
-        {attachmentType === "carousel" ? " · carrossel" : ""}
+        {safeIndex + 1} {tr("de", "of")} {slides.length}
+        {currentSlide.mediaType === "video" ? tr(" · vídeo", " · video") : ""}
+        {attachmentType === "carousel" ? tr(" · carrossel", " · carousel") : ""}
       </p>
     </div>
   );

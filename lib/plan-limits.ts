@@ -1,16 +1,19 @@
+import { localizedText, type AppLocale } from "@/lib/locale";
+
 export type PlanName = "free" | "solo" | "starter" | "pro" | "studio" | "enterprise";
-export type LimitedResource = "clients" | "members" | "reviewers";
+export type LimitedResource = "clients" | "members" | "reviewers" | "aiImports";
 
 type PlanLimits = Record<LimitedResource, number | null>;
 
 export const PLAN_LIMITS: Record<PlanName, PlanLimits> = {
   // Sem trial nem assinatura: nada novo pode ser criado.
-  free: { clients: 0, members: 1, reviewers: null },
-  solo: { clients: 2, members: 1, reviewers: null },
-  starter: { clients: 5, members: 2, reviewers: null },
-  pro: { clients: 15, members: 5, reviewers: null },
-  studio: { clients: 40, members: 15, reviewers: null },
-  enterprise: { clients: null, members: null, reviewers: null },
+  // aiImports é por mês corrente: ~2 importações por cliente do plano.
+  free: { clients: 0, members: 1, reviewers: null, aiImports: 0 },
+  solo: { clients: 2, members: 1, reviewers: null, aiImports: 4 },
+  starter: { clients: 5, members: 2, reviewers: null, aiImports: 10 },
+  pro: { clients: 15, members: 5, reviewers: null, aiImports: 30 },
+  studio: { clients: 40, members: 15, reviewers: null, aiImports: 80 },
+  enterprise: { clients: null, members: null, reviewers: null, aiImports: null },
 };
 
 const planLabels: Record<PlanName, string> = {
@@ -22,10 +25,21 @@ const planLabels: Record<PlanName, string> = {
   enterprise: "Enterprise",
 };
 
-const resourceLabels: Record<LimitedResource, { singular: string; plural: string }> = {
-  clients: { singular: "cliente", plural: "clientes" },
-  members: { singular: "usuário da agência", plural: "usuários da agência" },
-  reviewers: { singular: "revisor ativo", plural: "revisores ativos" },
+type ResourceLabel = { singular: string; plural: string };
+
+const resourceLabels: Record<AppLocale, Record<LimitedResource, ResourceLabel>> = {
+  "pt-BR": {
+    clients: { singular: "cliente", plural: "clientes" },
+    members: { singular: "usuário da agência", plural: "usuários da agência" },
+    reviewers: { singular: "revisor ativo", plural: "revisores ativos" },
+    aiImports: { singular: "importação com IA por mês", plural: "importações com IA por mês" },
+  },
+  en: {
+    clients: { singular: "client", plural: "clients" },
+    members: { singular: "agency user", plural: "agency users" },
+    reviewers: { singular: "active reviewer", plural: "active reviewers" },
+    aiImports: { singular: "AI import per month", plural: "AI imports per month" },
+  },
 };
 
 export function normalizePlan(plan: string | null | undefined): PlanName {
@@ -59,15 +73,21 @@ export function planAllows(
 export function planLimitResponse(
   plan: string | null | undefined,
   resource: LimitedResource,
-  currentCount: number
+  currentCount: number,
+  locale: AppLocale
 ) {
   const normalizedPlan = normalizePlan(plan);
   const limit = getPlanLimit(normalizedPlan, resource);
-  const labels = resourceLabels[resource];
+  const labels = resourceLabels[locale][resource];
   const unit = limit === 1 ? labels.singular : labels.plural;
+  const planLabel = planLabels[normalizedPlan];
 
   return {
-    error: `Seu plano ${planLabels[normalizedPlan]} permite até ${limit} ${unit}.`,
+    error: localizedText(
+      locale,
+      `Seu plano ${planLabel} permite até ${limit} ${unit}.`,
+      `Your ${planLabel} plan allows up to ${limit} ${unit}.`
+    ),
     code: "PLAN_LIMIT_REACHED" as const,
     plan: normalizedPlan,
     resource,

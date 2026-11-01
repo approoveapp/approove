@@ -5,6 +5,7 @@ import { Parallax } from "@/components/landing/parallax";
 import { Eyebrow, PillLink, TrialNote } from "@/components/landing/ui";
 import { cream, green, ink } from "@/components/landing/tokens";
 import { localizedText, type AppLocale } from "@/lib/locale";
+import { LanguageSwitch } from "@/components/language-switch";
 
 export function LandingFinalCta({ locale }: { locale: AppLocale }) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
@@ -15,8 +16,8 @@ export function LandingFinalCta({ locale }: { locale: AppLocale }) {
         <Reveal bare>
           <h2 className="max-w-5xl text-[clamp(2.5rem,7vw,6rem)] font-extrabold leading-[0.95] tracking-[-0.04em]">
             <MaskedWords
-              text={tr("Sua próxima aprovação não precisa acontecer no WhatsApp.", "Your next approval does not need to happen on WhatsApp.")}
-              accents={{ "WhatsApp.": green }}
+              text={tr("Sua próxima aprovação não precisa acontecer no WhatsApp.", "Your next approval doesn’t have to get lost in a chat.")}
+              accents={{ "WhatsApp.": green, "chat.": green }}
             />
           </h2>
         </Reveal>
@@ -34,8 +35,9 @@ export function LandingFinalCta({ locale }: { locale: AppLocale }) {
             <div className="max-w-xs">
               <Eyebrow light>Approove</Eyebrow>
               <p className="mt-3 text-sm font-medium" style={{ color: "rgba(244,233,225,0.55)" }}>
-                {tr("Espaço de aprovação de conteúdo para agências e times de marketing.", "Client content approval workspace for agencies and marketing teams.")}
+                {tr("Aprovação de conteúdo para social media e agências.", "Client content approval for social media managers and agencies.")}
               </p>
+              <LanguageSwitch locale={locale} className="mt-5 text-sm" />
             </div>
             <nav className="grid grid-cols-2 gap-x-14 gap-y-3 text-sm font-semibold sm:text-right">
               {[

@@ -1,0 +1,7 @@
+{
+  "lib/import/claude.ts": "556c303fdbcf8dcc31fe2a7d1ac297fc6a90465f595ef12af3fc08281e7a5326",
+  "lib/import/claude.test.ts": "a28299cb3ec916dfd95b2047ff93737237d461e76ee22b508838b0b669e12290",
+  "components/ai-import-dialog.tsx": "0508d43dc22d2964d62a5c72d9ac0cc689d02e9f3b801846f969ebd1f1eb9a48",
+  "lib/import/review.test.ts": "2e93f711430b17c5e0bd5ec61b228ab3f8cb340e653351c6abb33027fb09e80d",
+  "scripts/qa/import-benchmark.ts": "0fb1baa288510ca6bd6a1c1510a84fef85aa1c971da5eb07c49b961ff2f850ba"
+}

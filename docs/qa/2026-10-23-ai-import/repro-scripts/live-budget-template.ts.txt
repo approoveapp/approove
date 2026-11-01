@@ -1,0 +1,27 @@
+import fs from 'node:fs';
+import Anthropic from '@anthropic-ai/sdk';
+const ledgerPath='/tmp/approove-import-qa-20261023/docs/qa/2026-10-23-ai-import/benchmark/ledger.json';
+const lockPath=ledgerPath+'.haiku-smoke-lock';
+export async function reserveLiveCall(client:Anthropic,model:string,system:string,content:any[]){
+ if(['BLOB_READ_WRITE_TOKEN','TURSO_AUTH_TOKEN','RESEND_API_KEY'].some(n=>Boolean(process.env[n])))throw Error('Unexpected integration enabled');
+ if(!process.env.TURSO_DATABASE_URL?.startsWith('file:')||!process.env.TURSO_DATABASE_URL.includes('/approove-qa-'))throw Error('Disposable SQLite required');
+ fs.writeFileSync(lockPath,'one real browser call maximum',{flag:'wx'});
+ const ledger=JSON.parse(fs.readFileSync(ledgerPath,'utf8'));
+ if(ledger.some((x:any)=>x.status==='in_flight'))throw Error('Another paid request is in flight');
+ const count=await client.messages.countTokens({model,system,messages:[{role:'user',content}]});
+ if(model!=='claude-haiku-5-5'||count.input_tokens+5000>100000)throw Error('Unexpected model or pricing tier');
+ const reservedUSD=((count.input_tokens+5000)*.1+8000*.5)/1e6;
+ const spent=ledger.reduce((s:number,r:any)=>s+(r.costUSD??r.reservedUSD),0);
+ if(spent+reservedUSD>8)throw Error('Budget admission refused');
+ const row={caseId:'live-browser-haiku',requestedModel:model,status:'in_flight',reservedUSD,countedInputTokens:count.input_tokens,maxOutputTokens:8000,startedAt:new Date().toISOString(),startedMs:Date.now()};
+ ledger.push(row);fs.writeFileSync(ledgerPath,JSON.stringify(ledger,null,2));
+ console.log('QA real browser admitted; cumulative reserved USD', (spent+reservedUSD).toFixed(4));
+ return row;
+}
+export function completeLiveCall(row:any,message:any){
+ const ledger=JSON.parse(fs.readFileSync(ledgerPath,'utf8'));const target=ledger.find((r:any)=>r.caseId===row.caseId&&r.startedAt===row.startedAt);
+ Object.assign(target,{status:'complete',actualModel:message.model,stopReason:message.stop_reason,usage:message.usage,latencyMs:Date.now()-row.startedMs,
+ costUSD:(message.usage.input_tokens*.1+message.usage.output_tokens*.5+(message.usage.cache_creation_input_tokens??0)*.2+(message.usage.cache_read_input_tokens??0)*.01)/1e6});
+ fs.writeFileSync(ledgerPath,JSON.stringify(ledger,null,2));
+ fs.writeFileSync(ledgerPath.replace('ledger.json','live-browser-haiku-proposal.json'),JSON.stringify(message.parsed_output,null,2));
+}

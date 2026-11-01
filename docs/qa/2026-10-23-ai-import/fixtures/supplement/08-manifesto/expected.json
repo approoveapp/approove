@@ -1,0 +1,98 @@
+{
+  "id": "08-manifesto",
+  "status": "expected_only_no_ai_execution",
+  "client": "Oficina Aurora (fictícia)",
+  "timezone": "America/Sao_Paulo",
+  "referenceDate": "2026-10-23",
+  "documents": [
+    "manifesto.txt"
+  ],
+  "media": [
+    "asset-a.png",
+    "asset-b.png",
+    "asset-c.png",
+    "asset-d.png",
+    "asset-e.png",
+    "asset-f.mp4",
+    "asset-g.png",
+    "asset-h.png"
+  ],
+  "expectedPosts": 4,
+  "criteria": [
+    "8 arquivos representam 4 posts: carrossel de 4, imagem avulsa, vídeo com capa, outra imagem avulsa.",
+    "Preservar ordem a,b,c,d e distinguir capa g do vídeo f; capa não é um post extra.",
+    "Schema atual não possui papel separado para capa: exigir alerta/revisão, não tratar a lista como suporte completo a capa.",
+    "Legendas/datas/canais explícitos; nenhuma aprovação pode ser inferida."
+  ],
+  "proposal": {
+    "summary": "Expectativa humana da fixture.",
+    "posts": [
+      {
+        "date": "2026-11-01",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "carousel",
+        "title": "Manifesto 01",
+        "copyText": "Oficina Aurora. Ideia 01.\nConheca nosso trabalho.",
+        "media": [
+          "asset-a.png",
+          "asset-b.png",
+          "asset-c.png",
+          "asset-d.png"
+        ],
+        "notes": null,
+        "source": "Fixture suplementar, registro 1"
+      },
+      {
+        "date": "2026-11-02",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Manifesto 02",
+        "copyText": "Oficina Aurora. Ideia 02.\nConheca nosso trabalho.",
+        "media": [
+          "asset-e.png"
+        ],
+        "notes": null,
+        "source": "Fixture suplementar, registro 2"
+      },
+      {
+        "date": "2026-11-03",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "reels",
+        "title": "Manifesto 03",
+        "copyText": "Oficina Aurora. Ideia 03.\nConheca nosso trabalho.",
+        "media": [
+          "asset-f.mp4",
+          "asset-g.png"
+        ],
+        "notes": null,
+        "source": "Fixture suplementar, registro 3"
+      },
+      {
+        "date": "2026-11-04",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Manifesto 04",
+        "copyText": "Oficina Aurora. Ideia 04.\nConheca nosso trabalho.",
+        "media": [
+          "asset-h.png"
+        ],
+        "notes": null,
+        "source": "Fixture suplementar, registro 4"
+      }
+    ],
+    "warnings": [
+      "8 arquivos representam 4 posts: carrossel de 4, imagem avulsa, vídeo com capa, outra imagem avulsa.",
+      "Preservar ordem a,b,c,d e distinguir capa g do vídeo f; capa não é um post extra.",
+      "Schema atual não possui papel separado para capa: exigir alerta/revisão, não tratar a lista como suporte completo a capa.",
+      "Legendas/datas/canais explícitos; nenhuma aprovação pode ser inferida."
+    ]
+  }
+}

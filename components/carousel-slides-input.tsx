@@ -6,6 +6,8 @@ import { MediaSourceInput } from "./media-source-input";
 import { BatchMediaUpload } from "./batch-media-upload";
 import { SlideMediaThumb } from "./slide-media-preview";
 import type { MediaType } from "@/lib/media-utils";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 
 export interface SlideDraft {
   url: string;
@@ -25,6 +27,8 @@ export function CarouselSlidesInput({
   aspectRatio = "square",
   dense = false,
 }: CarouselSlidesInputProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const updateSlide = (index: number, patch: Partial<SlideDraft>) => {
     const next = [...slides];
     next[index] = { ...next[index], ...patch };
@@ -67,7 +71,7 @@ export function CarouselSlidesInput({
     <div className="space-y-3">
       <BatchMediaUpload
         onUploaded={handleBatchUpload}
-        label="Arraste vários arquivos de uma vez"
+        label={tr("Arraste vários arquivos de uma vez", "Drag in several files at once")}
         className={dense ? "py-2" : undefined}
       />
 
@@ -80,7 +84,7 @@ export function CarouselSlidesInput({
               </div>
               <p className="text-xs font-medium text-muted-foreground">
                 Slide {index + 1}
-                {slide.mediaType === "video" ? " · vídeo" : ""}
+                {slide.mediaType === "video" ? tr(" · vídeo", " · video") : ""}
               </p>
             </div>
             <div className="flex items-center gap-0.5 shrink-0">
@@ -91,7 +95,7 @@ export function CarouselSlidesInput({
                 className="h-7 w-7"
                 disabled={index === 0}
                 onClick={() => moveSlide(index, -1)}
-                aria-label="Mover para cima"
+                aria-label={tr("Mover para cima", "Move up")}
               >
                 <ChevronUp className="h-3.5 w-3.5" />
               </Button>
@@ -102,7 +106,7 @@ export function CarouselSlidesInput({
                 className="h-7 w-7"
                 disabled={index === slides.length - 1}
                 onClick={() => moveSlide(index, 1)}
-                aria-label="Mover para baixo"
+                aria-label={tr("Mover para baixo", "Move down")}
               >
                 <ChevronDown className="h-3.5 w-3.5" />
               </Button>
@@ -113,7 +117,7 @@ export function CarouselSlidesInput({
                   variant="ghost"
                   className="h-7 w-7 text-destructive"
                   onClick={() => removeSlide(index)}
-                  aria-label={`Remover slide ${index + 1}`}
+                  aria-label={tr(`Remover slide ${index + 1}`, `Remove slide ${index + 1}`)}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </Button>
@@ -135,7 +139,7 @@ export function CarouselSlidesInput({
 
       <Button type="button" variant="outline" size="sm" className="w-full" onClick={addSlide}>
         <Plus className="h-4 w-4 mr-1" />
-        Adicionar slide
+        {tr("Adicionar slide", "Add slide")}
       </Button>
     </div>
   );

@@ -7,6 +7,8 @@ import { MediaSourceInput } from "./media-source-input";
 import { SlideMediaThumb } from "./slide-media-preview";
 import type { ResolvedSlide } from "@/lib/attachment-slides";
 import type { AttachmentVersion } from "@/lib/types";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 
 interface CarouselSlidesManagerProps {
   versionId: string;
@@ -21,6 +23,8 @@ export function CarouselSlidesManager({
   slides,
   onVersionUpdated,
 }: CarouselSlidesManagerProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const [busy, setBusy] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [newUrl, setNewUrl] = useState("");
@@ -45,7 +49,7 @@ export function CarouselSlidesManager({
     });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      throw new Error(typeof data.error === "string" ? data.error : "Erro ao atualizar slides");
+      throw new Error(typeof data.error === "string" ? data.error : tr("Erro ao atualizar slides", "Failed to update slides"));
     }
     onVersionUpdated(data.version);
   };
@@ -59,19 +63,19 @@ export function CarouselSlidesManager({
     try {
       await patchVersion("PATCH", { slideIds: ids });
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Erro ao reordenar");
+      alert(error instanceof Error ? error.message : tr("Erro ao reordenar", "Failed to reorder"));
     } finally {
       setBusy(null);
     }
   };
 
   const deleteSlide = async (slideId: string) => {
-    if (!confirm("Remover este slide?")) return;
+    if (!confirm(tr("Remover este slide?", "Remove this slide?"))) return;
     setBusy(slideId);
     try {
       await patchVersion("DELETE", { slideId });
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Erro ao remover slide");
+      alert(error instanceof Error ? error.message : tr("Erro ao remover slide", "Failed to remove slide"));
     } finally {
       setBusy(null);
     }
@@ -85,7 +89,7 @@ export function CarouselSlidesManager({
       setNewUrl("");
       setShowAdd(false);
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Erro ao adicionar slide");
+      alert(error instanceof Error ? error.message : tr("Erro ao adicionar slide", "Failed to add slide"));
     } finally {
       setBusy(null);
     }
@@ -94,7 +98,7 @@ export function CarouselSlidesManager({
   return (
     <div className="rounded-lg border bg-muted/20 p-3 space-y-2">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-medium text-muted-foreground">Slides desta versão</p>
+        <p className="text-xs font-medium text-muted-foreground">{tr("Slides desta versão", "Slides in this version")}</p>
         <Button
           type="button"
           size="sm"
@@ -117,7 +121,7 @@ export function CarouselSlidesManager({
               <SlideMediaThumb url={slide.url} mediaType={slide.mediaType} />
             </div>
             <span className="text-xs flex-1 truncate">
-              {index + 1}. {slide.mediaType === "video" ? "Vídeo" : "Imagem"}
+              {index + 1}. {slide.mediaType === "video" ? tr("Vídeo", "Video") : tr("Imagem", "Image")}
             </span>
             <div className="flex items-center gap-0.5">
               {busy === slide.id ? (
@@ -184,7 +188,7 @@ export function CarouselSlidesManager({
             ) : (
               <Plus className="h-4 w-4 mr-1" />
             )}
-            Adicionar slide
+            {tr("Adicionar slide", "Add slide")}
           </Button>
         </div>
       )}

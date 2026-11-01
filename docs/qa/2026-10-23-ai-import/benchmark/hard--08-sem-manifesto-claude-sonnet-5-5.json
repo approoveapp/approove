@@ -1,0 +1,11 @@
+{
+  "summary": "Foram enviadas oito mídias (sete imagens e um vídeo) sem nenhuma pauta, legenda, data, canal ou agrupamento informado. Nenhuma publicação foi criada.",
+  "posts": [],
+  "warnings": [
+    "Não há calendário, briefing ou planilha nos arquivos: só um texto de instruções e as oito mídias. Por isso nenhuma publicação foi montada.",
+    "Faltam datas, horários, canais, formatos, títulos e legendas de todos os posts.",
+    "Não foi informado como as mídias se agrupam: não dá para saber quais formam carrossel, quais são posts únicos nem a ordem dos slides.",
+    "As mídias asset-a.png, asset-b.png, asset-c.png, asset-d.png, asset-e.png, asset-f.mp4, asset-g.png e asset-h.png não foram associadas a nenhum post. As imagens mostram apenas o nome do arquivo e a marca Oficina Aurora, sem pista de qual post pertence a cada uma.",
+    "O vídeo asset-f.mp4 só pode ser identificado pelo nome e não há referência a ele em nenhum documento."
+  ]
+}

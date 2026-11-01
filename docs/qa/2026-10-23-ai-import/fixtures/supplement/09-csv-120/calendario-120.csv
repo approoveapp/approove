@@ -1,0 +1,239 @@
+data;hora;canal;formato;titulo;legenda;nota
+2026-11-01;08:30;Instagram;feed;CSV 001;"Olá ☀️; pauta ""001"".
+Veja https://example.com/pauta/1";
+2026-11-02;08:30;Instagram;feed;CSV 002;"Olá ☀️; pauta ""001"".
+Veja https://example.com/pauta/1";recorrência intencional
+2026-11-03;08:30;LinkedIn;feed;CSV 003;"Olá ☀️; pauta ""001"".
+Veja https://example.com/pauta/1";recorrência intencional
+2026-11-04;;Instagram;feed;CSV 004;"Olá ☀️; pauta ""004"".
+Veja https://example.com/pauta/4";
+2026-11-05;08:30;Instagram;feed;CSV 005;;
+primeira sexta de novembro de 2026;08:30;Instagram;feed;CSV 006;"Olá ☀️; pauta ""006"".
+Veja https://example.com/pauta/6";
+2026-11-07;08:30;Instagram;feed;CSV 007;"Olá ☀️; pauta ""007"".
+Veja https://example.com/pauta/7";
+2026-11-08;08:30;Instagram;feed;CSV 008;"Olá ☀️; pauta ""008"".
+Veja https://example.com/pauta/8";
+2026-11-09;08:30;Instagram;feed;CSV 009;"Olá ☀️; pauta ""009"".
+Veja https://example.com/pauta/9";
+2026-11-10;08:30;Instagram;feed;CSV 010;"Olá ☀️; pauta ""010"".
+Veja https://example.com/pauta/10";
+2026-11-11;08:30;Instagram;feed;CSV 011;"Olá ☀️; pauta ""011"".
+Veja https://example.com/pauta/11";
+2026-11-12;08:30;Instagram;feed;CSV 012;"Olá ☀️; pauta ""012"".
+Veja https://example.com/pauta/12";
+2026-11-13;08:30;Instagram;feed;CSV 013;"Olá ☀️; pauta ""013"".
+Veja https://example.com/pauta/13";
+2026-11-14;08:30;Instagram;feed;CSV 014;"Olá ☀️; pauta ""014"".
+Veja https://example.com/pauta/14";
+2026-11-15;08:30;Instagram;feed;CSV 015;"Olá ☀️; pauta ""015"".
+Veja https://example.com/pauta/15";
+2026-11-16;08:30;Instagram;feed;CSV 016;"Olá ☀️; pauta ""016"".
+Veja https://example.com/pauta/16";
+2026-11-17;08:30;Instagram;feed;CSV 017;"Olá ☀️; pauta ""017"".
+Veja https://example.com/pauta/17";
+2026-11-18;08:30;Instagram;feed;CSV 018;"Olá ☀️; pauta ""018"".
+Veja https://example.com/pauta/18";
+2026-11-19;08:30;Instagram;feed;CSV 019;"Olá ☀️; pauta ""019"".
+Veja https://example.com/pauta/19";
+2026-11-20;08:30;Instagram;feed;CSV 020;"Olá ☀️; pauta ""020"".
+Veja https://example.com/pauta/20";
+2026-11-21;08:30;Instagram;feed;CSV 021;"Olá ☀️; pauta ""021"".
+Veja https://example.com/pauta/21";
+2026-11-22;08:30;Instagram;feed;CSV 022;"Olá ☀️; pauta ""022"".
+Veja https://example.com/pauta/22";
+2026-11-23;08:30;Instagram;feed;CSV 023;"Olá ☀️; pauta ""023"".
+Veja https://example.com/pauta/23";
+2026-11-24;08:30;Instagram;feed;CSV 024;"Olá ☀️; pauta ""024"".
+Veja https://example.com/pauta/24";
+2026-11-25;08:30;Instagram;feed;CSV 025;"Olá ☀️; pauta ""025"".
+Veja https://example.com/pauta/25";
+2026-11-26;08:30;Instagram;feed;CSV 026;"Olá ☀️; pauta ""026"".
+Veja https://example.com/pauta/26";
+2026-11-27;08:30;Instagram;feed;CSV 027;"Olá ☀️; pauta ""027"".
+Veja https://example.com/pauta/27";
+2026-11-28;08:30;Instagram;feed;CSV 028;"Olá ☀️; pauta ""028"".
+Veja https://example.com/pauta/28";
+2026-11-01;09:30;Instagram;feed;CSV 029;"Olá ☀️; pauta ""029"".
+Veja https://example.com/pauta/29";
+2026-11-02;09:30;Instagram;feed;CSV 030;"Olá ☀️; pauta ""030"".
+Veja https://example.com/pauta/30";
+2026-11-03;09:30;Instagram;feed;CSV 031;"Olá ☀️; pauta ""031"".
+Veja https://example.com/pauta/31";
+2026-11-04;09:30;Instagram;feed;CSV 032;"Olá ☀️; pauta ""032"".
+Veja https://example.com/pauta/32";
+2026-11-05;09:30;Instagram;feed;CSV 033;"Olá ☀️; pauta ""033"".
+Veja https://example.com/pauta/33";
+2026-11-06;09:30;Instagram;feed;CSV 034;"Olá ☀️; pauta ""034"".
+Veja https://example.com/pauta/34";
+2026-11-07;09:30;Instagram;feed;CSV 035;"Olá ☀️; pauta ""035"".
+Veja https://example.com/pauta/35";
+2026-11-08;09:30;Instagram;feed;CSV 036;"Olá ☀️; pauta ""036"".
+Veja https://example.com/pauta/36";
+2026-11-09;09:30;Instagram;feed;CSV 037;"Olá ☀️; pauta ""037"".
+Veja https://example.com/pauta/37";
+2026-11-10;09:30;Instagram;feed;CSV 038;"Olá ☀️; pauta ""038"".
+Veja https://example.com/pauta/38";
+2026-11-11;09:30;Instagram;feed;CSV 039;"Olá ☀️; pauta ""039"".
+Veja https://example.com/pauta/39";
+2026-11-12;09:30;Instagram;feed;CSV 040;"Olá ☀️; pauta ""040"".
+Veja https://example.com/pauta/40";
+2026-11-13;09:30;Instagram;feed;CSV 041;"Olá ☀️; pauta ""041"".
+Veja https://example.com/pauta/41";
+2026-11-14;09:30;Instagram;feed;CSV 042;"Olá ☀️; pauta ""042"".
+Veja https://example.com/pauta/42";
+2026-11-15;09:30;Instagram;feed;CSV 043;"Olá ☀️; pauta ""043"".
+Veja https://example.com/pauta/43";
+2026-11-16;09:30;Instagram;feed;CSV 044;"Olá ☀️; pauta ""044"".
+Veja https://example.com/pauta/44";
+2026-11-17;09:30;Instagram;feed;CSV 045;"Olá ☀️; pauta ""045"".
+Veja https://example.com/pauta/45";
+2026-11-18;09:30;Instagram;feed;CSV 046;"Olá ☀️; pauta ""046"".
+Veja https://example.com/pauta/46";
+2026-11-19;09:30;Instagram;feed;CSV 047;"Olá ☀️; pauta ""047"".
+Veja https://example.com/pauta/47";
+2026-11-20;09:30;Instagram;feed;CSV 048;"Olá ☀️; pauta ""048"".
+Veja https://example.com/pauta/48";
+2026-11-21;09:30;Instagram;feed;CSV 049;"Olá ☀️; pauta ""049"".
+Veja https://example.com/pauta/49";
+2026-11-22;09:30;Instagram;feed;CSV 050;"Olá ☀️; pauta ""050"".
+Veja https://example.com/pauta/50";
+2026-11-23;09:30;Instagram;feed;CSV 051;"Olá ☀️; pauta ""051"".
+Veja https://example.com/pauta/51";
+2026-11-24;09:30;Instagram;feed;CSV 052;"Olá ☀️; pauta ""052"".
+Veja https://example.com/pauta/52";
+2026-11-25;09:30;Instagram;feed;CSV 053;"Olá ☀️; pauta ""053"".
+Veja https://example.com/pauta/53";
+2026-11-26;09:30;Instagram;feed;CSV 054;"Olá ☀️; pauta ""054"".
+Veja https://example.com/pauta/54";
+2026-11-27;09:30;Instagram;feed;CSV 055;"Olá ☀️; pauta ""055"".
+Veja https://example.com/pauta/55";
+2026-11-28;09:30;Instagram;feed;CSV 056;"Olá ☀️; pauta ""056"".
+Veja https://example.com/pauta/56";
+2026-11-01;10:30;Instagram;feed;CSV 057;"Olá ☀️; pauta ""057"".
+Veja https://example.com/pauta/57";
+2026-11-02;10:30;Instagram;feed;CSV 058;"Olá ☀️; pauta ""058"".
+Veja https://example.com/pauta/58";
+2026-11-03;10:30;Instagram;feed;CSV 059;"Olá ☀️; pauta ""059"".
+Veja https://example.com/pauta/59";
+2026-11-04;10:30;Instagram;feed;CSV 060;"Olá ☀️; pauta ""060"".
+Veja https://example.com/pauta/60";
+2026-11-05;10:30;Instagram;feed;CSV 061;"Olá ☀️; pauta ""061"".
+Veja https://example.com/pauta/61";
+2026-11-06;10:30;Instagram;feed;CSV 062;"Olá ☀️; pauta ""062"".
+Veja https://example.com/pauta/62";
+2026-11-07;10:30;Instagram;feed;CSV 063;"Olá ☀️; pauta ""063"".
+Veja https://example.com/pauta/63";
+2026-11-08;10:30;Instagram;feed;CSV 064;"Olá ☀️; pauta ""064"".
+Veja https://example.com/pauta/64";
+2026-11-09;10:30;Instagram;feed;CSV 065;"Olá ☀️; pauta ""065"".
+Veja https://example.com/pauta/65";
+2026-11-10;10:30;Instagram;feed;CSV 066;"Olá ☀️; pauta ""066"".
+Veja https://example.com/pauta/66";
+2026-11-11;10:30;Instagram;feed;CSV 067;"Olá ☀️; pauta ""067"".
+Veja https://example.com/pauta/67";
+2026-11-12;10:30;Instagram;feed;CSV 068;"Olá ☀️; pauta ""068"".
+Veja https://example.com/pauta/68";
+2026-11-13;10:30;Instagram;feed;CSV 069;"Olá ☀️; pauta ""069"".
+Veja https://example.com/pauta/69";
+2026-11-14;10:30;Instagram;feed;CSV 070;"Olá ☀️; pauta ""070"".
+Veja https://example.com/pauta/70";
+2026-11-15;10:30;Instagram;feed;CSV 071;"Olá ☀️; pauta ""071"".
+Veja https://example.com/pauta/71";
+2026-11-16;10:30;Instagram;feed;CSV 072;"Olá ☀️; pauta ""072"".
+Veja https://example.com/pauta/72";
+2026-11-17;10:30;Instagram;feed;CSV 073;"Olá ☀️; pauta ""073"".
+Veja https://example.com/pauta/73";
+2026-11-18;10:30;Instagram;feed;CSV 074;"Olá ☀️; pauta ""074"".
+Veja https://example.com/pauta/74";
+2026-11-19;10:30;Instagram;feed;CSV 075;"Olá ☀️; pauta ""075"".
+Veja https://example.com/pauta/75";
+2026-11-20;10:30;Instagram;feed;CSV 076;"Olá ☀️; pauta ""076"".
+Veja https://example.com/pauta/76";
+2026-11-21;10:30;Instagram;feed;CSV 077;"Olá ☀️; pauta ""077"".
+Veja https://example.com/pauta/77";
+2026-11-22;10:30;Instagram;feed;CSV 078;"Olá ☀️; pauta ""078"".
+Veja https://example.com/pauta/78";
+2026-11-23;10:30;Instagram;feed;CSV 079;"Olá ☀️; pauta ""079"".
+Veja https://example.com/pauta/79";
+2026-11-24;10:30;Instagram;feed;CSV 080;"Olá ☀️; pauta ""080"".
+Veja https://example.com/pauta/80";
+2026-11-25;10:30;Instagram;feed;CSV 081;"Olá ☀️; pauta ""081"".
+Veja https://example.com/pauta/81";
+2026-11-26;10:30;Instagram;feed;CSV 082;"Olá ☀️; pauta ""082"".
+Veja https://example.com/pauta/82";
+2026-11-27;10:30;Instagram;feed;CSV 083;"Olá ☀️; pauta ""083"".
+Veja https://example.com/pauta/83";
+2026-11-28;10:30;Instagram;feed;CSV 084;"Olá ☀️; pauta ""084"".
+Veja https://example.com/pauta/84";
+2026-11-01;11:30;Instagram;feed;CSV 085;"Olá ☀️; pauta ""085"".
+Veja https://example.com/pauta/85";
+2026-11-02;11:30;Instagram;feed;CSV 086;"Olá ☀️; pauta ""086"".
+Veja https://example.com/pauta/86";
+2026-11-03;11:30;Instagram;feed;CSV 087;"Olá ☀️; pauta ""087"".
+Veja https://example.com/pauta/87";
+2026-11-04;11:30;Instagram;feed;CSV 088;"Olá ☀️; pauta ""088"".
+Veja https://example.com/pauta/88";
+2026-11-05;11:30;Instagram;feed;CSV 089;"Olá ☀️; pauta ""089"".
+Veja https://example.com/pauta/89";
+2026-11-06;11:30;Instagram;feed;CSV 090;"Olá ☀️; pauta ""090"".
+Veja https://example.com/pauta/90";
+2026-11-07;11:30;Instagram;feed;CSV 091;"Olá ☀️; pauta ""091"".
+Veja https://example.com/pauta/91";
+2026-11-08;11:30;Instagram;feed;CSV 092;"Olá ☀️; pauta ""092"".
+Veja https://example.com/pauta/92";
+2026-11-09;11:30;Instagram;feed;CSV 093;"Olá ☀️; pauta ""093"".
+Veja https://example.com/pauta/93";
+2026-11-10;11:30;Instagram;feed;CSV 094;"Olá ☀️; pauta ""094"".
+Veja https://example.com/pauta/94";
+2026-11-11;11:30;Instagram;feed;CSV 095;"Olá ☀️; pauta ""095"".
+Veja https://example.com/pauta/95";
+2026-11-12;11:30;Instagram;feed;CSV 096;"Olá ☀️; pauta ""096"".
+Veja https://example.com/pauta/96";
+2026-11-13;11:30;Instagram;feed;CSV 097;"Olá ☀️; pauta ""097"".
+Veja https://example.com/pauta/97";
+2026-11-14;11:30;Instagram;feed;CSV 098;"Olá ☀️; pauta ""098"".
+Veja https://example.com/pauta/98";
+2026-11-15;11:30;Instagram;feed;CSV 099;"Olá ☀️; pauta ""099"".
+Veja https://example.com/pauta/99";
+2026-11-16;11:30;Instagram;feed;CSV 100;"Olá ☀️; pauta ""100"".
+Veja https://example.com/pauta/100";
+2026-11-17;11:30;Instagram;feed;CSV 101;"Olá ☀️; pauta ""101"".
+Veja https://example.com/pauta/101";
+2026-11-18;11:30;Instagram;feed;CSV 102;"Olá ☀️; pauta ""102"".
+Veja https://example.com/pauta/102";
+2026-11-19;11:30;Instagram;feed;CSV 103;"Olá ☀️; pauta ""103"".
+Veja https://example.com/pauta/103";
+2026-11-20;11:30;Instagram;feed;CSV 104;"Olá ☀️; pauta ""104"".
+Veja https://example.com/pauta/104";
+2026-11-21;11:30;Instagram;feed;CSV 105;"Olá ☀️; pauta ""105"".
+Veja https://example.com/pauta/105";
+2026-11-22;11:30;Instagram;feed;CSV 106;"Olá ☀️; pauta ""106"".
+Veja https://example.com/pauta/106";
+2026-11-23;11:30;Instagram;feed;CSV 107;"Olá ☀️; pauta ""107"".
+Veja https://example.com/pauta/107";
+2026-11-24;11:30;Instagram;feed;CSV 108;"Olá ☀️; pauta ""108"".
+Veja https://example.com/pauta/108";
+2026-11-25;11:30;Instagram;feed;CSV 109;"Olá ☀️; pauta ""109"".
+Veja https://example.com/pauta/109";
+2026-11-26;11:30;Instagram;feed;CSV 110;"Olá ☀️; pauta ""110"".
+Veja https://example.com/pauta/110";
+2026-11-01;08:30;Instagram;feed;CSV 001;"Olá ☀️; pauta ""001"".
+Veja https://example.com/pauta/1";
+2026-11-02;08:30;Instagram;feed;CSV 002;"Olá ☀️; pauta ""001"".
+Veja https://example.com/pauta/1";recorrência intencional
+2026-11-03;08:30;LinkedIn;feed;CSV 003;"Olá ☀️; pauta ""001"".
+Veja https://example.com/pauta/1";recorrência intencional
+2026-11-04;;Instagram;feed;CSV 004;"Olá ☀️; pauta ""004"".
+Veja https://example.com/pauta/4";
+2026-11-05;08:30;Instagram;feed;CSV 005;;
+primeira sexta de novembro de 2026;08:30;Instagram;feed;CSV 006;"Olá ☀️; pauta ""006"".
+Veja https://example.com/pauta/6";
+2026-11-07;08:30;Instagram;feed;CSV 007;"Olá ☀️; pauta ""007"".
+Veja https://example.com/pauta/7";
+2026-11-08;08:30;Instagram;feed;CSV 008;"Olá ☀️; pauta ""008"".
+Veja https://example.com/pauta/8";
+2026-11-09;08:30;Instagram;feed;CSV 009;"Olá ☀️; pauta ""009"".
+Veja https://example.com/pauta/9";
+2026-11-10;08:30;Instagram;feed;CSV 010;"Olá ☀️; pauta ""010"".
+Veja https://example.com/pauta/10";

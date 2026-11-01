@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { authorizeShareOrSession } from "@/lib/share-access";
 import { isPostVisibleToClient } from "@/lib/client-content-boundary";
@@ -44,6 +46,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ versionId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { versionId } = await params;
     await enforceRateLimit("publicIp", clientIp(request.headers));
@@ -55,22 +58,40 @@ export async function POST(
 
     if (!Number.isFinite(x) || !Number.isFinite(y) || typeof text !== "string" || !text.trim()) {
       return NextResponse.json(
-        { error: "xPercent, yPercent e text são obrigatórios" },
+        {
+          error: localizedText(
+            locale,
+            "xPercent, yPercent e text são obrigatórios",
+            "xPercent, yPercent and text are required."
+          ),
+        },
         { status: 400 }
       );
     }
 
     if (text.length > PIN_TEXT_MAX) {
-      return NextResponse.json({ error: "Anotação muito longa" }, { status: 400 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Anotação muito longa", "Annotation is too long.") },
+        { status: 400 }
+      );
     }
 
     if (slideId !== undefined && slideId !== null && typeof slideId !== "string") {
-      return NextResponse.json({ error: "slideId inválido" }, { status: 400 });
+      return NextResponse.json(
+        { error: localizedText(locale, "slideId inválido", "Invalid slideId.") },
+        { status: 400 }
+      );
     }
 
     if (x < 0 || x > 100 || y < 0 || y > 100) {
       return NextResponse.json(
-        { error: "Coordenadas devem estar entre 0 e 100" },
+        {
+          error: localizedText(
+            locale,
+            "Coordenadas devem estar entre 0 e 100",
+            "Coordinates must be between 0 and 100."
+          ),
+        },
         { status: 400 }
       );
     }
@@ -99,7 +120,16 @@ export async function POST(
     }
 
     if (!authResult.isAgency && !authResult.access?.permissions.canPin) {
-      return NextResponse.json({ error: "Sem permissão para anotar" }, { status: 403 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "Sem permissão para anotar",
+            "You don't have permission to annotate."
+          ),
+        },
+        { status: 403 }
+      );
     }
 
     // O slide precisa ser desta versão; senão o pin apareceria no material de outra agência.
@@ -109,7 +139,10 @@ export async function POST(
         select: { id: true },
       });
       if (!slide) {
-        return NextResponse.json({ error: "Slide não encontrado" }, { status: 404 });
+        return NextResponse.json(
+          { error: localizedText(locale, "Slide não encontrado", "Slide not found.") },
+          { status: 404 }
+        );
       }
     }
 
@@ -134,7 +167,7 @@ export async function POST(
 
     return NextResponse.json({ pin });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error creating annotation pin:", error);
     return NextResponse.json(
@@ -145,6 +178,7 @@ export async function POST(
 }
 
 export async function PATCH(request: NextRequest) {
+  const locale = await getRequestLocale();
   try {
     await enforceRateLimit("publicIp", clientIp(request.headers));
     const body = await request.json();
@@ -172,11 +206,29 @@ export async function PATCH(request: NextRequest) {
     }
 
     if (!authResult.isAgency && !authResult.access?.permissions.canPin) {
-      return NextResponse.json({ error: "Sem permissão para alterar anotações" }, { status: 403 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "Sem permissão para alterar anotações",
+            "You don't have permission to change annotations."
+          ),
+        },
+        { status: 403 }
+      );
     }
 
     if (!authResult.isAgency && !clientOwnsPin(pinContext.pin, authResult.access)) {
-      return NextResponse.json({ error: "Você só pode alterar suas anotações" }, { status: 403 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "Você só pode alterar suas anotações",
+            "You can only change your own annotations."
+          ),
+        },
+        { status: 403 }
+      );
     }
 
     const pin = await prisma.annotationPin.update({
@@ -186,7 +238,7 @@ export async function PATCH(request: NextRequest) {
 
     return NextResponse.json({ pin });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error updating pin:", error);
     return NextResponse.json(
@@ -197,6 +249,7 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  const locale = await getRequestLocale();
   try {
     await enforceRateLimit("publicIp", clientIp(request.headers));
     const body = await request.json();
@@ -221,18 +274,36 @@ export async function DELETE(request: NextRequest) {
     }
 
     if (!authResult.isAgency && !authResult.access?.permissions.canPin) {
-      return NextResponse.json({ error: "Sem permissão para excluir anotações" }, { status: 403 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "Sem permissão para excluir anotações",
+            "You don't have permission to delete annotations."
+          ),
+        },
+        { status: 403 }
+      );
     }
 
     if (!authResult.isAgency && !clientOwnsPin(pinContext.pin, authResult.access)) {
-      return NextResponse.json({ error: "Você só pode excluir suas anotações" }, { status: 403 });
+      return NextResponse.json(
+        {
+          error: localizedText(
+            locale,
+            "Você só pode excluir suas anotações",
+            "You can only delete your own annotations."
+          ),
+        },
+        { status: 403 }
+      );
     }
 
     await prisma.annotationPin.delete({ where: { id: pinId } });
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error deleting pin:", error);
     return NextResponse.json(

@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { prisma } from "@/lib/prisma";
 import { requireActiveOrganization } from "@/lib/auth";
 import { apiErrorResponse } from "@/lib/api-error";
@@ -12,6 +14,7 @@ export async function POST(
   _request: NextRequest,
   { params }: { params: Promise<{ clientSlug: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization } = await requireActiveOrganization({ roles: ["owner", "admin"] });
     const { clientSlug } = await params;
@@ -24,13 +27,22 @@ export async function POST(
     });
 
     if (!client) {
-      return NextResponse.json({ error: "Cliente não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Cliente não encontrado", "Client not found.") },
+        { status: 404 }
+      );
     }
 
     const latestVersion = client.versions[0];
     if (!latestVersion) {
       return NextResponse.json(
-        { error: "Nenhuma versão de calendário encontrada" },
+        {
+          error: localizedText(
+            locale,
+            "Nenhuma versão de calendário encontrada",
+            "No calendar version found."
+          ),
+        },
         { status: 404 }
       );
     }
@@ -49,7 +61,7 @@ export async function POST(
 
     return NextResponse.json({ token: token.token, shareUrl });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error creating token:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

@@ -1,0 +1,83 @@
+{
+  "id": "03-apresentacao",
+  "client": "Oficina Aurora (fictícia)",
+  "timezone": "America/Sao_Paulo",
+  "referenceDate": "2026-10-23",
+  "expectedPosts": 4,
+  "documents": [
+    "apresentacao.pdf"
+  ],
+  "media": [
+    "aurora-01.png",
+    "aurora-02.png",
+    "aurora-03.png",
+    "cafe.png",
+    "convite.png"
+  ],
+  "proposal": {
+    "summary": "4 publicações fictícias para revisão.",
+    "posts": [
+      {
+        "date": "2026-11-07",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "carousel",
+        "title": "Pauta 07",
+        "copyText": "Legenda 07.\nConheça a Oficina Aurora. #Aurora",
+        "media": [
+          "aurora-01.png",
+          "aurora-02.png",
+          "aurora-03.png"
+        ],
+        "notes": null,
+        "source": "apresentacao.pdf, publicação 1"
+      },
+      {
+        "date": "2026-11-10",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "feed",
+        "title": "Pauta 10",
+        "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+        "media": [
+          "cafe.png"
+        ],
+        "notes": null,
+        "source": "apresentacao.pdf, publicação 2"
+      },
+      {
+        "date": "2026-11-12",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Facebook",
+        "format": "feed",
+        "title": "Pauta 10 no Facebook",
+        "copyText": "Legenda 10.\nConheça a Oficina Aurora. #Aurora",
+        "media": [
+          "cafe.png"
+        ],
+        "notes": null,
+        "source": "apresentacao.pdf, publicação 3"
+      },
+      {
+        "date": "2026-11-14",
+        "time": "09:30",
+        "dateIsSuggested": false,
+        "channel": "Instagram",
+        "format": "stories",
+        "title": "Pauta 14",
+        "copyText": "Legenda 14.\nConheça a Oficina Aurora. #Aurora",
+        "media": [
+          "convite.png"
+        ],
+        "notes": null,
+        "source": "apresentacao.pdf, publicação 4"
+      }
+    ],
+    "warnings": [
+      "O mesmo café é reutilizado explicitamente em Instagram e Facebook."
+    ]
+  }
+}

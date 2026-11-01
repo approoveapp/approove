@@ -1,0 +1,1096 @@
+{
+  "results": [
+    {
+      "caseId": "01-texto",
+      "expected": 3,
+      "created": 3,
+      "uploadAndStartMs": 55.28795899999932,
+      "offlineProcessingAndPollMs": 4354.547208,
+      "automatedReviewMs": 570.5204169999997,
+      "commitMs": 1845.9188749999994,
+      "edited": true,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 6854.994167000001,
+      "ai": "MOCK - no inference/tokens"
+    },
+    {
+      "caseId": "02-planilha",
+      "expected": 24,
+      "created": 24,
+      "uploadAndStartMs": 263.7440000000024,
+      "offlineProcessingAndPollMs": 3349.052499999998,
+      "automatedReviewMs": 114.88950000000114,
+      "commitMs": 307.4031250000007,
+      "edited": false,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 4058.218582999998,
+      "ai": "MOCK - no inference/tokens"
+    },
+    {
+      "caseId": "03-apresentacao",
+      "expected": 4,
+      "created": 4,
+      "uploadAndStartMs": 1508.3996249999982,
+      "offlineProcessingAndPollMs": 3359.102833000001,
+      "automatedReviewMs": 203.51583299999766,
+      "commitMs": 226.30737500000032,
+      "edited": true,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 5320.5459999999985,
+      "ai": "MOCK - no inference/tokens"
+    },
+    {
+      "caseId": "04-csv-ambiguo",
+      "expected": 6,
+      "created": 6,
+      "uploadAndStartMs": 221.484583999998,
+      "offlineProcessingAndPollMs": 3354.5645829999994,
+      "automatedReviewMs": 91.79979200000162,
+      "commitMs": 251.46704099999988,
+      "edited": false,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 3941.596625000002,
+      "ai": "MOCK - no inference/tokens"
+    },
+    {
+      "caseId": "05-misto",
+      "expected": 8,
+      "created": 8,
+      "uploadAndStartMs": 992.4387499999975,
+      "offlineProcessingAndPollMs": 2851.1664999999994,
+      "automatedReviewMs": 104.221166000003,
+      "commitMs": 312.5279589999991,
+      "edited": false,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 4305.581708999998,
+      "ai": "MOCK - no inference/tokens"
+    },
+    {
+      "caseId": "06-limite",
+      "expected": 200,
+      "created": 200,
+      "uploadAndStartMs": 883.414125000003,
+      "offlineProcessingAndPollMs": 3221.3205000000016,
+      "automatedReviewMs": 321.2448749999967,
+      "commitMs": 346.0943750000006,
+      "edited": false,
+      "mobileOverflow": false,
+      "repeatCommitStatus": 409,
+      "totalMs": 4806.7172500000015,
+      "ai": "MOCK - no inference/tokens"
+    }
+  ],
+  "metrics": [
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753696775.1318,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.152,
+        "responseStart": 2305.756,
+        "responseEnd": 2315.921
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 202,
+      "timing": {
+        "startTime": 1792753699241.415,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.236,
+        "responseStart": 19.085,
+        "responseEnd": 26.126
+      }
+    },
+    {
+      "url": "/api/imports/cmvkv9jg80001lnpzvrlyxb4u",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753702268.046,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.24,
+        "responseStart": 1323.501,
+        "responseEnd": 1325.755
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753703950.1482,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.154,
+        "responseStart": 125.417,
+        "responseEnd": 133.02
+      }
+    },
+    {
+      "url": "/api/imports/cmvkv9jg80001lnpzvrlyxb4u/commit",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753704269.0852,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.16,
+        "responseStart": 1697.557,
+        "responseEnd": 1706.965
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753706287.97,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.16,
+        "responseStart": 25.001,
+        "responseEnd": 33.503
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 202,
+      "timing": {
+        "startTime": 1792753706514.7048,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.192,
+        "responseStart": 33.482,
+        "responseEnd": 39.474
+      }
+    },
+    {
+      "url": "/api/imports/cmvkv9p2p0009lnpz1337znvy",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753709557.879,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.384,
+        "responseStart": 29.799,
+        "responseEnd": 35.432
+      }
+    },
+    {
+      "url": "/api/imports/cmvkv9p2p0009lnpz1337znvy/commit",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753710173.698,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.296,
+        "responseStart": 68.275,
+        "responseEnd": 107.364
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753710516.266,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.166,
+        "responseStart": 25.959,
+        "responseEnd": 36.55
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753710776.2559,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.214,
+        "responseStart": 1003.204,
+        "responseEnd": 1012.205
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753711781.3599,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.126,
+        "responseStart": 10.266,
+        "responseEnd": 11.345
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753711793.4927,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.141,
+        "responseStart": 7.976,
+        "responseEnd": 9.219
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753711803.8262,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.201,
+        "responseStart": 9.368,
+        "responseEnd": 11.096
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753711815.131,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.13,
+        "responseStart": 9.7,
+        "responseEnd": 10.877
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 202,
+      "timing": {
+        "startTime": 1792753711826.7,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.142,
+        "responseStart": 167.25,
+        "responseEnd": 168.36
+      }
+    },
+    {
+      "url": "/api/imports/cmvkv9t9s001nlnpzbzrk75wy",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753715002.935,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.384,
+        "responseStart": 32.899,
+        "responseEnd": 37.926
+      }
+    },
+    {
+      "url": "/api/imports/cmvkv9t9s001nlnpzbzrk75wy/commit",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753715719.083,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.159,
+        "responseStart": 25.046,
+        "responseEnd": 36.202
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753716151.253,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.323,
+        "responseStart": 15.713,
+        "responseEnd": 24.672
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 202,
+      "timing": {
+        "startTime": 1792753716388.269,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.18,
+        "responseStart": 13.187,
+        "responseEnd": 18.559
+      }
+    },
+    {
+      "url": "/api/imports/cmvkv9wof002blnpzhlk4dbdk",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753719406.93,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.213,
+        "responseStart": 14.808,
+        "responseEnd": 16.787
+      }
+    },
+    {
+      "url": "/api/imports/cmvkv9wof002blnpzhlk4dbdk/commit",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753719944.18,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.163,
+        "responseStart": 17.516,
+        "responseEnd": 28.507
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753720247.306,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.383,
+        "responseStart": 17.288,
+        "responseEnd": 25.677
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753720476.1929,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.204,
+        "responseStart": 16.584,
+        "responseEnd": 26.165
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753720495.0537,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.178,
+        "responseStart": 15.54,
+        "responseEnd": 16.964
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753720513.115,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.276,
+        "responseStart": 17.378,
+        "responseEnd": 19.27
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753720532.72,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.163,
+        "responseStart": 16.146,
+        "responseEnd": 17.446
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753720552.2969,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.228,
+        "responseStart": 20.093,
+        "responseEnd": 22.102
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753720574.691,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.197,
+        "responseStart": 14.39,
+        "responseEnd": 15.844
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 202,
+      "timing": {
+        "startTime": 1792753720591.299,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.198,
+        "responseStart": 186.535,
+        "responseEnd": 187.927
+      }
+    },
+    {
+      "url": "/api/imports/cmvkva01x002plnpzpcdaaaft",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753723785.1401,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.418,
+        "responseStart": 20.611,
+        "responseEnd": 23.351
+      }
+    },
+    {
+      "url": "/api/imports/cmvkva01x002plnpzpcdaaaft/commit",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753724335.0588,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.149,
+        "responseStart": 41.615,
+        "responseEnd": 59.398
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753724705.486,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.312,
+        "responseStart": 25.449,
+        "responseEnd": 34.489
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753724847.1748,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.199,
+        "responseStart": 23.914,
+        "responseEnd": 52.343
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753724877.5762,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.168,
+        "responseStart": 27.503,
+        "responseEnd": 28.963
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753724907.5488,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.178,
+        "responseStart": 20.69,
+        "responseEnd": 22.421
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753724933.9678,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.177,
+        "responseStart": 19.817,
+        "responseEnd": 21.376
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753724956.011,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.181,
+        "responseStart": 16.577,
+        "responseEnd": 18.074
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753724981.313,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.169,
+        "responseStart": 17.136,
+        "responseEnd": 18.708
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725001.4692,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.198,
+        "responseStart": 18.314,
+        "responseEnd": 20.53
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725022.1099,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.272,
+        "responseStart": 16.203,
+        "responseEnd": 17.75
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725041.628,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.186,
+        "responseStart": 17.09,
+        "responseEnd": 19.559
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725061.584,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.342,
+        "responseStart": 17.455,
+        "responseEnd": 19.583
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725081.4622,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.208,
+        "responseStart": 16.504,
+        "responseEnd": 18.145
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725101.008,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.246,
+        "responseStart": 18.684,
+        "responseEnd": 21.021
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725121.7332,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.168,
+        "responseStart": 23.897,
+        "responseEnd": 25.151
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725148.9338,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.184,
+        "responseStart": 16.852,
+        "responseEnd": 19.4
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725168.805,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.168,
+        "responseStart": 16.303,
+        "responseEnd": 18.579
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725187.891,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.175,
+        "responseStart": 21.12,
+        "responseEnd": 23.169
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725211.4038,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.172,
+        "responseStart": 14.766,
+        "responseEnd": 16.429
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725228.4373,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.165,
+        "responseStart": 12.288,
+        "responseEnd": 13.694
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725244.242,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.166,
+        "responseStart": 13.452,
+        "responseEnd": 16.328
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725259.5862,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.206,
+        "responseStart": 13.587,
+        "responseEnd": 14.733
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725275.271,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.162,
+        "responseStart": 11.972,
+        "responseEnd": 13.312
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725289.488,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.165,
+        "responseStart": 13.471,
+        "responseEnd": 15.068
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725305.1948,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.174,
+        "responseStart": 11.347,
+        "responseEnd": 12.815
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725318.482,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.206,
+        "responseStart": 12.556,
+        "responseEnd": 13.807
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725333.442,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.17,
+        "responseStart": 11.539,
+        "responseEnd": 13.21
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725347.302,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.171,
+        "responseStart": 13.142,
+        "responseEnd": 14.791
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725363.002,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.202,
+        "responseStart": 22.845,
+        "responseEnd": 24.703
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725390.1538,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.279,
+        "responseStart": 17.814,
+        "responseEnd": 21.245
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725410.174,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.184,
+        "responseStart": 10.541,
+        "responseEnd": 11.994
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports/media",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753725423.022,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.298,
+        "responseStart": 14.008,
+        "responseEnd": 15.562
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 202,
+      "timing": {
+        "startTime": 1792753725440.5352,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.355,
+        "responseStart": 20.092,
+        "responseEnd": 21.939
+      }
+    },
+    {
+      "url": "/api/imports/cmvkva3o1003ilnpzuiz2m1pf",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753728465.78,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.193,
+        "responseStart": 14.705,
+        "responseEnd": 17.523
+      }
+    },
+    {
+      "url": "/api/imports/cmvkva3o1003ilnpzuiz2m1pf/commit",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753729339.237,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.19,
+        "responseStart": 73.67,
+        "responseEnd": 118.652
+      }
+    },
+    {
+      "url": "/api/clients/demo-client/imports",
+      "status": 200,
+      "timing": {
+        "startTime": 1792753729983.503,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.167,
+        "responseStart": 13.903,
+        "responseEnd": 34.866
+      }
+    }
+  ],
+  "errors": []
+}

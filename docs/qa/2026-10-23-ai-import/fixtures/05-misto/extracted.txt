@@ -1,0 +1,88 @@
+Oficina Aurora - pauta existente
+Título: Pauta 01
+Data: 2026-11-01
+Horário: 09:30
+Canal: Instagram
+Formato: carousel
+Artes: slide-01.png, slide-02.png, slide-03.png
+Legenda exata:
+Legenda 01.
+Conheça a Oficina Aurora. #Aurora
+[FIM DA LEGENDA]
+
+Título: Pauta 02
+Data: 2026-11-02
+Horário: 09:30
+Canal: Instagram
+Formato: reels
+Artes: bastidores.mp4
+Legenda exata:
+Legenda 02.
+Conheça a Oficina Aurora. #Aurora
+[FIM DA LEGENDA]
+
+Título: Pauta 03
+Data: 2026-11-03
+Horário: 09:30
+Canal: Instagram
+Formato: feed
+Artes: produto.png
+Legenda exata:
+Legenda 03.
+Conheça a Oficina Aurora. #Aurora
+[FIM DA LEGENDA]
+
+Título: Pauta 04
+Data: 2026-11-04
+Horário: 09:30
+Canal: Instagram
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+
+[FIM DA LEGENDA]
+
+Título: Pauta 05
+Data: 2026-11-05
+Horário: 09:30
+Canal: Instagram
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda 05.
+Conheça a Oficina Aurora. #Aurora
+[FIM DA LEGENDA]
+
+Título: Pauta 06
+Data: 2026-11-06
+Horário: 09:30
+Canal: Instagram
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda 06.
+Conheça a Oficina Aurora. #Aurora
+[FIM DA LEGENDA]
+
+Título: Pauta 07
+Data: 2026-11-07
+Horário: 09:30
+Canal: Instagram
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda 07.
+Conheça a Oficina Aurora. #Aurora
+[FIM DA LEGENDA]
+
+Título: Pauta 08
+Data: 2026-11-08
+Horário: 09:30
+Canal: Instagram
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda 08.
+Conheça a Oficina Aurora. #Aurora
+[FIM DA LEGENDA]
+Fuso America/Sao_Paulo. Novembro de 2026. logo-referencia.png é apenas referência. Pauta 01 tem 3 slides em um carrossel. Pauta 02 usa bastidores.mp4, que deve ser associado pelo nome. Não escrever legendas ausentes.

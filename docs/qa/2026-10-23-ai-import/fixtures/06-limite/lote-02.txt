@@ -1,0 +1,200 @@
+Fuso America/Sao_Paulo. Material fictício.
+Título: Lote 021
+Data: 2026-11-21
+Horário: 08:00
+Canal: Instagram
+Formato: feed
+Artes: arte-21.png
+Legenda exata:
+Legenda original 021. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 022
+Data: 2026-11-22
+Horário: 08:00
+Canal: Facebook
+Formato: feed
+Artes: arte-22.png
+Legenda exata:
+Legenda original 022. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 023
+Data: 2026-11-23
+Horário: 08:00
+Canal: Instagram
+Formato: feed
+Artes: arte-23.png
+Legenda exata:
+Legenda original 023. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 024
+Data: 2026-11-24
+Horário: 08:00
+Canal: Facebook
+Formato: feed
+Artes: arte-24.png
+Legenda exata:
+Legenda original 024. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 025
+Data: 2026-11-25
+Horário: 08:00
+Canal: Instagram
+Formato: feed
+Artes: arte-25.png
+Legenda exata:
+Legenda original 025. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 026
+Data: 2026-11-26
+Horário: 08:00
+Canal: Facebook
+Formato: feed
+Artes: arte-26.png
+Legenda exata:
+Legenda original 026. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 027
+Data: 2026-11-27
+Horário: 08:00
+Canal: Instagram
+Formato: feed
+Artes: arte-27.png
+Legenda exata:
+Legenda original 027. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 028
+Data: 2026-11-28
+Horário: 08:00
+Canal: Facebook
+Formato: feed
+Artes: arte-28.png
+Legenda exata:
+Legenda original 028. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 029
+Data: 2026-11-01
+Horário: 09:00
+Canal: Instagram
+Formato: feed
+Artes: arte-29.png
+Legenda exata:
+Legenda original 029. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 030
+Data: 2026-11-02
+Horário: 09:00
+Canal: Facebook
+Formato: feed
+Artes: arte-30.png
+Legenda exata:
+Legenda original 030. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 031
+Data: 2026-11-03
+Horário: 09:00
+Canal: Instagram
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda original 031. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 032
+Data: 2026-11-04
+Horário: 09:00
+Canal: Facebook
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda original 032. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 033
+Data: 2026-11-05
+Horário: 09:00
+Canal: Instagram
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda original 033. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 034
+Data: 2026-11-06
+Horário: 09:00
+Canal: Facebook
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda original 034. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 035
+Data: 2026-11-07
+Horário: 09:00
+Canal: Instagram
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda original 035. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 036
+Data: 2026-11-08
+Horário: 09:00
+Canal: Facebook
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda original 036. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 037
+Data: 2026-11-09
+Horário: 09:00
+Canal: Instagram
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda original 037. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 038
+Data: 2026-11-10
+Horário: 09:00
+Canal: Facebook
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda original 038. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 039
+Data: 2026-11-11
+Horário: 09:00
+Canal: Instagram
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda original 039. #Aurora
+[FIM DA LEGENDA]
+
+Título: Lote 040
+Data: 2026-11-12
+Horário: 09:00
+Canal: Facebook
+Formato: feed
+Artes: nenhuma
+Legenda exata:
+Legenda original 040. #Aurora
+[FIM DA LEGENDA]

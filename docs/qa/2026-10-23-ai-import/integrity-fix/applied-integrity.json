@@ -1,0 +1,10 @@
+{
+  "lib/import/claude.ts": true,
+  "lib/import/claude.test.ts": true,
+  "components/ai-import-dialog.tsx": true,
+  "lib/import/review.test.ts": true,
+  "scripts/qa/import-benchmark.ts": true,
+  "lib/import/tabular-integrity.ts": true,
+  "lib/import/tabular-integrity.test.ts": true,
+  "scripts/qa/import-duplicate-review.mjs": true
+}

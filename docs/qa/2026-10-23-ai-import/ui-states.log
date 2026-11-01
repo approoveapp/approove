@@ -1,0 +1,18 @@
+[
+  { name: 'same media names blocked before upload', pass: true },
+  { name: 'provider failure surfaces retry state', pass: true },
+  {
+    name: 'mobile dialog geometry',
+    geometry: {
+      top: 42.203125,
+      bottom: 801.796875,
+      height: 759.59375,
+      innerHeight: 844,
+      scrollWidth: 388,
+      width: 390,
+      maxHeight: '759.6px'
+    }
+  },
+  { name: 'failed discard retains proposal', pass: true },
+  { name: 'successful discard resets upload', pass: true }
+]

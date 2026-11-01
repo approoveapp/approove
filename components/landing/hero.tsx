@@ -3,12 +3,13 @@ import { Reveal } from "@/components/landing/reveal";
 import { Parallax } from "@/components/landing/parallax";
 import { Eyebrow, PillLink, TrialNote } from "@/components/landing/ui";
 import { ApprovedBadge, CalendarStrip, CreativeCanvas, ProductChrome } from "@/components/landing/product-frames";
-import { blue } from "@/components/landing/tokens";
+import { blue, cream, ink } from "@/components/landing/tokens";
 import { localizedText, type AppLocale } from "@/lib/locale";
+import { foundingOfferLabel, type FoundingOffer } from "@/lib/founding-offer";
 
 function HeroHeadline({ locale }: { locale: AppLocale }) {
   const lines = locale === "pt-BR" ? [["Chega", "de", "aprovar"], ["posts", "pelo"]] : [["Stop", "approving"], ["posts", "on"]];
-  const accent = locale === "pt-BR" ? ["WhatsApp.", "E-mail.", "Drive."] : ["WhatsApp.", "email.", "Drive."];
+  const accent = locale === "pt-BR" ? ["WhatsApp.", "E-mail.", "Drive."] : ["email.", "Slack.", "WhatsApp.", "Drive."];
   let wordIndex = 0;
 
   return (
@@ -51,7 +52,7 @@ function HeroMock({ locale }: { locale: AppLocale }) {
           </p>
           <ApprovedBadge locale={locale} />
           <div className="rounded-2xl p-3.5 text-[13px] leading-snug" style={{ backgroundColor: "rgba(27,25,23,0.05)" }}>
-            <p className="mb-1 font-bold">{tr("João Silva", "João Silva")}</p>
+            <p className="mb-1 font-bold">{tr("João Silva", "Emma Clarke")}</p>
             <p style={{ color: "rgba(27,25,23,0.6)" }}>{tr("30 set · 14:32 · versão 3", "30 Sep · 14:32 · version 3")}</p>
           </div>
           <div className="mt-auto pt-2">
@@ -63,13 +64,26 @@ function HeroMock({ locale }: { locale: AppLocale }) {
   );
 }
 
-export function LandingHero({ locale }: { locale: AppLocale }) {
+export function FoundingOfferNote({ locale, offer, light = false }: { locale: AppLocale; offer: FoundingOffer; light?: boolean }) {
+  const { headline, spots } = foundingOfferLabel(offer, locale);
+
+  return (
+    <p className="mt-3 inline-flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-bold">
+      <span className="rounded-full px-3 py-1" style={{ backgroundColor: light ? cream : ink, color: light ? ink : cream }}>
+        {headline}
+      </span>
+      {spots && <span style={{ color: light ? "rgba(244,233,225,0.7)" : "rgba(27,25,23,0.6)" }}>{spots}</span>}
+    </p>
+  );
+}
+
+export function LandingHero({ locale, foundingOffer }: { locale: AppLocale; foundingOffer: FoundingOffer | null }) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
 
   return (
     <section className="mx-auto max-w-7xl px-5 pb-24 pt-16 sm:px-8 sm:pt-24">
       <div className="fade-up" style={{ "--d": "550ms" } as React.CSSProperties}>
-        <Eyebrow>{tr("Aprovação de conteúdo para agências", "Content approval for agencies")}</Eyebrow>
+        <Eyebrow>{tr("Aprovação de conteúdo para social media e agências", "Client approval for social media managers and agencies")}</Eyebrow>
       </div>
       <div className="mt-6">
         <HeroHeadline locale={locale} />
@@ -80,8 +94,8 @@ export function LandingHero({ locale }: { locale: AppLocale }) {
           style={{ "--d": "1350ms", color: "rgba(27,25,23,0.65)" } as React.CSSProperties}
         >
           {tr(
-            "Organize o calendário, envie o conteúdo para revisão e saiba exatamente o que o cliente aprovou - tudo em um único lugar.",
-            "Organize the calendar, send content for review, and know exactly what your client approved - all in one place."
+            "Envie o conteúdo para o cliente aprovar por um link e saiba exatamente qual versão ele aprovou. Mudou a arte ou a legenda? A aprovação volta para o cliente.",
+            "Send content to your client with one link and know exactly which version they approved. Change the creative or caption, and the approval resets."
           )}
         </p>
         <div className="fade-up flex flex-wrap items-center gap-3" style={{ "--d": "1500ms" } as React.CSSProperties}>
@@ -93,6 +107,7 @@ export function LandingHero({ locale }: { locale: AppLocale }) {
       </div>
       <div className="fade-up mt-4" style={{ "--d": "1650ms" } as React.CSSProperties}>
         <TrialNote>{tr("15 dias grátis · sem cartão", "15 days free · no credit card")}</TrialNote>
+        {foundingOffer && <FoundingOfferNote locale={locale} offer={foundingOffer} />}
       </div>
       <Reveal className="mt-16">
         <Parallax speed={0.06}>

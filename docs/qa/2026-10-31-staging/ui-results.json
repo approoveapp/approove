@@ -1,0 +1,87 @@
+{
+  "results": [
+    {
+      "gate": 5,
+      "name": "UI: member logs in on staging",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 5,
+      "name": "UI: oversize document blocks 'Montar calendário'",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 5,
+      "name": "UI: closing during processing and reopening resumes the job",
+      "pass": true,
+      "detail": "review after 12s"
+    },
+    {
+      "gate": 5,
+      "name": "UI: create is disabled until the review is acknowledged",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 5,
+      "name": "UI: create button counts 3 selected posts",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 5,
+      "name": "UI: editing after acknowledging resets it",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 5,
+      "name": "UI: review has no horizontal overflow at 390px",
+      "pass": true,
+      "detail": "0px"
+    },
+    {
+      "gate": 5,
+      "name": "UI: keyboard focus stays inside the dialog",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 5,
+      "name": "UI: review draft survives close/reopen",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": 5,
+      "name": "UI: confirm creates exactly the selected posts",
+      "pass": true,
+      "detail": "db +3, selected 3"
+    },
+    {
+      "gate": 5,
+      "name": "UI: created posts carry private media slides",
+      "pass": true,
+      "detail": "7 slides, 1 video"
+    },
+    {
+      "gate": 5,
+      "name": "UI: job committed",
+      "pass": true,
+      "detail": "claude-haiku-5-5 10513/1695 tok"
+    },
+    {
+      "gate": 5,
+      "name": "UI: no uncaught page errors",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Loading the script 'https://vercel.live/_next-live/feedback/feedback.js' violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-in",
+    "Loading the script 'https://vercel.live/_next-live/feedback/feedback.js' violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-in"
+  ]
+}

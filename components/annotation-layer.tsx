@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { AnnotationPin } from "./post-slide";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 
 interface AnnotationLayerProps {
   imageUrl: string;
@@ -111,6 +113,8 @@ function NewPinForm({
   inputRef: React.RefObject<HTMLTextAreaElement | null>;
   isSubmitting: boolean;
 }) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const { left, top } = computePopupPosition(anchor);
 
   return (
@@ -123,7 +127,7 @@ function NewPinForm({
       <div className="bg-background rounded-xl border shadow-2xl overflow-hidden">
         <div className="px-3 py-2 bg-primary text-primary-foreground text-xs font-semibold flex items-center gap-1.5">
           <MessageCircle className="h-3 w-3" />
-          Nova anotação
+          {tr("Nova anotação", "New annotation")}
         </div>
         <div className="p-3 space-y-2">
           <textarea
@@ -134,7 +138,7 @@ function NewPinForm({
               if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); onCreate(); }
               if (e.key === "Escape") onCancel();
             }}
-            placeholder="Descreva o ajuste necessário..."
+            placeholder={tr("Descreva o ajuste necessário...", "Describe the change needed...")}
             className="w-full text-sm px-3 py-2 border rounded-lg bg-muted/30 resize-none focus:outline-none focus:ring-2 focus:ring-primary/30"
             rows={2}
             autoFocus
@@ -147,7 +151,7 @@ function NewPinForm({
               onClick={onCancel}
               disabled={isSubmitting}
             >
-              Cancelar
+              {tr("Cancelar", "Cancel")}
             </Button>
             <Button
               size="sm"
@@ -155,7 +159,7 @@ function NewPinForm({
               onClick={onCreate}
               disabled={!newPinText.trim() || isSubmitting}
             >
-              <Send className="h-3 w-3 mr-1" /> {isSubmitting ? "Enviando..." : "Enviar"}
+              <Send className="h-3 w-3 mr-1" /> {isSubmitting ? tr("Enviando...", "Sending...") : tr("Enviar", "Send")}
             </Button>
           </div>
         </div>
@@ -194,13 +198,15 @@ function ActivePinDetail({
   onResolve?: (pinId: string, resolved: boolean) => void;
   onDelete?: (pinId: string) => void;
 }) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const isResolved = pin.resolved;
   const { left, top } = computePinDetailPosition(anchor);
   const hasActions = onResolve || onDelete;
 
   const handleDelete = () => {
     if (!onDelete) return;
-    if (!window.confirm("Excluir esta anotação?")) return;
+    if (!window.confirm(tr("Excluir esta anotação?", "Delete this annotation?"))) return;
     onDelete(pin.id);
   };
 
@@ -219,8 +225,8 @@ function ActivePinDetail({
             : pin.author === "client" ? "bg-blue-500" : "bg-violet-500"
         }`}>
           <MessageCircle className="h-3 w-3" />
-          {pin.author === "client" ? (pin.authorName ?? "Cliente") : "Agência"}
-          {isResolved && " - Resolvido"}
+          {pin.author === "client" ? (pin.authorName ?? tr("Cliente", "Client")) : tr("Agência", "Agency")}
+          {isResolved && ` - ${tr("Resolvido", "Resolved")}`}
         </div>
 
         <div className="p-3">
@@ -239,7 +245,7 @@ function ActivePinDetail({
                   className="w-full text-xs h-7"
                   onClick={() => onResolve(pin.id, false)}
                 >
-                  <X className="h-3 w-3 mr-1" /> Reabrir
+                  <X className="h-3 w-3 mr-1" /> {tr("Reabrir", "Reopen")}
                 </Button>
               ) : (
                 <Button
@@ -247,7 +253,7 @@ function ActivePinDetail({
                   className="w-full text-xs h-7 bg-green-500 hover:bg-green-600 text-white"
                   onClick={() => onResolve(pin.id, true)}
                 >
-                  <Check className="h-3 w-3 mr-1" /> Marcar como resolvido
+                  <Check className="h-3 w-3 mr-1" /> {tr("Marcar como resolvido", "Mark as resolved")}
                 </Button>
               )
             )}
@@ -258,7 +264,7 @@ function ActivePinDetail({
                 className="w-full text-xs h-7 text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/30"
                 onClick={handleDelete}
               >
-                <Trash2 className="h-3 w-3 mr-1" /> Excluir
+                <Trash2 className="h-3 w-3 mr-1" /> {tr("Excluir", "Delete")}
               </Button>
             )}
           </div>
@@ -288,16 +294,18 @@ function PinCountBadge({
   pending: number;
   className: string;
 }) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   if (total === 0) return null;
 
   return (
     <div className={className}>
       <MessageCircle className="h-3.5 w-3.5" />
       <span>
-        {total} {total === 1 ? "anotação" : "anotações"}
+        {total} {total === 1 ? tr("anotação", "annotation") : tr("anotações", "annotations")}
         {pending > 0 && pending < total && (
           <span className="font-normal opacity-90">
-            {" "}· {pending} pendente{pending === 1 ? "" : "s"}
+            {" "}· {pending} {pending === 1 ? tr("pendente", "pending") : tr("pendentes", "pending")}
           </span>
         )}
       </span>
@@ -357,6 +365,8 @@ export function AnnotationLayer({
   canAnnotate,
   author,
 }: AnnotationLayerProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const [activePinId, setActivePinId] = useState<string | null>(null);
   const [activePinAnchor, setActivePinAnchor] = useState<ScreenPoint | null>(null);
   const [newPin, setNewPin] = useState<NewPinState | null>(null);
@@ -851,7 +861,7 @@ export function AnnotationLayer({
                   ? "bg-background/90 text-muted-foreground hover:text-foreground"
                   : "bg-muted text-foreground border-muted-foreground/30"
               }`}
-              title={showPins ? "Ocultar marcações" : "Mostrar marcações"}
+              title={showPins ? tr("Ocultar marcações", "Hide markers") : tr("Mostrar marcações", "Show markers")}
             >
               {showPins ? (
                 <EyeOff className="h-3.5 w-3.5" />
@@ -866,7 +876,7 @@ export function AnnotationLayer({
             type="button"
             onClick={openFullscreen}
             className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-background/90 backdrop-blur-sm border shadow-sm text-xs text-muted-foreground hover:text-foreground transition-colors"
-            title="Ampliar imagem"
+            title={tr("Ampliar imagem", "Enlarge image")}
           >
             <Maximize2 className="h-3.5 w-3.5" />
           </button>
@@ -880,10 +890,10 @@ export function AnnotationLayer({
                   ? "bg-primary text-primary-foreground border-primary"
                   : "bg-background/90 text-muted-foreground hover:text-foreground"
               }`}
-              title={annotateMode ? "Desativar anotações" : "Ativar anotações"}
+              title={annotateMode ? tr("Desativar anotações", "Turn off annotations") : tr("Ativar anotações", "Turn on annotations")}
             >
               <Crosshair className="h-3.5 w-3.5" />
-              {annotateMode ? "Anotando" : "Anotar"}
+              {annotateMode ? tr("Anotando", "Annotating") : tr("Anotar", "Annotate")}
             </button>
           )}
         </div>
@@ -899,15 +909,15 @@ export function AnnotationLayer({
           onClick={closeFullscreen}
           role="dialog"
           aria-modal="true"
-          aria-label="Visualização ampliada da arte"
+          aria-label={tr("Visualização ampliada da arte", "Enlarged creative view")}
         >
           {/* Close button */}
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); closeFullscreen(); }}
             className="absolute top-4 right-4 z-10 flex items-center justify-center w-11 h-11 rounded-full bg-white/15 text-white hover:bg-white/25 border border-white/20 transition-colors shadow-lg"
-            aria-label="Fechar visualização ampliada"
-            title="Fechar (Esc)"
+            aria-label={tr("Fechar visualização ampliada", "Close enlarged view")}
+            title={tr("Fechar (Esc)", "Close (Esc)")}
           >
             <X className="h-6 w-6" />
           </button>
@@ -926,7 +936,7 @@ export function AnnotationLayer({
                     ? "bg-white/10 text-white hover:bg-white/20"
                     : "bg-white/20 text-white"
                 }`}
-                title={showPins ? "Ocultar marcações" : "Mostrar marcações"}
+                title={showPins ? tr("Ocultar marcações", "Hide markers") : tr("Mostrar marcações", "Show markers")}
               >
                 {showPins ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 Pins
@@ -943,7 +953,7 @@ export function AnnotationLayer({
                 }`}
               >
                 <Crosshair className="h-4 w-4" />
-                {annotateMode ? "Anotando" : "Anotar"}
+                {annotateMode ? tr("Anotando", "Annotating") : tr("Anotar", "Annotate")}
               </button>
             )}
           </div>

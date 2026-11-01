@@ -2,10 +2,10 @@ import { getLandingFaqs } from "@/components/landing/faq";
 import { getAppBaseUrl } from "@/lib/app-url";
 import { localizedText, type AppLocale } from "@/lib/locale";
 
-export function LandingJsonLd({ locale }: { locale: AppLocale }) {
+export function LandingJsonLd({ locale, aiImport }: { locale: AppLocale; aiImport: boolean }) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const base = getAppBaseUrl();
-  const faqs = getLandingFaqs(locale);
+  const faqs = getLandingFaqs(locale, aiImport);
 
   const graph = {
     "@context": "https://schema.org",
@@ -17,8 +17,8 @@ export function LandingJsonLd({ locale }: { locale: AppLocale }) {
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web",
         description: tr(
-          "Espaço de aprovação de conteúdo para agências e times de marketing. Calendário editorial, revisão do cliente e registro do que foi aprovado.",
-          "Client content approval workspace for agencies and marketing teams. Editorial calendar, client review, and a record of what was approved."
+          "Aprovação de conteúdo para social media e agências. Calendário editorial, revisão do cliente por link e registro de qual versão foi aprovada.",
+          "Client content approval for social media managers and agencies. Editorial calendar, client review by link, and a record of which version was approved."
         ),
       },
       {

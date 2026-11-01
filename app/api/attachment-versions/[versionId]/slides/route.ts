@@ -1,4 +1,7 @@
+import { assertImportMediaOrganization } from "@/lib/import/media-write-access";
 import { NextRequest, NextResponse } from "next/server";
+import { localizedText } from "@/lib/locale";
+import { getRequestLocale } from "@/lib/request-locale";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { mediaTypeSchema, mediaUrlSchema } from "@/lib/validation";
@@ -35,6 +38,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ versionId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization, user } = await requireActiveOrganization();
     const { versionId } = await params;
@@ -43,8 +47,13 @@ export async function POST(
 
     const version = await getAttachmentVersionForOrganization(versionId, organization.id);
     if (!version) {
-      return NextResponse.json({ error: "Versão não encontrada" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Versão não encontrada", "Version not found.") },
+        { status: 404 }
+      );
     }
+
+    assertImportMediaOrganization([data.url], organization.id);
 
     const nextOrder = version.slides.length;
     await prisma.attachmentSlide.create({
@@ -68,10 +77,13 @@ export async function POST(
     });
     return NextResponse.json({ version: updated });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error adding slide:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }
 
@@ -79,6 +91,7 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ versionId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization, user } = await requireActiveOrganization();
     const { versionId } = await params;
@@ -87,16 +100,25 @@ export async function PATCH(
 
     const version = await getAttachmentVersionForOrganization(versionId, organization.id);
     if (!version) {
-      return NextResponse.json({ error: "Versão não encontrada" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Versão não encontrada", "Version not found.") },
+        { status: 404 }
+      );
     }
 
     const existingIds = new Set(version.slides.map((slide) => slide.id));
     if (data.slideIds.length !== existingIds.size) {
-      return NextResponse.json({ error: "Lista de slides incompleta" }, { status: 400 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Lista de slides incompleta", "Incomplete slide list.") },
+        { status: 400 }
+      );
     }
     for (const slideId of data.slideIds) {
       if (!existingIds.has(slideId)) {
-        return NextResponse.json({ error: "Slide inválido" }, { status: 400 });
+        return NextResponse.json(
+          { error: localizedText(locale, "Slide inválido", "Invalid slide.") },
+          { status: 400 }
+        );
       }
     }
 
@@ -120,10 +142,13 @@ export async function PATCH(
     });
     return NextResponse.json({ version: updated });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error reordering slides:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }
 
@@ -131,31 +156,47 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ versionId: string }> }
 ) {
+  const locale = await getRequestLocale();
   try {
     const { organization, user } = await requireActiveOrganization();
     const { versionId } = await params;
     const { slideId } = await request.json();
 
     if (!slideId || typeof slideId !== "string") {
-      return NextResponse.json({ error: "slideId é obrigatório" }, { status: 400 });
+      return NextResponse.json(
+        { error: localizedText(locale, "slideId é obrigatório", "slideId is required.") },
+        { status: 400 }
+      );
     }
 
     const version = await getAttachmentVersionForOrganization(versionId, organization.id);
     if (!version) {
-      return NextResponse.json({ error: "Versão não encontrada" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Versão não encontrada", "Version not found.") },
+        { status: 404 }
+      );
     }
 
     const minSlides = version.postAttachment.type === "carousel" ? 2 : 1;
     if (version.slides.length <= minSlides) {
       return NextResponse.json(
-        { error: `Mínimo de ${minSlides} slide(s) neste material` },
+        {
+          error: localizedText(
+            locale,
+            `Mínimo de ${minSlides} slide(s) neste material`,
+            `This creative needs at least ${minSlides} slide(s).`
+          ),
+        },
         { status: 400 }
       );
     }
 
     const slide = version.slides.find((item) => item.id === slideId);
     if (!slide) {
-      return NextResponse.json({ error: "Slide não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: localizedText(locale, "Slide não encontrado", "Slide not found.") },
+        { status: 404 }
+      );
     }
 
     await prisma.attachmentSlide.delete({ where: { id: slideId } });
@@ -171,9 +212,12 @@ export async function DELETE(
     });
     return NextResponse.json({ version: updated });
   } catch (error) {
-    const handled = apiErrorResponse(error);
+    const handled = apiErrorResponse(error, locale);
     if (handled) return handled;
     console.error("Error deleting slide:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: localizedText(locale, "Erro interno do servidor", "Internal server error.") },
+      { status: 500 }
+    );
   }
 }

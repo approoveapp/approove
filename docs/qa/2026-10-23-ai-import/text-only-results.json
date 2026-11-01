@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "record": {
+    "status": "pending",
+    "productionStage": "internal_review",
+    "scheduledAt": "2026-11-03T12:30:00+00:00",
+    "handoffNote": "Importado com IA · Formato: Artigo · Publicação somente texto. Não precisa de arte nem aprovação concedida. · Publicação só de texto, sem arte por decisão na revisão."
+  }
+}

@@ -15,3 +15,15 @@ describe("BRL checkout locale", () => {
     expect(PLAN_AMOUNTS.studio.brl).toBe(79700);
   });
 });
+
+describe("chosen language", () => {
+  it("wins over country and browser language", () => {
+    expect(localeFromRequest({ override: "en", country: "BR", acceptLanguage: "pt-BR" })).toBe("en");
+    expect(localeFromRequest({ override: "pt", country: "US", acceptLanguage: "en-US" })).toBe("pt-BR");
+  });
+
+  it("ignores values it does not know", () => {
+    expect(localeFromRequest({ override: "fr", country: "BR" })).toBe("pt-BR");
+    expect(localeFromRequest({ override: "", country: "US" })).toBe("en");
+  });
+});

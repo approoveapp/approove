@@ -1,0 +1,1106 @@
+{
+  "checked": 220,
+  "allExpected": true,
+  "checks": [
+    {
+      "path": "app/layout.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/globals.css",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/privacidade/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/termos/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/convite/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/convite/invite-actions.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/subscribe/subscribe-plans.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/subscribe/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/clients/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/clients/[clientSlug]/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/clients/[clientSlug]/reviewers/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/clients/[clientSlug]/imports/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/clients/[clientSlug]/imports/media/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/clients/[clientSlug]/tokens/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/tasks/mine/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/posts/[postId]/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/posts/[postId]/comments/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/posts/[postId]/handoff/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/posts/[postId]/status/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/posts/[postId]/attachments/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/calendar/[clientSlug]/[versionId]/posts/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/calendar/[clientSlug]/[versionId]/posts/create/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/auth/signup/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/auth/send-code/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/auth/[...nextauth]/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/auth/forgot-password/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/auth/reset-password/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/reviewers/[reviewerId]/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/attachment-versions/[versionId]/pins/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/attachment-versions/[versionId]/slides/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/user/onboarding/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/imports/[jobId]/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/imports/[jobId]/commit/route.ts",
+      "expectedChanged": true,
+      "matches": true
+    },
+    {
+      "path": "app/api/team/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/team/[memberId]/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/team/invitations/[membershipId]/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/check-admin/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/attachments/[attachmentId]/versions/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/invites/[inviteId]/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/billing/portal/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/billing/confirm/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/billing/checkout/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/upload/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/cron/import-cleanup/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/stripe/webhook/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/api/share/validate/route.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(auth)/layout.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(auth)/signup/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(auth)/invite/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(auth)/forgot-password/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(auth)/reset-password/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(auth)/login/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/c/[clientSlug]/[versionId]/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/layout.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/dashboard/layout.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/dashboard/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/dashboard/clients/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/dashboard/clients/new/layout.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/dashboard/clients/new/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/dashboard/clients/[slug]/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/dashboard/settings/billing-actions.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/dashboard/settings/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/dashboard/team/layout.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/dashboard/team/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "app/(admin)/onboarding/page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/media-source-input.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/theme-provider.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/image-upload.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/post-slide-editable.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/post-handoff-dialog.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/media-thumb.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/carousel-slides-manager.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/locale-provider.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/empty-day-slide.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/post-production-fields.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/trial-banner.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/version-selector.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/legal-page-layout.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/google-analytics.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/image-viewer.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/app-sidebar.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/post-material-form.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/mobile-sidebar.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/approval-activity.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing-page.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/slide-media-preview.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/analytics-route-tracker.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/carousel-slides-input.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/calendar-view.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/session-provider.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/header.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/comment-thread.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/client-reviewers-tab.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/post-slide.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/annotation-layer.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ai-import-dialog.tsx",
+      "expectedChanged": true,
+      "matches": true
+    },
+    {
+      "path": "components/theme-toggle.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/cookie-consent.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/attachment-sequence-viewer.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/batch-media-upload.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/calendar-modal.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/tabs.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/card.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/sheet.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/label.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/tooltip.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/avatar.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/dialog.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/badge.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/separator.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/button.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/dropdown-menu.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/input.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/ui/skeleton.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/final-cta.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/hero.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/navbar.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/pricing.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/client-experience.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/ai-import.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/features.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/rotating-word.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/product-frames.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/parallax.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/json-ld.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/masked-words.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/tokens.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/preloader.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/integrity.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/workflow.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/faq.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/problem.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/scroll-fill.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/reveal.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "components/landing/ui.tsx",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/prisma.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/validation.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/approval-types.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/production-stages.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/security.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/media-utils.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/stripe.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/crypto-tokens.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/share-access.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/viewed-approval-package.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/billing-access.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/request-locale.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/stripe.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/api-error.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/password-reset.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/analytics.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/org-slug.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/workspace-unavailable.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/plan-limits.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/locale.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/approval.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/pricing.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/locale-pricing.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/auth-redirect.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/stripe-sync.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/email.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/utils.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/client-content-boundary.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/stripe-webhook.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/post-serializer.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/viewed-approval-package.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/email-address.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/billing-access.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/safe-redirect.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/types.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/media-storage.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/google-auth.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/app-url.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/plan-limits.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/post-access.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/attachment-version-access.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/google-link.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/post-serializer.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/file-sniff.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/google-auth.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/stripe-sync-guard.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/attachment-slides.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/approval.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/org-slug.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/rate-limit.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/workspace-unavailable.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/stripe-sync.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/auth.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/login-code.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/ensure-organization.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/email-templates/password-reset.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/email-templates/member-invite.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/email-templates/login-code.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/email-templates/reviewer-invite.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/import/jobs.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/import/cleanup.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/import/proposal.ts",
+      "expectedChanged": true,
+      "matches": true
+    },
+    {
+      "path": "lib/import/files.test.ts",
+      "expectedChanged": true,
+      "matches": true
+    },
+    {
+      "path": "lib/import/proposal.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/import/claude.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/import/cleanup.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/import/media.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "lib/import/files.ts",
+      "expectedChanged": true,
+      "matches": true
+    },
+    {
+      "path": "lib/import/media.test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/align-stripe-prices.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/check-stripe-prices.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/setup-billing-v2-test.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/inspect-turso-billing.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/stripe-test-lifecycle.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/grant-demo-trial.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/ensure-stripe-webhook.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/align-stripe-live.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/test-db.mjs",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/align-stripe-portal.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/list-stripe-needed-products.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/qa/prod-schema-snapshot.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/qa/google-link.ts",
+      "expectedChanged": false,
+      "matches": true
+    },
+    {
+      "path": "scripts/qa/security.ts",
+      "expectedChanged": true,
+      "matches": true
+    },
+    {
+      "path": "scripts/qa/verify-migration.sh",
+      "expectedChanged": false,
+      "matches": true
+    }
+  ]
+}

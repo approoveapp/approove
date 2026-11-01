@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Link2 } from "lucide-react";
 import { ImageUpload } from "./image-upload";
 import { inferMediaType, type MediaType } from "@/lib/media-utils";
+import { useLocale } from "@/components/locale-provider";
+import { localizedText } from "@/lib/locale";
 
 interface MediaSourceInputProps {
   value: string;
@@ -24,6 +26,8 @@ export function MediaSourceInput({
   allowUrl = true,
   allowVideo = false,
 }: MediaSourceInputProps) {
+  const locale = useLocale();
+  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const [useUrl, setUseUrl] = useState(false);
 
   const emitChange = (url: string | null) => {
@@ -38,7 +42,7 @@ export function MediaSourceInput({
           type="url"
           value={value}
           onChange={(e) => emitChange(e.target.value)}
-          placeholder="https://exemplo.com/arquivo.jpg"
+          placeholder={tr("https://exemplo.com/arquivo.jpg", "https://example.com/file.jpg")}
           className="w-full px-3 py-2 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/30"
           autoFocus
         />
@@ -50,7 +54,7 @@ export function MediaSourceInput({
           }}
           className="text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
-          ← Fazer upload de arquivo
+          ← {tr("Fazer upload de arquivo", "Upload a file")}
         </button>
       </div>
     );
@@ -76,7 +80,7 @@ export function MediaSourceInput({
           className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
           <Link2 className="h-3 w-3" />
-          Ou usar URL externa
+          {tr("Ou usar URL externa", "Or use an external URL")}
         </button>
       )}
     </div>

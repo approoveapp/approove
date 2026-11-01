@@ -6,6 +6,7 @@ import { ensureProductAccess } from "@/lib/stripe-sync";
 import {
   WORKSPACE_UNAVAILABLE_CODE,
   WORKSPACE_UNAVAILABLE_MESSAGE,
+  WORKSPACE_UNAVAILABLE_MESSAGE_EN,
 } from "@/lib/workspace-unavailable";
 
 export type OrganizationRole = "owner" | "admin" | "member";
@@ -51,7 +52,11 @@ export async function requireOrganization() {
 
   if (!membership) {
     if (await hasPendingInvites(user.id)) {
-      throw new ApiError(403, "Você tem um convite pendente", "INVITE_PENDING");
+      throw new ApiError(
+        403,
+        { pt: "Você tem um convite pendente", en: "You have a pending invite." },
+        "INVITE_PENDING"
+      );
     }
     membership = await ensureOrganizationForUser({
       id: user.id,
@@ -76,7 +81,14 @@ export function requireRole(
   allowed: OrganizationRole[] = ["owner", "admin"]
 ) {
   if (!allowed.includes(membership.role as OrganizationRole)) {
-    throw new ApiError(403, "Apenas proprietários e administradores podem fazer isso", "FORBIDDEN_ROLE");
+    throw new ApiError(
+      403,
+      {
+        pt: "Apenas proprietários e administradores podem fazer isso",
+        en: "Only owners and admins can do this.",
+      },
+      "FORBIDDEN_ROLE"
+    );
   }
 }
 
@@ -93,7 +105,11 @@ export async function requireActiveOrganization(options?: { roles?: Organization
 
   const organization = await ensureProductAccess(context.organization);
   if (!organization) {
-    throw new ApiError(402, WORKSPACE_UNAVAILABLE_MESSAGE, WORKSPACE_UNAVAILABLE_CODE);
+    throw new ApiError(
+      402,
+      { pt: WORKSPACE_UNAVAILABLE_MESSAGE, en: WORKSPACE_UNAVAILABLE_MESSAGE_EN },
+      WORKSPACE_UNAVAILABLE_CODE
+    );
   }
 
   return { ...context, organization };

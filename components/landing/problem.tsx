@@ -2,11 +2,12 @@ import { ScrollFill } from "@/components/landing/scroll-fill";
 import { localizedText, type AppLocale } from "@/lib/locale";
 import { blue, coral, cream, ink } from "@/components/landing/tokens";
 
-export function LandingMarquee({ locale }: { locale: AppLocale }) {
-  const items =
+export function LandingMarquee({ locale, aiImport }: { locale: AppLocale; aiImport: boolean }) {
+  const allItems =
     locale === "pt-BR"
-      ? ["Calendário editorial", "Revisão interna", "Link do cliente", "Pins na arte", "Versões", "Aprovação", "Atividade", "Papéis"]
-      : ["Editorial calendar", "Internal review", "Client link", "Creative pins", "Versions", "Approval", "Activity", "Roles"];
+      ? ["Importação com IA", "Calendário editorial", "Revisão interna", "Link do cliente", "Pins na arte", "Versões", "Aprovação", "Atividade", "Papéis"]
+      : ["AI import", "Editorial calendar", "Internal review", "Client link", "Creative pins", "Versions", "Approval", "Activity", "Roles"];
+  const items = aiImport ? allItems : allItems.slice(1);
 
   const strip = (ariaHidden: boolean) => (
     <div aria-hidden={ariaHidden} className="flex shrink-0 items-center">
@@ -37,7 +38,7 @@ export function LandingProblem({ locale }: { locale: AppLocale }) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const fragments = locale === "pt-BR"
     ? ["WhatsApp", "E-mail", "Drive", "PDF", "Prints", "Áudios", "Qual versão foi aprovada?"]
-    : ["WhatsApp", "Email", "Drive", "PDF", "Screenshots", "Voice notes", "Which version was approved?"];
+    : ["Email", "Slack", "WhatsApp", "Drive", "PDF", "Screenshots", "Voice notes", "Which version was approved?"];
 
   return (
     <section style={{ backgroundColor: ink, color: cream }}>

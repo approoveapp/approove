@@ -1,0 +1,770 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  AlertTriangle,
+  ChevronDown,
+  ChevronUp,
+  FileText,
+  Film,
+  ImageIcon,
+  Loader2,
+  Sparkles,
+  Trash2,
+  Upload,
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
+import {
+  buildImportNote,
+  IMPORT_CHANNELS,
+  IMPORT_FORMAT_LABELS,
+  IMPORT_FORMATS,
+  MAX_IMPORT_MEDIA,
+  proposalLocalDateTime,
+  unusedMediaNames,
+  type ImportMedia,
+  type ImportProposalPost,
+  type ImportFormat,
+} from "@/lib/import/proposal";
+import { DEFAULT_IMPORT_TIMEZONE, IMPORT_TIMEZONES, importDateTimeToIso, repeatedMediaNames, duplicatePostKeys } from "@/lib/import/review";
+import type { SerializedImportJob } from "@/lib/import/jobs";
+
+const ACCEPT =
+  ".pdf,.docx,.xlsx,.csv,.tsv,.txt,.md,image/jpeg,image/png,image/gif,image/webp,video/mp4,video/quicktime";
+/** Documentos vão juntos num pedido; cada mídia vai num pedido próprio (teto de 4,5 MB na Vercel). */
+const MAX_DOCS_BYTES = 4 * 1024 * 1024;
+const MAX_DOCS = 10;
+const MAX_MEDIA_BYTES = 4 * 1024 * 1024;
+const POLL_MS = 3000;
+/** Avisos além disso ficam recolhidos para os posts aparecerem sem rolar. */
+const WARNINGS_PREVIEW = 3;
+
+type Phase = "loading" | "upload" | "processing" | "review" | "failed";
+
+interface Draft {
+  key: string;
+  include: boolean;
+  scheduledLocal: string;
+  channel: string;
+  title: string;
+  copyText: string;
+  media: string[];
+  format: ImportFormat;
+  textOnly: boolean;
+  source: ImportProposalPost;
+}
+
+interface Quota {
+  used: number;
+  limit: number | null;
+}
+
+interface AiImportDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  clientSlug: string;
+  clientName: string;
+  onImported: () => void;
+}
+
+function toDrafts(posts: ImportProposalPost[], media: ImportMedia[]): Draft[] {
+  const known = new Set(media.map((item) => item.name));
+  return posts
+    .map((post, index) => ({
+      key: `${index}`,
+      include: true,
+      scheduledLocal: proposalLocalDateTime(post),
+      channel: post.channel,
+      title: post.title,
+      copyText: post.copyText,
+      format: post.format,
+      textOnly: false,
+      // Nome que não está entre as mídias enviadas é descartado aqui; o servidor recusaria.
+      media: post.media.filter((name) => known.has(name)),
+      source: post,
+    }))
+    .sort((a, b) => a.scheduledLocal.localeCompare(b.scheduledLocal));
+}
+
+function isMediaFile(file: File) {
+  return /^(image|video)\//.test(file.type) || /\.(jpe?g|png|gif|webp|mp4|mov)$/i.test(file.name);
+}
+
+function formatSize(bytes: number) {
+  return bytes < 1024 * 1024
+    ? `${Math.max(1, Math.round(bytes / 1024))} KB`
+    : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+async function readError(res: Response, fallback: string) {
+  const data = await res.json().catch(() => ({}));
+  return typeof data.error === "string" ? data.error : fallback;
+}
+
+export function AiImportDialog({
+  open,
+  onOpenChange,
+  clientSlug,
+  clientName,
+  onImported,
+}: AiImportDialogProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const reviewedJobId = useRef<string | null>(null);
+  const [timeZone, setTimeZone] = useState(DEFAULT_IMPORT_TIMEZONE);
+  const [phase, setPhase] = useState<Phase>("loading");
+  const [files, setFiles] = useState<File[]>([]);
+  const [progress, setProgress] = useState<string | null>(null);
+  const [dragOver, setDragOver] = useState(false);
+  const [job, setJob] = useState<SerializedImportJob | null>(null);
+  const [drafts, setDrafts] = useState<Draft[]>([]);
+  const [quota, setQuota] = useState<Quota | null>(null);
+  const [configured, setConfigured] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [showAllWarnings, setShowAllWarnings] = useState(false);
+
+  const applyJob = useCallback((next: SerializedImportJob) => {
+    setJob(next);
+    if (next.status === "processing") {
+      setPhase("processing");
+    } else if (next.status === "review" && next.proposal) {
+      // Fechar e reabrir nesta aba não deve apagar a revisão já feita.
+      if (reviewedJobId.current !== next.id) {
+        setDrafts(toDrafts(next.proposal.posts, next.media));
+        reviewedJobId.current = next.id;
+      }
+      setShowAllWarnings(false);
+      setPhase("review");
+    } else {
+      setError(next.error ?? "A importação falhou. Tente de novo.");
+      setPhase("failed");
+    }
+  }, []);
+
+  // Ao abrir: retoma uma importação em andamento ou aguardando revisão.
+  useEffect(() => {
+    if (!open) return;
+    let cancelled = false;
+    setPhase("loading");
+    setError(null);
+
+    (async () => {
+      try {
+        const res = await fetch(`/api/clients/${clientSlug}/imports`);
+        if (!res.ok) throw new Error(await readError(res, "Erro ao carregar importação"));
+        const data = await res.json();
+        if (cancelled) return;
+        setQuota(data.quota);
+        setConfigured(data.configured !== false);
+        if (data.job) applyJob(data.job);
+        else setPhase("upload");
+      } catch (err) {
+        if (cancelled) return;
+        setError(err instanceof Error ? err.message : "Erro ao carregar importação");
+        setPhase("upload");
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [open, clientSlug, applyJob]);
+
+  useEffect(() => {
+    if (!open || phase !== "processing" || !job) return;
+    const timer = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/imports/${job.id}`);
+        if (!res.ok) throw new Error(await readError(res, "Não foi possível atualizar o andamento."));
+        const data = await res.json();
+        setError(null);
+        if (data.job.status !== "processing") applyJob(data.job);
+      } catch {
+        setError("Não conseguimos atualizar o andamento. Tentaremos novamente; não reenvie os arquivos.");
+      }
+    }, POLL_MS);
+    return () => clearInterval(timer);
+  }, [open, phase, job, applyJob]);
+
+  const docs = files.filter((file) => !isMediaFile(file));
+  const mediaFiles = files.filter(isMediaFile);
+  const docsSize = docs.reduce((sum, file) => sum + file.size, 0);
+  const oversizedMedia = mediaFiles.filter((file) => file.size > MAX_MEDIA_BYTES);
+  const repeatedNames = repeatedMediaNames(mediaFiles.map(file => file.name.slice(0, 200)));
+  const filesProblem =
+    repeatedNames.length > 0
+      ? `Há artes com o mesmo nome: ${repeatedNames.join(", ")}. Renomeie antes de enviar para evitar associações incorretas.`
+      : docsSize > MAX_DOCS_BYTES
+      ? `Os documentos somam ${formatSize(docsSize)} e o máximo é 4 MB no total. Divida em duas importações ou envie um PDF menor.`
+      : docs.length > MAX_DOCS
+        ? `Máximo de ${MAX_DOCS} documentos por importação.`
+        : mediaFiles.length > MAX_IMPORT_MEDIA
+          ? `Máximo de ${MAX_IMPORT_MEDIA} imagens e vídeos por importação.`
+          : oversizedMedia.length > 0
+            ? oversizedMedia.length === 1
+              ? "Um arquivo passa de 4 MB (marcado acima). Comprima e envie de novo, ou tire daqui e anexe depois no calendário de produção."
+              : `${oversizedMedia.length} arquivos passam de 4 MB (marcados acima). Comprima e envie de novo, ou tire daqui e anexe depois no calendário de produção.`
+            : null;
+  const quotaReached = quota?.limit != null && quota.used >= quota.limit;
+
+  const addFiles = (list: FileList | File[]) => {
+    const incoming = Array.from(list).filter((file) => file.size > 0);
+    setFiles((prev) => {
+      const names = new Set(prev.map((file) => `${file.name}:${file.size}`));
+      return [...prev, ...incoming.filter((file) => {
+        const key = `${file.name}:${file.size}`;
+        if (names.has(key)) return false;
+        names.add(key);
+        return true;
+      })];
+    });
+    setError(null);
+  };
+
+  const startImport = async () => {
+    setBusy(true);
+    setError(null);
+    try {
+      // Artes primeiro, uma por vez: o pedido da importação leva só as URLs.
+      const uploaded: ImportMedia[] = [];
+      for (const [index, file] of mediaFiles.entries()) {
+        setProgress(`Enviando artes (${index + 1} de ${mediaFiles.length})...`);
+        const body = new FormData();
+        body.append("file", file);
+        const res = await fetch(`/api/clients/${clientSlug}/imports/media`, { method: "POST", body });
+        if (!res.ok) throw new Error(await readError(res, `Erro ao enviar "${file.name}"`));
+        uploaded.push((await res.json()).media);
+      }
+
+      setProgress("Enviando documentos...");
+      const formData = new FormData();
+      docs.forEach((file) => formData.append("files", file));
+      formData.append("media", JSON.stringify(uploaded));
+      const res = await fetch(`/api/clients/${clientSlug}/imports`, {
+        method: "POST",
+        body: formData,
+      });
+      if (!res.ok) throw new Error(await readError(res, "Erro ao iniciar importação"));
+      const data = await res.json();
+      setQuota((prev) => (prev ? { ...prev, used: prev.used + 1 } : prev));
+      applyJob(data.job);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erro ao iniciar importação");
+    } finally {
+      setBusy(false);
+      setProgress(null);
+    }
+  };
+
+  const updateDraft = (key: string, patch: Partial<Draft>) =>
+    setDrafts((prev) => prev.map((draft) => (draft.key === key ? { ...draft, ...patch } : draft)));
+
+  const warnings = job?.proposal?.warnings ?? [];
+  // Recolher só quando sobra mais de um aviso escondido.
+  const warningsCollapsible = warnings.length > WARNINGS_PREVIEW + 1;
+  const visibleWarnings =
+    warningsCollapsible && !showAllWarnings ? warnings.slice(0, WARNINGS_PREVIEW) : warnings;
+
+  const selected = drafts.filter((draft) => draft.include);
+  const duplicateKeys = duplicatePostKeys(selected);
+  const overPostLimit = selected.length > 200;
+  const allSelected = drafts.length > 0 && selected.length === drafts.length;
+  const mediaByName = new Map((job?.media ?? []).map((item) => [item.name, item]));
+  const unusedMedia = unusedMediaNames(job?.media ?? [], selected);
+
+  const commit = async () => {
+    if (!job) return;
+    const invalid = selected.find((draft) => !importDateTimeToIso(draft.scheduledLocal, timeZone));
+    if (invalid) {
+      setError(`Confira data, horário e fuso em "${invalid.title || "publicação sem título"}". Horários ambíguos na mudança de horário de verão precisam de ajuste.`);
+      return;
+    }
+    if (overPostLimit) { setError("Selecione no máximo 200 publicações por importação."); return; }
+
+    setBusy(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/imports/${job.id}/commit`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          posts: selected.map((draft) => ({
+            scheduledAt: importDateTimeToIso(draft.scheduledLocal, timeZone)!,
+            channel: draft.channel,
+            format: draft.format,
+            title: draft.title,
+            copyText: draft.copyText,
+            textOnly: draft.textOnly,
+            handoffNote: buildImportNote({ ...draft.source, format: draft.format, notes: [draft.source.notes, draft.textOnly && "Publicação só de texto, sem arte por decisão na revisão."].filter(Boolean).join(" · ") }),
+            media: draft.media,
+          })),
+        }),
+      });
+      if (!res.ok) throw new Error(await readError(res, "Erro ao criar publicações"));
+      resetAndClose();
+      onImported();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erro ao criar publicações");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const discard = async () => {
+    if (!job) return;
+    if (!window.confirm("Descartar esta importação? A cota do mês continua usada.")) return;
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/imports/${job.id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error(await readError(res, "Não foi possível descartar a importação."));
+      reviewedJobId.current = null;
+      setJob(null);
+      setDrafts([]);
+      setError(null);
+      setPhase("upload");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erro ao descartar importação");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const resetAndClose = () => {
+    reviewedJobId.current = null;
+    setFiles([]);
+    setJob(null);
+    setDrafts([]);
+    setError(null);
+    onOpenChange(false);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={(value) => { if (!busy) onOpenChange(value); }}>
+      <DialogContent className="max-w-3xl max-h-[90vh] flex flex-col gap-0 p-0 overflow-hidden">
+        <DialogHeader className="px-6 pt-6 pb-4 shrink-0">
+          <DialogTitle className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-primary" />
+            Importar com IA
+          </DialogTitle>
+          <DialogDescription className="text-sm text-muted-foreground pt-1">
+            {phase === "review"
+              ? "Confira as publicações encontradas. Nada é criado até você confirmar."
+              : `Envie o planejamento, a planilha de pauta e as artes de ${clientName}. A IA migra o calendário com datas, legendas e artes, e você revisa antes de criar.`}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-6 pb-4 space-y-4">
+          {phase === "loading" && (
+            <div className="flex justify-center py-16">
+              <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+            </div>
+          )}
+
+          {phase === "upload" && (
+            <>
+              {!configured && (
+                <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300">
+                  A importação com IA ainda não está configurada neste ambiente.
+                </p>
+              )}
+
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => inputRef.current?.click()}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
+                }}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDragOver(true);
+                }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setDragOver(false);
+                  addFiles(e.dataTransfer.files);
+                }}
+                className={cn(
+                  "flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed p-8 text-center cursor-pointer transition-colors",
+                  dragOver ? "border-primary bg-primary/5" : "hover:bg-muted/40"
+                )}
+              >
+                <Upload className="h-8 w-8 text-muted-foreground" />
+                <p className="text-sm font-medium">Arraste os arquivos ou clique para escolher</p>
+                <p className="text-xs text-muted-foreground">
+                  Documentos (PDF, DOCX, XLSX, CSV, TXT): até 10 e 4 MB no total
+                  <br />
+                  Artes (imagens e vídeos): até 30, com até 4 MB cada
+                </p>
+                <input
+                  ref={inputRef}
+                  type="file"
+                  multiple
+                  accept={ACCEPT}
+                  className="hidden"
+                  onChange={(e) => {
+                    if (e.target.files) addFiles(e.target.files);
+                    e.target.value = "";
+                  }}
+                />
+              </div>
+
+              {files.length > 0 && (
+                <div className="space-y-2">
+                  {files.map((file, index) => {
+                    const tooBig = isMediaFile(file) && file.size > MAX_MEDIA_BYTES;
+                    return (
+                      <div
+                        key={`${file.name}-${file.size}`}
+                        className={cn(
+                          "flex items-center justify-between gap-2 rounded-lg border px-3 py-2",
+                          tooBig && "border-destructive/60 bg-destructive/5"
+                        )}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          {!isMediaFile(file) ? (
+                            <FileText className="h-4 w-4 shrink-0 text-muted-foreground" />
+                          ) : file.type.startsWith("video/") || /\.(mp4|mov)$/i.test(file.name) ? (
+                            <Film className="h-4 w-4 shrink-0 text-muted-foreground" />
+                          ) : (
+                            <ImageIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
+                          )}
+                          <span className="text-sm truncate">{file.name}</span>
+                          <span
+                            className={cn("text-xs shrink-0", tooBig ? "text-destructive font-medium" : "text-muted-foreground")}
+                          >
+                            {formatSize(file.size)}
+                            {tooBig && " · acima de 4 MB"}
+                          </span>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 shrink-0 text-destructive"
+                          onClick={() => setFiles((prev) => prev.filter((_, i) => i !== index))}
+                          aria-label={`Remover ${file.name}`}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    );
+                  })}
+                  {filesProblem && <p className="text-xs text-destructive">{filesProblem}</p>}
+                </div>
+              )}
+
+              <p className="text-xs text-muted-foreground">
+                A IA foi orientada a transcrever o que está nos arquivos. Confira legendas,
+                datas e artes na revisão. Artes dentro de PDFs não são extraídas: envie também os arquivos originais.
+              </p>
+
+              {quota && quota.limit !== null && (
+                <p className={cn("text-xs", quotaReached ? "text-destructive" : "text-muted-foreground")}>
+                  {quota.used} de {quota.limit} importações com IA usadas este mês.
+                </p>
+              )}
+            </>
+          )}
+
+          {phase === "processing" && (
+            <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <p className="font-medium">Lendo os arquivos e montando o calendário...</p>
+              <p className="text-sm text-muted-foreground max-w-sm">
+                Costuma levar de 1 a 3 minutos. Você pode fechar esta janela: a revisão fica
+                esperando aqui quando voltar.
+              </p>
+              {job && job.files.length + job.media.length > 0 && (
+                <p className="text-xs text-muted-foreground">
+                  {[...job.files, ...job.media].map((file) => file.name).join(", ")}
+                </p>
+              )}
+            </div>
+          )}
+
+          {phase === "failed" && (
+            <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
+              <AlertTriangle className="h-8 w-8 text-destructive" />
+              <p className="font-medium">Não foi possível montar o calendário</p>
+            </div>
+          )}
+
+          {phase === "review" && job?.proposal && (
+            <>
+              {job.proposal.summary && <p className="text-sm">{job.proposal.summary}</p>}
+              <label className="flex flex-wrap items-center gap-2 text-sm">
+                Fuso dos horários da pauta
+                <select aria-label="Fuso dos horários" value={timeZone} onChange={e => setTimeZone(e.target.value)} className="h-9 rounded-md border bg-background px-2">
+                  {IMPORT_TIMEZONES.map(zone => <option key={zone} value={zone}>{zone}</option>)}
+                </select>
+              </label>
+              <p className="text-xs text-muted-foreground">As edições são mantidas ao fechar e reabrir nesta aba. Recarregar a página restaura a proposta original. Criar publicações não publica nas redes nem aprova pelo cliente.</p>
+              {overPostLimit && <p role="alert" className="text-sm text-destructive">A proposta tem mais de 200 selecionadas. Selecione até 200; confira as restantes antes de encerrar.</p>}
+              {duplicateKeys.size > 0 && <p role="alert" className="text-sm text-amber-800">Há {duplicateKeys.size} publicações aparentemente repetidas. Confira e desmarque as duplicatas; nenhuma foi removida automaticamente.</p>}
+
+              {warnings.length > 0 && (
+                <div className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300">
+                  <p className="font-medium flex items-center gap-1.5 mb-1">
+                    <AlertTriangle className="h-4 w-4" /> Para conferir ({warnings.length})
+                  </p>
+                  <ul className="list-disc pl-5 space-y-0.5">
+                    {visibleWarnings.map((warning, index) => (
+                      <li key={index}>{warning}</li>
+                    ))}
+                  </ul>
+                  {warningsCollapsible && (
+                    <button
+                      type="button"
+                      onClick={() => setShowAllWarnings((value) => !value)}
+                      aria-expanded={showAllWarnings}
+                      className="mt-2 flex items-center gap-1 text-xs font-medium underline-offset-2 hover:underline"
+                    >
+                      {showAllWarnings ? (
+                        <><ChevronUp className="h-3.5 w-3.5" /> Mostrar menos</>
+                      ) : (
+                        <><ChevronDown className="h-3.5 w-3.5" /> Ver todos os {warnings.length} avisos</>
+                      )}
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {drafts.length === 0 ? (
+                <p className="py-8 text-center text-sm text-muted-foreground">
+                  A IA não encontrou publicações nesses arquivos.
+                </p>
+              ) : (
+                <>
+                  <label className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <input
+                      type="checkbox"
+                      checked={allSelected}
+                      onChange={(e) =>
+                        setDrafts((prev) => prev.map((draft) => ({ ...draft, include: e.target.checked })))
+                      }
+                    />
+                    {selected.length} de {drafts.length} publicações selecionadas
+                  </label>
+
+                  <div className="space-y-3">
+                    {drafts.map((draft) => (
+                      <div
+                        key={draft.key}
+                        className={cn(
+                          "rounded-lg border p-3 space-y-2 transition-opacity",
+                          !draft.include && "opacity-50"
+                        )}
+                      >
+                        <div className="flex flex-wrap items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={draft.include}
+                            onChange={(e) => updateDraft(draft.key, { include: e.target.checked })}
+                            aria-label="Incluir publicação"
+                          />
+                          <Input
+                            type="datetime-local"
+                            aria-label={`Data e horário de ${draft.title || "publicação"}`}
+                            value={draft.scheduledLocal}
+                            onChange={(e) => updateDraft(draft.key, { scheduledLocal: e.target.value })}
+                            className="h-8 w-auto"
+                          />
+                          <select
+                            aria-label={`Canal de ${draft.title || "publicação"}`}
+                            value={draft.channel}
+                            onChange={(e) => updateDraft(draft.key, { channel: e.target.value })}
+                            className="h-8 px-2 rounded-md border bg-background text-sm"
+                          >
+                            {IMPORT_CHANNELS.map((channel) => (
+                              <option key={channel} value={channel}>
+                                {channel}
+                              </option>
+                            ))}
+                          </select>
+                          <select aria-label={`Formato de ${draft.title || "publicação"}`} value={draft.format} onChange={e => updateDraft(draft.key, { format: e.target.value as ImportFormat })} className="h-8 px-2 rounded-md border bg-background text-sm">
+                            {IMPORT_FORMATS.map(format => <option key={format} value={format}>{IMPORT_FORMAT_LABELS[format]}</option>)}
+                          </select>
+                          {!draft.source.time && <Badge variant="secondary">Horário sugerido: confira</Badge>}
+                          {duplicateKeys.has(draft.key) && <Badge variant="secondary">Possível duplicata</Badge>}
+                          {draft.source.dateIsSuggested && (
+                            <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
+                              Data sugerida
+                            </Badge>
+                          )}
+                          {!draft.copyText.trim() && (
+                            <Badge variant="secondary" className="bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-400">
+                              Sem legenda
+                            </Badge>
+                          )}
+                          {draft.media.length === 0 && !draft.textOnly && (
+                            <Badge variant="secondary" className="bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-400">
+                              Sem arte
+                            </Badge>
+                          )}
+                        </div>
+                        <Input
+                          value={draft.title}
+                          onChange={(e) => updateDraft(draft.key, { title: e.target.value })}
+                          placeholder="Título"
+                          aria-label="Título da publicação"
+                          maxLength={300}
+                          className="h-8"
+                        />
+                        <textarea
+                          value={draft.copyText}
+                          onChange={(e) => updateDraft(draft.key, { copyText: e.target.value })}
+                          rows={3}
+                          aria-label={`Legenda de ${draft.title || "publicação"}`}
+                          maxLength={10000}
+                          placeholder="Sem legenda nos arquivos - o time escreve depois"
+                          className="w-full px-3 py-2 rounded-md border bg-background text-sm resize-y"
+                        />
+                        {draft.media.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {draft.media.map((name, index) => {
+                              const item = mediaByName.get(name);
+                              if (!item) return null;
+                              return (
+                                <div key={name} className="relative w-20" title={name}>
+                                  <div className="relative h-20 w-20 overflow-hidden rounded-md border bg-muted">
+                                    {item.mediaType === "video" ? (
+                                      <>
+                                        <video src={item.url} muted preload="metadata" className="h-full w-full object-cover" />
+                                        <Film className="absolute bottom-1 left-1 h-4 w-4 text-white drop-shadow" />
+                                      </>
+                                    ) : (
+                                      // eslint-disable-next-line @next/next/no-img-element
+                                      <img src={item.url} alt={name} className="h-full w-full object-cover" />
+                                    )}
+                                    {draft.media.length > 1 && (
+                                      <span className="absolute top-1 left-1 rounded bg-black/60 px-1 text-[10px] text-white">
+                                        {index + 1}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      updateDraft(draft.key, { media: draft.media.filter((m) => m !== name) })
+                                    }
+                                    className="absolute -top-1.5 -right-1.5 rounded-full border bg-background p-0.5 shadow-sm hover:bg-muted"
+                                    aria-label={`Tirar ${name} desta publicação`}
+                                  >
+                                    <X className="h-3 w-3" />
+                                  </button>
+                                  <p className="mt-0.5 truncate text-[10px] text-muted-foreground">{name}</p>
+                                  {index > 0 && <button type="button" aria-label={`Mover ${name} antes`} className="text-xs underline" onClick={() => {
+                                    const media = [...draft.media];
+                                    [media[index - 1], media[index]] = [media[index], media[index - 1]];
+                                    updateDraft(draft.key, { media });
+                                  }}>Mover antes</button>}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                        {job.media.some(item => !draft.media.includes(item.name)) && (
+                          <select aria-label={`Adicionar arte a ${draft.title || "publicação"}`} value="" onChange={e => { if (e.target.value) updateDraft(draft.key, { media: [...draft.media, e.target.value] }); }} className="h-8 max-w-full rounded-md border bg-background px-2 text-sm">
+                            <option value="">Adicionar arte enviada...</option>
+                            {job.media.filter(item => !draft.media.includes(item.name)).map(item => <option key={item.name} value={item.name}>{item.name}</option>)}
+                          </select>
+                        )}
+                        {draft.media.length === 0 && <label className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <input type="checkbox" checked={draft.textOnly} onChange={e => updateDraft(draft.key, { textOnly: e.target.checked })} />
+                          Publicação só de texto (dispensa arte)
+                        </label>}
+                        <p className="text-xs text-muted-foreground">
+                          Fonte: {draft.source.source}
+                          {draft.source.notes ? ` · ${draft.source.notes}` : ""}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {unusedMedia.length > 0 && (
+                    <p className="rounded-lg border p-3 text-xs text-muted-foreground">
+                      <span className="font-medium text-foreground">
+                        {unusedMedia.length === 1 ? "1 arte não vai" : `${unusedMedia.length} artes não vão`} para
+                        nenhuma publicação:
+                      </span>{" "}
+                      {unusedMedia.join(", ")}
+                    </p>
+                  )}
+                </>
+              )}
+            </>
+          )}
+
+          {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+        </div>
+
+        <div className="shrink-0 border-t px-6 py-4 flex gap-3 bg-background">
+          {phase === "upload" && (
+            <>
+              <Button variant="outline" disabled={busy} onClick={() => onOpenChange(false)} className="flex-1">
+                Cancelar
+              </Button>
+              <Button
+                onClick={startImport}
+                disabled={busy || !configured || quotaReached || files.length === 0 || Boolean(filesProblem)}
+                className="flex-1"
+              >
+                {busy ? (
+                  <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {progress ?? "Enviando..."}</>
+                ) : (
+                  <><Sparkles className="h-4 w-4 mr-2" /> Montar calendário</>
+                )}
+              </Button>
+            </>
+          )}
+
+          {phase === "processing" && (
+            <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
+              Fechar e continuar depois
+            </Button>
+          )}
+
+          {phase === "failed" && (
+            <>
+              <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
+                Fechar
+              </Button>
+              <Button
+                onClick={() => {
+                  setError(null);
+                  setJob(null);
+                  setPhase("upload");
+                }}
+                className="flex-1"
+              >
+                Tentar de novo
+              </Button>
+            </>
+          )}
+
+          {phase === "review" && (
+            <>
+              <Button variant="outline" onClick={discard} disabled={busy} className="flex-1">
+                Descartar
+              </Button>
+              <Button onClick={commit} disabled={busy || selected.length === 0 || overPostLimit} className="flex-1">
+                {busy ? (
+                  <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Criando...</>
+                ) : (
+                  `Criar ${selected.length} ${selected.length === 1 ? "publicação" : "publicações"}`
+                )}
+              </Button>
+            </>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}

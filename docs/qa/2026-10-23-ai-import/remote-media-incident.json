@@ -1,0 +1,336 @@
+{
+  "syntheticOnly": true,
+  "uploadCount": 41,
+  "knownRemote": 41,
+  "media": [
+    {
+      "job": "cmvkv3xy5001n13f4uj3pixyj",
+      "status": "committed",
+      "name": "aurora-01.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753436615-WDAZYcmxgRdK.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv3xy5001n13f4uj3pixyj",
+      "status": "committed",
+      "name": "aurora-02.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753436992-ai6faL685ptm.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv3xy5001n13f4uj3pixyj",
+      "status": "committed",
+      "name": "aurora-03.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753437204-pJY-BxNOQXPs.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv3xy5001n13f4uj3pixyj",
+      "status": "committed",
+      "name": "cafe.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753437507-b_ZOgE9Bc999.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv3xy5001n13f4uj3pixyj",
+      "status": "committed",
+      "name": "convite.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753437745-_C8PhfcyuOsQ.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv45r3002p13f4fxcg846q",
+      "status": "committed",
+      "name": "slide-01.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753446443-Mv8VHe1uLatO.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv45r3002p13f4fxcg846q",
+      "status": "committed",
+      "name": "slide-02.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753446764-RdeMRyfPwBEI.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv45r3002p13f4fxcg846q",
+      "status": "committed",
+      "name": "slide-03.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753447105-spzPR6thpshi.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv45r3002p13f4fxcg846q",
+      "status": "committed",
+      "name": "produto.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753447303-rQeE0n0pg4P4.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv45r3002p13f4fxcg846q",
+      "status": "committed",
+      "name": "logo-referencia.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753447606-YELbbGOJrTED.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv45r3002p13f4fxcg846q",
+      "status": "committed",
+      "name": "bastidores.mp4",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753447818-nHw609LDMnJz.mp4",
+      "mediaType": "video",
+      "mime": "video/mp4"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-01.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753452262-8P2oeGDLP7a0.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-02.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753452520-8Q2lLbMhjyyG.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-03.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753452733-0jZn37uU9jyf.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-04.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753453205-DK4sWfvv-yV8.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-05.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753453401-xENgg7mY0wAx.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-06.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753453683-JciPcbX_xjgC.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-07.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753453922-KTFE8n_y3pTn.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-08.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753454216-RnWYc9BjiiV_.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-09.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753454404-sajBIJJgQoqr.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-10.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753454599-DB94Se71wWTd.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-11.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753454810-lR9JCK1Wonwq.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-12.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753455043-2ftrK1I9dNSx.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-13.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753455256-sJokDytQOKUo.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-14.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753455502-U3S-PdPTnmf6.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-15.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753455783-jZnXwYgZA7xe.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-16.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753455987-Yf8_o3QOU_Ra.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-17.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753456176-l8ozJ9T9-4jx.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-18.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753456391-Oq7bwBCTNHr7.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-19.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753456833-gV3BAUFpxG3m.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-20.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753457099-MjOVlpL2ldGY.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-21.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753457362-PBEZU-WzYL-n.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-22.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753457559-Ojc3-Uh8F2KM.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-23.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753457756-ZD427_Fwe4rk.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-24.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753458198-j62kFmy3hmIW.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-25.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753458487-qDqaXszR8k1i.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-26.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753458715-oVvghcGj9o5y.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-27.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753458926-zUzYSPj0n1_E.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-28.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753459119-BghH2EldLIT0.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-29.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753459329-CLdtoCVnPe4e.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    },
+    {
+      "job": "cmvkv4emh003i13f4owyj1rhj",
+      "status": "committed",
+      "name": "arte-30.png",
+      "url": "https://y1uyyjwzfef85avl.public.blob.vercel-storage.com/uploads/cmvkv06md000144pc6kr5a9fx/import-1792753459523-bxuiTRuk_LLW.png",
+      "mediaType": "image",
+      "mime": "image/png"
+    }
+  ],
+  "cleanup": "No manual remote cleanup attempted. The application may have cleaned unused media after commits."
+}
