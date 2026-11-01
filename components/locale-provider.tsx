@@ -3,7 +3,7 @@
 import { createContext, useContext } from "react";
 import type { AppLocale } from "@/lib/locale";
 
-const LocaleContext = createContext<AppLocale>("en");
+const LocaleContext = createContext<AppLocale>("pt-BR");
 
 export function LocaleProvider({
   locale,

@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { localeFromRequest } from "./locale";
+import {
+  localeFromRequest,
+  marketingLocaleFromPath,
+  persistableMarketingLocale,
+} from "./locale";
 import { currencyForLocale, PLAN_AMOUNTS, planPrice } from "./pricing";
+import { marketingHomeMetadata } from "./seo";
 
 describe("BRL checkout locale", () => {
   it("uses pt-BR and BRL amounts when the request is from Brazil", () => {
@@ -25,5 +30,39 @@ describe("chosen language", () => {
   it("ignores values it does not know", () => {
     expect(localeFromRequest({ override: "fr", country: "BR" })).toBe("pt-BR");
     expect(localeFromRequest({ override: "", country: "US" })).toBe("en");
+  });
+});
+
+describe("marketing locale URLs", () => {
+  it("locks / to Portuguese and /en to English", () => {
+    expect(marketingLocaleFromPath("/")).toBe("pt-BR");
+    expect(marketingLocaleFromPath("/termos")).toBe("pt-BR");
+    expect(marketingLocaleFromPath("/precos")).toBe("pt-BR");
+    expect(marketingLocaleFromPath("/como-funciona")).toBe("pt-BR");
+    expect(marketingLocaleFromPath("/en")).toBe("en");
+    expect(marketingLocaleFromPath("/en/pricing")).toBe("en");
+    expect(marketingLocaleFromPath("/dashboard")).toBeNull();
+    expect(persistableMarketingLocale("/termos")).toBeNull();
+    expect(persistableMarketingLocale("/")).toBe("pt-BR");
+    expect(persistableMarketingLocale("/precos")).toBe("pt-BR");
+    expect(persistableMarketingLocale("/en")).toBe("en");
+    expect(persistableMarketingLocale("/en/pricing")).toBe("en");
+  });
+
+  it("emits hreflang between / and /en", () => {
+    const pt = marketingHomeMetadata("pt-BR", "https://approoveapp.com");
+    const en = marketingHomeMetadata("en", "https://approoveapp.com");
+    expect(pt.alternates?.canonical).toBe("https://approoveapp.com/");
+    expect(en.alternates?.canonical).toBe("https://approoveapp.com/en");
+    expect(pt.alternates?.languages).toMatchObject({
+      "pt-BR": "https://approoveapp.com/",
+      en: "https://approoveapp.com/en",
+      "x-default": "https://approoveapp.com/",
+    });
+    expect(pt.title).toEqual({ absolute: "Approove - Aprovação de conteúdo para agências" });
+    expect(en.title).toEqual({
+      absolute: "Content approval software for agencies | Approove",
+    });
+    expect(en.description).toMatch(/Content approval software for agencies/i);
   });
 });

@@ -21,9 +21,12 @@ import { CommentThread } from "./comment-thread";
 import { ApprovalActivity } from "./approval-activity";
 import { VersionSelector } from "./version-selector";
 import { MediaSourceInput } from "./media-source-input";
-import { AttachmentSequenceViewer } from "./attachment-sequence-viewer";
+import {
+  AttachmentSequenceViewer,
+  ViewModeToggle,
+  type SequenceViewMode,
+} from "./attachment-sequence-viewer";
 import { CarouselSlidesInput, type SlideDraft } from "./carousel-slides-input";
-import { CarouselSlidesManager } from "./carousel-slides-manager";
 import {
   PostMaterialForm,
   createEmptyMaterialDraft,
@@ -112,10 +115,12 @@ export function PostSlideEditable({
   const [editing, setEditing] = useState(false);
   const [activeAttachmentIndex, setActiveAttachmentIndex] = useState(0);
   const [activeVersionIndex, setActiveVersionIndex] = useState<Record<string, number>>({});
+  const [viewMode, setViewMode] = useState<SequenceViewMode>("grid");
 
   useEffect(() => {
     setActiveAttachmentIndex(0);
     setActiveVersionIndex({});
+    setViewMode("grid");
   }, [post.id]);
   const [showAddAttachment, setShowAddAttachment] = useState(false);
   const [materialDraft, setMaterialDraft] = useState(createEmptyMaterialDraft);
@@ -251,7 +256,7 @@ export function PostSlideEditable({
       {/* Info Bar */}
       <div className="relative flex flex-col gap-2 py-3 border-b bg-muted/30 px-6" data-section="info-bar">
         <div className="flex items-center justify-center">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           <Clock className="w-4 h-4 text-muted-foreground" />
           <div className="text-center" data-section="date-info">
             {editing ? (
@@ -308,7 +313,7 @@ export function PostSlideEditable({
 
           {/* Admin Actions */}
           {isAdmin && (
-            <div className="flex gap-2 ml-4 pl-4 border-l" data-section="admin-actions">
+            <div className="flex flex-wrap justify-center gap-2 sm:ml-4 sm:pl-4 sm:border-l" data-section="admin-actions">
               {editing ? (
                 <>
                   <Button size="sm" variant="outline" onClick={handleCancel}>
@@ -382,29 +387,30 @@ export function PostSlideEditable({
       {/* Main Content */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 px-4 lg:px-6 py-4 lg:py-6 lg:pb-8 overflow-y-auto lg:overflow-hidden" data-section="main-content">
         {/* Left: Image Preview + Attachment Thumbnails */}
-        <div className="flex flex-col gap-3 min-h-0 overflow-hidden" data-section="image-area" style={{ maxHeight: 'calc(100vh - 180px)' }}>
+        <div className="flex flex-col gap-3 h-[80svh] min-h-[420px] lg:h-auto lg:min-h-0 overflow-hidden" data-section="image-area">
           {/* Main preview */}
-          <div className="relative flex-1 min-h-0 overflow-hidden bg-muted/20 rounded-lg border">
-            {/* Version selector */}
-            {currentAttachment && currentAttachment.versions.length > 0 && (
-              <div className="absolute top-3 left-3 right-3 z-10 flex items-start justify-between gap-2">
-                {viewingHistoricalCreative && versionNumbers ? (
-                  <div className="rounded-md bg-background/90 px-2.5 py-1.5 text-xs font-medium shadow-sm border max-w-[55%]">
-                    {tr(
-                      `Vendo a versão ${versionNumbers.viewing} · A vigente é a ${versionNumbers.current}`,
-                      `Viewing version ${versionNumbers.viewing} · Current version is ${versionNumbers.current}`
-                    )}
-                  </div>
-                ) : !viewingLatestPackage ? (
-                  <div className="rounded-md bg-background/90 px-2.5 py-1.5 text-xs font-medium shadow-sm border max-w-[55%]">
-                    {tr(
-                      "Outro material está numa versão anterior",
-                      "Another asset is on a previous version"
-                    )}
-                  </div>
-                ) : (
-                  <span />
-                )}
+          <div className="relative flex-1 min-h-0 flex flex-col overflow-hidden bg-muted/20 rounded-lg border">
+            {/* View mode + version selector */}
+            {currentAttachment && currentVersion && (
+              <div className="shrink-0 flex items-start justify-between gap-2 px-3 pt-3 pb-2" data-section="preview-toolbar">
+                <div className="flex min-w-0 items-start gap-2">
+                  <ViewModeToggle value={viewMode} onChange={setViewMode} />
+                  {viewingHistoricalCreative && versionNumbers ? (
+                    <div className="min-w-0 rounded-md bg-background/90 px-2.5 py-1.5 text-xs font-medium shadow-sm border">
+                      {tr(
+                        `Vendo a versão ${versionNumbers.viewing} · A vigente é a ${versionNumbers.current}`,
+                        `Viewing version ${versionNumbers.viewing} · Current version is ${versionNumbers.current}`
+                      )}
+                    </div>
+                  ) : !viewingLatestPackage ? (
+                    <div className="min-w-0 rounded-md bg-background/90 px-2.5 py-1.5 text-xs font-medium shadow-sm border">
+                      {tr(
+                        "Outro material está numa versão anterior",
+                        "Another asset is on a previous version"
+                      )}
+                    </div>
+                  ) : null}
+                </div>
                 <VersionSelector
                   versions={currentAttachment.versions}
                   currentIndex={currentVersionIdx}
@@ -561,27 +567,70 @@ export function PostSlideEditable({
               </div>
             )}
 
-            {currentVersion && currentImageUrl && !showAddVersion && !showAddAttachment ? (
-              <AttachmentSequenceViewer
-                attachmentType={currentAttachment?.type ?? "other"}
-                version={currentVersion}
-                canAnnotate={!!onPinCreate && !editing}
-                author="agency"
-                onPinCreate={onPinCreate}
-                onPinResolve={onPinResolve}
-                onPinDelete={onPinDelete}
-              />
-            ) : !showAddVersion && !showAddAttachment ? (
-              <div className="absolute inset-0 p-4 flex flex-col items-center justify-center text-muted-foreground gap-2">
-                <ImageIcon className="h-12 w-12" />
-                <p className="text-sm">{tr("Nenhum material anexado", "No creatives attached")}</p>
-              </div>
-            ) : null}
+            <div className="relative flex-1 min-h-0">
+              {currentAttachment && currentVersion && currentImageUrl && !showAddVersion && !showAddAttachment ? (
+                <AttachmentSequenceViewer
+                  attachmentType={currentAttachment.type}
+                  version={currentVersion}
+                  viewMode={viewMode}
+                  onViewModeChange={setViewMode}
+                  onVersionUpdated={
+                    onAttachmentVersionUpdate
+                      ? (version) => onAttachmentVersionUpdate(currentAttachment.id, version)
+                      : undefined
+                  }
+                  canAnnotate={!!onPinCreate && !editing}
+                  author="agency"
+                  onPinCreate={onPinCreate}
+                  onPinResolve={onPinResolve}
+                  onPinDelete={onPinDelete}
+                />
+              ) : !showAddVersion && !showAddAttachment ? (
+                <div className="absolute inset-0 p-4 overflow-y-auto" data-section="slide-grid-empty">
+                  <div className="grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3">
+                    {isAdmin ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowAddAttachment(true);
+                          setShowAddVersion(false);
+                        }}
+                        className="aspect-[4/5] flex flex-col items-center justify-center gap-1.5 rounded-md border-2 border-dashed border-muted-foreground/30 text-muted-foreground transition-colors hover:border-primary hover:bg-primary/5 hover:text-foreground"
+                      >
+                        <Plus className="h-6 w-6" />
+                        <span className="text-xs font-medium">{tr("Enviar imagem", "Upload image")}</span>
+                      </button>
+                    ) : (
+                      <div className="col-span-full flex flex-col items-center justify-center gap-2 py-12 text-muted-foreground">
+                        <ImageIcon className="h-12 w-12" />
+                        <p className="text-sm">{tr("Nenhum material anexado", "No creatives attached")}</p>
+                      </div>
+                    )}
+                    {isAdmin &&
+                      [0, 1].map((i) => (
+                        <div
+                          key={i}
+                          aria-hidden
+                          className="aspect-[4/5] rounded-md border border-dashed border-muted-foreground/15"
+                        />
+                      ))}
+                  </div>
+                  {isAdmin && (
+                    <p className="mt-3 text-xs text-muted-foreground">
+                      {tr(
+                        "Envie uma imagem, um vídeo ou várias imagens para um carrossel.",
+                        "Upload an image, a video, or several images for a carousel."
+                      )}
+                    </p>
+                  )}
+                </div>
+              ) : null}
+            </div>
           </div>
 
           {/* Attachment thumbnails strip + Add button */}
           <TooltipProvider delayDuration={200}>
-            <div className="flex items-center gap-2 overflow-x-auto pb-1" data-section="attachment-strip">
+            <div className="shrink-0 flex items-center gap-2 overflow-x-auto pb-1" data-section="attachment-strip">
               {attachments.map((att, i) => {
                 const lastVersion = att.versions[att.versions.length - 1];
                 const hasMultipleVersions = att.versions.length > 1;
@@ -591,6 +640,7 @@ export function PostSlideEditable({
                     type="button"
                     onClick={() => {
                       setActiveAttachmentIndex(i);
+                      if (i !== safeAttachmentIndex) setViewMode("grid");
                       setShowAddVersion(false);
                       setShowAddAttachment(false);
                     }}
@@ -659,21 +709,6 @@ export function PostSlideEditable({
             )}
             </div>
           </TooltipProvider>
-
-          {isAdmin &&
-            currentAttachment &&
-            currentVersion &&
-            onAttachmentVersionUpdate &&
-            (currentAttachment.type === "carousel" || currentSlides.length > 1) && (
-              <CarouselSlidesManager
-                versionId={currentVersion.id}
-                attachmentType={currentAttachment.type}
-                slides={currentSlides}
-                onVersionUpdated={(version) =>
-                  onAttachmentVersionUpdate(currentAttachment.id, version)
-                }
-              />
-            )}
         </div>
 
         {/* Right: Title, Copy and Comments */}

@@ -122,14 +122,22 @@ export async function PATCH(
       }
     }
 
-    await prisma.$transaction(
-      data.slideIds.map((slideId, order) =>
+    // (attachmentVersionId, order) é único: passa por ordens negativas antes das
+    // finais para que uma troca não colida no meio da transação.
+    await prisma.$transaction([
+      ...data.slideIds.map((slideId, order) =>
+        prisma.attachmentSlide.update({
+          where: { id: slideId },
+          data: { order: -(order + 1) },
+        })
+      ),
+      ...data.slideIds.map((slideId, order) =>
         prisma.attachmentSlide.update({
           where: { id: slideId },
           data: { order },
         })
-      )
-    );
+      ),
+    ]);
 
     const renumbered = await renumberVersionSlides(versionId);
     await syncVersionCoverFromSlides(versionId, renumbered);

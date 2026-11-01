@@ -29,12 +29,14 @@ function limitLabel(value: number | null, singular: string, plural: string, unli
 
 export function LandingPricing({
   locale,
-  aiImport,
-  foundingOffer,
+  aiImport = false,
+  foundingOffer = null,
+  showHeader = true,
 }: {
   locale: AppLocale;
-  aiImport: boolean;
-  foundingOffer: FoundingOffer | null;
+  aiImport?: boolean;
+  foundingOffer?: FoundingOffer | null;
+  showHeader?: boolean;
 }) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const pricingByPlan = planPricing(locale);
@@ -47,23 +49,29 @@ export function LandingPricing({
 
   return (
     <section id="precos" className="scroll-mt-16">
-      <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
-        <Eyebrow>{tr("Preços", "Pricing")}</Eyebrow>
-        <Reveal bare>
-          <SectionHeading>
-            <MaskedWords text={tr("Planos que crescem com a sua carteira.", "Plans that grow with your client roster.")} />
-          </SectionHeading>
-        </Reveal>
-        <p className="mt-6 max-w-2xl text-lg font-medium leading-snug" style={{ color: "rgba(27,25,23,0.6)" }}>
-          {tr(
-            "Preço pelo número de clientes, não por usuário. Revisores ilimitados em todos os planos.",
-            "Priced by number of clients, not per seat. Unlimited reviewers on every plan."
+      <div className={`mx-auto max-w-7xl px-5 sm:px-8 ${showHeader ? "py-24" : "pb-24"}`}>
+        {showHeader ? (
+          <>
+            <Eyebrow>{tr("Preços", "Pricing")}</Eyebrow>
+            <Reveal bare>
+              <SectionHeading>
+                <MaskedWords text={tr("Planos que crescem com a sua carteira.", "Plans that grow with your client roster.")} />
+              </SectionHeading>
+            </Reveal>
+            <p className="mt-6 max-w-2xl text-lg font-medium leading-snug" style={{ color: "rgba(27,25,23,0.6)" }}>
+              {tr(
+                "Preço pelo número de clientes, não por usuário. Revisores ilimitados em todos os planos.",
+                "Priced by number of clients, not per seat. Unlimited reviewers on every plan."
+              )}
+            </p>
+          </>
+        ) : null}
+        <div className={showHeader ? "mt-4" : ""}>
+          {showHeader && (
+            <TrialNote>
+              {tr("15 dias grátis · sem cartão", "15 days free · no credit card")}
+            </TrialNote>
           )}
-        </p>
-        <div className="mt-4">
-          <TrialNote>
-            {tr("15 dias grátis · sem cartão", "15 days free · no credit card")}
-          </TrialNote>
           {foundingOffer && (
             <div>
               <FoundingOfferNote locale={locale} offer={foundingOffer} />
@@ -76,7 +84,7 @@ export function LandingPricing({
             </div>
           )}
         </div>
-        <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ${showHeader ? "mt-16" : "mt-8"}`}>
           {planOrder.map((plan, i) => {
             const { name, description, highlighted } = planCopy[plan];
             const limits = PLAN_LIMITS[plan];

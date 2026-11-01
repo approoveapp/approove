@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { AppSidebar } from "@/components/app-sidebar";
 import { MobileSidebar } from "@/components/mobile-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { TrialBanner } from "@/components/trial-banner";
 import { canManageWorkspace, requireOrganization } from "@/lib/auth";
 import { redirectForAuthError } from "@/lib/auth-redirect";
+import { privatePageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = privatePageMetadata("Approove", "Painel Approove.", {
+  absoluteTitle: true,
+});
 
 export default async function AdminLayout({
   children,

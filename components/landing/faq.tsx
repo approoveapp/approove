@@ -2,7 +2,7 @@ import { Reveal } from "@/components/landing/reveal";
 import { Eyebrow } from "@/components/landing/ui";
 import { localizedText, type AppLocale } from "@/lib/locale";
 
-export function getLandingFaqs(locale: AppLocale, aiImport: boolean) {
+export function getLandingFaqs(locale: AppLocale, aiImport = false) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const faqs = [
     {

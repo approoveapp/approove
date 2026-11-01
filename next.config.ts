@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { NOINDEX_HEADER_SOURCES } from "./lib/seo";
 
 const isDev = process.env.NODE_ENV !== "production";
 
@@ -36,13 +37,14 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
+      ...NOINDEX_HEADER_SOURCES.map((source) => ({
+        source,
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      })),
       {
-        // Links de aprovação carregam o token na URL: nada de indexar nem vazar via Referer.
+        // Links de aprovação carregam o token na URL: não vazar via Referer.
         source: "/c/:path*",
-        headers: [
-          { key: "X-Robots-Tag", value: "noindex, nofollow" },
-          { key: "Referrer-Policy", value: "no-referrer" },
-        ],
+        headers: [{ key: "Referrer-Policy", value: "no-referrer" }],
       },
     ];
   },

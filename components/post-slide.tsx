@@ -16,7 +16,11 @@ import {
 import { CommentThread } from "./comment-thread";
 import { ApprovalActivity } from "./approval-activity";
 import { VersionSelector } from "./version-selector";
-import { AttachmentSequenceViewer } from "./attachment-sequence-viewer";
+import {
+  AttachmentSequenceViewer,
+  ViewModeToggle,
+  type SequenceViewMode,
+} from "./attachment-sequence-viewer";
 import { resolveVersionSlides } from "@/lib/attachment-slides";
 import {
   getAttachmentVersionNumbers,
@@ -165,10 +169,12 @@ export function PostSlide({
   const [copying, setCopying] = useState(false);
   const [activeAttachmentIndex, setActiveAttachmentIndex] = useState(0);
   const [activeVersionIndex, setActiveVersionIndex] = useState<Record<string, number>>({});
+  const [viewMode, setViewMode] = useState<SequenceViewMode>("grid");
 
   useEffect(() => {
     setActiveAttachmentIndex(0);
     setActiveVersionIndex({});
+    setViewMode("grid");
   }, [post.id]);
 
   const attachments = post.attachments || [];
@@ -265,29 +271,30 @@ export function PostSlide({
       {/* Main Content */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 px-4 lg:px-6 py-4 lg:py-6 lg:pb-8 overflow-y-auto lg:overflow-hidden" data-section="main-content">
         {/* Left: Image Preview + Attachment Thumbnails */}
-        <div className="flex flex-col gap-3 min-h-[50vh] lg:min-h-0 lg:overflow-hidden lg:max-h-[calc(100vh-180px)]" data-section="image-area">
+        <div className="flex flex-col gap-3 h-[80svh] min-h-[420px] lg:h-auto lg:min-h-0 overflow-hidden" data-section="image-area">
           {/* Main preview */}
-          <div className="relative flex-1 min-h-0 overflow-hidden bg-muted/20 rounded-lg border">
-            {/* Version selector */}
-            {currentAttachment && currentAttachment.versions.length > 1 && (
-              <div className="absolute top-3 left-3 right-3 z-10 flex items-start justify-between gap-2">
-                {viewingHistoricalCreative && versionNumbers ? (
-                  <div className="rounded-md bg-background/90 px-2.5 py-1.5 text-xs font-medium shadow-sm border max-w-[70%]">
-                    {tr(
-                      `Vendo a versão ${versionNumbers.viewing} · A vigente é a ${versionNumbers.current}`,
-                      `Viewing version ${versionNumbers.viewing} · Current version is ${versionNumbers.current}`
-                    )}
-                  </div>
-                ) : !viewingLatestPackage ? (
-                  <div className="rounded-md bg-background/90 px-2.5 py-1.5 text-xs font-medium shadow-sm border max-w-[70%]">
-                    {tr(
-                      "Outro material está numa versão anterior",
-                      "Another asset is on a previous version"
-                    )}
-                  </div>
-                ) : (
-                  <span />
-                )}
+          <div className="relative flex-1 min-h-0 flex flex-col overflow-hidden bg-muted/20 rounded-lg border">
+            {/* View mode + version selector */}
+            {currentAttachment && currentVersion && currentSlides[0]?.url && (
+              <div className="shrink-0 flex items-start justify-between gap-2 px-3 pt-3 pb-2" data-section="preview-toolbar">
+                <div className="flex min-w-0 items-start gap-2">
+                  <ViewModeToggle value={viewMode} onChange={setViewMode} />
+                  {viewingHistoricalCreative && versionNumbers ? (
+                    <div className="min-w-0 rounded-md bg-background/90 px-2.5 py-1.5 text-xs font-medium shadow-sm border">
+                      {tr(
+                        `Vendo a versão ${versionNumbers.viewing} · A vigente é a ${versionNumbers.current}`,
+                        `Viewing version ${versionNumbers.viewing} · Current version is ${versionNumbers.current}`
+                      )}
+                    </div>
+                  ) : !viewingLatestPackage ? (
+                    <div className="min-w-0 rounded-md bg-background/90 px-2.5 py-1.5 text-xs font-medium shadow-sm border">
+                      {tr(
+                        "Outro material está numa versão anterior",
+                        "Another asset is on a previous version"
+                      )}
+                    </div>
+                  ) : null}
+                </div>
                 <VersionSelector
                   versions={currentAttachment.versions}
                   currentIndex={currentVersionIdx}
@@ -301,28 +308,32 @@ export function PostSlide({
               </div>
             )}
 
-            {currentVersion && currentSlides[0]?.url ? (
-              <AttachmentSequenceViewer
-                attachmentType={currentAttachment?.type ?? "other"}
-                version={currentVersion}
-                canAnnotate={canAnnotateProp ?? !!onPinCreate}
-                author="client"
-                onPinCreate={onPinCreate}
-                onPinResolve={onPinResolve}
-                onPinDelete={onPinDelete}
-              />
-            ) : (
-              <div className="absolute inset-0 p-4 flex flex-col items-center justify-center text-muted-foreground gap-2">
-                <ImageIcon className="h-12 w-12" />
-                <p className="text-sm">{tr("Nenhum material anexado", "No creatives attached")}</p>
-              </div>
-            )}
+            <div className="relative flex-1 min-h-0">
+              {currentVersion && currentSlides[0]?.url ? (
+                <AttachmentSequenceViewer
+                  attachmentType={currentAttachment?.type ?? "other"}
+                  version={currentVersion}
+                  viewMode={viewMode}
+                  onViewModeChange={setViewMode}
+                  canAnnotate={canAnnotateProp ?? !!onPinCreate}
+                  author="client"
+                  onPinCreate={onPinCreate}
+                  onPinResolve={onPinResolve}
+                  onPinDelete={onPinDelete}
+                />
+              ) : (
+                <div className="absolute inset-0 p-4 flex flex-col items-center justify-center text-muted-foreground gap-2">
+                  <ImageIcon className="h-12 w-12" />
+                  <p className="text-sm">{tr("Nenhum material anexado", "No creatives attached")}</p>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Attachment thumbnails strip */}
           {attachments.length > 0 && (
             <TooltipProvider delayDuration={200}>
-              <div className="flex items-center gap-2 overflow-x-auto pb-1" data-section="attachment-strip">
+              <div className="shrink-0 flex items-center gap-2 overflow-x-auto pb-1" data-section="attachment-strip">
                 {attachments.map((att, i) => {
                   const lastVersion = att.versions[att.versions.length - 1];
                   const hasMultipleVersions = att.versions.length > 1;
@@ -332,7 +343,10 @@ export function PostSlide({
                   const thumbButton = (
                     <button
                       type="button"
-                      onClick={() => setActiveAttachmentIndex(i)}
+                      onClick={() => {
+                        if (i !== safeAttachmentIndex) setViewMode("grid");
+                        setActiveAttachmentIndex(i);
+                      }}
                       className={`flex flex-col items-center gap-1 p-1.5 rounded-lg border-2 transition-all ${
                         i === safeAttachmentIndex
                           ? "border-primary bg-primary/5"

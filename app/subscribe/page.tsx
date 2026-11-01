@@ -1,10 +1,14 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { requireOrganization } from "@/lib/auth";
 import { redirectForAuthError } from "@/lib/auth-redirect";
 import { shouldRedirectFromSubscribe, subscribeCopyKind } from "@/lib/billing-access";
-import { getRequestLocale } from "@/lib/request-locale";
+import { getBillingLocale } from "@/lib/request-locale";
 import { foundingOfferLabel, getFoundingOffer } from "@/lib/founding-offer";
 import { SubscribePlans } from "./subscribe-plans";
+import { privatePageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = privatePageMetadata("Assinar", "Escolha um plano Approove.");
 
 export default async function SubscribePage() {
   let context;
@@ -21,7 +25,7 @@ export default async function SubscribePage() {
     redirect("/dashboard");
   }
 
-  const locale = await getRequestLocale();
+  const locale = await getBillingLocale();
   const canManageBilling =
     membership.role === "owner" || membership.role === "admin";
   const foundingOffer = await getFoundingOffer();

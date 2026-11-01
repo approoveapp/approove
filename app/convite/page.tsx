@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { requireAuth } from "@/lib/auth";
 import { getRequestLocale } from "@/lib/request-locale";
 import { localizedText } from "@/lib/locale";
 import { InviteActions } from "./invite-actions";
+import { privatePageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = privatePageMetadata(
+  "Convites pendentes",
+  "Convites pendentes para o Approove."
+);
 
 export default async function PendingInvitesPage() {
   let user;

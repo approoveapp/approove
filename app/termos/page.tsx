@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
 import { LegalPageLayout, LegalSection } from "@/components/legal-page-layout";
 import { getRequestLocale } from "@/lib/request-locale";
+import { getAppBaseUrl } from "@/lib/app-url";
+import { INDEX_ROBOTS } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getRequestLocale();
-  if (locale === "en") {
-    return {
-      title: "Terms of Use - Approove",
-      description: "Terms of Use for the Approove platform.",
-    };
-  }
+export function generateMetadata(): Metadata {
   return {
-    title: "Termos de Uso - Approove",
+    title: "Termos de Uso",
     description: "Termos de Uso da plataforma Approove.",
+    robots: INDEX_ROBOTS,
+    alternates: { canonical: `${getAppBaseUrl()}/termos` },
   };
 }
 
@@ -25,10 +22,8 @@ function TermosPortugues() {
   return (
     <LegalPageLayout title="Termos de Uso" updatedAt="12 de julho de 2026" locale="pt-BR">
       <p className="text-muted-foreground">
-        Este documento é um modelo padrão de Termos de Uso, disponibilizado
-        como ponto de partida. Recomendamos revisão por um advogado antes da
-        publicação em produção, para adequação à razão social, ao CNPJ e às
-        particularidades comerciais da empresa.
+        Estes Termos de Uso regem o acesso e o uso da plataforma Approove,
+        disponível em approoveapp.com.
       </p>
 
       <LegalSection title="1. Aceitação dos termos">

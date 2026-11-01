@@ -634,6 +634,56 @@ async function suite(db: Client) {
     expectEqual(share.headers.get("x-robots-tag"), "noindex, nofollow");
     expectEqual(share.headers.get("referrer-policy"), "no-referrer");
   });
+  await check("robots.txt bloqueia o app e aponta o sitemap", async () => {
+    const robots = await http(null, "GET", "/robots.txt");
+    expectEqual(robots.status, 200);
+    expectTrue(robots.text.includes("Disallow: /dashboard"), robots.text);
+    expectTrue(robots.text.includes("Disallow: /c/"), robots.text);
+    expectTrue(robots.text.includes("Disallow: /api/"), robots.text);
+    expectTrue(!robots.text.includes("Disallow: /login"), robots.text);
+    expectTrue(robots.text.includes("Sitemap:"), robots.text);
+  });
+  await check("sitemap lista só páginas públicas", async () => {
+    const sitemap = await http(null, "GET", "/sitemap.xml");
+    expectEqual(sitemap.status, 200);
+    expectTrue(sitemap.text.includes("/termos"), sitemap.text);
+    expectTrue(sitemap.text.includes("/privacidade"), sitemap.text);
+    expectTrue(sitemap.text.includes("/en"), sitemap.text);
+    expectTrue(sitemap.text.includes("/precos"), sitemap.text);
+    expectTrue(sitemap.text.includes("/como-funciona"), sitemap.text);
+    expectTrue(!sitemap.text.includes("/dashboard"), sitemap.text);
+    expectTrue(!sitemap.text.includes("/login"), sitemap.text);
+  });
+  await check("login, signup e dashboard enviam noindex", async () => {
+    const login = await http(null, "GET", "/login");
+    const signup = await http(null, "GET", "/signup");
+    const dashboard = await http(null, "GET", "/dashboard");
+    const home = await http(null, "GET", "/");
+    expectEqual(login.headers.get("x-robots-tag"), "noindex, nofollow");
+    expectEqual(signup.headers.get("x-robots-tag"), "noindex, nofollow");
+    expectEqual(dashboard.headers.get("x-robots-tag"), "noindex, nofollow");
+    expectTrue(login.text.includes("noindex"), "login html");
+    expectEqual(home.headers.get("x-robots-tag"), null);
+    expectTrue(!home.text.includes("noindex"), "home não deve ter noindex");
+    expectTrue(home.text.includes("Aprovação de conteúdo"), "home canônica em pt-BR");
+    const english = await http(null, "GET", "/en");
+    expectEqual(english.status, 200);
+    expectTrue(english.text.includes("Content approval"), "landing /en em inglês");
+    expectTrue(english.text.toLowerCase().includes("hreflang"), "hreflang na landing /en");
+    const pricing = await http(null, "GET", "/precos");
+    expectEqual(pricing.status, 200);
+    expectTrue(pricing.text.includes("Preços"), "página /precos");
+    expectTrue(!pricing.text.includes("noindex"), "preços indexável");
+    const how = await http(null, "GET", "/como-funciona");
+    expectEqual(how.status, 200);
+    expectTrue(how.text.includes("Como funciona"), "página /como-funciona");
+  });
+  await check("llms.txt descreve o produto", async () => {
+    const llms = await http(null, "GET", "/llms.txt");
+    expectEqual(llms.status, 200);
+    expectTrue(llms.text.includes("Approove"), llms.text);
+    expectTrue(llms.headers.get("content-type")?.includes("text/plain") === true, String(llms.headers.get("content-type")));
+  });
   await check("/_next/image não busca imagens de terceiros", async () => {
     const response = await http(null, "GET", "/_next/image?url=https%3A%2F%2Fwww.google.com%2Ffavicon.ico&w=64&q=75");
     expectTrue(response.status >= 400, `status ${response.status}`);

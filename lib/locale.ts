@@ -4,13 +4,49 @@ export type AppLocale = (typeof SUPPORTED_LOCALES)[number];
 
 export const DEFAULT_LOCALE: AppLocale = "en";
 
-/** Language the visitor picked (switcher or `?lang=`); it wins over country and browser. */
+/** Language the visitor picked (URL, switcher or `?lang=`); it wins over country and browser. */
 export const LOCALE_COOKIE = "approove-locale";
 
+export function isAppLocale(value: string | null | undefined): value is AppLocale {
+  return value === "en" || value === "pt-BR";
+}
+
+/** Accepts the short forms used in `?lang=` (`en`, `pt`, `pt-br`). */
 export function parseLocale(value: string | null | undefined): AppLocale | null {
   const normalized = value?.trim().toLowerCase();
   if (normalized === "en") return "en";
   if (normalized === "pt" || normalized === "pt-br") return "pt-BR";
+  return null;
+}
+
+/**
+ * Idioma travado pela URL pública. `/` e os legais são sempre pt-BR;
+ * `/en` é sempre inglês. Rotas da app retornam null (geo ou cookie).
+ */
+export function marketingLocaleFromPath(pathname: string): AppLocale | null {
+  if (pathname === "/en" || pathname.startsWith("/en/")) {
+    return "en";
+  }
+
+  if (
+    pathname === "/" ||
+    pathname === "/termos" ||
+    pathname === "/privacidade" ||
+    pathname === "/precos" ||
+    pathname === "/como-funciona"
+  ) {
+    return "pt-BR";
+  }
+
+  return null;
+}
+
+/** Landing em PT/EN grava preferência. Legais em português não sobrescrevem `/en`. */
+export function persistableMarketingLocale(pathname: string): AppLocale | null {
+  if (pathname === "/en" || pathname.startsWith("/en/")) return "en";
+  if (pathname === "/" || pathname === "/precos" || pathname === "/como-funciona") {
+    return "pt-BR";
+  }
   return null;
 }
 

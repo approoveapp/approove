@@ -6,6 +6,7 @@ import { ApprovedBadge, CalendarStrip, CreativeCanvas, ProductChrome } from "@/c
 import { blue, cream, ink } from "@/components/landing/tokens";
 import { localizedText, type AppLocale } from "@/lib/locale";
 import { foundingOfferLabel, type FoundingOffer } from "@/lib/founding-offer";
+import { marketingPath } from "@/lib/marketing-routes";
 
 function HeroHeadline({ locale }: { locale: AppLocale }) {
   const lines = locale === "pt-BR" ? [["Chega", "de", "aprovar"], ["posts", "pelo"]] : [["Stop", "approving"], ["posts", "on"]];
@@ -100,7 +101,7 @@ export function LandingHero({ locale, foundingOffer }: { locale: AppLocale; foun
         </p>
         <div className="fade-up flex flex-wrap items-center gap-3" style={{ "--d": "1500ms" } as React.CSSProperties}>
           <PillLink href="/signup">{tr("Testar grátis", "Start free trial")}</PillLink>
-          <PillLink href="#como-funciona" variant="outline">
+          <PillLink href={marketingPath("how", locale)} variant="outline">
             {tr("Ver como funciona", "See how it works")}
           </PillLink>
         </div>
