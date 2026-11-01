@@ -30,7 +30,7 @@
     "@auth/prisma-adapter": "^2.11.3",
     "@fancyapps/ui": "^5.0.36",
     "@libsql/client": "^0.8.1",
-    "@prisma/adapter-libsql": "^5.22.0",
+    "@prisma/adapter-libsql": "^7.10.1",
     "@prisma/client": "^5.22.0",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.15",
