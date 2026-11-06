@@ -406,7 +406,7 @@ export function PostSlide({
         </div>
 
         {/* Right: Title, Copy and Comments */}
-        <div className="flex flex-col gap-4 h-full min-h-0" data-section="copy-comments-container">
+        <div className="flex flex-col gap-4 h-full min-h-0 lg:overflow-y-auto lg:pr-1" data-section="copy-comments-container">
           <div className="shrink-0" data-section="title-section">
             <Card>
               <CardHeader className="pb-2 pt-4">
@@ -422,9 +422,9 @@ export function PostSlide({
             </Card>
           </div>
 
-          <div className="flex-1 min-h-0 flex flex-col" data-section="copy-section">
-            <Card className="h-full flex flex-col">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+          <div className="flex-1 min-h-[200px] flex flex-col" data-section="copy-section">
+            <Card className="h-full flex flex-col overflow-hidden">
+              <CardHeader className="shrink-0 flex flex-row items-center justify-between space-y-0 pb-3">
                 <CardTitle className="text-sm font-medium">{tr("Copy", "Caption")}</CardTitle>
                 <Button
                   size="sm"
@@ -436,7 +436,7 @@ export function PostSlide({
                   {copying ? tr("Copiado!", "Copied!") : tr("Copiar", "Copy")}
                 </Button>
               </CardHeader>
-              <CardContent className="flex-1 overflow-y-auto">
+              <CardContent className="flex-1 min-h-0 overflow-y-auto">
                 <p className="text-sm whitespace-pre-wrap">{post.copyText}</p>
               </CardContent>
             </Card>
