@@ -81,18 +81,17 @@ describe("signed upload provenance", () => {
   });
 });
 describe("SQLite/libsql atomic confirmation", () => {
-  it("requires explicit acknowledgement for omitted media and warnings without claiming the job", async () => {
+  it("commits with warnings and unused media: creating the posts is the confirmation", async () => {
     const signed={...media,receipt:signImportMedia(media,"org","client")};
     const j=await job("review",[signed]);
-    await expect(commitImport(j.id,"org",[post])).rejects.toMatchObject({status:400});
-    expect((await db.importJob.findUniqueOrThrow({where:{id:j.id}})).status).toBe("review");
-    await expect(commitImport(j.id,"org",[post],true)).resolves.toMatchObject({created:1});
+    await expect(commitImport(j.id,"org",[post])).resolves.toMatchObject({created:1});
+    expect((await db.importJob.findUniqueOrThrow({where:{id:j.id}})).status).toBe("committed");
   });
   it("refuses additions and duplicate/out-of-range proposal references atomically", async () => {
     const j=await job();
     await db.importJob.update({where:{id:j.id},data:{resultJson:JSON.stringify({...proposal,posts:[proposalPost]})}});
-    await expect(commitImport(j.id,"org",[post,post],true)).rejects.toMatchObject({status:400});
-    await expect(commitImport(j.id,"org",[{...post,sourceIndex:2}],true)).rejects.toMatchObject({status:400});
+    await expect(commitImport(j.id,"org",[post,post])).rejects.toMatchObject({status:400});
+    await expect(commitImport(j.id,"org",[{...post,sourceIndex:2}])).rejects.toMatchObject({status:400});
     expect(await db.postItem.count()).toBe(0);
   });
   it("concurrent identical confirmations create once and replay safely", async () => {
@@ -124,7 +123,7 @@ describe("SQLite/libsql atomic confirmation", () => {
   it("persists manually changed carousel order and preserves duplicate occurrences", async () => {
     const items = [media, { ...media, name: "b.png", url: media.url.replace("a.png", "b.png") }].map(item => ({ ...item, receipt: signImportMedia(item, "org", "client") }));
     const j = await job("review", items);
-    await commitImport(j.id, "org", [{ ...post, format: "carousel", media: ["b.png", "a.png"] }, post, post], true);
+    await commitImport(j.id, "org", [{ ...post, format: "carousel", media: ["b.png", "a.png"] }, post, post]);
     expect(await db.postItem.count()).toBe(3);
     const slides = await db.attachmentSlide.findMany({ orderBy: { order: "asc" } });
     expect(slides.map(s => s.url)).toEqual([items[1].url, items[0].url]);

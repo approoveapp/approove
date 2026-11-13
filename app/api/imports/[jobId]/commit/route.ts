@@ -13,8 +13,8 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   try {
     const { organization } = await requireActiveOrganization();
     const { jobId } = await params;
-    const { posts, reviewAcknowledged } = importCommitSchemaFor(locale).parse(JSON.parse(new TextDecoder().decode(await boundedImportBody(request, 4 * 1024 * 1024, undefined, locale))));
-    const result = await commitImport(jobId, organization.id, posts, reviewAcknowledged, locale);
+    const { posts } = importCommitSchemaFor(locale).parse(JSON.parse(new TextDecoder().decode(await boundedImportBody(request, 4 * 1024 * 1024, undefined, locale))));
+    const result = await commitImport(jobId, organization.id, posts, locale);
     if (!result.alreadyCommitted) after(() => cleanupJobMedia(result));
     return NextResponse.json({ created: result.created, alreadyCommitted: result.alreadyCommitted });
   } catch (error) {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -11,7 +11,9 @@ import { AnalyticsRouteTracker } from "@/components/analytics-route-tracker";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { CookieConsent } from "@/components/cookie-consent";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+// Títulos do fluxo de importação e do calendário (classe `font-display`).
+const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display" });
 
 export function generateMetadata(): Metadata {
   return {
@@ -33,7 +35,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} ${inter.variable} ${display.variable}`}>
         <GoogleAnalytics />
         <LocaleProvider locale={locale}>
           <SessionProvider>

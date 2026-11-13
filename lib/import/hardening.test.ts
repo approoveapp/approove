@@ -60,9 +60,9 @@ describe("output and explicit review boundaries",()=>{
     expect(boundedProposalSchema.safeParse({summary:"",warnings:[],posts:[{...post,copyText:"x".repeat(10001)}]}).success).toBe(false);
     expect(boundedProposalSchema.safeParse({summary:"",warnings:[],posts:Array(201).fill(post)}).success).toBe(false);
   });
-  it("rejects silent confirmation and unknown channels",()=>{
+  it("accepts a commit with or without the retired confirmation flag and rejects unknown channels",()=>{
     const commit={posts:[{scheduledAt:"2026-11-03T10:00:00.000Z",channel:"Instagram",format:"feed",title:"A",copyText:"literal",media:[]}]};
-    expect(importCommitSchema.safeParse(commit).success).toBe(false);
+    expect(importCommitSchema.safeParse(commit).success).toBe(true);
     expect(importCommitSchema.safeParse({...commit,reviewAcknowledged:true}).success).toBe(true);
     expect(importCommitSchema.safeParse({...commit,reviewAcknowledged:true,posts:[{...commit.posts[0],channel:"evil"}]}).success).toBe(false);
   });

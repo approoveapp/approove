@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,9 +16,16 @@ import {
 } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   ArrowLeft,
-  ArrowRight,
   Plus,
+  Upload,
+  X,
   ChevronDown,
   ChevronUp,
   ExternalLink,
@@ -54,7 +61,9 @@ import {
 } from "@/components/post-production-fields";
 import { useLocale } from "@/components/locale-provider";
 import { localizedText } from "@/lib/locale";
-import { AiImportDialog } from "@/components/ai-import-dialog";
+import { ImportFlow } from "@/components/import/import-flow";
+import { PostCalendar } from "@/components/post-calendar";
+import { PRODUCTION_STAGES } from "@/lib/production-stages";
 import { MediaThumb } from "@/components/media-thumb";
 
 interface AttachmentVersionData {
@@ -145,7 +154,7 @@ export default function ClientDetailPage() {
   const params = useParams();
   const searchParams = useSearchParams();
   const slug = params.slug as string;
-  const initialTab = searchParams.get("tab") ?? "posts";
+  const [tab, setTab] = useState(() => searchParams.get("tab") ?? "calendar");
 
   const [client, setClient] = useState<ClientDetail | null>(null);
   const [canManage, setCanManage] = useState(false);
@@ -172,6 +181,11 @@ export default function ClientDetailPage() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [handoffPost, setHandoffPost] = useState<PostData | null>(null);
   const [aiImportOpen, setAiImportOpen] = useState(false);
+  const [importFiles, setImportFiles] = useState<File[]>([]);
+  const [importNotice, setImportNotice] = useState<number | null>(null);
+  const [calendarFocus, setCalendarFocus] = useState<string | null>(null);
+  const [planDragOver, setPlanDragOver] = useState(false);
+  const planInputRef = useRef<HTMLInputElement>(null);
 
   const fetchTeamMembers = useCallback(async () => {
     try {
@@ -456,8 +470,6 @@ export default function ClientDetailPage() {
     return acc;
   }, {});
 
-  // Calendar data
-  const calendarDates = new Set(Object.keys(postsByDate));
 
   if (loading) {
     return (
@@ -516,6 +528,96 @@ export default function ClientDetailPage() {
 
   const calendarHref = `/c/${client.slug}/${latestVersion?.version ?? "v1"}`;
 
+  const startImportWith = (list: FileList | File[] | null) => {
+    setImportFiles(list ? Array.from(list).filter((file) => file.size > 0) : []);
+    setAiImportOpen(true);
+  };
+
+  // Cliente sem publicações: a tela vazia já é o começo da importação.
+  const emptyPlan = (
+    <Card className="rounded-3xl">
+      <CardContent className="flex flex-wrap items-stretch gap-7 p-7">
+        <div
+          onDragOver={(e) => {
+            e.preventDefault();
+            setPlanDragOver(true);
+          }}
+          onDragLeave={() => setPlanDragOver(false)}
+          onDrop={(e) => {
+            e.preventDefault();
+            setPlanDragOver(false);
+            startImportWith(e.dataTransfer.files);
+          }}
+          className={`flex min-w-0 flex-[3_1_420px] flex-col items-center justify-center gap-3.5 rounded-2xl border-2 border-dashed px-8 py-14 text-center transition-colors ${
+            planDragOver ? "border-brand bg-brand-soft" : "border-slate-300 bg-slate-50 dark:border-slate-700 dark:bg-muted/30"
+          }`}
+        >
+          <span aria-hidden="true" className="flex h-16 w-16 items-center justify-center rounded-[20px] bg-brand-soft text-brand">
+            <Upload className="h-7 w-7" />
+          </span>
+          <h2 className="text-balance font-display text-2xl font-semibold leading-tight sm:text-[26px]">
+            {tr("Solte aqui o planejamento do mês", "Drop this month's plan here")}
+          </h2>
+          <p className="max-w-sm text-muted-foreground">
+            {tr(
+              "PDF, planilha ou documento. A IA monta o calendário e você confere antes de criar.",
+              "PDF, spreadsheet or document. The AI builds the calendar and you check it before creating."
+            )}
+          </p>
+          <Button
+            className="mt-2 h-12 rounded-2xl bg-brand px-6 text-[15px] font-semibold text-brand-foreground hover:bg-brand/90"
+            onClick={() => planInputRef.current?.click()}
+          >
+            {tr("Escolher arquivo", "Choose file")}
+          </Button>
+          <input
+            ref={planInputRef}
+            type="file"
+            multiple
+            accept=".pdf,.docx,.xlsx,.csv,.tsv,.txt,.md,image/jpeg,image/png,image/gif,image/webp,video/mp4,video/quicktime"
+            className="hidden"
+            onChange={(e) => {
+              startImportWith(e.target.files);
+              e.target.value = "";
+            }}
+          />
+          <span className="text-[13px] text-muted-foreground">{tr("As artes podem vir depois.", "Creatives can come later.")}</span>
+        </div>
+
+        <div className="flex min-w-0 flex-[2_1_280px] flex-col justify-center gap-6 px-2 py-3">
+          <ol className="flex flex-col gap-6">
+            {[
+              [tr("Envie o planejamento", "Upload the plan"), tr("Do jeito que ele já existe na agência.", "Just as it already exists at the agency.")],
+              [tr("Confira o calendário", "Check the calendar"), tr("Datas, canais e formatos em uma tela só.", "Dates, channels and formats on one screen.")],
+              [tr("Anexe as artes quando ficarem prontas", "Attach the creatives when they are ready"), tr("Cada data fica esperando a sua arte.", "Each date waits for its creative.")],
+            ].map(([title, detail], index) => (
+              <li key={title} className="flex items-start gap-3.5">
+                <span
+                  aria-hidden="true"
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-display text-[15px] font-semibold ${
+                    index === 0 ? "bg-foreground text-background" : "border-[1.5px] border-foreground"
+                  }`}
+                >
+                  {index + 1}
+                </span>
+                <span className="flex flex-col gap-0.5">
+                  <strong className="font-semibold">{title}</strong>
+                  <span className="text-sm text-muted-foreground">{detail}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <p className="text-sm text-muted-foreground">
+            {tr("Prefere começar do zero?", "Prefer to start from scratch?")}{" "}
+            <button type="button" onClick={openCreatePost} className="font-semibold text-foreground underline underline-offset-2">
+              {tr("Criar uma publicação manualmente", "Create a post manually")}
+            </button>
+          </p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -525,120 +627,134 @@ export default function ClientDetailPage() {
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div>
-            <h1 className="text-2xl font-bold">{client.name}</h1>
-            <p className="text-sm text-muted-foreground">/{client.slug}</p>
+            <h1 className="font-display text-3xl font-semibold leading-tight tracking-tight">{client.name}</h1>
+            <p className="text-sm text-muted-foreground">
+              {posts.length === 0
+                ? tr("Nenhuma publicação ainda", "No posts yet")
+                : posts.length === 1
+                  ? tr("1 publicação", "1 post")
+                  : tr(`${posts.length} publicações`, `${posts.length} posts`)}
+            </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
-          {shareUrl && (
-            <Button variant="outline" size="sm" onClick={handleCopyLink}>
-              {copied ? <Check className="h-4 w-4 mr-2" /> : <Copy className="h-4 w-4 mr-2" />}
-              {copied ? tr("Copiado!", "Copied!") : tr("Copiar link", "Copy link")}
-            </Button>
-          )}
-          {canManage && (
-            <Button variant="outline" size="sm" onClick={handleGenerateToken}>
-              <Link2 className="h-4 w-4 mr-2" />
-              {shareUrl ? tr("Novo link", "New link") : tr("Gerar link", "Generate link")}
-            </Button>
+          {(canManage || shareUrl || shareToken) && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="h-11 rounded-xl">
+                  {copied ? <Check className="h-4 w-4 mr-2" /> : <Link2 className="h-4 w-4 mr-2" />}
+                  {copied ? tr("Link copiado", "Link copied") : tr("Compartilhar", "Share")}
+                  <ChevronDown className="h-4 w-4 ml-2" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {shareUrl && (
+                  <DropdownMenuItem onSelect={handleCopyLink}>
+                    <Copy className="h-4 w-4 mr-2" /> {tr("Copiar link do cliente", "Copy the client link")}
+                  </DropdownMenuItem>
+                )}
+                {canManage && (
+                  <DropdownMenuItem onSelect={handleGenerateToken}>
+                    <Link2 className="h-4 w-4 mr-2" /> {shareUrl ? tr("Gerar novo link", "Generate a new link") : tr("Gerar link", "Generate link")}
+                  </DropdownMenuItem>
+                )}
+                {/* Visão do cliente usa o link da agência, que só owner/admin recebem. */}
+                {shareToken && (
+                  <DropdownMenuItem asChild>
+                    <a href={`${calendarHref}?t=${shareToken}`} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-4 w-4 mr-2" /> {tr("Ver como o cliente", "View as the client")}
+                    </a>
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
           )}
 
-          <Button variant="default" size="sm" asChild>
+          <Button variant="outline" className="h-11 rounded-xl" asChild>
             <a href={calendarHref} target="_blank" rel="noopener noreferrer">
               <ImageIcon className="h-4 w-4 mr-2" />
-              {tr("Montar calendário e artes", "Build calendar and creatives")}
+              {tr("Calendário de produção", "Production calendar")}
             </a>
           </Button>
 
-          {/* Visão do cliente usa o link da agência, que só owner/admin recebem. */}
-          {shareToken && (
-            <Button variant="outline" size="sm" asChild>
-              <a
-                href={`${calendarHref}?t=${shareToken}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ExternalLink className="h-4 w-4 mr-2" />
-                {tr("Visão do cliente", "Client view")}
-              </a>
-            </Button>
-          )}
-
           {/* Qualquer papel importa: member já cria e edita posts; a cota limita o custo. */}
-          <Button variant="outline" size="sm" onClick={() => setAiImportOpen(true)}>
-            <Sparkles className="h-4 w-4 mr-2" />
-            {tr("Importar com IA", "Import with AI")}
-          </Button>
-
-          <Button size="sm" onClick={openCreatePost}>
-            <Plus className="h-4 w-4 mr-2" />
-            {tr("Nova Publicação", "New post")}
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="h-11 rounded-xl">
+                <Plus className="h-4 w-4 mr-2" />
+                {tr("Nova publicação", "New post")}
+                <ChevronDown className="h-4 w-4 ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onSelect={openCreatePost}>
+                <Pencil className="h-4 w-4 mr-2" /> {tr("Criar manualmente", "Create manually")}
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => startImportWith(null)}>
+                <Sparkles className="h-4 w-4 mr-2" /> {tr("Importar planejamento com IA", "Import a plan with AI")}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 
-      <Card className="border-primary/20 bg-primary/5">
-        <CardContent className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
-          <div className="space-y-1">
-            <p className="font-medium">{tr("Calendário de produção", "Production calendar")}</p>
-            <p className="text-sm text-muted-foreground max-w-2xl">
-              {tr(
-                "Nesta página você gerencia publicações (data, canal e copy), revisores e informações do cliente.",
-                "On this page you manage posts (date, channel and copy), reviewers and client details."
-              )}{" "}
-              {tr("Para", "To")} <strong>{tr("enviar artes", "upload creatives")}</strong>
-              {tr(
-                ", criar pins, comentar e aprovar, abra o calendário de produção - é lá que o time monta o conteúdo visual.",
-                ", add pins, comment and approve, open the production calendar - that's where the team builds the visual content."
-              )}
-            </p>
-          </div>
-          <Button asChild className="shrink-0">
-            <a href={calendarHref} target="_blank" rel="noopener noreferrer">
-              {tr("Montar calendário e artes", "Build calendar and creatives")}
-              <ArrowRight className="h-4 w-4 ml-2" />
-            </a>
+      {importNotice !== null && (
+        <div role="status" className="flex items-center gap-2.5 rounded-2xl border border-emerald-300 bg-emerald-50 px-4 py-2 font-semibold text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-200">
+          <Check aria-hidden="true" className="h-4 w-4 shrink-0" strokeWidth={3} />
+          <span className="flex-1">
+            {importNotice === 1
+              ? tr("1 publicação criada a partir do planejamento.", "1 post created from the plan.")
+              : tr(`${importNotice} publicações criadas a partir do planejamento.`, `${importNotice} posts created from the plan.`)}
+          </span>
+          <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-emerald-100 dark:hover:bg-emerald-900" onClick={() => setImportNotice(null)} aria-label={tr("Fechar aviso", "Dismiss")}>
+            <X className="h-4 w-4" />
           </Button>
-        </CardContent>
-      </Card>
+        </div>
+      )}
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <Card>
-          <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold">{stats.total}</p>
-            <p className="text-xs text-muted-foreground">{tr("Total", "Total")}</p>
+      {/* Etapas de produção e aprovação do cliente */}
+      {posts.length > 0 && (
+        <Card className="rounded-2xl">
+          <CardContent className="flex flex-wrap items-center gap-x-8 gap-y-4 p-5">
+            <ol className="grid min-w-0 flex-[3_1_420px] grid-cols-2 gap-3 sm:grid-cols-4">
+              {PRODUCTION_STAGES.map((stage) => {
+                const count = posts.filter((p) => (p.productionStage || "draft_copy") === stage.value).length;
+                return (
+                  <li key={stage.value} className={`flex flex-col gap-1.5 ${count ? "" : "text-muted-foreground"}`}>
+                    <span aria-hidden="true" className={`h-1.5 rounded-full ${count ? "bg-brand" : "bg-muted"}`} />
+                    <span className="font-display text-2xl font-semibold leading-none tabular-nums">{count}</span>
+                    <span className={`text-[13px] ${count ? "font-semibold" : ""}`}>{getLocalizedProductionStageLabel(stage.value, locale)}</span>
+                  </li>
+                );
+              })}
+            </ol>
+            <dl className="flex flex-[1_1_220px] flex-wrap gap-x-5 gap-y-1 text-sm">
+              <div className="flex items-baseline gap-1.5">
+                <dd className="font-semibold tabular-nums text-emerald-700 dark:text-emerald-400">{stats.approved}</dd>
+                <dt className="text-muted-foreground">{tr("aprovadas", "approved")}</dt>
+              </div>
+              <div className="flex items-baseline gap-1.5">
+                <dd className="font-semibold tabular-nums">{stats.pending}</dd>
+                <dt className="text-muted-foreground">{tr("aguardando o cliente", "waiting for the client")}</dt>
+              </div>
+              <div className="flex items-baseline gap-1.5">
+                <dd className="font-semibold tabular-nums text-orange-700 dark:text-orange-400">{stats.adjustments}</dd>
+                <dt className="text-muted-foreground">{tr("com ajustes", "with changes")}</dt>
+              </div>
+            </dl>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.approved}</p>
-            <p className="text-xs text-muted-foreground">{tr("Aprovadas", "Approved")}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold">{stats.pending}</p>
-            <p className="text-xs text-muted-foreground">{tr("Pendentes", "Pending")}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.adjustments}</p>
-            <p className="text-xs text-muted-foreground">{tr("Ajustes", "Changes")}</p>
-          </CardContent>
-        </Card>
-      </div>
+      )}
 
       {/* Tabs */}
-      <Tabs defaultValue={initialTab}>
+      <Tabs value={tab} onValueChange={setTab}>
         <TabsList>
-          <TabsTrigger value="posts" className="gap-2">
-            <FileText className="h-4 w-4" /> {tr("Publicações", "Posts")}
-          </TabsTrigger>
           <TabsTrigger value="calendar" className="gap-2">
             <Calendar className="h-4 w-4" /> {tr("Calendário", "Calendar")}
+          </TabsTrigger>
+          <TabsTrigger value="posts" className="gap-2">
+            <FileText className="h-4 w-4" /> {tr("Lista", "List")}
           </TabsTrigger>
           <TabsTrigger value="reviewers" className="gap-2">
             <Users className="h-4 w-4" /> {tr("Revisores", "Reviewers")}
@@ -659,31 +775,7 @@ export default function ClientDetailPage() {
             </p>
           )}
           {posts.length === 0 ? (
-            <Card>
-              <CardContent className="flex flex-col items-center justify-center py-16">
-                <ImageIcon className="h-12 w-12 text-muted-foreground mb-4" />
-                <p className="text-lg font-medium">{tr("Nenhuma publicação", "No posts yet")}</p>
-                <p className="text-sm text-muted-foreground mt-1 text-center max-w-md">
-                  {tr(
-                    "Comece registrando data e texto - ideal para planejar o mês. As imagens entram depois.",
-                    "Start by adding dates and text - ideal for planning the month. Images come later."
-                  )}
-                </p>
-                <div className="flex flex-wrap gap-2 justify-center mt-4">
-                  <Button onClick={openCreatePost}>
-                    <Plus className="h-4 w-4 mr-2" /> {tr("Nova Publicação", "New post")}
-                  </Button>
-                  <Button variant="outline" onClick={() => setAiImportOpen(true)}>
-                    <Sparkles className="h-4 w-4 mr-2" /> {tr("Importar calendário com IA", "Import calendar with AI")}
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <a href={calendarHref} target="_blank" rel="noopener noreferrer">
-                      <ImageIcon className="h-4 w-4 mr-2" /> {tr("Montar calendário e artes", "Build calendar and creatives")}
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            emptyPlan
           ) : (
             Object.entries(postsByDate).map(([dateKey, dayPosts]) => (
               <div key={dateKey}>
@@ -784,26 +876,38 @@ export default function ClientDetailPage() {
 
         {/* Calendar Tab */}
         <TabsContent value="calendar" className="mt-4">
-          <Card>
-            <CardContent className="p-6">
-              <SimpleCalendar
-                dates={calendarDates}
-                posts={postsByDate}
-                onDateClick={(dateKey) => {
-                  const dayPosts = postsByDate[dateKey];
-                  if (dayPosts?.length === 1) openEditPost(dayPosts[0]);
-                }}
-                onEmptyDateClick={(dateKey) => {
-                  setEditingPostId(null);
-                  setPostForm({
-                    ...defaultPostForm,
-                    scheduledAt: `${dateKey}T10:00`,
-                  });
-                  setPostDialogOpen(true);
-                }}
-              />
-            </CardContent>
-          </Card>
+          {posts.length === 0 ? (
+            emptyPlan
+          ) : (
+            <Card className="rounded-3xl">
+              <CardContent className="p-5">
+                <PostCalendar
+                  posts={posts.map((p) => ({
+                    id: p.id,
+                    scheduledAt: p.scheduledAt,
+                    channel: p.channel,
+                    title: p.title?.trim() ?? "",
+                    status: p.status,
+                    hasArt: Boolean(p.attachments?.length),
+                  }))}
+                  focusDate={calendarFocus}
+                  channelClass={getChannelStyle}
+                  onPostClick={(id) => {
+                    const post = posts.find((p) => p.id === id);
+                    if (post) openEditPost(post);
+                  }}
+                  onEmptyDateClick={(dateKey) => {
+                    setEditingPostId(null);
+                    setPostForm({
+                      ...defaultPostForm,
+                      scheduledAt: `${dateKey}T10:00`,
+                    });
+                    setPostDialogOpen(true);
+                  }}
+                />
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
 
         {/* Reviewers Tab */}
@@ -1117,12 +1221,22 @@ export default function ClientDetailPage() {
         </DialogContent>
       </Dialog>
 
-      <AiImportDialog
+      <ImportFlow
         open={aiImportOpen}
-        onOpenChange={setAiImportOpen}
+        onOpenChange={(open) => {
+          setAiImportOpen(open);
+          if (!open) setImportFiles([]);
+        }}
         clientSlug={client.slug}
         clientName={client.name}
-        onImported={fetchClient}
+        initialFiles={importFiles}
+        onImported={({ created, firstDate }) => {
+          setImportFiles([]);
+          setImportNotice(created);
+          setCalendarFocus(firstDate);
+          setTab("calendar");
+          fetchClient();
+        }}
       />
 
       {handoffPost && (
@@ -1139,168 +1253,3 @@ export default function ClientDetailPage() {
     </div>
   );
 }
-function SimpleCalendar({
-  dates,
-  posts,
-  onDateClick,
-  onEmptyDateClick,
-}: {
-  dates: Set<string>;
-  posts: Record<string, PostData[]>;
-  onDateClick: (dateKey: string) => void;
-  onEmptyDateClick: (dateKey: string) => void;
-}) {
-  const locale = useLocale();
-  const tr = (pt: string, en: string) => localizedText(locale, pt, en);
-  const [currentMonth, setCurrentMonth] = useState(() => new Date());
-
-  const year = currentMonth.getFullYear();
-  const month = currentMonth.getMonth();
-
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  const monthName = currentMonth.toLocaleDateString(locale, {
-    month: "long",
-    year: "numeric",
-  });
-
-  const goToToday = () => setCurrentMonth(new Date());
-  const prevMonth = () => setCurrentMonth(new Date(year, month - 1, 1));
-  const nextMonth = () => setCurrentMonth(new Date(year, month + 1, 1));
-  const prevYear = () => setCurrentMonth(new Date(year - 1, month, 1));
-  const nextYear = () => setCurrentMonth(new Date(year + 1, month, 1));
-
-  const days: (number | null)[] = [];
-  for (let i = 0; i < firstDay; i++) days.push(null);
-  for (let d = 1; d <= daysInMonth; d++) days.push(d);
-
-  const todayKey = new Date().toISOString().split("T")[0];
-  const isCurrentViewToday =
-    new Date().getFullYear() === year && new Date().getMonth() === month;
-
-  // Count posts in this month
-  const monthPostCount = days.reduce<number>((count, day) => {
-    if (!day) return count;
-    const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-    return count + (posts[dateKey]?.length || 0);
-  }, 0);
-
-  return (
-    <div>
-      {/* Navigation header */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" onClick={prevYear} title={tr("Ano anterior", "Previous year")}>
-            &laquo;
-          </Button>
-          <Button variant="ghost" size="sm" onClick={prevMonth} title={tr("Mês anterior", "Previous month")}>
-            &lsaquo;
-          </Button>
-        </div>
-
-        <div className="text-center">
-          <h3 className="font-medium capitalize">{monthName}</h3>
-          <div className="flex items-center justify-center gap-2 mt-1">
-            {monthPostCount > 0 && (
-              <span className="text-xs text-muted-foreground">
-                {monthPostCount}{" "}
-                {monthPostCount === 1 ? tr("publicação", "post") : tr("publicações", "posts")}
-              </span>
-            )}
-            {!isCurrentViewToday && (
-              <button
-                onClick={goToToday}
-                className="text-xs text-primary hover:underline"
-              >
-                {tr("Hoje", "Today")}
-              </button>
-            )}
-          </div>
-        </div>
-
-        <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" onClick={nextMonth} title={tr("Próximo mês", "Next month")}>
-            &rsaquo;
-          </Button>
-          <Button variant="ghost" size="sm" onClick={nextYear} title={tr("Próximo ano", "Next year")}>
-            &raquo;
-          </Button>
-        </div>
-      </div>
-
-      {/* Calendar grid */}
-      <div className="grid grid-cols-7 gap-1 text-center">
-        {(locale === "pt-BR"
-          ? ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
-          : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-        ).map((d) => (
-          <div
-            key={d}
-            className="text-xs font-medium text-muted-foreground py-2"
-          >
-            {d}
-          </div>
-        ))}
-
-        {days.map((day, i) => {
-          if (!day) return <div key={`empty-${i}`} />;
-
-          const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-          const hasPosts = dates.has(dateKey);
-          const dayPosts = posts[dateKey];
-          const isToday = dateKey === todayKey;
-
-          return (
-            <button
-              key={dateKey}
-              onClick={() =>
-                hasPosts ? onDateClick(dateKey) : onEmptyDateClick(dateKey)
-              }
-              className={`
-                relative p-2 rounded-lg text-sm transition-colors cursor-pointer
-                ${isToday ? "ring-2 ring-primary" : ""}
-                ${hasPosts
-                  ? "bg-primary/10 hover:bg-primary/20 font-medium"
-                  : "hover:bg-muted text-muted-foreground"
-                }
-              `}
-              title={
-                hasPosts
-                  ? `${dayPosts!.length} ${tr(
-                      "publicação(ões)",
-                      dayPosts!.length === 1 ? "post" : "posts"
-                    )}`
-                  : tr("Clique para criar publicação", "Click to create a post")
-              }
-            >
-              {day}
-              {hasPosts && dayPosts && (
-                <div className="flex justify-center gap-0.5 mt-1">
-                  {dayPosts.slice(0, 3).map((p) => (
-                    <div
-                      key={p.id}
-                      className={`h-1.5 w-1.5 rounded-full ${
-                        p.status === "approved"
-                          ? "bg-green-500"
-                          : p.status === "adjustments"
-                            ? "bg-orange-500"
-                            : "bg-gray-400"
-                      }`}
-                    />
-                  ))}
-                  {dayPosts.length > 3 && (
-                    <span className="text-[8px] text-muted-foreground ml-0.5">
-                      +{dayPosts.length - 3}
-                    </span>
-                  )}
-                </div>
-              )}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-

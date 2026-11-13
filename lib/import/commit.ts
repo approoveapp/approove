@@ -6,7 +6,7 @@ import { buildSlideCreates } from "@/lib/attachment-slides";
 import { parseImportMedia } from "./jobs";
 import { verifyImportMedia } from "./media-receipt";
 import { DEFAULT_LOCALE, localizedText, type AppLocale } from "@/lib/locale";
-import { attachmentTypeFor, importStageFor, importFormatLabel, type ImportCommitPost, type ImportMedia, boundedProposalSchema, unusedMediaNames } from "./proposal";
+import { attachmentTypeFor, importStageFor, importFormatLabel, type ImportCommitPost, type ImportMedia, boundedProposalSchema } from "./proposal";
 
 function postCreate(tx: Prisma.TransactionClient, post: ImportCommitPost, calendarVersionId: string, media: ImportMedia[], locale: AppLocale) {
   const copyText = post.copyText;
@@ -42,7 +42,7 @@ function postCreate(tx: Prisma.TransactionClient, post: ImportCommitPost, calend
 
 
 /** Claim, posts and receipt share one transaction: a crash rolls all of them back. */
-export async function commitImport(jobId: string, organizationId: string, posts: ImportCommitPost[], reviewAcknowledged = false, locale: AppLocale = DEFAULT_LOCALE) {
+export async function commitImport(jobId: string, organizationId: string, posts: ImportCommitPost[], locale: AppLocale = DEFAULT_LOCALE) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   const fingerprint = sha256(JSON.stringify(posts));
   return prisma.$transaction(async tx => {
@@ -61,10 +61,6 @@ export async function commitImport(jobId: string, organizationId: string, posts:
     if (!proposal.success || posts.length > proposal.data.posts.length) throw new ApiError(400, tr("Seleção sem proposta válida. Refaça a importação.", "The selection has no valid proposal. Run the import again."));
     const indexes = posts.map((post,i) => post.sourceIndex ?? i);
     if (new Set(indexes).size !== indexes.length || indexes.some(i => i >= proposal.data.posts.length)) throw new ApiError(400, tr("Referências de revisão inválidas.", "Invalid review references."));
-    const admittedMedia = parseImportMedia(job);
-    if ((proposal.data.warnings.length || unusedMediaNames(admittedMedia,posts).length || proposal.data.posts.some(post => post.dateIsSuggested)) && !reviewAcknowledged) {
-      throw new ApiError(400, tr("Confira a fonte, os avisos e as mídias antes de confirmar.", "Check the source, the warnings and the media before confirming."));
-    }
     const mediaByName = new Map(parseImportMedia(job).map(item => [item.name, item]));
     for (const post of posts) {
       const media = post.media.map(name => mediaByName.get(name));
@@ -76,7 +72,7 @@ export async function commitImport(jobId: string, organizationId: string, posts:
     }
     await tx.importJob.update({ where: { id: job.id }, data: {
       status: "committed", postsCreated: posts.length, committedAt: new Date(),
-      resultJson: JSON.stringify({ ...result, commitFingerprint: fingerprint, reviewAcknowledged }),
+      resultJson: JSON.stringify({ ...result, commitFingerprint: fingerprint }),
     } });
     return { created: posts.length, alreadyCommitted: false, mediaJson: job.mediaJson };
   }, { maxWait: 10000, timeout: 30000 });

@@ -187,7 +187,8 @@ export function unusedMediaNames(media: ImportMedia[], posts: Pick<ImportProposa
 export function importCommitSchemaFor(locale: AppLocale) {
   const tr = (pt: string, en: string) => localizedText(locale, pt, en);
   return z.object({
-    reviewAcknowledged: z.literal(true, { error: tr("Confira a fonte, os avisos e as mídias antes de confirmar.", "Check the source, the warnings and the media before confirming.") }),
+    // Sent by screens loaded before the confirmation checkbox was removed; ignored.
+    reviewAcknowledged: z.boolean().optional(),
     posts: z
       .array(
         z.object({
