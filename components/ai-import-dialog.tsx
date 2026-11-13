@@ -297,6 +297,17 @@ export function AiImportDialog({
   const allSelected = drafts.length > 0 && selected.length === drafts.length;
   const mediaByName = new Map((job?.media ?? []).map((item) => [item.name, item]));
   const unusedMedia = unusedMediaNames(job?.media ?? [], selected);
+  const noMediaUploaded = (job?.media.length ?? 0) === 0;
+  // Why "Create" is disabled, shown next to the button: the reason may sit far up a long list.
+  const commitBlocker =
+    selected.length === 0 ? tr("Selecione ao menos uma publicação.", "Select at least one post.")
+    : overPostLimit ? tr("Selecione no máximo 200 publicações por importação.", "Select at most 200 posts per import.")
+    : missingTimeDecisions > 0 ? tr(
+        `Confirme ${missingTimeDecisions === 1 ? "o horário ausente" : `os ${missingTimeDecisions} horários ausentes`} na fonte (aviso no topo da lista).`,
+        `Confirm the ${missingTimeDecisions === 1 ? "time" : `${missingTimeDecisions} times`} missing from the source (notice at the top of the list).`
+      )
+    : !reviewAcknowledged ? tr("Marque a confirmação acima para criar.", "Tick the confirmation above to create.")
+    : null;
 
   const commit = async () => {
     if (!job) return;
@@ -444,7 +455,9 @@ export function AiImportDialog({
                 <p className="text-xs text-muted-foreground">
                   {tr("Documentos (PDF, DOCX, XLSX, CSV, TXT): até 10 e 4 MB no total", "Documents (PDF, DOCX, XLSX, CSV, TXT): up to 10, 4 MB in total")}
                   <br />
-                  {tr("Artes (imagens e vídeos): até 30, com até 4 MB cada", "Creatives (images and videos): up to 30, up to 4 MB each")}
+                  {tr("Artes (imagens e vídeos), opcionais: até 30, com até 4 MB cada", "Creatives (images and videos), optional: up to 30, up to 4 MB each")}
+                  <br />
+                  {tr("Pode enviar só o planejamento: as artes são anexadas depois, em cada publicação.", "You can upload just the plan: creatives are attached later, on each post.")}
                 </p>
                 <input
                   ref={inputRef}
@@ -550,17 +563,19 @@ export function AiImportDialog({
           {phase === "review" && job?.proposal && (
             <>
               <p className="text-sm" aria-live="polite">{reviewSummary(drafts, locale)}</p>
-              <label className="flex gap-2 rounded-lg border border-amber-300 p-3 text-sm">
-                <input type="checkbox" checked={reviewAcknowledged} onChange={e => setReviewAcknowledged(e.target.checked)} />
-                {tr(
-                  "Conferi a proposta com a fonte, todos os avisos e as mídias que ficaram sem associação. Confirmo as exclusões e alterações da revisão.",
-                  "I checked the proposal against the source, every warning and the media left unlinked. I confirm the exclusions and changes made during review."
-                )}
-              </label>
-              {missingTimeDecisions > 0 && <p role="alert" className="text-sm text-amber-800">{tr(
-                `${missingTimeDecisions} publicações selecionadas não têm horário válido na fonte. O campo mostra uma sugestão; escolha ou confirme cada horário antes de criar.`,
-                `${missingTimeDecisions === 1 ? "1 selected post has" : `${missingTimeDecisions} selected posts have`} no valid time in the source. The field shows a suggestion; choose or confirm each time before creating.`
+              {noMediaUploaded && <p className="rounded-lg border p-3 text-sm text-muted-foreground">{tr(
+                "Nenhuma arte foi enviada: as publicações serão criadas sem arte. Depois é só anexar as artes em cada publicação do calendário de produção.",
+                "No creatives were uploaded: the posts will be created without them. Attach the creatives later on each post in the production calendar."
               )}</p>}
+              {missingTimeDecisions > 0 && <div role="alert" className="flex flex-wrap items-center gap-2 text-sm text-amber-800">
+                <p>{tr(
+                  `${missingTimeDecisions === 1 ? "1 publicação selecionada não tem" : `${missingTimeDecisions} publicações selecionadas não têm`} horário na fonte. O campo mostra uma sugestão; escolha ou confirme cada horário antes de criar.`,
+                  `${missingTimeDecisions === 1 ? "1 selected post has" : `${missingTimeDecisions} selected posts have`} no valid time in the source. The field shows a suggestion; choose or confirm each time before creating.`
+                )}</p>
+                <Button type="button" variant="outline" size="sm" onClick={() => setDrafts(prev => prev.map(draft => draft.include ? { ...draft, timeConfirmed: true } : draft))}>
+                  {tr("Confirmar os horários sugeridos", "Confirm the suggested times")}
+                </Button>
+              </div>}
               <p className="text-xs text-muted-foreground">{tr(
                 "Compare as ocorrências e suas fontes com os arquivos originais. A IA pode omitir itens; a conferência automática cobre apenas linhas tabulares com cabeçalhos e canais reconhecidos.",
                 "Compare the occurrences and their sources with the original files. The AI may leave items out; the automatic check only covers table rows with recognized headers and channels."
@@ -687,7 +702,8 @@ export function AiImportDialog({
                               {tr("Sem legenda", "No caption")}
                             </Badge>
                           )}
-                          {draft.media.length === 0 && !draft.textOnly && (
+                          {/* Sem nenhuma arte enviada, a falta é esperada: a arte entra depois no calendário. */}
+                          {!noMediaUploaded && draft.media.length === 0 && !draft.textOnly && (
                             <Badge variant="secondary" className="bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-400">
                               {tr("Sem arte", "No creative")}
                             </Badge>
@@ -787,71 +803,82 @@ export function AiImportDialog({
               )}
             </>
           )}
-
-          {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
         </div>
 
-        <div className="shrink-0 border-t px-6 py-4 flex gap-3 bg-background">
-          {phase === "upload" && (
-            <>
-              <Button variant="outline" disabled={busy} onClick={() => onOpenChange(false)} className="flex-1">
-                {tr("Cancelar", "Cancel")}
-              </Button>
-              <Button
-                onClick={startImport}
-                disabled={busy || !configured || quotaReached || files.length === 0 || Boolean(filesProblem)}
-                className="flex-1"
-              >
-                {busy ? (
-                  <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {progress ?? tr("Enviando...", "Uploading...")}</>
-                ) : (
-                  <><Sparkles className="h-4 w-4 mr-2" /> {tr("Montar calendário", "Build calendar")}</>
-                )}
-              </Button>
-            </>
+        <div className="shrink-0 border-t px-6 py-4 space-y-3 bg-background">
+          {phase === "review" && job?.proposal && (
+            <label className="flex gap-2 rounded-lg border border-amber-300 p-3 text-sm">
+              <input type="checkbox" checked={reviewAcknowledged} onChange={e => setReviewAcknowledged(e.target.checked)} />
+              {tr(
+                "Conferi a proposta com a fonte, todos os avisos e as mídias que ficaram sem associação. Confirmo as exclusões e alterações da revisão.",
+                "I checked the proposal against the source, every warning and the media left unlinked. I confirm the exclusions and changes made during review."
+              )}
+            </label>
           )}
+          {error ? <p role="alert" className="text-sm text-destructive">{error}</p>
+            : phase === "review" && job?.proposal && commitBlocker && <p aria-live="polite" className="text-sm text-amber-800">{commitBlocker}</p>}
+          <div className="flex gap-3">
+            {phase === "upload" && (
+              <>
+                <Button variant="outline" disabled={busy} onClick={() => onOpenChange(false)} className="flex-1">
+                  {tr("Cancelar", "Cancel")}
+                </Button>
+                <Button
+                  onClick={startImport}
+                  disabled={busy || !configured || quotaReached || files.length === 0 || Boolean(filesProblem)}
+                  className="flex-1"
+                >
+                  {busy ? (
+                    <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {progress ?? tr("Enviando...", "Uploading...")}</>
+                  ) : (
+                    <><Sparkles className="h-4 w-4 mr-2" /> {tr("Montar calendário", "Build calendar")}</>
+                  )}
+                </Button>
+              </>
+            )}
 
-          {phase === "processing" && (
-            <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
-              {tr("Fechar e continuar depois", "Close and continue later")}
-            </Button>
-          )}
-
-          {phase === "failed" && (
-            <>
+            {phase === "processing" && (
               <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
-                {tr("Fechar", "Close")}
+                {tr("Fechar e continuar depois", "Close and continue later")}
               </Button>
-              <Button
-                onClick={() => {
-                  setError(null);
-                  setJob(null);
-                  setPhase("upload");
-                }}
-                className="flex-1"
-              >
-                {tr("Tentar de novo", "Try again")}
-              </Button>
-            </>
-          )}
+            )}
 
-          {phase === "review" && (
-            <>
-              <Button variant="outline" onClick={discard} disabled={busy} className="flex-1">
-                {tr("Descartar", "Discard")}
-              </Button>
-              <Button onClick={commit} disabled={busy || selected.length === 0 || overPostLimit || missingTimeDecisions > 0 || !reviewAcknowledged} className="flex-1">
-                {busy ? (
-                  <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {tr("Criando...", "Creating...")}</>
-                ) : (
-                  tr(
-                    `Criar ${selected.length} ${selected.length === 1 ? "publicação" : "publicações"}`,
-                    `Create ${selected.length} ${selected.length === 1 ? "post" : "posts"}`
-                  )
-                )}
-              </Button>
-            </>
-          )}
+            {phase === "failed" && (
+              <>
+                <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
+                  {tr("Fechar", "Close")}
+                </Button>
+                <Button
+                  onClick={() => {
+                    setError(null);
+                    setJob(null);
+                    setPhase("upload");
+                  }}
+                  className="flex-1"
+                >
+                  {tr("Tentar de novo", "Try again")}
+                </Button>
+              </>
+            )}
+
+            {phase === "review" && (
+              <>
+                <Button variant="outline" onClick={discard} disabled={busy} className="flex-1">
+                  {tr("Descartar", "Discard")}
+                </Button>
+                <Button onClick={commit} disabled={busy || Boolean(commitBlocker)} className="flex-1">
+                  {busy ? (
+                    <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {tr("Criando...", "Creating...")}</>
+                  ) : (
+                    tr(
+                      `Criar ${selected.length} ${selected.length === 1 ? "publicação" : "publicações"}`,
+                      `Create ${selected.length} ${selected.length === 1 ? "post" : "posts"}`
+                    )
+                  )}
+                </Button>
+              </>
+            )}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
