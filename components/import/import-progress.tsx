@@ -87,10 +87,7 @@ export function ImportProgress({ posts, fileNames }: { posts: ImportProgressPost
         <div className="rounded-2xl border bg-card p-4" aria-live="polite">
           {posts.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              {tr(
-                "Lendo o arquivo inteiro. As primeiras datas aparecem no calendário em instantes.",
-                "Reading the whole file. The first dates show up on the calendar in a moment."
-              )}
+              {tr("Lendo o arquivo inteiro.", "Reading the whole file.")}
             </p>
           ) : (
             <>
@@ -117,10 +114,7 @@ export function ImportProgress({ posts, fileNames }: { posts: ImportProgressPost
         </div>
 
         <p className="text-sm text-muted-foreground">
-          {tr(
-            "Pode fechar esta tela. O calendário fica esperando por você aqui.",
-            "You can close this screen. The calendar will be waiting for you here."
-          )}
+          {tr("Pode fechar esta tela e voltar depois.", "You can close this screen and come back later.")}
         </p>
       </div>
 
@@ -175,11 +169,6 @@ export function ImportProgress({ posts, fileNames }: { posts: ImportProgressPost
             </div>
           </section>
         ))}
-        {months.length === 0 && (
-          <p className="text-center text-sm text-muted-foreground">
-            {tr("As publicações aparecem aqui assim que a IA encontra cada data.", "Posts show up here as soon as the AI finds each date.")}
-          </p>
-        )}
       </div>
     </div>
   );

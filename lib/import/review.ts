@@ -60,7 +60,3 @@ export function reviewSummary(posts: { include: boolean; scheduledLocal: string;
 export function hasSourceTime(time: string | null) {
   return !!time && /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(time);
 }
-
-export function unconfirmedTimeCount(posts: { include: boolean; timeConfirmed: boolean }[]) {
-  return posts.filter(post => post.include && !post.timeConfirmed).length;
-}
