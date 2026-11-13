@@ -6,7 +6,7 @@ import { execFileSync } from "node:child_process";
 import { PrismaClient } from "@prisma/client";
 import { PrismaLibSQL } from "@prisma/adapter-libsql";
 import { createClient } from "@libsql/client";
-import { reviewSummary, hasSourceTime, unconfirmedTimeCount } from "./review";
+import { reviewSummary, hasSourceTime } from "./review";
 import { signImportMedia, verifyImportMedia } from "./media-receipt";
 import type { ImportCommitPost, ImportMedia } from "./proposal";
 
@@ -65,7 +65,6 @@ describe("review integrity", () => {
     const drafts = [{ include: true, scheduledLocal: "2026-11-02T10:00", copyText: "copy", media: ["a"] }, { include: false, scheduledLocal: "2026-10-01T10:00", copyText: "copy", media: ["b"] }];
     expect(reviewSummary(drafts, "pt-BR")).toBe("2 propostas; 1 selecionadas. 1 com legenda; 1 com mídia. Período selecionado: 2026-11-02 a 2026-11-02.");
     expect(reviewSummary(drafts, "en")).toBe("2 proposed; 1 selected. 1 with caption; 1 with media. Selected period: 2026-11-02 to 2026-11-02.");
-    expect(unconfirmedTimeCount([{ include: true, timeConfirmed: false }, { include: false, timeConfirmed: false }, { include: true, timeConfirmed: true }])).toBe(1);
     expect(hasSourceTime(null)).toBe(false); expect(hasSourceTime("25:00")).toBe(false); expect(hasSourceTime("09:30")).toBe(true);
   });
 });

@@ -169,15 +169,6 @@ export function PostCalendar({
           })}
         </div>
       </div>
-
-      {posts.some((post) => !post.hasArt) && (
-        <p className="flex items-center gap-2 text-sm text-muted-foreground">
-          <span aria-hidden="true" className="flex h-5 w-5 items-center justify-center rounded-md border border-dashed border-muted-foreground">
-            <ImagePlus className="h-3 w-3" />
-          </span>
-          {tr("Sem arte ainda. Abra a publicação para anexar.", "No creative yet. Open the post to attach one.")}
-        </p>
-      )}
     </div>
   );
 }

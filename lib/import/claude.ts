@@ -72,8 +72,11 @@ Regras:
   avise em warnings.
 - Em source, cite arquivo e local. Planilhas trazem cada linha marcada como [linha N]:
   cite esse número, ex.: "pauta.xlsx, aba Novembro, linha 4". PDFs: cite a página.
-- Liste em warnings tudo que o time precisa conferir: datas conflitantes, posts sem
-  data, legendas ou artes faltando, mídias que não couberam em nenhum post.
+- Liste em warnings só o que exigiu uma escolha sua ou contradiz o próprio documento:
+  datas conflitantes, posts sem data, datas que você deduziu, linhas repetidas, mídias
+  enviadas que não couberam em nenhum post. Não avise sobre o que simplesmente não veio
+  nos arquivos (legendas, artes ou horários ausentes), nem sobre datas que já passaram:
+  quem montou o planejamento sabe o que enviou. Sem nada disso, devolva warnings vazio.
 - Escreva summary e warnings no idioma da equipe indicado em "idioma_da_equipe" (pt-BR:
   português simples; en: inglês simples). Isso vale só para summary e warnings: legendas,
   títulos e source continuam exatamente como estão nos arquivos. Nunca

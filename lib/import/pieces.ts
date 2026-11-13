@@ -10,7 +10,6 @@ export interface PieceDraft {
   piece: string;
   include: boolean;
   scheduledLocal: string;
-  timeConfirmed: boolean;
   channel: string;
   format: ImportFormat;
   title: string;
@@ -62,37 +61,6 @@ export function groupPieces<T extends PieceDraft>(drafts: T[]): Piece<T>[] {
       include: group.some((draft) => draft.include),
     }))
     .sort((a, b) => a.date.localeCompare(b.date) || a.drafts[0].scheduledLocal.localeCompare(b.drafts[0].scheduledLocal));
-}
-
-/**
- * Times to offer for posts whose source has no time: the most used times among the posts that do
- * have one, preferring the same channels as the posts still waiting.
- */
-export function suggestedTimes(drafts: PieceDraft[], limit = 2): string[] {
-  const selected = drafts.filter((draft) => draft.include);
-  const waitingChannels = new Set(selected.filter((draft) => !draft.timeConfirmed).map((draft) => draft.channel));
-  const timed = selected.filter((draft) => draft.timeConfirmed);
-  const rank = (pool: PieceDraft[]) => {
-    const count = new Map<string, number>();
-    for (const draft of pool) {
-      const time = draft.scheduledLocal.slice(11, 16);
-      if (/^\d{2}:\d{2}$/.test(time)) count.set(time, (count.get(time) ?? 0) + 1);
-    }
-    return [...count.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([time]) => time);
-  };
-  const sameChannel = rank(timed.filter((draft) => waitingChannels.has(draft.channel)));
-  const ranked = sameChannel.length ? sameChannel : rank(timed);
-  return ranked.slice(0, limit).sort();
-}
-
-/** Sets one time on every selected post still waiting for a decision. */
-export function applyTimeToWaiting<T extends PieceDraft>(drafts: T[], time: string): T[] {
-  if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) return drafts;
-  return drafts.map((draft) =>
-    draft.include && !draft.timeConfirmed
-      ? { ...draft, scheduledLocal: `${draft.scheduledLocal.slice(0, 10)}T${time}`, timeConfirmed: true }
-      : draft
-  );
 }
 
 /** YYYY-MM keys that have at least one piece, in order, with their piece counts. */

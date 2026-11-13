@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { useLocale } from "@/components/locale-provider";
 import { localizedText } from "@/lib/locale";
 import { buildImportNote, MAX_IMPORT_MEDIA, proposalLocalDateTime, type ImportMedia, type ImportProposalPost } from "@/lib/import/proposal";
-import { DEFAULT_IMPORT_TIMEZONE, hasSourceTime, importDateTimeToIso, repeatedMediaNames, unconfirmedTimeCount } from "@/lib/import/review";
+import { DEFAULT_IMPORT_TIMEZONE, hasSourceTime, importDateTimeToIso, repeatedMediaNames } from "@/lib/import/review";
 import { assignPieces } from "@/lib/import/pieces";
 import type { SerializedImportJob } from "@/lib/import/jobs";
 import { ImportProgress } from "./import-progress";
@@ -52,7 +52,6 @@ function toDrafts(posts: ImportProposalPost[], media: ImportMedia[]): ImportDraf
     piece: pieces[index],
     include: true,
     scheduledLocal: proposalLocalDateTime(post),
-    timeConfirmed: hasSourceTime(post.time),
     channel: post.channel,
     title: post.title,
     copyText: post.copyText,
@@ -78,7 +77,7 @@ async function readError(res: Response, fallback: string) {
 
 function Stepper({ current, labels }: { current: number; labels: string[] }) {
   return (
-    <ol className="flex flex-wrap items-center gap-2 text-sm font-semibold sm:gap-2.5">
+    <ol className="flex shrink-0 items-center gap-2 text-sm font-semibold sm:gap-2.5">
       {labels.map((label, index) => (
         <li key={label} className="flex items-center gap-2 sm:gap-2.5" aria-current={index === current ? "step" : undefined}>
           {index > 0 && <span aria-hidden="true" className={cn("h-0.5 w-5 sm:w-9", index <= current ? "bg-foreground" : "bg-border")} />}
@@ -93,7 +92,8 @@ function Stepper({ current, labels }: { current: number; labels: string[] }) {
           >
             {index < current ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : index + 1}
           </span>
-          <span className={index > current ? "text-muted-foreground" : undefined}>{label}</span>
+          {/* Em telas estreitas só a etapa atual mostra o nome; as outras ficam no número. */}
+          <span className={cn(index > current && "text-muted-foreground", index !== current && "sr-only sm:not-sr-only")}>{label}</span>
         </li>
       ))}
     </ol>
@@ -269,7 +269,6 @@ export function ImportFlow({ open, onOpenChange, clientSlug, clientName, initial
   };
 
   const selected = drafts.filter((draft) => draft.include);
-  const waiting = unconfirmedTimeCount(drafts);
   const overPostLimit = selected.length > MAX_POSTS;
   // Why "Create" is disabled, shown next to the button.
   const commitBlocker =
@@ -277,11 +276,7 @@ export function ImportFlow({ open, onOpenChange, clientSlug, clientName, initial
       ? tr("Nenhuma publicação selecionada.", "No posts selected.")
       : overPostLimit
         ? tr(`O máximo é ${MAX_POSTS} publicações por importação. Tire algumas peças.`, `The maximum is ${MAX_POSTS} posts per import. Leave some pieces out.`)
-        : waiting > 0
-          ? waiting === 1
-            ? tr("Falta escolher o horário de 1 publicação", "1 post still needs a time")
-            : tr(`Falta escolher o horário de ${waiting} publicações`, `${waiting} posts still need a time`)
-          : null;
+        : null;
 
   const resetAndClose = () => {
     reviewedJobId.current = null;
@@ -322,8 +317,8 @@ export function ImportFlow({ open, onOpenChange, clientSlug, clientName, initial
             handoffNote: buildImportNote({ ...draft.source, format: draft.format, notes: [
               draft.source.notes,
               !hasSourceTime(draft.source.time) && tr(
-                `Horário ausente na fonte; escolhido na revisão: ${draft.scheduledLocal.slice(11)} (${timeZone}).`,
-                `Time missing from the source; chosen during review: ${draft.scheduledLocal.slice(11)} (${timeZone}).`
+                `Sem horário na fonte; criada às ${draft.scheduledLocal.slice(11)} (${timeZone}).`,
+                `No time in the source; created at ${draft.scheduledLocal.slice(11)} (${timeZone}).`
               ),
               draft.textOnly && tr("Publicação só de texto, sem arte por decisão na revisão.", "Text-only post, no creative by decision during review."),
             ].filter(Boolean).join(" · ") }, locale),
@@ -389,7 +384,7 @@ export function ImportFlow({ open, onOpenChange, clientSlug, clientName, initial
           <strong className="break-words font-semibold">{file.name}</strong>
           <span className={cn("text-sm", tooBig ? "font-medium text-destructive" : "text-muted-foreground")}>
             {formatSize(file.size)}
-            {tooBig ? tr(" · acima de 4 MB", " · over 4 MB") : media ? "" : tr(" · pronto para ler", " · ready to read")}
+            {tooBig && tr(" · acima de 4 MB", " · over 4 MB")}
           </span>
         </span>
         <Button
@@ -430,7 +425,7 @@ export function ImportFlow({ open, onOpenChange, clientSlug, clientName, initial
             addFiles(event.dataTransfer.files);
           }}
         >
-          <header className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b bg-background px-4 py-2.5 sm:px-7">
+          <header className="flex shrink-0 items-center justify-between gap-3 border-b bg-background px-4 py-2.5 sm:px-7">
             <DialogPrimitive.Close asChild>
               <button type="button" disabled={busy} className="flex min-h-11 min-w-0 items-center gap-1.5 rounded-lg pr-2 font-semibold">
                 <ChevronLeft aria-hidden="true" className="h-5 w-5 shrink-0" />
@@ -457,7 +452,6 @@ export function ImportFlow({ open, onOpenChange, clientSlug, clientName, initial
               <div className="mx-auto flex w-full max-w-xl flex-col gap-5 px-6 py-12">
                 <div className="space-y-1.5">
                   <h1 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">{tr("Envie o planejamento", "Upload the plan")}</h1>
-                  <p className="text-muted-foreground">{tr("Um arquivo já basta. Nada é criado antes de você conferir.", "One file is enough. Nothing is created before you check it.")}</p>
                 </div>
 
                 {!configured && (
@@ -511,7 +505,7 @@ export function ImportFlow({ open, onOpenChange, clientSlug, clientName, initial
                   </span>
                   <span className="flex flex-col">
                     <span className="font-semibold">{mediaFiles.length ? tr("Adicionar mais artes", "Add more creatives") : tr("Já tem artes? Solte aqui", "Already have creatives? Drop them here")}</span>
-                    <span className="text-sm text-muted-foreground">{tr("Opcional. A IA encaixa cada arte na data certa.", "Optional. The AI places each creative on the right date.")}</span>
+                    <span className="text-sm text-muted-foreground">{tr("Opcional", "Optional")}</span>
                   </span>
                 </button>
                 <input
@@ -592,9 +586,7 @@ export function ImportFlow({ open, onOpenChange, clientSlug, clientName, initial
                   <p role="alert" className="max-w-md text-sm font-medium text-destructive">{error}</p>
                 ) : commitBlocker ? (
                   <p aria-live="polite" className="text-sm font-semibold text-amber-800 dark:text-amber-300">{commitBlocker}</p>
-                ) : (
-                  <p className="text-sm text-muted-foreground">{tr("Nada vai para as redes. Dá para editar tudo depois.", "Nothing is posted to social networks. You can edit everything later.")}</p>
-                )}
+                ) : null}
                 <Button
                   type="button"
                   onClick={commit}
