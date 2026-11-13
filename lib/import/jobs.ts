@@ -6,6 +6,7 @@ import { verifyImportMedia } from "./media-receipt";
 import { ImportAiError, proposeCalendar, type ImportAiUsage } from "./claude";
 import { fileMeta, ImportFileError, type ImportFileMeta, type PreparedImportFile } from "./files";
 import { importMediaSchema, importProposalSchema, type ImportMedia, type ImportProposal } from "./proposal";
+import { extractPartialPosts, parseProgress, serializeProgress } from "./partial";
 import { IMPORT_JOB_ERRORS, importJobError, localizeImportJobError } from "./messages";
 import { localizedText, type AppLocale } from "@/lib/locale";
 
@@ -86,7 +87,9 @@ export async function runImportJob(
       data: { model: configuredImportModel(process.env.ANTHROPIC_IMPORT_MODEL) ?? "unconfigured" },
     });
     if (!claimed.count) return; // Do not repeat an attempted inference after an uncertain result.
-    const result = await proposeCalendar({ ...input, today: todayInSaoPaulo() });
+    const progress = progressWriter(jobId);
+    const result = await proposeCalendar({ ...input, today: todayInSaoPaulo(), onText: progress.onText });
+    await progress.settled();
     await prisma.importJob.updateMany({
       where: { id: jobId, status: "processing" },
       data: {
@@ -105,6 +108,8 @@ export async function runImportJob(
         where: { id: jobId, status: "processing" },
         data: {
           status: "failed",
+          // Posts shown while reading are not a proposal: drop them with the failure.
+          resultJson: null,
           error: known ? error.message : importJobError("unexpected", input.locale),
           ...(error instanceof ImportAiError && error.usage ? usageFields(error.usage) : {}),
         },
@@ -114,6 +119,35 @@ export async function runImportJob(
       await prisma.importJob.updateMany({ where: { id: jobId }, data: usageFields(error.usage) }).catch(() => undefined);
     }
   }
+}
+
+const PROGRESS_WRITE_MS = 1200;
+
+/**
+ * Saves the posts the model has finished so far, so the progress screen can place them on the
+ * calendar. One write at a time, only while the job is still `processing`, never failing the job.
+ */
+function progressWriter(jobId: string) {
+  let lastAt = 0;
+  let saved = 0;
+  let writing: Promise<unknown> = Promise.resolve();
+  let busy = false;
+  return {
+    onText(snapshot: string) {
+      const now = Date.now();
+      if (busy || now - lastAt < PROGRESS_WRITE_MS) return;
+      lastAt = now;
+      const posts = extractPartialPosts(snapshot);
+      if (posts.length <= saved) return;
+      saved = posts.length;
+      busy = true;
+      writing = prisma.importJob
+        .updateMany({ where: { id: jobId, status: "processing" }, data: { resultJson: serializeProgress(posts) } })
+        .catch(() => undefined)
+        .finally(() => { busy = false; });
+    },
+    settled: () => writing,
+  };
 }
 
 function usageFields(usage: ImportAiUsage) {
@@ -161,7 +195,8 @@ export function parseImportMedia(job: Pick<ImportJob, "mediaJson">): ImportMedia
 }
 
 export function serializeImportJob(job: ImportJob, locale: AppLocale) {
-  const parsed = importProposalSchema.safeParse(parseJson(job.resultJson, null));
+  const result = parseJson<unknown>(job.resultJson, null);
+  const parsed = importProposalSchema.safeParse(result);
   return {
     id: job.id,
     status: job.status,
@@ -169,6 +204,8 @@ export function serializeImportJob(job: ImportJob, locale: AppLocale) {
     files: parseJson<ImportFileMeta[]>(job.filesJson, []),
     media: parseImportMedia(job),
     proposal: parsed.success ? (parsed.data as ImportProposal) : null,
+    /** Posts found so far, only while the AI is still reading. */
+    progress: job.status === "processing" ? parseProgress(result) : [],
     postsCreated: job.postsCreated,
     createdAt: job.createdAt.toISOString(),
   };

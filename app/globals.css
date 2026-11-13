@@ -29,6 +29,10 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    /* Cor de ação e destaque do fluxo de importação e do calendário. */
+    --brand: 227 100% 59%;
+    --brand-foreground: 0 0% 100%;
+    --brand-soft: 224 100% 96%;
   }
 
   .dark {
@@ -56,6 +60,9 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --brand: 227 100% 70%;
+    --brand-foreground: 222 84% 5%;
+    --brand-soft: 227 55% 16%;
   }
 }
 

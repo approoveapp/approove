@@ -111,6 +111,8 @@ export async function proposeCalendar(input: {
   media: ImportMedia[];
   /** Requester's locale: our errors and the model's summary/warnings; captions stay verbatim. */
   locale: AppLocale;
+  /** Streamed JSON text so far, for the progress screen. Must not throw or block. */
+  onText?: (snapshot: string) => void;
 }): Promise<ImportAiResult> {
   const { locale } = input;
   const model = configuredImportModel(process.env.ANTHROPIC_IMPORT_MODEL);
@@ -135,6 +137,9 @@ export async function proposeCalendar(input: {
     output_config: outputConfig,
     system: SYSTEM_PROMPT, messages,
   });
+
+  const onText = input.onText;
+  if (onText) stream.on("text", (_delta, snapshot) => { try { onText(snapshot); } catch { /* progress is best effort */ } });
 
   const timer = setTimeout(() => stream.abort(), IMPORT_AI_TIMEOUT_MS);
   let message;
